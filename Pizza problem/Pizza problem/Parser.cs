@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 
 namespace Pizza_problem
 {
-    public enum Engridient
+    public enum Ingredient
     {
         Tomato,
         Mushroom
     }
 
-    class Parser
+    public class Parser
     {
-        public void Parse()
+        public PizzaParams Parse()
         {
             using (StreamReader reader = new StreamReader("small.in"))
             {
@@ -32,17 +32,19 @@ namespace Pizza_problem
                     {
                         if (lineAsChar[i] == 'M')
                         {
-                            pizaParam.PizzaEngridients[count, i] = Engridient.Mushroom;
+                            pizaParam.PizzaIngredients[count, i] = Ingredient.Mushroom;
                         }
                         else
                         {
-                            pizaParam.PizzaEngridients[count, i] = Engridient.Tomato;
+                            pizaParam.PizzaIngredients[count, i] = Ingredient.Tomato;
                         }
                     }
 
                     count++;
                     line = reader.ReadLine();
                 }
+
+                return pizaParam;
             }
         }
     }

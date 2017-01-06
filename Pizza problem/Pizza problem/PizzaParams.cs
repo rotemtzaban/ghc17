@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace Pizza_problem
 {
-
-    class PizzaParams
+    public class PizzaParams
     {
-        public Engridient[,] PizzaEngridients;
+        public Ingredient[,] PizzaIngredients;
         public int MaxSliceSize { get; set; }
         public int MinIngredientNum { get; set; }
 
@@ -17,7 +16,7 @@ namespace Pizza_problem
         {
             this.MaxSliceSize = maxSliceSize;
             this.MinIngredientNum = minIngredientNum;
-            this.PizzaEngridients = new Engridient[rows, columns];
+            this.PizzaIngredients = new Ingredient[rows, columns];
         }
     }
 }
