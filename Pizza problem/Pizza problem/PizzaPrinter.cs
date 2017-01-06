@@ -9,6 +9,17 @@ namespace Pizza_problem
 {
     public class PizzaPrinter
     {
+        private int consoleColorCount = 0;
+        private ConsoleColor[] printedColors = new ConsoleColor[]
+        {
+            ConsoleColor.Red,
+            ConsoleColor.Blue,
+            ConsoleColor.Yellow,
+            ConsoleColor.Magenta,
+            ConsoleColor.White,
+            ConsoleColor.Cyan
+        };
+
         public void PrintToConsole(PizzaParams pizzaParams, IEnumerable<PizzaSlice> slices)
         {
             CellToPrint[,] pizzaCells = new CellToPrint[pizzaParams.XLength, pizzaParams.YLength];
@@ -19,17 +30,16 @@ namespace Pizza_problem
                     CellToPrint cell = new CellToPrint();
                     cell.color = ConsoleColor.Green;
                     cell.ingredient = pizzaParams.PizzaIngredients[x, y];
-                    pizzaCells[x, y] = new CellToPrint();
+                    pizzaCells[x, y] = cell;
                 }
             }
 
             foreach (PizzaSlice slice in slices)
             {
-                ConsoleColor randomColor = ConsoleColor.Red;
-
-                for (int y = slice.TopLeft.Y; y < slice.BottomRight.Y; y++)
+                ConsoleColor randomColor = GetColor();
+                for (int y = slice.TopLeft.Y; y <= slice.BottomRight.Y; y++)
                 {
-                    for (int x = slice.TopLeft.X; x < slice.BottomRight.X; x++)
+                    for (int x = slice.TopLeft.X; x <= slice.BottomRight.X; x++)
                     {
                         if (pizzaCells[x, y].color != ConsoleColor.Green)
                         {
@@ -41,9 +51,9 @@ namespace Pizza_problem
                 }
             }
 
-            for (int x = 0; x < pizzaParams.XLength; x++)
+            for (int y = 0; y < pizzaParams.YLength; y++)
             {
-                for (int y = 0; y < pizzaParams.YLength; y++)
+                for (int x = 0; x < pizzaParams.XLength; x++)
                 {
                     CellToPrint print = pizzaCells[x, y];
                     Console.ForegroundColor = print.color;
@@ -73,6 +83,14 @@ namespace Pizza_problem
                                      item.BottomRight.Y + " " + item.BottomRight.X);
                 }
             }
+        }
+
+        private ConsoleColor GetColor()
+        {
+            int index = consoleColorCount % printedColors.Length;
+            consoleColorCount++;
+            return printedColors[index];
+
         }
 
         private string GetOutputFilePath()
