@@ -14,9 +14,9 @@ namespace Pizza_problem
         {
 			// TODO: Always take the best solution ever (since inputs are static)
 			RunOnExample(true);
-			// RunOnSmall();
-			// RunOnMedium(false);
-			// RunOnBig(false);
+			RunOnSmall();
+			RunOnMedium(false);
+			RunOnBig(false);
 
 	        Console.WriteLine("Done!");
 	        Console.ReadKey();

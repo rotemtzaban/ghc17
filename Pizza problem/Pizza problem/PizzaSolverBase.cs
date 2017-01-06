@@ -55,12 +55,12 @@ namespace Pizza_problem
 
         public IEnumerable<PizzaSlice> EnlargeSlices(IEnumerable<PizzaSlice> slices)
         {
-            bool[,] pizzaCells = GetSlicesArray(slices);
+            bool[,] pizzaCells = GetUsedCells(slices);
             List<PizzaSlice> newSlices = new List<PizzaSlice>();
 
             foreach (PizzaSlice slice in slices)
             {
-                PizzaSlice newSlice = TryEnlargeSlice(pizzaCells, slice);
+                PizzaSlice newSlice = EnlargeSlice(pizzaCells, slice);
                 newSlices.Add(newSlice);
             }
 
@@ -71,7 +71,7 @@ namespace Pizza_problem
 
         #region Private Methods
 
-        private PizzaSlice TryEnlargeSlice(bool[,] pizzaCells, PizzaSlice slice)
+        private PizzaSlice EnlargeSlice(bool[,] pizzaCells, PizzaSlice slice)
         {
             bool enlarged = true;
             while (enlarged)
@@ -111,7 +111,7 @@ namespace Pizza_problem
                 bool succeed = true;
                 for (int y = slice.TopLeft.Y; y <= slice.BottomRight.Y; y++)
                 {
-                    if (pizzaCells[slice.TopLeft.X - 1, 0])
+                    if (pizzaCells[slice.TopLeft.X - 1, y])
                     {
                         succeed = false;
                         break;
@@ -202,7 +202,7 @@ namespace Pizza_problem
             return false;
         }
 
-        private bool[,] GetSlicesArray(IEnumerable<PizzaSlice> slices)
+        private bool[,] GetUsedCells(IEnumerable<PizzaSlice> slices)
         {
             bool[,] pizzaCells = new bool[Pizza.XLength, Pizza.YLength];
 
