@@ -45,5 +45,12 @@ namespace Pizza_problem
 
             return other != null && Equals(this.TopLeft, other.TopLeft) && Equals(this.BottomRight, other.BottomRight);
         }
+
+		public bool DoesOverlap(PizzaSlice other)
+		{
+			var overlapX = BottomRight.X >= other.TopLeft.X && TopLeft.X <= other.BottomRight.X;
+			var overlapY = BottomRight.Y >= other.TopLeft.Y && TopLeft.Y <= other.BottomRight.Y;
+			return overlapX && overlapY;
+		}
 	}
 }

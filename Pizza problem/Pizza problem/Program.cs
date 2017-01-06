@@ -8,80 +8,121 @@ using Pizza_problem.Properties;
 
 namespace Pizza_problem
 {
-    class Program
-    {
-        static void Main(string[] args)
-        {
-			RunOnExample(false);
-			RunOnSmall(true);
-			RunOnMedium(false);
-			RunOnBig(false);
-
-	        Console.WriteLine("Done!");
-	        Console.ReadKey();
-        }
-
-		private static void RunOnExample(bool printResults = true)
+	class Program
+	{
+		static void Main(string[] args)
 		{
-			RunOnInput(Resources.example, "example.new.out", printResults);
-			if(!ReplaceIfBetter("example.out", "example.new.out"))
-				Console.WriteLine("New example.out was worse than last and wasn't replaced");
+			RunOnExample(5, false);
+			RunOnSmall(5, true);
+			RunOnMedium(5, false);
+			RunOnBig(5, false);
+
+			Console.WriteLine("Done!");
+			Console.ReadKey();
 		}
 
-	    private static void RunOnSmall(bool printResults = true)
+		private static void RunOnExample(int numberOfAttempts, bool printResults = true)
 		{
-			RunOnInput(Resources.small, "small.new.out", printResults);
-			if(!ReplaceIfBetter("small.out", "small.new.out"))
-				Console.WriteLine("New small.out was worse than last and wasn't replaced");
+			var data = Resources.example;
+			var newOutPath = "example.new.out";
+			var finalPath = "example.out";
+
+			RunOnInput(data, numberOfAttempts, newOutPath, printResults);
+			var improvement = ReplaceIfBetter(finalPath, newOutPath);
+			if (improvement < 0)
+				Console.WriteLine("New " + finalPath + " was worse than last and wasn't replaced");
+			else if (improvement == 0)
+				Console.WriteLine("New " + finalPath + " was the same as last");
 		}
 
-		private static void RunOnMedium(bool printResults = true)
+		private static void RunOnSmall(int numberOfAttempts, bool printResults = true)
 		{
-			RunOnInput(Resources.medium, "medium.new.out", printResults);
-			if(!ReplaceIfBetter("medium.out", "medium.new.out"))
-				Console.WriteLine("New medium.out was worse than last and wasn't replaced");
+			var data = Resources.small;
+			var newOutPath = "small.new.out";
+			var finalPath = "small.out";
+
+			RunOnInput(data, numberOfAttempts, newOutPath, printResults);
+			var improvement = ReplaceIfBetter(finalPath, newOutPath);
+			if (improvement < 0)
+				Console.WriteLine("New " + finalPath + " was worse than last and wasn't replaced");
+			else if (improvement == 0)
+				Console.WriteLine("New " + finalPath + " was the same as last");
 		}
 
-		private static void RunOnBig(bool printResults = true)
+		private static void RunOnMedium(int numberOfAttempts, bool printResults = true)
 		{
-			RunOnInput(Resources.big, "big.new.out", printResults);
-			if(!ReplaceIfBetter("big.out", "big.new.out"))
-				Console.WriteLine("New big.out was worse than last and wasn't replaced");
+			var data = Resources.medium;
+			var newOutPath = "medium.new.out";
+			var finalPath = "medium.out";
+
+			RunOnInput(data, numberOfAttempts, newOutPath, printResults);
+			var improvement = ReplaceIfBetter(finalPath, newOutPath);
+			if (improvement < 0)
+				Console.WriteLine("New " + finalPath + " was worse than last and wasn't replaced");
+			else if (improvement == 0)
+				Console.WriteLine("New " + finalPath + " was the same as last");
 		}
 
-		private static void RunOnInput(string data, string outputPath = null, bool printResults = true)
-	    {
-		    var parser = new Parser();
+		private static void RunOnBig(int numberOfAttempts, bool printResults = true)
+		{
+			var data = Resources.big;
+			var newOutPath = "big.new.out";
+			var finalPath = "big.out";
+
+			RunOnInput(data, numberOfAttempts, newOutPath, printResults);
+			var improvement = ReplaceIfBetter(finalPath, newOutPath);
+			if (improvement < 0)
+				Console.WriteLine("New " + finalPath + " was worse than last and wasn't replaced");
+			else if (improvement == 0)
+				Console.WriteLine("New " + finalPath + " was the same as last");
+		}
+
+		private static void RunOnInput(string data, int numberOfAttempts, string outputPath = null, bool printResults = true)
+		{
+			IEnumerable<PizzaSlice> bestResults = null;
+			var parser = new Parser();
 			var pizza = parser.ParseData(data);
 
-		    var solver = new PizzaSolverBlat(pizza);
-		    var results = solver.Solve();
+			var bestScore = -2;
+			for (int i = 0; i < numberOfAttempts; i++)
+			{
+				var solver = new PizzaSolverBlat(pizza);
+				var results = solver.Solve();
 
-		    var printer = new PizzaPrinter();
-			printer.PrintToFile(results, outputPath);
-			if (printResults)
-				printer.PrintToConsole(pizza, results);
-	    }
+				var calc = new ScoreCalc(results);
+				if (calc.Score > bestScore)
+				{
+					bestResults = results;
+					bestScore = calc.Score;
+				}
+			}
 
-		private static bool ReplaceIfBetter(string finalPath, string newPath)
+			var printer = new PizzaPrinter();
+			printer.PrintToFile(bestResults, outputPath);
+			if(printResults)
+				printer.PrintToConsole(pizza, bestResults);
+		}
+
+		private static int ReplaceIfBetter(string finalPath, string newPath)
 		{
 			if (!File.Exists(newPath))
-				return false;
+				return 0;
 
 			if (!File.Exists(finalPath))
 			{
+				var calc = new ScoreCalc(newPath);
 				File.Move(newPath, finalPath);
-				return true;
+				return calc.Score;
 			}
 
 			var finalCalc = new ScoreCalc(finalPath);
 			var newCalc = new ScoreCalc(newPath);
-			if (newCalc.Score < finalCalc.Score) 
-				return false;
-
-			File.Delete(finalPath);
-			File.Move(newPath, finalPath);
-			return true;
+			if (newCalc.Score > finalCalc.Score)
+			{
+				File.Delete(finalPath);
+				File.Move(newPath, finalPath);
+			}
+			return newCalc.Score - finalCalc.Score;
 		}
 	}
 }
