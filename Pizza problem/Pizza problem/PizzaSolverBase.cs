@@ -1,6 +1,7 @@
-﻿using System;
+﻿using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 namespace Pizza_problem
 {
@@ -56,20 +57,36 @@ namespace Pizza_problem
         public IEnumerable<PizzaSlice> Solve()
         {
             IEnumerable<PizzaSlice> slices = Solve(0, 0, Pizza.XLength - 1, Pizza.YLength - 1);
-            return this.EnlargeSlices(slices);
+
+            Random rand = new Random();
+            IEnumerable<PizzaSlice> maxSlice = this.EnlargeSlices(slices.ToList(), rand);
+
+            for (int index = 0; index < 100000; index++)
+            {
+                IEnumerable<PizzaSlice> slice = this.EnlargeSlices(slices.ToList(), rand);
+
+                if (true)
+                {
+                    maxSlice = slice;
+                }
+            }
+
+            return maxSlice;
         }
 
         protected abstract IEnumerable<PizzaSlice> Solve(int v1, int v2, int v3, int v4);
 
-        public IEnumerable<PizzaSlice> EnlargeSlices(IEnumerable<PizzaSlice> slices)
+        public IEnumerable<PizzaSlice> EnlargeSlices(List<PizzaSlice> slices, Random rand)
         {
             bool[,] pizzaCells = GetUsedCells(slices);
             List<PizzaSlice> newSlices = new List<PizzaSlice>();
 
-            foreach (PizzaSlice slice in slices)
+            while (slices.Any())
             {
-                PizzaSlice newSlice = EnlargeSlice(pizzaCells, slice);
+                int index = rand.Next() % slices.Count;
+                PizzaSlice newSlice = EnlargeSlice(pizzaCells, slices[index]);
                 newSlices.Add(newSlice);
+                slices.RemoveAt(index);
             }
 
             return newSlices;
