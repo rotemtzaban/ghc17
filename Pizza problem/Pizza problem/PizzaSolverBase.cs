@@ -1,4 +1,8 @@
-﻿namespace Pizza_problem
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+
+namespace Pizza_problem
 {
 	public class PizzaSolverBase
 	{
@@ -39,5 +43,38 @@
 		{
 			return slice.Size > Pizza.MaxSliceSize;
 		}
-	}
+
+        public void EnlargeSlices(IEnumerable<PizzaSlice> slices)
+        {
+            bool[,] pizzaCells = GetSlicesArray(slices);
+
+            foreach (PizzaSlice slice in slices)
+            {
+                TryEnlargeSlice(slice);
+            }
+        }
+
+        private void TryEnlargeSlice(PizzaSlice slice)
+        {
+            throw new NotImplementedException();
+        }
+
+        private bool[,] GetSlicesArray(IEnumerable<PizzaSlice> slices)
+        {
+            bool[,] pizzaCells = new bool[Pizza.XLength, Pizza.YLength];
+
+            foreach (PizzaSlice slice in slices)
+            {
+                for (int y = slice.TopLeft.Y; y <= slice.BottomRight.Y; y++)
+                {
+                    for (int x = slice.TopLeft.X; x <= slice.BottomRight.X; x++)
+                    {
+                        pizzaCells[x, y] = true;
+                    }
+                }
+            }
+
+            return pizzaCells;
+        }
+    }
 }
