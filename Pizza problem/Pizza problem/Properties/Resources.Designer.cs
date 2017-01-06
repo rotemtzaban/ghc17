@@ -22,7 +22,7 @@ namespace Pizza_problem.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace Pizza_problem.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Pizza_problem.Properties.Resources", typeof(Resources).Assembly);
@@ -51,12 +51,22 @@ namespace Pizza_problem.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 1000 1000 6 14
+        ///TMMMTTTMMMMTMMTTMTTMTTMMTMMMTTTTTTMTTTTTTMMMMMMMTMMMMTTTMTMMTTTTTTMMMMMTTMTMTMMMTMTTMMTTMMMTTMMMTTTTMTTTMTMMMTTMTMTTMTTMTTTTMMMTTTMMTTMMMTTMMTMTMMTTMMTTMTMMMTMMMTMTTMMTMMTTMTTMMMMMTTTMMMTMMMMMMTMTTMTTTTTMMMMMMTMTMMTTTTMMTTTTMTTTMTMMTTMMTMTTMTTTMTMMTMMTMMTTMMMTTTMMTTTTTMTMTTMMMTMTTMTMMTTMMMMTTMTTMMMTTTTTMMMTTTTMMMTTMTMTTTTTMTMTTTTMTMTTMTMMTMMMMTTMTMTTTMTMTMMMTMTTMTMTMTTTTTMMTMMTTMMMMMMMTTTTMTMMMTTMMMMTTMMTTMTTTMMMMMTMMTMTMMTMTTMMMTTMMTMTTTTTTTTTTTTTMMMTTTTMMMMMTMMTTMMTMMMTTTTTMMMTTTMTTTMMMMMT [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string big {
+            get {
+                return ResourceManager.GetString("big", resourceCulture);
             }
         }
         
@@ -67,9 +77,36 @@ namespace Pizza_problem.Properties {
         ///TTTTT
         ///.
         /// </summary>
-        internal static string example {
+        public static string example {
             get {
                 return ResourceManager.GetString("example", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 200 250 4 12
+        ///TMMMTTTMMMMTMMTTMTTMTTMMTMMMTTTTTTMTTTTTTMMMMMMMTMMMMTTTMTMMTTTTTTMMMMMTTMTMTMMMTMTTMMTTMMMTTMMMTTTTMTTTMTMMMTTMTMTTMTTMTTTTMMMTTTMMTTMMMTTMMTMTMMTTMMTTMTMMMTMMMTMTTMMTMMTTMTTMMMMMTTTMMMTMMMMMMTMTTMTTTTTMMMMMMTMTMMTTTTMMTTTTMTTTMTMMTTMMTMTTMTTTMTMMTM
+        ///MTMMTTMMMTTTMMTTTTTMTMTTMMMTMTTMTMMTTMMMMTTMTTMMMTTTTTMMMTTTTMMMTTMTMTTTTTMTMTTTTMTMTTMTMMTMMMMTTMTMTTTMTMTMMMTMTTMTMTMTTTTTMMTMMTTMMMMMMMTTTTMTMMMTTMMMMTTMMTTMTTTMMMMMTMMTMTMMTMTTMMMTTMMTMTTTTTTTTTTTTTMMMTTTTMMMMMTMMTTMMTMMMTTTTTMMMTTTMTTTMMMMMT [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string medium {
+            get {
+                return ResourceManager.GetString("medium", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 6 7 1 5
+        ///TMMMTTT
+        ///MMMMTMM
+        ///TTMTTMT
+        ///TMMTMMM
+        ///TTTTTTM
+        ///TTTTTTM
+        ///.
+        /// </summary>
+        public static string small {
+            get {
+                return ResourceManager.GetString("small", resourceCulture);
             }
         }
     }

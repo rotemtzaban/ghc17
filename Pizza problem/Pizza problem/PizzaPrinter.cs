@@ -71,9 +71,10 @@ namespace Pizza_problem
             }
         }
 
-        public void PrintToFile(IEnumerable<PizzaSlice> slices)
+        public void PrintToFile(IEnumerable<PizzaSlice> slices, string path = null)
         {
-            using (StreamWriter writer = new StreamWriter(GetOutputFilePath()))
+	        var outputPath = path ?? GetOutputFilePath();
+            using (var writer = new StreamWriter(outputPath))
             {
                 writer.WriteLine(slices.Count());
 
