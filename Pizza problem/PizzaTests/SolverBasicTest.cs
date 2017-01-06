@@ -10,7 +10,7 @@ namespace PizzaTests
 	public class SolverBasicTest
 	{
 		[TestMethod]
-		public void TestMethod1()
+		public void CheckBasicSolver()
 		{
 			var parser = new Parser();
 			var pizza = parser.ParseData(Resources.example);
