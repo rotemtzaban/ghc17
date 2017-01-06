@@ -45,7 +45,7 @@ namespace Pizza_problem
 
 		private bool CheckForOverlap(IEnumerable<PizzaSlice> slices)
 		{
-			foreach (var slice1 in slices)
+			/*foreach (var slice1 in slices)
 			{
 				foreach (var slice2 in slices)
 				{
@@ -55,7 +55,7 @@ namespace Pizza_problem
 					if (slice1.DoesOverlap(slice2))
 						return true;
 				}
-			}
+			}*/
 
 			return false;
 		}
