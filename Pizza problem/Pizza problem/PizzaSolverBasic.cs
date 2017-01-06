@@ -14,7 +14,8 @@ namespace Pizza_problem
 
 		public IEnumerable<PizzaSlice> Solve()
 		{
-			return Solve(0, 0, Pizza.XLength - 1, Pizza.YLength - 1);
+            IEnumerable<PizzaSlice> slices = Solve(0, 0, Pizza.XLength - 1, Pizza.YLength - 1);
+            return this.EnlargeSlices(slices);
 		}
 
 		public IEnumerable<PizzaSlice> Solve(int xStart, int yStart, int maxX, int maxY)

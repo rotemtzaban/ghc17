@@ -12,10 +12,10 @@ namespace Pizza_problem
         static void Main(string[] args)
         {
 			// TODO: Always take the best solution ever (since inputs are static)
-			RunOnExample(false);
-			RunOnSmall();
-			RunOnMedium(false);
-			RunOnBig(false);
+			RunOnExample(true);
+			// RunOnSmall();
+			// RunOnMedium(false);
+			// RunOnBig(false);
 
 	        Console.WriteLine("Done!");
 	        Console.ReadKey();
