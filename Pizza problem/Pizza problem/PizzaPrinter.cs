@@ -11,13 +11,13 @@ namespace Pizza_problem
     {
         public void PrintToConsole(PizzaParams pizzaParams, IEnumerable<PizzaSlice> slices)
         {
-            CellToPrint[,] pizzaCells = new CellToPrint[pizzaParams.YLength, pizzaParams.XLength];
+            CellToPrint[,] pizzaCells = new CellToPrint[pizzaParams.XLength, pizzaParams.YLength];
             for (int y = 0; y < pizzaParams.YLength; y++)
             {
                 for (int x = 0; x < pizzaParams.XLength; x++)
                 {
                     CellToPrint cell = new CellToPrint();
-                    cell.color = ConsoleColor.Black;
+                    cell.color = ConsoleColor.Green;
                     cell.ingredient = pizzaParams.PizzaIngredients[x, y];
                     pizzaCells[x, y] = new CellToPrint();
                 }
@@ -27,11 +27,11 @@ namespace Pizza_problem
             {
                 ConsoleColor randomColor = ConsoleColor.Red;
 
-                for (int x = slice.TopLeft.Y; x < slice.BottomRight.Y; x++)
+                for (int y = slice.TopLeft.Y; y < slice.BottomRight.Y; y++)
                 {
-                    for (int y = slice.TopLeft.X; y < slice.BottomRight.X; y++)
+                    for (int x = slice.TopLeft.X; x < slice.BottomRight.X; x++)
                     {
-                        if (pizzaCells[x, y].color != ConsoleColor.Black)
+                        if (pizzaCells[x, y].color != ConsoleColor.Green)
                         {
                             throw new Exception("das for gal");
                         }
@@ -41,9 +41,9 @@ namespace Pizza_problem
                 }
             }
 
-            for (int x = 0; x < pizzaParams.YLength; x++)
+            for (int x = 0; x < pizzaParams.XLength; x++)
             {
-                for (int y = 0; y < pizzaParams.XLength; y++)
+                for (int y = 0; y < pizzaParams.YLength; y++)
                 {
                     CellToPrint print = pizzaCells[x, y];
                     Console.ForegroundColor = print.color;
@@ -57,7 +57,7 @@ namespace Pizza_problem
                     }
                 }
 
-                Console.Write("/n");
+                Console.Write("\n");
             }
         }
 
