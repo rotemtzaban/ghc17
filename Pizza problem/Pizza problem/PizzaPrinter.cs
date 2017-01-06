@@ -69,6 +69,8 @@ namespace Pizza_problem
 
                 Console.Write("\n");
             }
+
+			Console.ForegroundColor = ConsoleColor.White;
         }
 
         public void PrintToFile(IEnumerable<PizzaSlice> slices, string path = null)
