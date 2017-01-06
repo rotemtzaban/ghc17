@@ -18,9 +18,10 @@ namespace Pizza_problem
 			var results = solver.Solve();
 
 	        var printer = new PizzaPrinter();
+			printer.PrintToFile(results);
 			printer.PrintToConsole(pizza, results);
 
-	        Console.ReadKey();
+            Console.ReadKey();
 		}
     }
 }
