@@ -10,5 +10,10 @@ namespace Pizza_problem
 	{
 		public Coordinate TopLeft { get; set; }
 		public Coordinate BottomRight { get; set; }
+
+		public int Size
+		{
+			get { return (BottomRight.X - TopLeft.X + 1) + (BottomRight.Y - TopLeft.Y + 1); }
+		}
 	}
 }

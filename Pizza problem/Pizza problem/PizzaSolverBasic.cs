@@ -8,7 +8,7 @@ namespace Pizza_problem
 {
 	public class PizzaSolverBasic : PizzaSolverBase
 	{
-		public PizzaSolverBasic()
+		public PizzaSolverBasic(PizzaParams pizza) : base(pizza)
 		{
 		}
 
@@ -17,6 +17,7 @@ namespace Pizza_problem
 			int R;
 			int C;
 
+			return null;
 		}
 
 		
