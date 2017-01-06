@@ -13,7 +13,6 @@ namespace Pizza_problem
         private ConsoleColor[] printedColors = new ConsoleColor[]
         {
             ConsoleColor.Red,
-            ConsoleColor.Blue,
             ConsoleColor.Yellow,
             ConsoleColor.Magenta,
             ConsoleColor.White,
@@ -69,6 +68,8 @@ namespace Pizza_problem
 
                 Console.Write("\n");
             }
+
+			Console.ForegroundColor = ConsoleColor.White;
         }
 
         public void PrintToFile(IEnumerable<PizzaSlice> slices, string path = null)

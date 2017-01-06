@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Pizza_problem
 {
-    public class PizzaSolverBase
+    public abstract class PizzaSolverBase
     {
         #region Fields
 
@@ -52,6 +52,14 @@ namespace Pizza_problem
         {
             return slice.Size > Pizza.MaxSliceSize;
         }
+
+        public IEnumerable<PizzaSlice> Solve()
+        {
+            IEnumerable<PizzaSlice> slices = Solve(0, 0, Pizza.XLength - 1, Pizza.YLength - 1);
+            return this.EnlargeSlices(slices);
+        }
+
+        protected abstract IEnumerable<PizzaSlice> Solve(int v1, int v2, int v3, int v4);
 
         public IEnumerable<PizzaSlice> EnlargeSlices(IEnumerable<PizzaSlice> slices)
         {
