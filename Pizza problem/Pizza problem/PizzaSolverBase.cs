@@ -60,7 +60,7 @@ namespace Pizza_problem
 
             foreach (PizzaSlice slice in slices)
             {
-                PizzaSlice newSlice = TryEnlargeSlice(pizzaCells, slice, slice.Width, slice.Height);
+                PizzaSlice newSlice = TryEnlargeSlice(pizzaCells, slice);
                 newSlices.Add(newSlice);
             }
         }
@@ -69,7 +69,7 @@ namespace Pizza_problem
 
 		#region Private Methods
 
-		private void TryEnlargeSlice(PizzaSlice slice)
+		private PizzaSlice TryEnlargeSlice(bool[,] pizzaCells, PizzaSlice slice)
         {
             bool enlarged = true;
             while (enlarged)
