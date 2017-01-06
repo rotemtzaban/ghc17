@@ -51,14 +51,44 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SolverBasicTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Pizza problem\Pizza problem.csproj">
       <Project>{d6fa0146-e2e9-4bab-b5e0-275ebf9244ed}</Project>
       <Name>Pizza problem</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\big.in" />
+    <None Include="Resources\example.in" />
+    <None Include="Resources\medium.in" />
+    <None Include="Resources\small.in" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\example.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\small.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\big.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\medium.txt" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

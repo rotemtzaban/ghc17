@@ -11,7 +11,7 @@ namespace PizzaTests
 		public void CheckParser()
 		{
             Parser parser = new Parser();
-            PizzaParams pizaParams = parser.Parse(@"C:\Shachar git\ghc17\Pizza problem\Pizza problem\inputs\example.in");
+            PizzaParams pizaParams = parser.ParsePath(@"C:\Shachar git\ghc17\Pizza problem\Pizza problem\inputs\example.in");
 
             Assert.AreEqual(pizaParams.MaxSliceSize, 6);
             Assert.AreEqual(pizaParams.MinIngredientNum, 1);

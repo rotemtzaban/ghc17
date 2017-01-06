@@ -21,7 +21,7 @@ namespace Pizza_problem
 
             this.MaxSliceSize = maxSliceSize;
             this.MinIngredientNum = minIngredientNum;
-            this.PizzaIngredients = new Ingredient[rows, columns];
+            this.PizzaIngredients = new Ingredient[columns, rows];
         }
     }
 }

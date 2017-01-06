@@ -14,38 +14,52 @@ namespace Pizza_problem
     }
 
     public class Parser
-    {
-        public PizzaParams Parse(string path)
-        {
-            using (StreamReader reader = new StreamReader(path))
-            {
-                string first = reader.ReadLine();
-                string[] lineParams = first.Split(' ');
-                PizzaParams pizaParam = new PizzaParams(int.Parse(lineParams[0]), int.Parse(lineParams[1]), int.Parse(lineParams[2]), int.Parse(lineParams[3]));
+	{
+		public PizzaParams ParsePath(string path)
+		{
+			using (var reader = new StreamReader(path))
+			{
+				return ParseFromStream(reader);
+			}
+		}
 
-                string line = reader.ReadLine();
-                int count = 0;
-                while (line != null)
-                {
-                    char[] lineAsChar = line.ToCharArray();
-                    for (int i = 0; i < line.Length; i++)
-                    {
-                        if (lineAsChar[i] == 'M')
-                        {
-                            pizaParam.PizzaIngredients[count, i] = Ingredient.Mushroom;
-                        }
-                        else
-                        {
-                            pizaParam.PizzaIngredients[count, i] = Ingredient.Tomato;
-                        }
-                    }
+		public PizzaParams ParseData(string data)
+		{
+			using (var reader = new StringReader(data))
+			{
+				return ParseFromStream(reader);
+			}
+		}
 
-                    count++;
-                    line = reader.ReadLine();
-                }
+	    private static PizzaParams ParseFromStream(TextReader reader)
+	    {
+		    string first = reader.ReadLine();
+		    string[] lineParams = first.Split(' ');
+		    PizzaParams pizaParam = new PizzaParams(int.Parse(lineParams[0]), int.Parse(lineParams[1]), int.Parse(lineParams[2]),
+			    int.Parse(lineParams[3]));
 
-                return pizaParam;
-            }
-        }
+		    string line = reader.ReadLine();
+		    int count = 0;
+		    while (line != null)
+		    {
+			    char[] lineAsChar = line.ToCharArray();
+			    for (int i = 0; i < line.Length; i++)
+			    {
+				    if (lineAsChar[i] == 'M')
+				    {
+					    pizaParam.PizzaIngredients[i, count] = Ingredient.Mushroom;
+				    }
+				    else
+				    {
+					    pizaParam.PizzaIngredients[i, count] = Ingredient.Tomato;
+				    }
+			    }
+
+			    count++;
+			    line = reader.ReadLine();
+		    }
+
+		    return pizaParam;
+	    }
     }
 }

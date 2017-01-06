@@ -18,16 +18,16 @@
 		{
 			int tomatoCount = 0;
 			int mushroomCount = 0;
-			for (int x = slice.TopLeft.X; x < slice.BottomRight.X; x++)
+			for (int x = slice.TopLeft.X; x <= slice.BottomRight.X; x++)
 			{
-				for (int y = slice.TopLeft.Y; y < slice.BottomRight.Y; y++)
+				for (int y = slice.TopLeft.Y; y <= slice.BottomRight.Y; y++)
 				{
 					if (Pizza.PizzaIngredients[x, y] == Ingredient.Mushroom)
 						mushroomCount++;
 					if (Pizza.PizzaIngredients[x, y] == Ingredient.Tomato)
 						tomatoCount++;
 
-					if (mushroomCount > Pizza.MinIngredientNum && tomatoCount > Pizza.MinIngredientNum)
+					if (mushroomCount >= Pizza.MinIngredientNum && tomatoCount >= Pizza.MinIngredientNum)
 						return true;
 				}
 			}
