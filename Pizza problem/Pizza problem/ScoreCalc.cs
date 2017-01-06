@@ -11,7 +11,16 @@ namespace Pizza_problem
 	{
 		public ScoreCalc(string resultPath)
 		{
-			Score = 0;
+			Score = GetScoreFromFile(resultPath);
+		}
+
+		public ScoreCalc(IEnumerable<PizzaSlice> slices)
+		{
+			Score = GetScoreFromSlices(slices);
+		}
+
+		private int GetScoreFromFile(string resultPath)
+		{
 			var slices = new List<PizzaSlice>();
 			using (var reader = new StreamReader(resultPath))
 			{
@@ -21,10 +30,34 @@ namespace Pizza_problem
 					var line = reader.ReadLine();
 					var spl = line.Split(' ').Select(int.Parse).ToList();
 
-					var slice = new PizzaSlice(spl[1], spl[0], spl[3], spl[2]);
-					Score += slice.Size;
+					slices.Add(new PizzaSlice(spl[1], spl[0], spl[3], spl[2]));
 				}
 			}
+			return GetScoreFromSlices(slices);
+		}
+
+		private int GetScoreFromSlices(IEnumerable<PizzaSlice> slices)
+		{
+			if (CheckForOverlap(slices))
+				return -1;
+			return slices.Sum(slice => slice.Size);
+		}
+
+		private bool CheckForOverlap(IEnumerable<PizzaSlice> slices)
+		{
+			foreach (var slice1 in slices)
+			{
+				foreach (var slice2 in slices)
+				{
+					if (slice1 == slice2)
+						continue;
+
+					if (slice1.DoesOverlap(slice2))
+						return true;
+				}
+			}
+
+			return false;
 		}
 
 		public int Score { get; private set; }

@@ -56,6 +56,7 @@ namespace Pizza_problem
         public IEnumerable<PizzaSlice> Solve()
         {
             IEnumerable<PizzaSlice> slices = Solve(0, 0, Pizza.XLength - 1, Pizza.YLength - 1);
+	        return slices;
             return this.EnlargeSlices(slices);
         }
 
