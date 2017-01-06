@@ -8,9 +8,60 @@ namespace Pizza_problem
 	{
 		protected readonly PizzaParams Pizza;
 
+		private readonly int[,] tomatoTable;
+		private readonly int[,] mushroomTable;
+
 		public PizzaSolverBase(PizzaParams pizza)
 		{
 			Pizza = pizza;
+			tomatoTable = CreateCountTable(Ingredient.Tomato);
+			mushroomTable = CreateCountTable(Ingredient.Mushroom);
+		}
+
+		private int[,] CreateCountTable(Ingredient ingredient)
+		{
+			int[,] table = new int[Pizza.XLength, Pizza.YLength];
+			table[0, 0] = Pizza.PizzaIngredients[0, 0] == ingredient ? 1 : 0;
+			for (int x = 1; x < Pizza.XLength; x++)
+			{
+				var ingCount = Pizza.PizzaIngredients[x, 0] == ingredient ? 1 : 0;
+				table[x, 0] = table[x - 1, 0] + ingCount;
+			}
+			for (int y = 1; y < Pizza.YLength; y++)
+			{
+				var ingCount = Pizza.PizzaIngredients[0, y] == ingredient ? 1 : 0;
+				table[0, y] = table[0, y - 1] + ingCount;
+			}
+			for (int x = 1; x < Pizza.XLength; x++)
+			{
+				for (int y = 1; y < Pizza.YLength; y++)
+				{
+					var ingCount = Pizza.PizzaIngredients[x, y] == ingredient ? 1 : 0;
+					table[x, y] = ingCount + table[x - 1, y] + table[x, y - 1] - table[x - 1, y - 1];
+				}
+			}
+
+			return table;
+		}
+
+		public int GetMushroomsInSlice(PizzaSlice slice)
+		{
+			return GetCountInSlice(mushroomTable, slice);
+		}
+
+		public int GetTomatoInSlice(PizzaSlice slice)
+		{
+			return GetCountInSlice(tomatoTable, slice);
+		}
+
+		private static int GetCountInSlice(int[,] table, PizzaSlice slice)
+		{
+			var totalSum = table[slice.BottomRight.X, slice.BottomRight.Y];
+			var topSum = slice.TopLeft.Y == 0 ? 0 : table[slice.BottomRight.X, slice.TopLeft.Y - 1];
+			var leftSum = slice.TopLeft.X == 0 ? 0 : table[slice.TopLeft.X - 1, slice.BottomRight.Y];
+			var topLeftSum = slice.TopLeft.X == 0 || slice.TopLeft.Y == 0 ? 0 : table[slice.TopLeft.X - 1, slice.TopLeft.Y - 1];
+
+			return totalSum - leftSum - topSum + topLeftSum;
 		}
 
 		public bool IsSliceValid(PizzaSlice slice)
