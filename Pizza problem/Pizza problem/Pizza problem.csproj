@@ -59,6 +59,7 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="ScoreCalc.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
