@@ -65,6 +65,13 @@ namespace Pizza_problem
         {
             using (StreamWriter writer = new StreamWriter(GetOutputFilePath()))
             {
+                writer.WriteLine(slices.Count());
+
+                foreach (var item in slices)
+                {
+                    writer.WriteLine(item.TopLeft.Y + " " + item.TopLeft.X + " " +
+                                     item.BottomRight.Y + " " + item.BottomRight.X);
+                }
             }
         }
 
