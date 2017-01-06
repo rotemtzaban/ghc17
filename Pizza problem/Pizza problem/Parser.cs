@@ -43,8 +43,8 @@ namespace Pizza_problem
 
         class PizzaParams
         {
-            public int MaxSliceSize { get; }
-            public int MinIngredientNum { get; }
+            public int MaxSliceSize { get; set; }
+            public int MinIngredientNum { get; set; }
         }
     }
 }

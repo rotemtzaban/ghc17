@@ -6,8 +6,12 @@ using System.Threading.Tasks;
 
 namespace Pizza_problem
 {
-    public class Pizza
-    {
-		
-    }
+	public class PizzaSolverBasic
+	{
+		public PizzaSolverBasic()
+		{
+		}
+
+		public 
+	}
 }

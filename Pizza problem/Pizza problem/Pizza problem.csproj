@@ -44,7 +44,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Coordinate.cs" />
+    <Compile Include="Parser.cs" />
     <Compile Include="Pizza.cs" />
+    <Compile Include="PizzaSlice.cs" />
+    <Compile Include="PizzaSolverBasic.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace Pizza_problem
 {
-    public class Pizza
-    {
-		
-    }
+	public class PizzaSlice
+	{
+		public Coordinate TopLeft { get; set; }
+		public Coordinate BottomRight { get; set; }
+	}
 }
