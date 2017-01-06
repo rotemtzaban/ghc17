@@ -20,6 +20,8 @@ namespace Pizza_problem
             using (StreamReader reader = new StreamReader("small.in"))
             {
                 string first = reader.ReadLine();
+                string[] lineParams = first.Split(' ');
+                PizzaParams pizaParam = new PizzaParams(int.Parse(lineParams[0]), int.Parse(lineParams[1]), int.Parse(lineParams[2]), int.Parse(lineParams[3]));
 
                 string line = reader.ReadLine();
                 while (line != null)
@@ -39,12 +41,6 @@ namespace Pizza_problem
                     }
                 }
             }
-        }
-
-        class PizzaParams
-        {
-            public int MaxSliceSize { get; }
-            public int MinIngredientNum { get; }
         }
     }
 }
