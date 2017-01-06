@@ -38,5 +38,12 @@ namespace Pizza_problem
 		public int Height {
 			get { return BottomRight.Y - TopLeft.Y + 1; }
 		}
+
+		public bool DoesOverlap(PizzaSlice other)
+		{
+			var overlapX = BottomRight.X >= other.TopLeft.X && TopLeft.X <= other.BottomRight.X;
+			var overlapY = BottomRight.Y >= other.TopLeft.Y && TopLeft.Y <= other.BottomRight.Y;
+			return overlapX && overlapY;
+		}
 	}
 }

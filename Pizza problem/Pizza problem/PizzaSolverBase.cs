@@ -59,19 +59,22 @@ namespace Pizza_problem
             IEnumerable<PizzaSlice> slices = Solve(0, 0, Pizza.XLength - 1, Pizza.YLength - 1);
 
             Random rand = new Random();
-            IEnumerable<PizzaSlice> maxSlice = this.EnlargeSlices(slices.ToList(), rand);
+            IEnumerable<PizzaSlice> maxSlices = this.EnlargeSlices(slices.ToList(), rand);
+            int maxScore = ScoreCalc.GetScoreFromSlices(maxSlices, false);
 
-            for (int index = 0; index < 100000; index++)
+            for (int index = 0; index < 100; index++)
             {
-                IEnumerable<PizzaSlice> slice = this.EnlargeSlices(slices.ToList(), rand);
+                IEnumerable<PizzaSlice> newSlice = this.EnlargeSlices(slices.ToList(), rand);
 
-                if (true)
+                int score = ScoreCalc.GetScoreFromSlices(newSlice, false);
+                if (score > maxScore)
                 {
-                    maxSlice = slice;
+                    maxScore = score;
+                    maxSlices = newSlice;
                 }
             }
 
-            return maxSlice;
+            return maxSlices;
         }
 
         protected abstract IEnumerable<PizzaSlice> Solve(int v1, int v2, int v3, int v4);
