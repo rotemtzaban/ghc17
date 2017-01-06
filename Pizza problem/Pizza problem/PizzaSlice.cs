@@ -18,7 +18,13 @@ namespace Pizza_problem
 			BottomRight = new Coordinate(right, bottom);
 		}
 
-		public Coordinate TopLeft { get; set; }
+        public PizzaSlice(Coordinate topLeft, Coordinate bottomRight)
+        {
+            TopLeft = topLeft;
+            BottomRight = bottomRight;
+        }
+
+        public Coordinate TopLeft { get; set; }
 		public Coordinate BottomRight { get; set; }
 
 		public int Size

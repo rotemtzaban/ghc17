@@ -98,16 +98,140 @@ namespace Pizza_problem
         public void EnlargeSlices(IEnumerable<PizzaSlice> slices)
         {
             bool[,] pizzaCells = GetSlicesArray(slices);
+            List<PizzaSlice> newSlices = new List<PizzaSlice>();
 
             foreach (PizzaSlice slice in slices)
             {
-                TryEnlargeSlice(slice);
+                PizzaSlice newSlice = TryEnlargeSlice(pizzaCells, slice, slice.Width, slice.Height);
+                newSlices.Add(newSlice);
             }
         }
 
-        private void TryEnlargeSlice(PizzaSlice slice)
+        private PizzaSlice TryEnlargeSlice(bool[,] pizzaCells, PizzaSlice slice, int width, int height)
         {
-            throw new NotImplementedException();
+            bool enlarged = true;
+            while (enlarged)
+            {
+                PizzaSlice newSlice;
+                if (TryEnlargedSliceByHeight(pizzaCells, slice, out newSlice))
+                {
+                    enlarged = true;
+                    slice = newSlice;
+                }
+                else if (TryEnlargedSliceByWidth(pizzaCells, slice, out newSlice))
+                {
+                    enlarged = true;
+                    slice = newSlice;
+                }
+                else
+                {
+                    enlarged = false;
+                }
+            }
+
+            return slice;
+        }
+
+        private bool TryEnlargedSliceByWidth(bool[,] pizzaCells, PizzaSlice slice, out PizzaSlice newSlice)
+        {
+            if (slice.Height * (slice.Width + 1) > Pizza.MaxSliceSize)
+            {
+                newSlice = slice;
+                return false;
+            }
+
+            bool succeed = true;
+            if (slice.TopLeft.X != 0)
+            {
+                for (int y = slice.TopLeft.Y; y <= slice.BottomRight.Y; y++)
+                {
+                    if (pizzaCells[slice.TopLeft.X - 1, 0])
+                    {
+                        succeed = false;
+                        break;
+                    }
+                }
+
+                if (succeed)
+                {
+                    Coordinate newTopLeft = new Coordinate(slice.TopLeft.X - 1, slice.TopLeft.Y);
+                    newSlice = new PizzaSlice(newTopLeft, slice.BottomRight);
+                    return true;
+                }
+            }
+
+            if (slice.BottomRight.X != Pizza.XLength - 1)
+            {
+                for (int y = slice.TopLeft.Y; y <= slice.BottomRight.Y; y++)
+                {
+                    if (pizzaCells[slice.BottomRight.X + 1, y])
+                    {
+                        succeed = false;
+                        break;
+                    }
+                }
+
+                if (succeed)
+                {
+                    Coordinate newBottomRight = new Coordinate(slice.BottomRight.X + 1, slice.BottomRight.Y);
+                    newSlice = new PizzaSlice(slice.TopLeft, newBottomRight);
+                    return true;
+                }
+            }
+
+            newSlice = slice;
+            return false;
+        }
+
+        private bool TryEnlargedSliceByHeight(bool[,] pizzaCells, PizzaSlice slice, out PizzaSlice newSlice)
+        {
+            if (slice.Width * (slice.Height + 1) > Pizza.MaxSliceSize)
+            {
+                newSlice = slice;
+                return false;
+            }
+
+            bool succeed = true;
+            if (slice.TopLeft.Y != 0)
+            {
+                for (int x = slice.TopLeft.X; x <= slice.BottomRight.X; x++)
+                {
+                    if (pizzaCells[x, slice.TopLeft.Y - 1])
+                    {
+                        succeed = false;
+                        break;
+                    }
+                }
+
+                if (succeed)
+                {
+                    Coordinate newTopLeft = new Coordinate(slice.TopLeft.X, slice.TopLeft.Y - 1);
+                    newSlice = new PizzaSlice(newTopLeft, slice.BottomRight);
+                    return true;
+                }
+            }
+
+            if (slice.BottomRight.Y != Pizza.YLength - 1)
+            {
+                for (int x = slice.TopLeft.X; x <= slice.BottomRight.X; x++)
+                {
+                    if (pizzaCells[x, slice.BottomRight.Y + 1])
+                    {
+                        succeed = false;
+                        break;
+                    }
+                }
+
+                if (succeed)
+                {
+                    Coordinate newBottomRight = new Coordinate(slice.BottomRight.X, slice.BottomRight.Y + 1);
+                    newSlice = new PizzaSlice(slice.TopLeft, newBottomRight);
+                    return true;
+                }
+            }
+
+            newSlice = slice;
+            return false;
         }
 
         private bool[,] GetSlicesArray(IEnumerable<PizzaSlice> slices)
