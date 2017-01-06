@@ -12,14 +12,14 @@ namespace Pizza_problem
         public void PrintToConsole(PizzaParams pizzaParams, IEnumerable<PizzaSlice> slices)
         {
             CellToPrint[,] pizzaCells = new CellToPrint[pizzaParams.YLength, pizzaParams.XLength];
-            for (int rowIndex = 0; rowIndex < pizzaParams.YLength; rowIndex++)
+            for (int y = 0; y < pizzaParams.YLength; y++)
             {
-                for (int colIndex = 0; colIndex < pizzaParams.XLength; colIndex++)
+                for (int x = 0; x < pizzaParams.XLength; x++)
                 {
                     CellToPrint cell = new CellToPrint();
                     cell.color = ConsoleColor.Black;
-                    cell.ingredient = pizzaParams.PizzaIngredients[rowIndex, colIndex];
-                    pizzaCells[rowIndex, colIndex] = new CellToPrint();
+                    cell.ingredient = pizzaParams.PizzaIngredients[x, y];
+                    pizzaCells[x, y] = new CellToPrint();
                 }
             }
 
@@ -27,25 +27,25 @@ namespace Pizza_problem
             {
                 ConsoleColor randomColor = ConsoleColor.Red;
 
-                for (int rowIndex = slice.TopLeft.Y; rowIndex < slice.BottomRight.Y; rowIndex++)
+                for (int x = slice.TopLeft.Y; x < slice.BottomRight.Y; x++)
                 {
-                    for (int colIndex = slice.TopLeft.X; colIndex < slice.BottomRight.X; colIndex++)
+                    for (int y = slice.TopLeft.X; y < slice.BottomRight.X; y++)
                     {
-                        if (pizzaCells[rowIndex, colIndex].color != ConsoleColor.Black)
+                        if (pizzaCells[x, y].color != ConsoleColor.Black)
                         {
                             throw new Exception("das for gal");
                         }
 
-                        pizzaCells[rowIndex, colIndex].color = randomColor;
+                        pizzaCells[x, y].color = randomColor;
                     }
                 }
             }
 
-            for (int rowIndex = 0; rowIndex < pizzaParams.YLength; rowIndex++)
+            for (int x = 0; x < pizzaParams.YLength; x++)
             {
-                for (int colIndex = 0; colIndex < pizzaParams.XLength; colIndex++)
+                for (int y = 0; y < pizzaParams.XLength; y++)
                 {
-                    CellToPrint print = pizzaCells[rowIndex, colIndex];
+                    CellToPrint print = pizzaCells[x, y];
                     Console.ForegroundColor = print.color;
                     if (print.ingredient == Ingredient.Mushroom)
                     {
