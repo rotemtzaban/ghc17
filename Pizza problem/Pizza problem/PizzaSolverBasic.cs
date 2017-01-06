@@ -12,13 +12,7 @@ namespace Pizza_problem
 		{
 		}
 
-		public IEnumerable<PizzaSlice> Solve()
-		{
-            IEnumerable<PizzaSlice> slices = Solve(0, 0, Pizza.XLength - 1, Pizza.YLength - 1);
-            return this.EnlargeSlices(slices);
-		}
-
-		public IEnumerable<PizzaSlice> Solve(int xStart, int yStart, int maxX, int maxY)
+		protected override IEnumerable<PizzaSlice> Solve(int xStart, int yStart, int maxX, int maxY)
 		{
 			if (xStart > maxX || yStart > maxY)
 				return new PizzaSlice[] {};

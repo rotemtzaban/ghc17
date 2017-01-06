@@ -13,7 +13,7 @@ namespace Pizza_problem
         static void Main(string[] args)
         {
 			RunOnExample(false);
-			RunOnSmall();
+			RunOnSmall(true);
 			RunOnMedium(false);
 			RunOnBig(false);
 
@@ -54,7 +54,7 @@ namespace Pizza_problem
 		    var parser = new Parser();
 			var pizza = parser.ParseData(data);
 
-		    var solver = new PizzaSolverBasic(pizza);
+		    var solver = new PizzaSolverBlat(pizza);
 		    var results = solver.Solve();
 
 		    var printer = new PizzaPrinter();

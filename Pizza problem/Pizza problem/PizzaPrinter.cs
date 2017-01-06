@@ -13,7 +13,6 @@ namespace Pizza_problem
         private ConsoleColor[] printedColors = new ConsoleColor[]
         {
             ConsoleColor.Red,
-            ConsoleColor.Blue,
             ConsoleColor.Yellow,
             ConsoleColor.Magenta,
             ConsoleColor.White,
