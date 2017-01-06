@@ -36,14 +36,14 @@ namespace Pizza_problem
 			return GetScoreFromSlices(slices);
 		}
 
-		private int GetScoreFromSlices(IEnumerable<PizzaSlice> slices)
+		public static int GetScoreFromSlices(IEnumerable<PizzaSlice> slices)
 		{
 			if (CheckForOverlap(slices))
 				return -1;
 			return slices.Sum(slice => slice.Size);
 		}
 
-		private bool CheckForOverlap(IEnumerable<PizzaSlice> slices)
+		private static bool CheckForOverlap(IEnumerable<PizzaSlice> slices)
 		{
 			/*foreach (var slice1 in slices)
 			{

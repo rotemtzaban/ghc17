@@ -60,13 +60,13 @@ namespace Pizza_problem
 
             Random rand = new Random();
             IEnumerable<PizzaSlice> maxSlices = this.EnlargeSlices(slices.ToList(), rand);
-            int maxScore = ScoreCalc.GetScoreFromSlices(maxSlices, false);
+            int maxScore = ScoreCalc.GetScoreFromSlices(maxSlices);
 
             for (int index = 0; index < 100; index++)
             {
                 IEnumerable<PizzaSlice> newSlice = this.EnlargeSlices(slices.ToList(), rand);
 
-                int score = ScoreCalc.GetScoreFromSlices(newSlice, false);
+                int score = ScoreCalc.GetScoreFromSlices(newSlice);
                 if (score > maxScore)
                 {
                     maxScore = score;
