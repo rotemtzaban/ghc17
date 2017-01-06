@@ -43,8 +43,8 @@ namespace HashCodeCommon
 
         public bool Intersects(Rectangle other)
         {
-            var overlapX = BottomRight.X >= other.TopLeft.X && TopLeft.X <= other.BottomRight.X;
-            var overlapY = BottomRight.Y >= other.TopLeft.Y && TopLeft.Y <= other.BottomRight.Y;
+            bool overlapX = BottomRight.X >= other.TopLeft.X && TopLeft.X <= other.BottomRight.X;
+            bool overlapY = BottomRight.Y >= other.TopLeft.Y && TopLeft.Y <= other.BottomRight.Y;
             return overlapX && overlapY;
         }
     }

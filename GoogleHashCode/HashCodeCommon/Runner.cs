@@ -79,7 +79,7 @@ namespace HashCodeCommon
 
             for (int i = 0; i < numberOfAttempts; i++)
             {
-                var results = m_Solver.Solve(input);
+                TOutput results = m_Solver.Solve(input);
 
                 int newScore = m_Calculator.Calculate(results);
                 if (newScore > bestScore)
