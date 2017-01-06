@@ -51,11 +51,6 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="ParserTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SolverBasicTest.cs" />
@@ -68,28 +63,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\big.in" />
-    <None Include="Resources\example.in" />
-    <None Include="Resources\medium.in" />
-    <None Include="Resources\small.in" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\example.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\small.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\big.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\medium.txt" />
+    <Folder Include="Resources\" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
