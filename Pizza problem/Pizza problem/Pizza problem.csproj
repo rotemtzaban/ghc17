@@ -56,6 +56,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="inputs\big.in" />
+    <None Include="inputs\example.in" />
+    <None Include="inputs\medium.in" />
+    <None Include="inputs\small.in" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

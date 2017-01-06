@@ -12,7 +12,7 @@ namespace Pizza_problem
         public int MaxSliceSize { get; set; }
         public int MinIngredientNum { get; set; }
 
-        public PizzaParams(int rows, int columns, int maxSliceSize, int minIngredientNum)
+        public PizzaParams(int rows, int columns, int minIngredientNum, int maxSliceSize)
         {
             this.MaxSliceSize = maxSliceSize;
             this.MinIngredientNum = minIngredientNum;

@@ -15,9 +15,9 @@ namespace Pizza_problem
 
     public class Parser
     {
-        public PizzaParams Parse()
+        public PizzaParams Parse(string path)
         {
-            using (StreamReader reader = new StreamReader("small.in"))
+            using (StreamReader reader = new StreamReader(path))
             {
                 string first = reader.ReadLine();
                 string[] lineParams = first.Split(' ');
