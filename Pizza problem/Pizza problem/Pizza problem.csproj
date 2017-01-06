@@ -48,6 +48,7 @@
     <Compile Include="Parser.cs" />
     <Compile Include="Pizza.cs" />
     <Compile Include="PizzaParams.cs" />
+    <Compile Include="PizzaPrinter.cs" />
     <Compile Include="PizzaSlice.cs" />
     <Compile Include="PizzaSolverBase.cs" />
     <Compile Include="PizzaSolverBasic.cs" />
