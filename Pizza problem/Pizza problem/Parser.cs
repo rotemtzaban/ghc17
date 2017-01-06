@@ -24,21 +24,24 @@ namespace Pizza_problem
                 PizzaParams pizaParam = new PizzaParams(int.Parse(lineParams[0]), int.Parse(lineParams[1]), int.Parse(lineParams[2]), int.Parse(lineParams[3]));
 
                 string line = reader.ReadLine();
+                int count = 0;
                 while (line != null)
                 {
                     char[] lineAsChar = line.ToCharArray();
-                    Engridient[] eng = new Engridient[line.Length];
                     for (int i = 0; i < line.Length; i++)
                     {
                         if (lineAsChar[i] == 'M')
                         {
-                            eng[i] = Engridient.Mushroom;
+                            pizaParam.PizzaEngridients[count, i] = Engridient.Mushroom;
                         }
                         else
                         {
-                            eng[i] = Engridient.Tomato;
+                            pizaParam.PizzaEngridients[count, i] = Engridient.Tomato;
                         }
                     }
+
+                    count++;
+                    line = reader.ReadLine();
                 }
             }
         }

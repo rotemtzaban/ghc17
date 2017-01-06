@@ -11,7 +11,5 @@ namespace Pizza_problem
 		public PizzaSolverBasic()
 		{
 		}
-
-		public 
 	}
 }
