@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Pizza_problem
+namespace HashCodeCommon
 {
-    public class Pizza
+    public interface IScoreCalculator<T>
     {
-		
+        int Calculate(T result);
+        int Calculate(string path);
     }
 }

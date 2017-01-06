@@ -92,7 +92,6 @@ namespace Pizza_problem
             int index = consoleColorCount % printedColors.Length;
             consoleColorCount++;
             return printedColors[index];
-
         }
 
         private string GetOutputFilePath()

@@ -77,7 +77,7 @@ namespace Pizza_problem
 				Console.WriteLine("New " + finalPath + " was the same as last");
 		}
 
-		private static void RunOnInput(string data, int numberOfAttempts, string outputPath = null, bool printResults = true)
+		private static void RunOnInput(string data, int numberOfAttempts, string outputPath, bool printResults = true)
 		{
 			IEnumerable<PizzaSlice> bestResults = null;
 			var parser = new Parser();
