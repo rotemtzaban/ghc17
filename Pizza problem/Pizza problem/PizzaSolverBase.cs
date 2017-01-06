@@ -6,10 +6,16 @@ namespace Pizza_problem
 {
 	public class PizzaSolverBase
 	{
+		#region Fields
+
 		protected readonly PizzaParams Pizza;
 
 		private readonly int[,] tomatoTable;
 		private readonly int[,] mushroomTable;
+
+		#endregion
+
+		#region C'tor
 
 		public PizzaSolverBase(PizzaParams pizza)
 		{
@@ -17,6 +23,10 @@ namespace Pizza_problem
 			tomatoTable = CreateCountTable(Ingredient.Tomato);
 			mushroomTable = CreateCountTable(Ingredient.Mushroom);
 		}
+
+		#endregion
+
+		#region Public Methods
 
 		public int GetMushroomsInSlice(PizzaSlice slice)
 		{
@@ -53,7 +63,11 @@ namespace Pizza_problem
             }
         }
 
-        private void TryEnlargeSlice(PizzaSlice slice)
+		#endregion
+
+		#region Private Methods
+
+		private void TryEnlargeSlice(PizzaSlice slice)
         {
             throw new NotImplementedException();
         }
@@ -111,5 +125,7 @@ namespace Pizza_problem
 
 			return totalSum - leftSum - topSum + topLeftSum;
 		}
+
+		#endregion
     }
 }
