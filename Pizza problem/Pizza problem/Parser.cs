@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Pizza_problem
 {
-    public enum Engridient
+    public enum Ingredient
     {
         Tomato,
         Mushroom
@@ -27,16 +27,16 @@ namespace Pizza_problem
                 while (line != null)
                 {
                     char[] lineAsChar = line.ToCharArray();
-                    Engridient[] eng = new Engridient[line.Length];
+                    Ingredient[] eng = new Ingredient[line.Length];
                     for (int i = 0; i < line.Length; i++)
                     {
                         if (lineAsChar[i] == 'M')
                         {
-                            eng[i] = Engridient.Mushroom;
+                            eng[i] = Ingredient.Mushroom;
                         }
                         else
                         {
-                            eng[i] = Engridient.Tomato;
+                            eng[i] = Ingredient.Tomato;
                         }
                     }
                 }

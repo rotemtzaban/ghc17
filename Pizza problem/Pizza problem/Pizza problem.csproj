@@ -49,6 +49,7 @@
     <Compile Include="Pizza.cs" />
     <Compile Include="PizzaParams.cs" />
     <Compile Include="PizzaSlice.cs" />
+    <Compile Include="PizzaSolverBase.cs" />
     <Compile Include="PizzaSolverBasic.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

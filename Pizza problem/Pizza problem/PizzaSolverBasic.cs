@@ -6,12 +6,19 @@ using System.Threading.Tasks;
 
 namespace Pizza_problem
 {
-	public class PizzaSolverBasic
+	public class PizzaSolverBasic : PizzaSolverBase
 	{
 		public PizzaSolverBasic()
 		{
 		}
 
-		public 
+		public PizzaSlice[] Solve()
+		{
+			int R;
+			int C;
+
+		}
+
+		
 	}
 }
