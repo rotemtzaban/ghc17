@@ -46,6 +46,7 @@
     <Compile Include="BaseClasses\PrinterBase.cs" />
     <Compile Include="BaseClasses\ScoreCalculatorBase.cs" />
     <Compile Include="HelperClasses\Coordinate.cs" />
+    <Compile Include="HelperClasses\DictionaryExtensions.cs" />
     <Compile Include="HelperClasses\Rectangle.cs" />
     <Compile Include="Interfaces\IGoodCloneable.cs" />
     <Compile Include="Interfaces\IParser.cs" />

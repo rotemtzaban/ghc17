@@ -41,32 +41,30 @@ namespace DronesProblemTests
 			Assert.AreEqual(1, output.Commands.OfType<WaitCommand>().Count());
 			Assert.AreEqual(1, output.Commands.OfType<UnloadCommand>().Count());
 
-			Assert.AreEqual(5, output.Commands.Count(c => c.Drone.ID == 0));
-			Assert.AreEqual(6, output.Commands.Count(c => c.Drone.ID == 1));
+			Assert.AreEqual(5, output.Commands.Count(c => c.Drone.Index == 0));
+			Assert.AreEqual(6, output.Commands.Count(c => c.Drone.Index == 1));
 
 			var loadCommand = output.Commands[5] as LoadCommand;
-			Assert.AreEqual(1u, loadCommand.Drone.ID);
-			Assert.AreEqual(1, loadCommand.Warehouse.ID);
-			Assert.AreEqual(2, loadCommand.Product.ID);
+			Assert.AreEqual(1, loadCommand.Drone.Index);
+			Assert.AreEqual(1, loadCommand.Warehouse.Index);
+			Assert.AreEqual(2, loadCommand.Product.Index);
 			Assert.AreEqual(1, loadCommand.ProductCount);
 
 			var deliverCommand = output.Commands[6] as DeliverCommand;
-			Assert.AreEqual(1u, deliverCommand.Drone.ID);
-			Assert.AreEqual(2, deliverCommand.Order.ID);
-			Assert.AreEqual(2, deliverCommand.Product.ID);
+			Assert.AreEqual(1, deliverCommand.Drone.Index);
+			Assert.AreEqual(2, deliverCommand.Order.Index);
+			Assert.AreEqual(2, deliverCommand.Product.Index);
 			Assert.AreEqual(1, deliverCommand.ProductCount);
 
 			var waitCommand = output.Commands[9] as WaitCommand;
-			Assert.AreEqual(1u, waitCommand.Drone.ID);
+			Assert.AreEqual(1, waitCommand.Drone.Index);
 			Assert.AreEqual(3u, waitCommand.TurnCount);
 
 			var unloadCommand = output.Commands[10] as UnloadCommand;
-			Assert.AreEqual(1u, unloadCommand.Drone.ID);
-			Assert.AreEqual(1, unloadCommand.Warehouse.ID);
-			Assert.AreEqual(1, unloadCommand.Product.ID);
+			Assert.AreEqual(1, unloadCommand.Drone.Index);
+			Assert.AreEqual(1, unloadCommand.Warehouse.Index);
+			Assert.AreEqual(1, unloadCommand.Product.Index);
 			Assert.AreEqual(1, unloadCommand.ProductCount);
 		}
-
-
 	}
 }
