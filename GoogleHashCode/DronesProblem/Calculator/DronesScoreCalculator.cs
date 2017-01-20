@@ -124,7 +124,7 @@ namespace DronesProblem
 						carriedWeight += loadCommand.Product.Weight*loadCommand.ProductCount;
 
 						if(carriedWeight > input.MaxWeight)
-							throw new Exception(string.Format("Drone {0} is carrying {1} weight in turn {2}, which is more than maximum ({3})", drone.ID, carriedWeight, currentTurn, input.MaxWeight));
+							throw new Exception(string.Format("Drone {0} is carrying {1} weight in turn {2}, which is more than maximum ({3})", drone.Index, carriedWeight, currentTurn, input.MaxWeight));
 
 						var ev = new Event
 						{
