@@ -48,7 +48,7 @@ namespace DronesProblem
 							d.Commands.RemoveAt (0); // remove this "first" cmd
 							DeliverCommand deliverCmd = cmd as DeliverCommand;
 							if (deliverCmd != null) {
-								d.WeightLoad -= deliverCmd.Product.Weight * deliverCmd.ProductCount;
+								d.WeightLoad -= deliverCmd.Product.Weight * (uint)deliverCmd.ProductCount;
 							}
 						}
 					

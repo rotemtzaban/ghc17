@@ -23,6 +23,7 @@ namespace DronesProblem
 		public Coordinate GetExpectedLocation ()
 		{
 			// TODO: for commands, calculate expected location
+			throw new NotImplementedException();
 		}
 
 		public Drone()
