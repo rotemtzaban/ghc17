@@ -50,7 +50,7 @@ namespace DronesProblem
 				commands.Add(newCommand);
 			}
 
-			return new DronesOutput {Commands = commands};
+			return new DronesOutput { Commands = commands };
 		}
 	}
 }
