@@ -109,7 +109,7 @@ namespace HashCodeCommon
 			if (!File.Exists(finalPath))
 			{
 				File.Move(newPath, finalPath);
-				return m_Calculator.Calculate(input, newPath);
+				return m_Calculator.Calculate(input, finalPath);
 			}
 
 			int finalCalc = m_Calculator.Calculate(input.Clone(), finalPath);
