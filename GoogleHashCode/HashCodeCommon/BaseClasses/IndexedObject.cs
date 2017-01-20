@@ -30,5 +30,10 @@ namespace HashCodeCommon.BaseClasses
         {
             return this.Index;
         }
+
+        public override string ToString()
+        {
+            return "Index: " + this.Index;
+        }
     }
 }

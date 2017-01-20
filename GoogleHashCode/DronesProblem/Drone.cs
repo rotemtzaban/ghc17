@@ -41,7 +41,7 @@ namespace DronesProblem
         {
             this.WeightLoad = other.WeightLoad;
             this.TurnsUntilAvailable = other.TurnsUntilAvailable;
-            this.Commands = other.Commands;
+            this.Commands = new List<CommandBase>();
         }
     }
 }

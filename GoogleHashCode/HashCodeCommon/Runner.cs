@@ -112,8 +112,8 @@ namespace HashCodeCommon
 				return m_Calculator.Calculate(input.Clone(), finalPath);
 			}
 
-			int finalCalc = m_Calculator.Calculate(input.Clone(), finalPath);
 			int newCalc = m_Calculator.Calculate(input.Clone(), newPath);
+			int finalCalc = m_Calculator.Calculate(input.Clone(), finalPath);
 			if (newCalc > finalCalc)
 			{
 				File.Delete(finalPath);
