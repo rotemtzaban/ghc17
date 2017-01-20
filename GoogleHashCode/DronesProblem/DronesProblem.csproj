@@ -44,6 +44,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\CommandBase.cs" />
+    <Compile Include="Commands\DeliverCommand.cs" />
+    <Compile Include="Commands\InventoryCommand.cs" />
+    <Compile Include="Commands\LoadCommand.cs" />
+    <Compile Include="Commands\UnloadCommand.cs" />
+    <Compile Include="Commands\WaitCommand.cs" />
     <Compile Include="DronesInput.cs" />
     <Compile Include="DronesOutput.cs" />
     <Compile Include="DronesParser.cs" />

@@ -13,7 +13,7 @@ namespace DronesProblem
 
         public DronesOutput Solve(DronesInput input)
         {
-            throw new Exception();
+			throw new NotImplementedException ();
         }
     }
 }

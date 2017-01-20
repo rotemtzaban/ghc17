@@ -9,13 +9,12 @@ namespace DronesProblem
 {
     public class Drone
     {
+		public uint ID { get; set; }
         public Coordinate Location { get; set; }
 
 		public uint Weight { get; set; }
 
 		//List<ICommand> Commands { get; set; }
-
-		public uint ID { get; set; }
 
 		public uint TurnsUntilAvailable { get; set; }
 

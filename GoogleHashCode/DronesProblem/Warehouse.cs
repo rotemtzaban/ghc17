@@ -9,6 +9,8 @@ namespace DronesProblem
 {
     public class Warehouse
     {
+		public int ID { get; set;}
+
         public Coordinate Location { get; set; }
 
         public Dictionary<Product, int> Products { get; set; }

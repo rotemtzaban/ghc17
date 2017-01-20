@@ -8,7 +8,7 @@ namespace HashCodeCommon
 {
     public struct Coordinate
     {
-        public Coordinate(int x, int y)
+        public Coordinate(int x, int y) : this()
         {
             X = x;
             Y = y;
