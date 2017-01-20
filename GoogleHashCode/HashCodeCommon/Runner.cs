@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HashCodeCommon.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 namespace HashCodeCommon
 {
 	public class Runner<TInput, TOutput>
+        where TInput : IGoodCloneable<TInput>
 	{
 		private IParser<TInput> m_Parser;
 		private ISolver<TInput, TOutput> m_Solver;
@@ -32,7 +34,7 @@ namespace HashCodeCommon
 		public void Run(string data, string caseName, int numberOfAttempts = 1, bool printResults = true)
 		{
 			TInput input = m_Parser.ParseFromData(data);
-			TOutput bestResults = GetBestResult(numberOfAttempts, input);
+			TOutput bestResults = GetBestResult(numberOfAttempts, input.Clone());
 
 			string newOutPath = caseName + ".new.out";
 			string finalPath = caseName + ".out";
@@ -45,7 +47,7 @@ namespace HashCodeCommon
 
 			if (m_Calculator != null)
 			{
-				int improvement = ReplaceIfBetter(input, finalPath, newOutPath);
+                int improvement = ReplaceIfBetter(input.Clone(), finalPath, newOutPath);
 				PrintResults(caseName, improvement);
 			}
 		}

@@ -14,5 +14,20 @@ namespace DronesProblem
         public Coordinate Location { get; set; }
 
         public Dictionary<Product, int> Products { get; set; }
+
+        public Warehouse() { }
+
+        public Warehouse (Warehouse other)
+        {
+            this.ID = other.ID;
+            this.Location = other.Location;
+            this.Products = new Dictionary<DronesProblem.Product, int>();
+
+            foreach (var item in Products)
+            {
+                Product clone = new DronesProblem.Product(item.Key);
+                this.Products.Add(clone, item.Value);
+            }
+        }
     }
 }

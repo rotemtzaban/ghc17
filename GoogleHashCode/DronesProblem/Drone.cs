@@ -37,5 +37,13 @@ namespace DronesProblem
 			this.TurnsUntilAvailable = 1; // Workaround for init case
 			this.Commands = new List<CommandBase>();
 		}
-	}
+
+        public Drone(Drone other)
+        {
+            this.ID = other.ID;
+            this.WeightLoad = other.WeightLoad;
+            this.TurnsUntilAvailable = other.TurnsUntilAvailable;
+            this.Commands = other.Commands;
+        }
+    }
 }

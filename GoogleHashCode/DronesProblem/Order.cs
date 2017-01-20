@@ -13,5 +13,21 @@ namespace DronesProblem
         public Coordinate Location { get; set; }
 
         public List<Product> WantedProducts { get; set; }
+
+        public Order()
+        {
+        }
+
+        public Order(Order other)
+        {
+            this.ID = other.ID;
+            this.Location = other.Location;
+            this.WantedProducts = new List<Product>();
+
+            foreach (var item in other.WantedProducts)
+            {
+                this.WantedProducts.Add(new Product(item));
+            }
+        }
     }
 }
