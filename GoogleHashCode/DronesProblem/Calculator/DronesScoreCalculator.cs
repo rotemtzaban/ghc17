@@ -81,7 +81,8 @@ namespace DronesProblem
 					{
 						var loadCommand = command as LoadCommand;
 						var distance = droneLocation.CalcEucledianDistance(loadCommand.Warehouse.Location);
-						currentTurn += ((int) Math.Ceiling(distance)) + 1;
+						currentTurn += ((int)Math.Ceiling(distance)) + 1;
+						droneLocation = loadCommand.Warehouse.Location;
 
 						var ev = new Event
 						{
@@ -90,9 +91,52 @@ namespace DronesProblem
 							ProductTaken = loadCommand.Product,
 							TakenCount = loadCommand.ProductCount
 						};
+
+						allEvents.Add(ev);
+						continue;
+					}
+
+					if (command is UnloadCommand)
+					{
+						var unloadCommand = command as UnloadCommand;
+						var distance = droneLocation.CalcEucledianDistance(unloadCommand.Warehouse.Location);
+						currentTurn += ((int)Math.Ceiling(distance)) + 1;
+						droneLocation = unloadCommand.Warehouse.Location;
+
+						var ev = new Event
+						{
+							Turn = currentTurn,
+							Warehouse = unloadCommand.Warehouse,
+							ProductDelivered = unloadCommand.Product,
+							DeliveredCount = unloadCommand.ProductCount
+						};
+
+						allEvents.Add(ev);
+						continue;
+					}
+
+					if (command is DeliverCommand)
+					{
+						var deliverCommand = command as DeliverCommand;
+						var distance = droneLocation.CalcEucledianDistance(deliverCommand.Order.Location);
+						currentTurn += ((int)Math.Ceiling(distance)) + 1;
+						droneLocation = deliverCommand.Order.Location;
+
+						var ev = new Event
+						{
+							Turn = currentTurn,
+							CurrentOrder = deliverCommand.Order,
+							ProductDelivered = deliverCommand.Product,
+							DeliveredCount = deliverCommand.ProductCount
+						};
+
+						allEvents.Add(ev);
+						continue;
 					}
 				}
 			}
+
+			allEvents.Sort((a, b) => a.Turn.CompareTo(b.Turn));
 
 			return allEvents;
 		}
