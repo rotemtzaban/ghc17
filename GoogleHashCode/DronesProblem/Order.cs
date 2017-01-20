@@ -9,6 +9,7 @@ namespace DronesProblem
 {
     public class Order
     {
+		public int ID { get; set; }
         public Coordinate Location { get; set; }
 
         public List<Product> WantedProducts { get; set; }
