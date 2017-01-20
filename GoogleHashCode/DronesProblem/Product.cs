@@ -25,5 +25,16 @@ namespace DronesProblem
             this.ID = other.ID;
             this.Weight = other.Weight;
         }
-	}
+
+        public override bool Equals(object obj)
+        {
+            Product other = obj as Product;
+            if (other == null)
+            {
+                return false;
+            }
+
+            return this.ID == other.ID && this.Weight == other.Weight;
+        }
+    }
 }
