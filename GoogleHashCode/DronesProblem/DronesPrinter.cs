@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace DronesProblem
 {
-    public class DronesPrinter : IPrinter<DronesOutput>
+    public class DronesPrinter : PrinterBase<DronesOutput>
     {
-        public void PrintToConsole(DronesOutput result)
+        public override void PrintToConsole(DronesOutput result)
         {
             throw new NotImplementedException();
         }
 
-        public void PrintToFile(DronesOutput result, string outputPath)
+        public override void PrintToFile(DronesOutput result, string outputPath)
         {
             throw new NotImplementedException();
         }

@@ -4,17 +4,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace DronesProblem
 {
-    public class DronesScoreCalculator : IScoreCalculator<DronesOutput>
+    public class DronesScoreCalculator : ScoreClaculatorBase<DronesOutput>
     {
-        public int Calculate(string path)
+        public override int Calculate(DronesOutput result)
         {
             throw new NotImplementedException();
         }
 
-        public int Calculate(DronesOutput result)
+        protected override DronesOutput GetResultFromReader(StreamReader reader)
         {
             throw new NotImplementedException();
         }
