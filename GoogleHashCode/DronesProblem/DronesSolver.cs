@@ -30,12 +30,12 @@ namespace DronesProblem
 					w.Products[item.Item]--;
 					LoadCommand loadCmd = new LoadCommand (d, w, item.Item, /*productCount=*/ 1);
 					result.Add (loadCmd);
+					DeliverCommand deliverCommand = new DeliverCommand (d, item.ParentOrder, item.Item, /*productCount=*/1);
+					result.Add (deliverCommand);
+
 					break;
 				}								
-			}
-
-			DeliverCommand deliverCommand = new DeliverCommand (d, item.ParentOrder, item.Item, /*productCount=*/1);
-			result.Add (deliverCommand);
+			}		
 
 			return result;
 		}
@@ -75,6 +75,8 @@ namespace DronesProblem
 					}
 				}
 
+				List<Drone> dronesToRemove = new List<Drone> ();
+
 				foreach (Drone d in m_AvailableDrones) {
 					for (int i = 0; i < m_RequestedItems.Count; i++) {
 
@@ -100,8 +102,15 @@ namespace DronesProblem
 							break; // do not add new work to this drone for now
 						}
 					}
+
+					dronesToRemove.Add (d);
+				}
+
+				foreach (Drone d in dronesToRemove) {
+					m_AvailableDrones.Remove (d);
 				}
 			}
+
 
 			return result;
         }
