@@ -18,7 +18,7 @@ namespace DronesProblem
 			int score = 0;
 			foreach (Event currEvent in events)
 			{
-                Console.WriteLine(currEvent);
+                // Console.WriteLine(currEvent);
 				ValidateEvent(currEvent);
 
 				score += CalculateScore(currEvent, input);

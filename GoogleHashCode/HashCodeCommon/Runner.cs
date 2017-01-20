@@ -31,7 +31,7 @@ namespace HashCodeCommon
 			}
 		}
 
-		public void Run(string data, string caseName, int numberOfAttempts = 1, bool printResults = true)
+		public int Run(string data, string caseName, int numberOfAttempts = 1, bool printResults = true)
 		{
 			TInput input = m_Parser.ParseFromData(data);
 			TOutput bestResults = GetBestResult(numberOfAttempts, input.Clone());
@@ -47,9 +47,12 @@ namespace HashCodeCommon
 
 			if (m_Calculator != null)
 			{
-                int improvement = ReplaceIfBetter(input.Clone(), finalPath, newOutPath);
-				PrintResults(caseName, improvement);
+                ScoreChange score = ReplaceIfBetter(input.Clone(), finalPath, newOutPath);
+				PrintResults(caseName, score.Improvment);
+                return score.NewScore;
 			}
+
+            return 0;
 		}
 
 		private void PrintResults(string caseName, int improvement)
@@ -101,7 +104,7 @@ namespace HashCodeCommon
 			return bestResults;
 		}
 
-		private int ReplaceIfBetter(TInput input, string finalPath, string newPath)
+		private ScoreChange ReplaceIfBetter(TInput input, string finalPath, string newPath)
 		{
 			if (!File.Exists(newPath))
 				throw new ArgumentException("output file wasn't created - " + newPath, "newPath");
@@ -109,7 +112,7 @@ namespace HashCodeCommon
 			if (!File.Exists(finalPath))
 			{
 				File.Move(newPath, finalPath);
-				return m_Calculator.Calculate(input.Clone(), finalPath);
+				return new ScoreChange(m_Calculator.Calculate(input.Clone(), finalPath));
 			}
 
 			int newCalc = m_Calculator.Calculate(input.Clone(), newPath);
@@ -121,14 +124,14 @@ namespace HashCodeCommon
                     File.Delete(finalPath);
                     File.Move(newPath, finalPath);
                 }
-                return newCalc - finalCalc;
+                return new ScoreChange(newCalc, newCalc - finalCalc);
             }
             catch
             {
                 Console.WriteLine("Warning: old file wasn't valid");
                 File.Delete(finalPath);
                 File.Move(newPath, finalPath);
-                return newCalc;
+                return new ScoreChange(newCalc);
             }
 		}
 
@@ -162,6 +165,24 @@ namespace HashCodeCommon
             Directory.Delete(tmpFolder, true);
 
             Console.WriteLine("finish create zip");
+        }
+
+        public class ScoreChange
+        {
+            public int Improvment { get; set; }
+            public int NewScore { get; set; }
+
+            public ScoreChange(int newScore)
+            {
+                this.Improvment = newScore;
+                this.NewScore = newScore;
+            }
+
+            public ScoreChange(int newScore, int improvment)
+            {
+                this.Improvment = improvment;
+                this.NewScore = newScore;
+            }
         }
     }
 }
