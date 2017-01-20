@@ -11,7 +11,7 @@ namespace DronesProblem
     {
         public Coordinate Location { get; set; }
 
-		public uint Weight { get; set; }
+		public uint WeightLoad { get; set; }
 
 		//List<ICommand> Commands { get; set; }
 
@@ -19,10 +19,12 @@ namespace DronesProblem
 
 		public uint TurnsUntilAvailable { get; set; }
 
-		public Drone(uint id, uint weight)
+		//public 
+
+		public Drone(uint id)
 		{
 			this.ID = id;
-			this.Weight = weight;
+			this.WeightLoad = 0;
 			this.TurnsUntilAvailable = 0;
 		}
     }
