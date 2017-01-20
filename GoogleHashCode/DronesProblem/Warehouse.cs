@@ -29,5 +29,21 @@ namespace DronesProblem
                 this.Products.Add(clone, item.Value);
             }
         }
+
+        public override bool Equals(object obj)
+        {
+            Warehouse other = obj as Warehouse;
+            if (other == null)
+            {
+                return false;
+            }
+
+            return this.ID == other.ID;
+        }
+
+        public override int GetHashCode()
+        {
+            return this.ID;
+        }
     }
 }

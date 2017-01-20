@@ -36,5 +36,10 @@ namespace DronesProblem
 
             return this.ID == other.ID && this.Weight == other.Weight;
         }
+
+        public override int GetHashCode()
+        {
+            return this.ID;
+        }
     }
 }
