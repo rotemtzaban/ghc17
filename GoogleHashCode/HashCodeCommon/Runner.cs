@@ -109,7 +109,7 @@ namespace HashCodeCommon
 			if (!File.Exists(finalPath))
 			{
 				File.Move(newPath, finalPath);
-				return m_Calculator.Calculate(input, finalPath);
+				return m_Calculator.Calculate(input.Clone(), finalPath);
 			}
 
 			int finalCalc = m_Calculator.Calculate(input.Clone(), finalPath);
@@ -144,12 +144,15 @@ namespace HashCodeCommon
             }
 
             var targetZip = Path.Combine(sourceDir, "out", "Code.zip");
+            Directory.CreateDirectory(Path.GetDirectoryName(targetZip));
 
             if (File.Exists(targetZip))
                 File.Delete(targetZip);
             ZipFile.CreateFromDirectory(tmpFolder, targetZip);
 
             Directory.Delete(tmpFolder, true);
+
+            Console.WriteLine("finish create zip");
         }
     }
 }
