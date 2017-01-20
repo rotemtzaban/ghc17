@@ -15,11 +15,11 @@ namespace DronesProblem
 	{
 		static void Main(string[] args)
 		{
-            Runner<DronesInput, DronesOutput>  runner = new Runner<DronesInput, DronesOutput>(new DronesParser(), new DronesSolver(), new DronesPrinter(), new DronesScoreCalculator());
-            int score = runner.Run(Properties.Resources.mother_of_all_warehouses, "mother_of_all_warehouses", 1, false);
+            Runner<DronesInput, DronesOutput>  runner = new Runner<DronesInput, DronesOutput>(new DronesParser(), new DronesSolver(), new DronesPrinter(), null);
+            runner.Run(Properties.Resources.Example, "Example", 1, false);
 
-            // runner = new Runner<DronesInput, DronesOutput>(new DronesParser(), new DronesSolver(), new DronesPrinter(), new DronesScoreCalculator());
-			// runner.Run(Properties.Resources.Example, "Example", 1, false);
+            runner = new Runner<DronesInput, DronesOutput>(new DronesParser(), new DronesSolver(), new DronesPrinter(), new DronesScoreCalculator());
+            int score = runner.Run(Properties.Resources.mother_of_all_warehouses, "mother_of_all_warehouses", 1, false);
 
             runner = new Runner<DronesInput, DronesOutput>(new DronesParser(), new DronesSolver(), new DronesPrinter(), new DronesScoreCalculator());
             score += runner.Run(Properties.Resources.busy_day, "busy_day",1, false);

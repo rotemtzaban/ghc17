@@ -24,11 +24,6 @@ namespace HashCodeCommon
 			m_Solver = solver;
 			m_Printer = printer;
 			m_Calculator = calculator;
-
-			if (calculator == null)
-			{
-				Console.WriteLine("Calculator is null. compare to last result won't happened");
-			}
 		}
 
 		public int Run(string data, string caseName, int numberOfAttempts = 1, bool printResults = true)
@@ -51,6 +46,10 @@ namespace HashCodeCommon
 				PrintResults(caseName, score.Improvment);
                 return score.NewScore;
 			}
+            else
+            {
+                Console.WriteLine(caseName + ": Calculator is null. No comparison was made");
+            }
 
             return 0;
 		}
@@ -59,15 +58,15 @@ namespace HashCodeCommon
 		{
 			if (improvement < 0)
 			{
-				WriteLineToConsoleInColor("New " + caseName + " was worse. decrease by " + improvement, ConsoleColor.Red);
+				WriteLineToConsoleInColor(caseName + ": new was worse. decrease by " + improvement, ConsoleColor.Red);
 			}
 			else if (improvement == 0)
 			{
-				WriteLineToConsoleInColor("New " + caseName + " was the same as last", ConsoleColor.Yellow);
+				WriteLineToConsoleInColor(caseName + ": new was the same as last", ConsoleColor.Yellow);
 			}
 			else
 			{
-				WriteLineToConsoleInColor("New " + caseName + " was better. improve by " + improvement, ConsoleColor.Green);
+				WriteLineToConsoleInColor(caseName + " new was better. improve by " + improvement, ConsoleColor.Green);
 			}
 		}
 
