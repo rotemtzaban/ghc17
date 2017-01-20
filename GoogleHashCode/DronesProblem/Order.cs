@@ -9,13 +9,15 @@ namespace DronesProblem
 {
     public class Order
     {
-		public int ID { get; set; }
+        private static int s_ID = 0;
+        public int ID { get; set; }
         public Coordinate Location { get; set; }
 
         public List<Product> WantedProducts { get; set; }
 
         public Order()
         {
+            this.ID = s_ID++;
         }
 
         public Order(Order other)
