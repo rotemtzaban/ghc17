@@ -15,11 +15,11 @@ namespace HashCodeCommon
         {
             using (StreamReader reader = new StreamReader(path))
             {
-                var lastResult = GetResultFromReader(reader);
+                var lastResult = GetResultFromReader(input, reader);
                 return Calculate(input, lastResult);
             }
         }
 
-        protected abstract TOut GetResultFromReader(StreamReader reader);
+        protected abstract TOut GetResultFromReader(TIn input, StreamReader reader);
     }
 }
