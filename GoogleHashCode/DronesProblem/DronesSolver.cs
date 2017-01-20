@@ -9,6 +9,8 @@ namespace DronesProblem
 {
     public class DronesSolver : ISolver<DronesInput, DronesOutput>
     {
+		private Drone drone;
+
         public DronesOutput Solve(DronesInput input)
         {
             
