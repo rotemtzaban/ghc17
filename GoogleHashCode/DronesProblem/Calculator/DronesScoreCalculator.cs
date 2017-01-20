@@ -15,49 +15,49 @@ namespace DronesProblem
 		{
 			var events = CreateEvents(input, output);
 
-            int score = 0;
-            foreach (Event currEvent in events)
-            {
-                ValidateEvent(currEvent);
+			int score = 0;
+			foreach (Event currEvent in events)
+			{
+				ValidateEvent(currEvent);
 
-                score += CalculateScore(currEvent, input);
-            }
+				score += CalculateScore(currEvent, input);
+			}
 
 			return score;
 		}
 
-        private int CalculateScore(Event currEvent, DronesInput input)
-        {
-            if (currEvent.ProductDelivered != null)
-            {
-                if (!currEvent.CurrentOrder.WantedProducts.Remove(currEvent.ProductDelivered))
-                {
-                    throw new Exception("Deliver not existing item");
-                }
+		private int CalculateScore(Event currEvent, DronesInput input)
+		{
+			if (currEvent.ProductDelivered != null)
+			{
+				if (!currEvent.CurrentOrder.WantedProducts.Remove(currEvent.ProductDelivered))
+				{
+					throw new Exception("Deliver not existing item");
+				}
 
-                if (currEvent.CurrentOrder.WantedProducts.Count == 0)
-                {
-                    int mone = input.NumOfTurns - (int)currEvent.Turn;
-                    double mechane = (double)input.NumOfTurns;
-                    return (int)Math.Ceiling((mone / mechane) * 100);
-                }
-            }
+				if (currEvent.CurrentOrder.WantedProducts.Count == 0)
+				{
+					int mone = input.NumOfTurns - (int)currEvent.Turn;
+					double mechane = (double)input.NumOfTurns;
+					return (int)Math.Ceiling((mone / mechane) * 100);
+				}
+			}
 
-            return 0;
-        }
+			return 0;
+		}
 
-        private void ValidateEvent(Event currEvent)
-        {
-            if (currEvent.ProductTaken != null)
-            {
-                if (!currEvent.Warehouse.Products.Remove(currEvent.ProductTaken))
-                {
-                    throw new Exception("item not in warehouse");
-                }
-            }
-        }
+		private void ValidateEvent(Event currEvent)
+		{
+			if (currEvent.ProductTaken != null)
+			{
+				if (!currEvent.Warehouse.Products.Remove(currEvent.ProductTaken))
+				{
+					throw new Exception("item not in warehouse");
+				}
+			}
+		}
 
-        public override DronesOutput GetResultFromReader(DronesInput input, TextReader reader)
+		public override DronesOutput GetResultFromReader(DronesInput input, TextReader reader)
 		{
 			var commands = new List<CommandBase>();
 			var commandCount = int.Parse(reader.ReadLine());
@@ -99,10 +99,13 @@ namespace DronesProblem
 			var allEvents = new List<Event>();
 			foreach (var droneCommands in output.Commands.GroupBy(c => c.Drone.ID))
 			{
-				// TODO: Check the weights too
 				var drone = input.Drones[(int)droneCommands.Key];
 				long currentTurn = 0;
 				var droneLocation = drone.Location;
+				long carriedWeight = 0;
+				// TODO: Check carried products
+				Dictionary<Product, int> carriedProducts = new Dictionary<Product, int>();
+
 				foreach (var command in droneCommands)
 				{
 					if (command is WaitCommand)
@@ -118,6 +121,10 @@ namespace DronesProblem
 						var distance = droneLocation.CalcEucledianDistance(loadCommand.Warehouse.Location);
 						currentTurn += ((int)Math.Ceiling(distance)) + 1;
 						droneLocation = loadCommand.Warehouse.Location;
+						carriedWeight += loadCommand.Product.Weight*loadCommand.ProductCount;
+
+						if(carriedWeight > input.MaxWeight)
+							throw new Exception(string.Format("Drone {0} is carrying {1} weight in turn {2}, which is more than maximum ({3})", drone.ID, carriedWeight, currentTurn, input.MaxWeight));
 
 						var ev = new Event
 						{
@@ -137,6 +144,7 @@ namespace DronesProblem
 						var distance = droneLocation.CalcEucledianDistance(unloadCommand.Warehouse.Location);
 						currentTurn += ((int)Math.Ceiling(distance)) + 1;
 						droneLocation = unloadCommand.Warehouse.Location;
+						carriedWeight -= unloadCommand.Product.Weight*unloadCommand.ProductCount;
 
 						var ev = new Event
 						{
@@ -156,6 +164,7 @@ namespace DronesProblem
 						var distance = droneLocation.CalcEucledianDistance(deliverCommand.Order.Location);
 						currentTurn += ((int)Math.Ceiling(distance)) + 1;
 						droneLocation = deliverCommand.Order.Location;
+						carriedWeight -= deliverCommand.Product.Weight * deliverCommand.ProductCount;
 
 						var ev = new Event
 						{

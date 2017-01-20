@@ -58,7 +58,7 @@ namespace DronesProblemTests
 
 			var waitCommand = output.Commands[9] as WaitCommand;
 			Assert.AreEqual(1u, waitCommand.Drone.ID);
-			Assert.AreEqual(3, waitCommand.TurnCount);
+			Assert.AreEqual(3u, waitCommand.TurnCount);
 
 			var unloadCommand = output.Commands[10] as UnloadCommand;
 			Assert.AreEqual(1u, unloadCommand.Drone.ID);
@@ -66,5 +66,7 @@ namespace DronesProblemTests
 			Assert.AreEqual(1, unloadCommand.Product.ID);
 			Assert.AreEqual(1, unloadCommand.ProductCount);
 		}
+
+
 	}
 }
