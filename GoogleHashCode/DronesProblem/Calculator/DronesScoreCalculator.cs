@@ -21,8 +21,6 @@ namespace DronesProblem
                 ValidateEvent(currEvent);
 
                 score += CalculateScore(currEvent, input);
-
-
             }
 
 			return score;

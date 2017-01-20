@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseClasses\ObjectBase.cs" />
     <Compile Include="BaseClasses\PrinterBase.cs" />
     <Compile Include="BaseClasses\ScoreCalculatorBase.cs" />
     <Compile Include="HelperClasses\Coordinate.cs" />
