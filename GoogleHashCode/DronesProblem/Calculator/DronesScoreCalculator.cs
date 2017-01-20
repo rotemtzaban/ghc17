@@ -103,8 +103,7 @@ namespace DronesProblem
 				long currentTurn = 0;
 				var droneLocation = drone.Location;
 				long carriedWeight = 0;
-				// TODO: Check carried products
-				Dictionary<Product, int> carriedProducts = new Dictionary<Product, int>();
+				var carriedProducts = new Dictionary<Product, int>();
 
 				foreach (var command in droneCommands)
 				{
@@ -122,6 +121,7 @@ namespace DronesProblem
 						currentTurn += ((int)Math.Ceiling(distance)) + 1;
 						droneLocation = loadCommand.Warehouse.Location;
 						carriedWeight += loadCommand.Product.Weight*loadCommand.ProductCount;
+						carriedProducts[loadCommand.Product] = carriedProducts.GetOrDefault(loadCommand.Product, 0) + loadCommand.ProductCount;
 
 						if(carriedWeight > input.MaxWeight)
 							throw new Exception(string.Format("Drone {0} is carrying {1} weight in turn {2}, which is more than maximum ({3})", drone.Index, carriedWeight, currentTurn, input.MaxWeight));
@@ -146,6 +146,11 @@ namespace DronesProblem
 						currentTurn += ((int)Math.Ceiling(distance)) + 1;
 						droneLocation = unloadCommand.Warehouse.Location;
 						carriedWeight -= unloadCommand.Product.Weight*unloadCommand.ProductCount;
+						var newCount = carriedProducts.GetOrDefault(unloadCommand.Product, 0) - unloadCommand.ProductCount;
+						if(newCount < 0)
+							throw new Exception(string.Format("Drone {0} attempted to unload {1} products of type {2} which he doesn't have", drone.Index, unloadCommand.ProductCount, unloadCommand.Product.Index));
+
+						carriedProducts[unloadCommand.Product] = newCount;
 
 						var ev = new Event
 						{
@@ -167,6 +172,11 @@ namespace DronesProblem
 						currentTurn += ((int)Math.Ceiling(distance)) + 1;
 						droneLocation = deliverCommand.Order.Location;
 						carriedWeight -= deliverCommand.Product.Weight * deliverCommand.ProductCount;
+						var newCount = carriedProducts.GetOrDefault(deliverCommand.Product, 0) - deliverCommand.ProductCount;
+						if (newCount < 0)
+							throw new Exception(string.Format("Drone {0} attempted to deliver {1} products of type {2} which he doesn't have", drone.Index, deliverCommand.ProductCount, deliverCommand.Product.Index));
+
+						carriedProducts[deliverCommand.Product] = newCount;
 
 						var ev = new Event
 						{
