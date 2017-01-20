@@ -17,13 +17,32 @@ namespace DronesProblem
 
             foreach (Event currEvent in events)
             {
+                ValidateEvent(currEvent);
 
+                CalculateScore(currEvent);
             }
 
 			return -1;
 		}
 
-		public override DronesOutput GetResultFromReader(DronesInput input, StreamReader reader)
+        private void CalculateScore(Event currEvent)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void ValidateEvent(Event currEvent)
+        {
+            if (currEvent.ProductsDelivered.Count > 0)
+            {
+
+            }
+            else if (currEvent.ProductsTaken.Count > 0 )
+            {
+
+            }
+        }
+
+        public override DronesOutput GetResultFromReader(DronesInput input, StreamReader reader)
 		{
 			var commands = new List<CommandBase>();
 			var commandCount = int.Parse(reader.ReadLine());

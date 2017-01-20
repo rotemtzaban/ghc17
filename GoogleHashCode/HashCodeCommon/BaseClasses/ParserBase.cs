@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HashCodeCommon.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 namespace HashCodeCommon
 {
     public abstract class ParserBase<T> : IParser<T>
+        where T : IGoodCloneable<T>
     {
         public T ParseFromData(string data)
         {

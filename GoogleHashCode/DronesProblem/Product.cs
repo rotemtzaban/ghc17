@@ -19,5 +19,11 @@ namespace DronesProblem
 			Weight = uint.Parse(weight);
 			this.ID = s_ID++;
 		}
+
+        public Product(Product other)
+        {
+            this.ID = other.ID;
+            this.Weight = other.Weight;
+        }
 	}
 }
