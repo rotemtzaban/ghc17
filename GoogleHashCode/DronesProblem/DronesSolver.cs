@@ -19,11 +19,25 @@ namespace DronesProblem
 			m_RequestedItems = new List<WorkItem> ();	
 		}
 
-		private IEnumerable<CommandBase> GetCommands(Drone d, WorkItem item)
+		private IEnumerable<CommandBase> GetCommands(Drone d, WorkItem item, DronesInput input)
 		{
-			CommandBase cmdToIssue = null;
+			// For now, all will be load deliver heuristic.
+			List<CommandBase> result = new List<CommandBase>();
 
-			throw new NotImplementedException ();
+			foreach (Warehouse w in input.WareHouses) {
+				int itemCount;
+				if (w.Products.TryGetValue (item.Item, out itemCount) && itemCount > 0) {
+					w.Products[item.Item]--;
+					LoadCommand loadCmd = new LoadCommand (d, w, item.Item, /*productCount=*/ 1);
+					result.Add (loadCmd);
+					break;
+				}								
+			}
+
+			DeliverCommand deliverCommand = new DeliverCommand (d, item.ParentOrder, item.Item, /*productCount=*/1);
+			result.Add (deliverCommand);
+
+			return result;
 		}
 
         public DronesOutput Solve(DronesInput input)
@@ -31,6 +45,12 @@ namespace DronesProblem
 			DronesOutput result = new DronesOutput ();
 
 			// TODO: populate m_RequestedItems according to input
+			foreach (Order order in input.Orders) {				
+				foreach (Product product in order.WantedProducts) {
+					WorkItem workItem = new WorkItem (product, order.Location, order);
+					m_RequestedItems.Add (workItem);
+				}
+			}
 
 			for (int t = 0; t < input.NumOfTurns; t++) {
 				foreach (Drone d in input.Drones)
@@ -62,7 +82,7 @@ namespace DronesProblem
 							continue;
 						}
 
-						IEnumerable<CommandBase> cmds = GetCommands(d, m_RequestedItems[i]);
+						IEnumerable<CommandBase> cmds = GetCommands(d, m_RequestedItems[i], input);
 						d.Commands.AddRange (cmds);
 						result.Commands.AddRange (cmds);
 						foreach (CommandBase cmd in cmds) {
