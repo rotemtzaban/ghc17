@@ -62,15 +62,39 @@ namespace DronesProblem
 
 		private static List<Event> CreateEvents(DronesInput input, DronesOutput output)
 		{
+			var allEvents = new List<Event>();
 			foreach (var droneCommands in output.Commands.GroupBy(c => c.Drone.ID))
 			{
 				var drone = input.Drones[(int)droneCommands.Key];
-				int currentTurn = 0;
+				long currentTurn = 0;
+				var droneLocation = drone.Location;
 				foreach (var command in droneCommands)
 				{
-					
+					if (command is WaitCommand)
+					{
+						var waitCommand = command as WaitCommand;
+						currentTurn += waitCommand.TurnCount;
+						continue;
+					}
+
+					if (command is LoadCommand)
+					{
+						var loadCommand = command as LoadCommand;
+						var distance = droneLocation.CalcEucledianDistance(loadCommand.Warehouse.Location);
+						currentTurn += ((int) Math.Ceiling(distance)) + 1;
+
+						var ev = new Event
+						{
+							Turn = currentTurn,
+							Warehouse = loadCommand.Warehouse,
+							ProductTaken = loadCommand.Product,
+							TakenCount = loadCommand.ProductCount
+						};
+					}
 				}
 			}
+
+			return allEvents;
 		}
 	}
 }
