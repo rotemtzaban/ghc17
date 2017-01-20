@@ -27,6 +27,12 @@ namespace HashCodeCommon
             }
         }
 
+        public static Coordinate ReadLineAsCoordinate(TextReader reader)
+        {
+            string[] locationAsString = reader.ReadLine().Split(' ');
+            return new Coordinate(int.Parse(locationAsString[0]), int.Parse(locationAsString[1]));
+        }
+
         public static long ReadLineAsLong(TextReader reader)
         {
             string line = reader.ReadLine();
