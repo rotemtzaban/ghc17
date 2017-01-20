@@ -45,5 +45,16 @@ namespace DronesProblem
             this.TurnsUntilAvailable = other.TurnsUntilAvailable;
             this.Commands = other.Commands;
         }
+
+		public override bool Equals (object obj)
+		{
+			Drone d = obj as Drone;
+			return d.ID.Equals (this.ID);
+		}
+
+		public override int GetHashCode ()
+		{
+			return this.ID;
+		}
     }
 }
