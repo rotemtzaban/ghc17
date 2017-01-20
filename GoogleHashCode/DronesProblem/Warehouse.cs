@@ -25,7 +25,7 @@ namespace DronesProblem
             this.Location = other.Location;
             this.Products = new Dictionary<DronesProblem.Product, int>();
 
-            foreach (var item in Products)
+            foreach (var item in other.Products)
             {
                 Product clone = new DronesProblem.Product(item.Key);
                 this.Products.Add(clone, item.Value);
