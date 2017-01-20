@@ -6,10 +6,18 @@ using System.Threading.Tasks;
 
 namespace DronesProblem
 {
-    public class Product
+    public struct Product
     {
-        public int ID { get; set; }
+        private static int s_ID = 0;
 
-        public int Weight { get; set; }
+        public int ID { get; private set; }
+
+        public int Weight { get; private set; }
+
+        public Product(string weight)
+        {
+            Weight = int.Parse(weight);
+            this.ID = s_ID++;
+        }
     }
 }
