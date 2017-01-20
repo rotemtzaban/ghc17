@@ -22,6 +22,12 @@ namespace DronesProblem
 				}
 			}
 
+            IEnumerable<Event> events = null;
+            foreach (Event currEvent in events)
+            {
+
+            }
+
 			return -1;
 		}
 
