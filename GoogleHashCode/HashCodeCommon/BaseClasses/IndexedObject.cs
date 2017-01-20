@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HashCodeCommon.BaseClasses
+namespace HashCodeCommon
 {
-    public class IndexedObject
+    public abstract class IndexedObject<T> : IGoodCloneable<T>
     {
         public int Index { get; private set; }
 
@@ -17,7 +17,7 @@ namespace HashCodeCommon.BaseClasses
 
         public override bool Equals(object obj)
         {
-            IndexedObject other = obj as IndexedObject;
+            IndexedObject<T> other = obj as IndexedObject<T>;
             if (other == null)
             {
                 return false;
@@ -35,5 +35,7 @@ namespace HashCodeCommon.BaseClasses
         {
             return "Index: " + this.Index;
         }
+
+        public abstract T Clone();
     }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HashCodeCommon.Interfaces
+namespace HashCodeCommon
 {
     public interface IGoodCloneable<T>
     {

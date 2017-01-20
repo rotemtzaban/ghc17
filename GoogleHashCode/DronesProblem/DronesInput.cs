@@ -1,4 +1,4 @@
-﻿using HashCodeCommon.Interfaces;
+﻿using HashCodeCommon;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,29 +33,10 @@ namespace DronesProblem
             cloned.NumOfRows = this.NumOfRows;
             cloned.NumOfTurns = this.NumOfTurns;
 
-            cloned.Drones = new List<Drone>();
-            foreach (var item in Drones)
-            {
-                cloned.Drones.Add(new Drone(item));
-            }
-
-            cloned.Orders = new List<Order>();
-            foreach (var item in Orders)
-            {
-                cloned.Orders.Add(new Order(item));
-            }
-
-            cloned.Products = new List<Product>();
-            foreach (var item in Products)
-            {
-                cloned.Products.Add(new Product(item));
-            }
-
-            cloned.WareHouses = new List<Warehouse>();
-            foreach (var item in WareHouses)
-            {
-                cloned.WareHouses.Add(new Warehouse(item));
-            }
+            cloned.Drones = Drones.DeepClone();
+            cloned.Orders = Orders.DeepClone();
+            cloned.Products = Products.DeepClone();
+            cloned.WareHouses = WareHouses.DeepClone();
 
             return cloned;
         }

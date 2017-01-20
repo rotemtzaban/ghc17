@@ -1,5 +1,4 @@
 ﻿using HashCodeCommon;
-using HashCodeCommon.BaseClasses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DronesProblem
 {
-    public class Order : IndexedObject
+    public class Order : IndexedObject<Order>
     {
         public Coordinate Location { get; set; }
 
@@ -19,16 +18,13 @@ namespace DronesProblem
         {
         }
 
-        public Order(Order other)
-            :this (other.Index)
+        public override Order Clone()
         {
-            this.Location = other.Location;
-            this.WantedProducts = new List<Product>();
+            Order cloned = new DronesProblem.Order(this.Index);
+            cloned.Location = this.Location;
+            cloned.WantedProducts = WantedProducts.DeepClone();
 
-            foreach (var item in other.WantedProducts)
-            {
-                this.WantedProducts.Add(new Product(item));
-            }
+            return cloned;
         }
     }
 }
