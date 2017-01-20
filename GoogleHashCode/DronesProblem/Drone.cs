@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace DronesProblem
 {
-    public class Drone
-    {
-        private static uint s_ID = 0;
+	public class Drone
+	{
+		private static uint s_ID = 0;
 
 		public uint ID { get; set; }
-        public Coordinate Location { get; set; }
+		public Coordinate Location { get; set; }
 
 		public uint WeightLoad { get; set; }
 
@@ -30,7 +30,7 @@ namespace DronesProblem
 			this.ID = s_ID++;
 			this.WeightLoad = 0;
 			this.TurnsUntilAvailable = 0;
-			this.Commands = new List<CommandBase> ();
+			this.Commands = new List<CommandBase>();
 		}
-    }
+	}
 }
