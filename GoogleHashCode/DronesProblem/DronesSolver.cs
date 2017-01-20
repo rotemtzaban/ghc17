@@ -27,7 +27,7 @@ namespace DronesProblem
 			foreach (Warehouse w in input.WareHouses) {
 				int itemCount;
 				if (w.Products.TryGetValue (item.Item, out itemCount) && itemCount > 0) {
-					w.Products[item.Item]--;
+					w.Products[item.Item]=itemCount-1;
 					LoadCommand loadCmd = new LoadCommand (d, w, item.Item, /*productCount=*/ 1);
 					result.Add (loadCmd);
 					DeliverCommand deliverCommand = new DeliverCommand (d, item.ParentOrder, item.Item, /*productCount=*/1);
@@ -75,7 +75,7 @@ namespace DronesProblem
 					}
 				}
 
-				List<Drone> dronesToRemove = new List<Drone> ();
+				HashSet<Drone> dronesToRemove = new HashSet<Drone> ();
 
 				foreach (Drone d in m_AvailableDrones) {
 					for (int i = 0; i < m_RequestedItems.Count; i++) {
@@ -86,6 +86,9 @@ namespace DronesProblem
 
 						IEnumerable<CommandBase> cmds = GetCommands(d, m_RequestedItems[i], input);
 						d.Commands.AddRange (cmds);
+						if (cmds.Any ()) {
+							dronesToRemove.Add (d);
+						}
 						result.Commands.AddRange (cmds);
 						foreach (CommandBase cmd in cmds) {
 							d.TurnsUntilAvailable += cmd.TurnsToComplete;
@@ -103,7 +106,6 @@ namespace DronesProblem
 						}
 					}
 
-					dronesToRemove.Add (d);
 				}
 
 				foreach (Drone d in dronesToRemove) {
