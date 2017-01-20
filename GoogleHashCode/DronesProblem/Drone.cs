@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace DronesProblem
 {
-	public class Drone : ClonedIndexedObject<Drone>
-	{
+	public class Drone : IndexedObject
+    {
 		public Coordinate Location { get; set; }
 
 		public uint WeightLoad { get; set; }
@@ -34,14 +34,5 @@ namespace DronesProblem
 			this.TurnsUntilAvailable = 1; // Workaround for init case
 			this.Commands = new List<CommandBase>();
 		}
-
-        public override Drone Clone()
-        {
-            Drone cloned = new Drone(this.Index);
-            cloned.WeightLoad = this.WeightLoad;
-            cloned.TurnsUntilAvailable = this.TurnsUntilAvailable;
-            cloned.Commands = new List<CommandBase>();
-            return cloned;
-        }
     }
 }

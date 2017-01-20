@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 namespace HashCodeCommon
 {
 	public class Runner<TInput, TOutput>
-        where TInput : IGoodCloneable<TInput>
 	{
 		private IParser<TInput> m_Parser;
 		private ISolver<TInput, TOutput> m_Solver;

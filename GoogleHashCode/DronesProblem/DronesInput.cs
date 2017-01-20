@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DronesProblem
 {
-    public class DronesInput : IGoodCloneable<DronesInput>
+    public class DronesInput
     {
         public List<Drone> Drones { get; set; }
 
@@ -24,21 +24,5 @@ namespace DronesProblem
         public int NumOfRows { get; set; }
 
         public int NumOfColumns { get; set; }
-
-        public DronesInput Clone()
-        {
-            DronesInput cloned = new DronesInput();
-            cloned.MaxWeight = this.MaxWeight;
-            cloned.NumOfColumns = this.NumOfColumns;
-            cloned.NumOfRows = this.NumOfRows;
-            cloned.NumOfTurns = this.NumOfTurns;
-
-            cloned.Drones = Drones.DeepClone();
-            cloned.Orders = Orders.DeepClone();
-            cloned.Products = Products.DeepClone();
-            cloned.WareHouses = WareHouses.DeepClone();
-
-            return cloned;
-        }
     }
 }

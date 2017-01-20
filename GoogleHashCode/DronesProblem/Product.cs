@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace DronesProblem
 {
-	public class Product : ClonedIndexedObject<Product>
-	{
+	public class Product : IndexedObject
+    {
 		public uint Weight { get; private set; }
 
 		public Product(int index, string weight)
@@ -21,11 +21,6 @@ namespace DronesProblem
             : base(index)
         {
             Weight = weight;
-        }
-
-        public override Product Clone()
-        {
-            return new Product(this.Index, this.Weight);
         }
     }
 }
