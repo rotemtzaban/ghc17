@@ -32,11 +32,11 @@ namespace DronesProblem
 
         private void ValidateEvent(Event currEvent)
         {
-            if (currEvent.ProductsDelivered.Count > 0)
+            if (currEvent.ProductDelivered != null)
             {
 
             }
-            else if (currEvent.ProductsTaken.Count > 0 )
+            else if (currEvent.ProductTaken != null)
             {
 
             }
