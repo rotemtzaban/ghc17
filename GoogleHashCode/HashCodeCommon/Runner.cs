@@ -78,14 +78,19 @@ namespace HashCodeCommon
 
 		private TOutput GetBestResult(int numberOfAttempts, TInput input)
 		{
+            if (numberOfAttempts == 1)
+            {
+                return m_Solver.Solve(input.Clone());
+            }
+
 			TOutput bestResults = default(TOutput);
 			int bestScore = -1;
 
 			for (int i = 0; i < numberOfAttempts; i++)
 			{
-				TOutput results = m_Solver.Solve(input);
+				TOutput results = m_Solver.Solve(input.Clone());
 
-				int newScore = m_Calculator.Calculate(input, results);
+				int newScore = m_Calculator.Calculate(input.Clone(), results);
 				if (newScore > bestScore)
 				{
 					bestResults = results;
@@ -104,11 +109,11 @@ namespace HashCodeCommon
 			if (!File.Exists(finalPath))
 			{
 				File.Move(newPath, finalPath);
-				return m_Calculator.Calculate(input, newPath);
+				return m_Calculator.Calculate(input.Clone(), finalPath);
 			}
 
-			int finalCalc = m_Calculator.Calculate(input, finalPath);
-			int newCalc = m_Calculator.Calculate(input, newPath);
+			int finalCalc = m_Calculator.Calculate(input.Clone(), finalPath);
+			int newCalc = m_Calculator.Calculate(input.Clone(), newPath);
 			if (newCalc > finalCalc)
 			{
 				File.Delete(finalPath);
@@ -139,12 +144,15 @@ namespace HashCodeCommon
             }
 
             var targetZip = Path.Combine(sourceDir, "out", "Code.zip");
+            Directory.CreateDirectory(Path.GetDirectoryName(targetZip));
 
             if (File.Exists(targetZip))
                 File.Delete(targetZip);
             ZipFile.CreateFromDirectory(tmpFolder, targetZip);
 
             Directory.Delete(tmpFolder, true);
+
+            Console.WriteLine("finish create zip");
         }
     }
 }

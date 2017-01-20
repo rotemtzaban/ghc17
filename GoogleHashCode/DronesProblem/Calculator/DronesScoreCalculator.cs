@@ -97,7 +97,7 @@ namespace DronesProblem
 		private static List<Event> CreateEvents(DronesInput input, DronesOutput output)
 		{
 			var allEvents = new List<Event>();
-			foreach (var droneCommands in output.Commands.GroupBy(c => c.Drone.ID))
+			foreach (var droneCommands in output.Commands.GroupBy(c => c.Drone.Index))
 			{
 				var drone = input.Drones[(int)droneCommands.Key];
 				long currentTurn = 0;
@@ -131,7 +131,8 @@ namespace DronesProblem
 							Turn = currentTurn,
 							Warehouse = loadCommand.Warehouse,
 							ProductTaken = loadCommand.Product,
-							TakenCount = loadCommand.ProductCount
+							TakenCount = loadCommand.ProductCount,
+                            Drone = drone
 						};
 
 						allEvents.Add(ev);
@@ -151,8 +152,9 @@ namespace DronesProblem
 							Turn = currentTurn,
 							Warehouse = unloadCommand.Warehouse,
 							ProductDelivered = unloadCommand.Product,
-							DeliveredCount = unloadCommand.ProductCount
-						};
+							DeliveredCount = unloadCommand.ProductCount,
+                            Drone = drone
+                        };
 
 						allEvents.Add(ev);
 						continue;
@@ -171,7 +173,8 @@ namespace DronesProblem
 							Turn = currentTurn,
 							CurrentOrder = deliverCommand.Order,
 							ProductDelivered = deliverCommand.Product,
-							DeliveredCount = deliverCommand.ProductCount
+							DeliveredCount = deliverCommand.ProductCount,
+                            Drone = drone
 						};
 
 						allEvents.Add(ev);

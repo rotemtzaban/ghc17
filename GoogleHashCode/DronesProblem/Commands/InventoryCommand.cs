@@ -14,7 +14,7 @@ namespace DronesProblem.Commands
 
 		public override string GetOutputLine()
 		{
-			return string.Format("{0} {1} {2} {3} {4}", Drone.ID, Tag, Warehouse.ID, Product.ID, ProductCount);
+			return string.Format("{0} {1} {2} {3} {4}", Drone.Index, Tag, Warehouse.Index, Product.Index, ProductCount);
 		}
 	}
 }

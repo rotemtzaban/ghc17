@@ -24,7 +24,7 @@ namespace DronesProblem.Commands
 
 		public override string GetOutputLine()
 		{
-			return string.Format("{0} {1} {2}", Drone.ID, Tag, TurnCount);
+			return string.Format("{0} {1} {2}", Drone.Index, Tag, TurnCount);
 		}
 	}
 }
