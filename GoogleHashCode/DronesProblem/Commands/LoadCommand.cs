@@ -14,7 +14,7 @@ namespace DronesProblem.Commands
 			Warehouse = warehouse;
 			Product = product;
 			ProductCount = productCount;
-			this.TurnsToComplete = 1;
+			this.TurnsToComplete = (uint)Math.Ceiling(drone.GetExpectedLocation().CalcEucledianDistance(warehouse.Location)) + 1; // TODO: debug correctness
 		}
 
 		public override string Tag
