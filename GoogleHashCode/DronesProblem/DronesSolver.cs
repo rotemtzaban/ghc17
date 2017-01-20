@@ -12,8 +12,10 @@ namespace DronesProblem
 		private List<Drone> m_AvailableDrones;
 		private List<WorkItem> m_RequestedItems;
 
-		private int CalcNumOfTurnsToCompleteRequest(Drone d, WorkItem item)
+		private IEnumerable<CommandBase> GetCommands(Drone d, WorkItem item)
 		{
+			CommandBase cmdToIssue = null;
+
 			throw new NotImplementedException ();
 		}
 
@@ -27,6 +29,7 @@ namespace DronesProblem
 						m_AvailableDrones.Add (d);
 					}
 
+					// TODO: update command state
 
 				}
 
@@ -37,9 +40,13 @@ namespace DronesProblem
 							continue;
 						}
 
-						int turns = CalcNumOfTurnsToCompleteRequest (d, item);
-						d.TurnsUntilAvailable += turns;
-						d.WeightLoad += m_RequestedItems [i].Item.Weight;
+						IEnumerable<CommandBase> cmds = GetCommands(d, m_RequestedItems[i]);
+						d.Commands.AddRange (cmds);
+						foreach (CommandBase cmd in cmds) {
+							d.TurnsUntilAvailable += cmd.TurnsToComplete;
+						}
+
+						d.WeightLoad += m_RequestedItems [i].Item.Weight;					
 
 						// remove from list
 						m_RequestedItems.RemoveAt(i);
@@ -52,6 +59,8 @@ namespace DronesProblem
 					}
 				}
 			}
+
+			throw new NotImplementedException ();
         }
     }
 }

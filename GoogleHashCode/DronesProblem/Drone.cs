@@ -14,7 +14,7 @@ namespace DronesProblem
 
 		public uint WeightLoad { get; set; }
 
-		//List<ICommand> Commands { get; set; }
+		public List<CommandBase> Commands { get; set; }
 
 		public uint TurnsUntilAvailable { get; set; }
 
@@ -25,6 +25,7 @@ namespace DronesProblem
 			this.ID = id;
 			this.WeightLoad = 0;
 			this.TurnsUntilAvailable = 0;
+			this.Commands = new List<CommandBase> ();
 		}
     }
 }

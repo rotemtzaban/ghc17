@@ -10,6 +10,6 @@ namespace DronesProblem
     {
         public int ID { get; set; }
 
-        public int Weight { get; set; }
+        public uint Weight { get; set; }
     }
 }
