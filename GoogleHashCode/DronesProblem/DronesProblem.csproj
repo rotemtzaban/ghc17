@@ -4,16 +4,18 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{FE988848-3527-4FDE-A140-65CE69E2F181}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{4BCC8268-8E90-445D-A42F-8FB6E0EB7646}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HashCodeCommon</RootNamespace>
-    <AssemblyName>HashCodeCommon</AssemblyName>
+    <RootNamespace>DronesProblem</RootNamespace>
+    <AssemblyName>DronesProblem</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,6 +25,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -41,17 +44,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseClasses\PrinterBase.cs" />
-    <Compile Include="BaseClasses\ScoreClaculatorBase.cs" />
-    <Compile Include="HelperClasses\Coordinate.cs" />
-    <Compile Include="HelperClasses\Rectangle.cs" />
-    <Compile Include="Interfaces\IParser.cs" />
-    <Compile Include="Interfaces\ISolver.cs" />
-    <Compile Include="Interfaces\IPrinter.cs" />
-    <Compile Include="Interfaces\IScoreCalculator.cs" />
-    <Compile Include="BaseClasses\ParserBase.cs" />
+    <Compile Include="DronesInput.cs" />
+    <Compile Include="DronesOutput.cs" />
+    <Compile Include="DronesParser.cs" />
+    <Compile Include="DronesPrinter.cs" />
+    <Compile Include="DronesScoreCalculator.cs" />
+    <Compile Include="DronesSolver.cs" />
+    <Compile Include="Drone.cs" />
+    <Compile Include="Order.cs" />
+    <Compile Include="Product.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Runner.cs" />
+    <Compile Include="Warehouse.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HashCodeCommon\HashCodeCommon.csproj">
+      <Project>{fe988848-3527-4fde-a140-65ce69e2f181}</Project>
+      <Name>HashCodeCommon</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
