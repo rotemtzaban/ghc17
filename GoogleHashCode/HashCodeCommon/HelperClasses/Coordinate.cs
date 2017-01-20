@@ -16,5 +16,13 @@ namespace HashCodeCommon
 
         public int X { get; private set; }
         public int Y { get; private set; }
+
+		// TODO: test this
+		public double CalcEucledianDistance(Coordinate other)
+		{
+			double result = Math.Sqrt ((this.X - other.X) * (this.X - other.X) + (this.Y - other.Y) * (this.Y - other.Y));
+
+			return result;
+		}
     }
 }

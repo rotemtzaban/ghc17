@@ -14,6 +14,7 @@ namespace DronesProblem.Commands
 			Warehouse = warehouse;
 			Product = product;
 			ProductCount = productCount;
+			this.TurnsToComplete = 1;
 		}
 
 		public override string Tag

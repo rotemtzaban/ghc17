@@ -8,13 +8,12 @@ namespace DronesProblem.Commands
 {
 	public class WaitCommand : CommandBase
 	{
-		public WaitCommand(Drone drone, int turnCount)
+		public WaitCommand(Drone drone, uint turnCount)
 		{
 			Drone = drone;
-			TurnCount = turnCount;
+			this.TurnsToComplete = turnCount;
 		}
-
-		public int TurnCount { get; set; }
+			
 		public override string Tag
 		{
 			get { return "W"; }
@@ -22,7 +21,7 @@ namespace DronesProblem.Commands
 
 		public override string GetOutputLine()
 		{
-			return string.Format("{0} {1} {2}", Drone.ID, Tag, TurnCount);
+			return string.Format("{0} {1} {2}", Drone.ID, Tag, TurnsToComplete);
 		}
 	}
 }

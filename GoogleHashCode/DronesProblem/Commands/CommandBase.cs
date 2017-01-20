@@ -11,6 +11,8 @@ namespace DronesProblem
 		public Drone Drone { get; set; }
 		public abstract string Tag { get; }
 
+		public uint TurnsToComplete { get; set; } 
+
 		public abstract string GetOutputLine();
 
 		public override string ToString()
