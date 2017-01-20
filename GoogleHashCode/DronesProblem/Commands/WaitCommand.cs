@@ -13,6 +13,7 @@ namespace DronesProblem.Commands
 			Drone = drone;
 			TurnCount = turnCount;
 			this.TurnsToComplete = turnCount;
+			this.ExpectedLocation = drone.Location;
 		}
 
 		public uint TurnCount { get; set; }

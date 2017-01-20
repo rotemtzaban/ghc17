@@ -21,16 +21,20 @@ namespace DronesProblem
 		public uint TurnsUntilAvailable { get; set; }
 
 		public Coordinate GetExpectedLocation ()
-		{
+		{			
 			// TODO: for commands, calculate expected location
-			throw new NotImplementedException();
+			if (this.Commands.Count == 0) {
+				return this.Location;
+			}
+
+			return this.Commands.Last().ExpectedLocation;
 		}
 
 		public Drone()
 		{
 			this.ID = s_ID++;
 			this.WeightLoad = 0;
-			this.TurnsUntilAvailable = 0;
+			this.TurnsUntilAvailable = 1; // Workaround for init case
 			this.Commands = new List<CommandBase>();
 		}
 
