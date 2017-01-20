@@ -20,6 +20,6 @@ namespace HashCodeCommon
             }
         }
 
-        public abstract TOut GetResultFromReader(TIn input, StreamReader reader);
+        public abstract TOut GetResultFromReader(TIn input, TextReader reader);
     }
 }

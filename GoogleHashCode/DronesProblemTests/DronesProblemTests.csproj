@@ -58,6 +58,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="ScoreCalculatorTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DronesProblem\DronesProblem.csproj">

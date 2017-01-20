@@ -20,7 +20,9 @@ namespace HashCodeCommon
 		// TODO: test this
 		public double CalcEucledianDistance(Coordinate other)
 		{
-			double result = Math.Sqrt ((this.X - other.X) * (this.X - other.X) + (this.Y - other.Y) * (this.Y - other.Y));
+			var deltaX = this.X - other.X;
+			var deltaY = this.Y - other.Y;
+			double result = Math.Sqrt (deltaX * deltaX + deltaY * deltaY);
 
 			return result;
 		}
