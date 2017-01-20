@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DronesProblem
 {
-    public struct Product
+    public class Product
     {
         private static int s_ID = 0;
 

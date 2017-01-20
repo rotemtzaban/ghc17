@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace HashCodeCommon
 {
-    public interface IScoreCalculator<T>
+    public interface IScoreCalculator<TIn, TOut>
     {
-        int Calculate(T result);
-        int Calculate(string path);
+        int Calculate(TIn input, TOut output);
+        int Calculate(TIn input, string path);
     }
 }

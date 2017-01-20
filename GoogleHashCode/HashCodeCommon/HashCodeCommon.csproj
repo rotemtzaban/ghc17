@@ -42,7 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseClasses\PrinterBase.cs" />
-    <Compile Include="BaseClasses\ScoreClaculatorBase.cs" />
+    <Compile Include="BaseClasses\ScoreCalculatorBase.cs" />
     <Compile Include="HelperClasses\Coordinate.cs" />
     <Compile Include="HelperClasses\Rectangle.cs" />
     <Compile Include="Interfaces\IParser.cs" />

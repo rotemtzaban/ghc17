@@ -8,16 +8,25 @@ using System.IO;
 
 namespace DronesProblem
 {
-    public class DronesScoreCalculator : ScoreClaculatorBase<DronesOutput>
-    {
-        public override int Calculate(DronesOutput result)
-        {
-            throw new NotImplementedException();
-        }
+	public class DronesScoreCalculator : ScoreCalculatorBase<DronesInput, DronesOutput>
+	{
+		public override int Calculate(DronesInput input, DronesOutput output)
+		{
+			throw new NotImplementedException();
+		}
 
-        protected override DronesOutput GetResultFromReader(StreamReader reader)
-        {
-            throw new NotImplementedException();
-        }
-    }
+		protected override DronesOutput GetResultFromReader(StreamReader reader)
+		{
+			var commands = new List<CommandBase>();
+			var commandCount = int.Parse(reader.ReadLine());
+			for (int i = 0; i < commandCount; i++)
+			{
+				var line = reader.ReadLine();
+
+			}
+
+
+			return null;
+		}
+	}
 }
