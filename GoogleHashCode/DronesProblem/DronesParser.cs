@@ -22,6 +22,11 @@ namespace DronesProblem
             input.MaxWeight = int.Parse(firstLine[4]);
 
             int numOfDrones = int.Parse(firstLine[2]);
+            input.Drones = new List<Drone>();
+            for (int i = 0; i < numOfDrones; i++)
+            {
+                input.Drones.Add(new Drone());
+            }
 
             int numOfProductTypes = int.Parse(reader.ReadLine());
             input.Products = reader.ReadLine().Split(' ').Select(weight => new Product(weight)).ToList();
@@ -52,6 +57,7 @@ namespace DronesProblem
             for (int index = 0; index < numOfOrders; index++)
             {
                 Order order = new Order();
+                order.WantedProducts = new List<Product>();
                 string[] locationAsString = reader.ReadLine().Split(' ');
                 order.Location = new Coordinate(int.Parse(locationAsString[0]), int.Parse(locationAsString[1]));
 

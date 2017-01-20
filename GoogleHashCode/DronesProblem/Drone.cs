@@ -9,6 +9,8 @@ namespace DronesProblem
 {
     public class Drone
     {
+        private static uint s_ID = 0;
+
 		public uint ID { get; set; }
         public Coordinate Location { get; set; }
 
@@ -18,11 +20,9 @@ namespace DronesProblem
 
 		public uint TurnsUntilAvailable { get; set; }
 
-		public Drone(uint id, uint weight)
+		public Drone()
 		{
-			this.ID = id;
-			this.Weight = weight;
-			this.TurnsUntilAvailable = 0;
+			this.ID = s_ID++;
 		}
     }
 }
