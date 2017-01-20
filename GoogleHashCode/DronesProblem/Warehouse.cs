@@ -9,13 +9,18 @@ namespace DronesProblem
 {
     public class Warehouse
     {
-		public int ID { get; set;}
+        private static int s_ID = 0;
+
+        public int ID { get; set;}
 
         public Coordinate Location { get; set; }
 
         public Dictionary<Product, int> Products { get; set; }
 
-        public Warehouse() { }
+        public Warehouse()
+        {
+            this.ID = s_ID++;
+        }
 
         public Warehouse (Warehouse other)
         {
