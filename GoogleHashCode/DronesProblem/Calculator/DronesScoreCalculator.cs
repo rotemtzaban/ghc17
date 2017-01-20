@@ -60,8 +60,10 @@ namespace DronesProblem
 			foreach (var droneCommands in output.Commands.GroupBy(c => c.Drone.ID))
 			{
 				var drone = input.Drones[(int)droneCommands.Key];
+				int currentTurn = 0;
 				foreach (var command in droneCommands)
 				{
+					
 				}
 			}
 		}
