@@ -97,7 +97,7 @@ namespace DronesProblem
 		private static List<Event> CreateEvents(DronesInput input, DronesOutput output)
 		{
 			var allEvents = new List<Event>();
-			foreach (var droneCommands in output.Commands.GroupBy(c => c.Drone.ID))
+			foreach (var droneCommands in output.Commands.GroupBy(c => c.Drone.Index))
 			{
 				var drone = input.Drones[(int)droneCommands.Key];
 				long currentTurn = 0;

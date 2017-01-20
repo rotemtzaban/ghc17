@@ -6,35 +6,29 @@ using System.Threading.Tasks;
 
 namespace HashCodeCommon.BaseClasses
 {
-    public class ObjectBase
+    public class IndexedObject
     {
-        private static int s_ID = 0;
-        public int ID { get; private set; }
+        public int Index { get; private set; }
 
-        public ObjectBase()
+        public IndexedObject(int index)
         {
-            this.ID = s_ID++;
-        }
-
-        public ObjectBase(ObjectBase other)
-        {
-            this.ID = other.ID;
+            this.Index = index;
         }
 
         public override bool Equals(object obj)
         {
-            ObjectBase other = obj as ObjectBase;
+            IndexedObject other = obj as IndexedObject;
             if (other == null)
             {
                 return false;
             }
 
-            return this.ID == other.ID;
+            return this.Index == other.Index;
         }
 
         public override int GetHashCode()
         {
-            return this.ID;
+            return this.Index;
         }
     }
 }

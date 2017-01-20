@@ -78,6 +78,11 @@ namespace HashCodeCommon
 
 		private TOutput GetBestResult(int numberOfAttempts, TInput input)
 		{
+            if (numberOfAttempts == 1)
+            {
+                return m_Solver.Solve(input.Clone());
+            }
+
 			TOutput bestResults = default(TOutput);
 			int bestScore = -1;
 
