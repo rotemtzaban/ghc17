@@ -13,6 +13,6 @@ namespace DronesProblem
 
         public Coordinate Location { get; set; }
 
-        public List<Product> Products { get; set; }
+        public Dictionary<Product, int> Products { get; set; }
     }
 }
