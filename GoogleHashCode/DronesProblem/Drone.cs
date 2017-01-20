@@ -20,6 +20,11 @@ namespace DronesProblem
 
 		public uint TurnsUntilAvailable { get; set; }
 
+		public Coordinate GetExpectedLocation ()
+		{
+			// TODO: for commands, calculate expected location
+		}
+
 		public Drone()
 		{
 			this.ID = s_ID++;
