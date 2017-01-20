@@ -9,14 +9,14 @@ namespace DronesProblem.Commands
 {
 	public class DeliverCommand : CommandBase
 	{
-		public DeliverCommand(Drone drone, Order order, Product product, int productCount, Coordinate destination)
+		public DeliverCommand(Drone drone, Order order, Product product, int productCount)
 		{
 			Drone = drone;
 			Order = order;
 			Product = product;
 			ProductCount = productCount;
 
-			this.TurnsToComplete = (uint)Math.Ceiling(drone.Location.CalcEucledianDistance(destination)) + 1; // TODO: debug correctness
+			this.TurnsToComplete = (uint)Math.Ceiling(drone.GetExpectedLocation().CalcEucledianDistance(order.Location)) + 1; // TODO: debug correctness
 		}
 
 		public Order Order { get; set; }
