@@ -52,7 +52,10 @@ namespace DronesProblem
         {
             if (currEvent.ProductTaken != null)
             {
-
+                if (!currEvent.Warehouse.Products.Remove(currEvent.ProductTaken))
+                {
+                    throw new Exception("item not in warehouse");
+                }
             }
         }
 
