@@ -1,6 +1,7 @@
 ﻿using HashCodeCommon;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,12 +12,21 @@ namespace DronesProblem
     {
         public override void PrintToConsole(DronesOutput result)
         {
-            throw new NotImplementedException();
-        }
+			Console.WriteLine(result.Commands.Count);
+
+			foreach (var command in result.Commands)
+				Console.WriteLine(command.GetOutputLine());
+		}
 
         public override void PrintToFile(DronesOutput result, string outputPath)
         {
-            throw new NotImplementedException();
-        }
+			using (var writer = new StreamWriter(outputPath))
+			{
+				writer.WriteLine(result.Commands.Count);
+
+				foreach (var command in result.Commands)
+					writer.WriteLine(command.GetOutputLine());
+			}
+		}
     }
 }
