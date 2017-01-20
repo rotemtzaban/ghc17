@@ -15,7 +15,6 @@ namespace DronesProblem
 		{
 			var events = CreateEvents(input, output);
 
-            IEnumerable<Event> events = null;
             foreach (Event currEvent in events)
             {
 
