@@ -6,8 +6,10 @@ namespace DronesProblem
 	{
         public long Turn { get; set; }
 
+		public Drone Drone { get; set; }
+
 		public Warehouse Warehouse { get; set; }
-		public Order CurrentOrder { get; set; }
+        public Order CurrentOrder { get; set; }
 		
 		public Product ProductTaken { get; set; }
 		public int TakenCount { get; set; }

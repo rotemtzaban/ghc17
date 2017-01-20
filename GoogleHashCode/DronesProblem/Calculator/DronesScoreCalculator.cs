@@ -123,7 +123,8 @@ namespace DronesProblem
 							Turn = currentTurn,
 							Warehouse = loadCommand.Warehouse,
 							ProductTaken = loadCommand.Product,
-							TakenCount = loadCommand.ProductCount
+							TakenCount = loadCommand.ProductCount,
+                            Drone = drone
 						};
 
 						allEvents.Add(ev);
@@ -142,8 +143,9 @@ namespace DronesProblem
 							Turn = currentTurn,
 							Warehouse = unloadCommand.Warehouse,
 							ProductDelivered = unloadCommand.Product,
-							DeliveredCount = unloadCommand.ProductCount
-						};
+							DeliveredCount = unloadCommand.ProductCount,
+                            Drone = drone
+                        };
 
 						allEvents.Add(ev);
 						continue;
@@ -161,7 +163,8 @@ namespace DronesProblem
 							Turn = currentTurn,
 							CurrentOrder = deliverCommand.Order,
 							ProductDelivered = deliverCommand.Product,
-							DeliveredCount = deliverCommand.ProductCount
+							DeliveredCount = deliverCommand.ProductCount,
+                            Drone = drone
 						};
 
 						allEvents.Add(ev);
