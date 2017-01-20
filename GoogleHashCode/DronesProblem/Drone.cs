@@ -54,7 +54,7 @@ namespace DronesProblem
 
 		public override int GetHashCode ()
 		{
-			return this.ID;
+			return this.ID.GetHashCode ();
 		}
     }
 }
