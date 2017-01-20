@@ -126,14 +126,14 @@ namespace HashCodeCommon
         {
             var tmpDirectoryName = "tmp";
 
-            var sourceDir = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)));
-            var tmpFolder = Path.Combine(sourceDir, tmpDirectoryName);
+            var solutionPath = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location))));
+            var tmpFolder = Path.Combine(solutionPath, tmpDirectoryName);
             if (Directory.Exists(tmpFolder))
                 Directory.Delete(tmpFolder, true);
             Directory.CreateDirectory(tmpFolder);
-            foreach (var codeFile in Directory.EnumerateFiles(sourceDir, "*.cs", SearchOption.AllDirectories))
+            foreach (var codeFile in Directory.EnumerateFiles(solutionPath, "*", SearchOption.AllDirectories))
             {
-                var relative = codeFile.Substring(sourceDir.Length + 1);
+                var relative = codeFile.Substring(solutionPath.Length + 1);
                 if (relative.StartsWith("obj") || relative.StartsWith(tmpDirectoryName))
                     continue;
                 var target = Path.Combine(tmpFolder, relative);
@@ -143,8 +143,7 @@ namespace HashCodeCommon
                 File.Copy(codeFile, target);
             }
 
-            var targetZip = Path.Combine(sourceDir, "out", "Code.zip");
-            Directory.CreateDirectory(Path.GetDirectoryName(targetZip));
+            var targetZip = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Code.zip");
 
             if (File.Exists(targetZip))
                 File.Delete(targetZip);
