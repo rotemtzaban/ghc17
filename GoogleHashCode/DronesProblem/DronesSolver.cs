@@ -78,7 +78,7 @@ namespace DronesProblem
 				foreach (Drone d in m_AvailableDrones) {
 					for (int i = 0; i < m_RequestedItems.Count; i++) {
 
-						if (input.MaxWeight - d.WeightLoad > m_RequestedItems [i].Item.Weight) {
+						if (input.MaxWeight - d.WeightLoad < m_RequestedItems [i].Item.Weight) {
 							continue;
 						}
 

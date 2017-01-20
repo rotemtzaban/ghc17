@@ -9,5 +9,10 @@ namespace DronesProblem
     public class DronesOutput
     {
 		public List<CommandBase> Commands { get; set; }
+
+		public DronesOutput()
+		{
+			this.Commands = new List<CommandBase> ();
+		}
     }
 }

@@ -21,17 +21,20 @@ namespace DronesProblem
 		public uint TurnsUntilAvailable { get; set; }
 
 		public Coordinate GetExpectedLocation ()
-		{
-			return Location;
+		{			
 			// TODO: for commands, calculate expected location
-			throw new NotImplementedException();
+			if (this.Commands.Count == 0) {
+				return this.Location;
+			}
+
+			return this.Commands.Last().ExpectedLocation;
 		}
 
 		public Drone()
 		{
 			this.ID = s_ID++;
 			this.WeightLoad = 0;
-			this.TurnsUntilAvailable = 0;
+			this.TurnsUntilAvailable = 1; // Workaround for init case
 			this.Commands = new List<CommandBase>();
 		}
 
@@ -42,5 +45,16 @@ namespace DronesProblem
             this.TurnsUntilAvailable = other.TurnsUntilAvailable;
             this.Commands = other.Commands;
         }
+
+		public override bool Equals (object obj)
+		{
+			Drone d = obj as Drone;
+			return d.ID.Equals (this.ID);
+		}
+
+		public override int GetHashCode ()
+		{
+			return this.ID.GetHashCode ();
+		}
     }
 }

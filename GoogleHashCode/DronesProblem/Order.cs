@@ -29,5 +29,16 @@ namespace DronesProblem
                 this.WantedProducts.Add(new Product(item));
             }
         }
+
+		public override bool Equals (object obj)
+		{
+			Order o = obj as Order;
+			return o.ID.Equals (this.ID);
+		}
+
+		public override int GetHashCode ()
+		{
+			return this.ID;
+		}
     }
 }
