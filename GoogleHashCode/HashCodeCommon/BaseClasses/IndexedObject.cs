@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HashCodeCommon
 {
-    public abstract class IndexedObject<T> : IGoodCloneable<T>
+    public abstract class IndexedObject
     {
         public int Index { get; private set; }
 
@@ -17,7 +17,7 @@ namespace HashCodeCommon
 
         public override bool Equals(object obj)
         {
-            IndexedObject<T> other = obj as IndexedObject<T>;
+            IndexedObject other = obj as IndexedObject;
             if (other == null)
             {
                 return false;
@@ -35,7 +35,5 @@ namespace HashCodeCommon
         {
             return "Index: " + this.Index;
         }
-
-        public abstract T Clone();
     }
 }

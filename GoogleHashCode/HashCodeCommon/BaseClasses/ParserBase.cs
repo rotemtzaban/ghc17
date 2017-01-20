@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 namespace HashCodeCommon
 {
     public abstract class ParserBase<T> : IParser<T>
-        where T : IGoodCloneable<T>
     {
         public T ParseFromData(string data)
         {

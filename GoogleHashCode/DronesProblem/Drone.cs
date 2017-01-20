@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DronesProblem
 {
-	public class Drone : IndexedObject<Drone>
+	public class Drone : ClonedIndexedObject<Drone>
 	{
 		public Coordinate Location { get; set; }
 

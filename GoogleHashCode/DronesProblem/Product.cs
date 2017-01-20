@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DronesProblem
 {
-	public class Product : IndexedObject<Product>
+	public class Product : ClonedIndexedObject<Product>
 	{
 		public uint Weight { get; private set; }
 

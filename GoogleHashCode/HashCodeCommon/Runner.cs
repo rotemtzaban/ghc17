@@ -27,8 +27,7 @@ namespace HashCodeCommon
 
 		public int Run(string data, string caseName, int numberOfAttempts = 1, bool printResults = true)
 		{
-			TInput input = m_Parser.ParseFromData(data);
-			TOutput bestResults = GetBestResult(numberOfAttempts, input.Clone());
+            TOutput bestResults = GetBestResult(numberOfAttempts, data);
 
 			string newOutPath = caseName + ".new.out";
 			string finalPath = caseName + ".out";
@@ -41,7 +40,7 @@ namespace HashCodeCommon
 
 			if (m_Calculator != null)
 			{
-                ScoreChange score = ReplaceIfBetter(input.Clone(), finalPath, newOutPath);
+                ScoreChange score = ReplaceIfBetter(data, finalPath, newOutPath);
 				PrintResults(caseName, score.Improvment);
                 return score.NewScore;
 			}
@@ -52,6 +51,11 @@ namespace HashCodeCommon
 
             return 0;
 		}
+
+        public TInput GetInput(string data)
+        {
+            return m_Parser.ParseFromData(data);
+        }
 
 		private void PrintResults(string caseName, int improvement)
 		{
@@ -77,11 +81,11 @@ namespace HashCodeCommon
 			Console.ForegroundColor = oldColor;
 		}
 
-		private TOutput GetBestResult(int numberOfAttempts, TInput input)
+		private TOutput GetBestResult(int numberOfAttempts, string data)
 		{
             if (numberOfAttempts == 1)
             {
-                return m_Solver.Solve(input.Clone());
+                return m_Solver.Solve(GetInput(data));
             }
 
 			TOutput bestResults = default(TOutput);
@@ -89,9 +93,9 @@ namespace HashCodeCommon
 
 			for (int i = 0; i < numberOfAttempts; i++)
 			{
-				TOutput results = m_Solver.Solve(input.Clone());
+				TOutput results = m_Solver.Solve(GetInput(data));
 
-				int newScore = m_Calculator.Calculate(input.Clone(), results);
+				int newScore = m_Calculator.Calculate(GetInput(data), results);
 				if (newScore > bestScore)
 				{
 					bestResults = results;
@@ -102,7 +106,7 @@ namespace HashCodeCommon
 			return bestResults;
 		}
 
-		private ScoreChange ReplaceIfBetter(TInput input, string finalPath, string newPath)
+		private ScoreChange ReplaceIfBetter(string data, string finalPath, string newPath)
 		{
 			if (!File.Exists(newPath))
 				throw new ArgumentException("output file wasn't created - " + newPath, "newPath");
@@ -110,13 +114,13 @@ namespace HashCodeCommon
 			if (!File.Exists(finalPath))
 			{
 				File.Move(newPath, finalPath);
-				return new ScoreChange(m_Calculator.Calculate(input.Clone(), finalPath));
+				return new ScoreChange(m_Calculator.Calculate(GetInput(data), finalPath));
 			}
 
-			int newCalc = m_Calculator.Calculate(input.Clone(), newPath);
+			int newCalc = m_Calculator.Calculate(GetInput(data), newPath);
             try
             {
-                int finalCalc = m_Calculator.Calculate(input.Clone(), finalPath);
+                int finalCalc = m_Calculator.Calculate(GetInput(data), finalPath);
                 if (newCalc > finalCalc)
                 {
                     File.Delete(finalPath);
