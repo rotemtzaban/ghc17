@@ -15,28 +15,42 @@ namespace DronesProblem
 		{
 			var events = CreateEvents(input, output);
 
+            int score = 0;
             foreach (Event currEvent in events)
             {
                 ValidateEvent(currEvent);
 
-                CalculateScore(currEvent);
+                score += CalculateScore(currEvent, input);
+
+
             }
 
-			return -1;
+			return score;
 		}
 
-        private void CalculateScore(Event currEvent)
+        private int CalculateScore(Event currEvent, DronesInput input)
         {
-            throw new NotImplementedException();
+            if (currEvent.ProductDelivered != null)
+            {
+                if (!currEvent.CurrentOrder.WantedProducts.Remove(currEvent.ProductDelivered))
+                {
+                    throw new Exception("Deliver not existing item");
+                }
+
+                if (currEvent.CurrentOrder.WantedProducts.Count == 0)
+                {
+                    int mone = input.NumOfTurns - (int)currEvent.Turn;
+                    double mechane = (double)input.NumOfTurns;
+                    return (int)Math.Ceiling((mone / mechane) * 100);
+                }
+            }
+
+            return 0;
         }
 
         private void ValidateEvent(Event currEvent)
         {
-            if (currEvent.ProductDelivered != null)
-            {
-
-            }
-            else if (currEvent.ProductTaken != null)
+            if (currEvent.ProductTaken != null)
             {
 
             }
