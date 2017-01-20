@@ -21,6 +21,8 @@ namespace DronesProblemTests
             Assert.AreEqual(2, input.WareHouses.Count);
             Assert.AreEqual(3, input.Products.Count);
             Assert.AreEqual(3, input.Orders.Count);
+            
+            // I Checked the items in debug
         }
     }
 }
