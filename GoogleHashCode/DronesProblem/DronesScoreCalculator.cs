@@ -15,14 +15,14 @@ namespace DronesProblem
 			throw new NotImplementedException();
 		}
 
-		protected override DronesOutput GetResultFromReader(StreamReader reader)
+		protected override DronesOutput GetResultFromReader(DronesInput input, StreamReader reader)
 		{
 			var commands = new List<CommandBase>();
 			var commandCount = int.Parse(reader.ReadLine());
 			for (int i = 0; i < commandCount; i++)
 			{
 				var line = reader.ReadLine();
-
+				
 			}
 
 
