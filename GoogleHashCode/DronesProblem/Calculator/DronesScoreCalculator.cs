@@ -13,19 +13,12 @@ namespace DronesProblem
 	{
 		public override int Calculate(DronesInput input, DronesOutput output)
 		{
-			foreach (var droneCommands in output.Commands.GroupBy(c => c.Drone.ID))
-			{
-				var drone = input.Drones[(int)droneCommands.Key];
-				foreach (var command in droneCommands)
-				{
-					
-				}
-			}
+			var events = CreateEvents(input, output);
 
 			return -1;
 		}
 
-		protected override DronesOutput GetResultFromReader(DronesInput input, StreamReader reader)
+		public override DronesOutput GetResultFromReader(DronesInput input, StreamReader reader)
 		{
 			var commands = new List<CommandBase>();
 			var commandCount = int.Parse(reader.ReadLine());
@@ -60,6 +53,17 @@ namespace DronesProblem
 			}
 
 			return new DronesOutput { Commands = commands };
+		}
+
+		private static List<Event> CreateEvents(DronesInput input, DronesOutput output)
+		{
+			foreach (var droneCommands in output.Commands.GroupBy(c => c.Drone.ID))
+			{
+				var drone = input.Drones[(int)droneCommands.Key];
+				foreach (var command in droneCommands)
+				{
+				}
+			}
 		}
 	}
 }
