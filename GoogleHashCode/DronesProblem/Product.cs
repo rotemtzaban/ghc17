@@ -12,11 +12,11 @@ namespace DronesProblem
 
         public int ID { get; private set; }
 
-        public int Weight { get; private set; }
+        public uint Weight { get; private set; }
 
         public Product(string weight)
         {
-            Weight = int.Parse(weight);
+            Weight = uint.Parse(weight);
             this.ID = s_ID++;
         }
     }

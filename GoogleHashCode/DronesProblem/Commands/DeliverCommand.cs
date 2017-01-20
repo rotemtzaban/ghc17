@@ -3,17 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HashCodeCommon;
 
 namespace DronesProblem.Commands
 {
 	public class DeliverCommand : CommandBase
 	{
-		public DeliverCommand(Drone drone, Order order, Product product, int productCount)
+		public DeliverCommand(Drone drone, Order order, Product product, int productCount, Coordinate destination)
 		{
 			Drone = drone;
 			Order = order;
 			Product = product;
 			ProductCount = productCount;
+
+			this.TurnsToComplete = (uint)Math.Ceiling(drone.Location.CalcEucledianDistance(destination)) + 1; // TODO: debug correctness
 		}
 
 		public Order Order { get; set; }

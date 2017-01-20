@@ -14,15 +14,18 @@ namespace DronesProblem
 		public uint ID { get; set; }
         public Coordinate Location { get; set; }
 
-		public uint Weight { get; set; }
+		public uint WeightLoad { get; set; }
 
-		//List<ICommand> Commands { get; set; }
+		public List<CommandBase> Commands { get; set; }
 
 		public uint TurnsUntilAvailable { get; set; }
 
 		public Drone()
 		{
 			this.ID = s_ID++;
+			this.WeightLoad = 0;
+			this.TurnsUntilAvailable = 0;
+			this.Commands = new List<CommandBase> ();
 		}
     }
 }
