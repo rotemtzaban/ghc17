@@ -22,7 +22,7 @@ namespace DronesProblem
 			// runner.Run(Properties.Resources.mother_of_all_warehouses, "mother_of_all_warehouses");
 			// runner.Run(Properties.Resources.redundancy, "redundancy");
 
-			// runner.CreateCodeZip();
+			runner.CreateCodeZip();
 		}
 	}
 }

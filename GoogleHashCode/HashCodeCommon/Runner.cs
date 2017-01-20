@@ -83,9 +83,9 @@ namespace HashCodeCommon
 
 			for (int i = 0; i < numberOfAttempts; i++)
 			{
-				TOutput results = m_Solver.Solve(input);
+				TOutput results = m_Solver.Solve(input.Clone());
 
-				int newScore = m_Calculator.Calculate(input, results);
+				int newScore = m_Calculator.Calculate(input.Clone(), results);
 				if (newScore > bestScore)
 				{
 					bestResults = results;
@@ -107,8 +107,8 @@ namespace HashCodeCommon
 				return m_Calculator.Calculate(input, newPath);
 			}
 
-			int finalCalc = m_Calculator.Calculate(input, finalPath);
-			int newCalc = m_Calculator.Calculate(input, newPath);
+			int finalCalc = m_Calculator.Calculate(input.Clone(), finalPath);
+			int newCalc = m_Calculator.Calculate(input.Clone(), newPath);
 			if (newCalc > finalCalc)
 			{
 				File.Delete(finalPath);
