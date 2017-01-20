@@ -8,5 +8,6 @@ namespace DronesProblem
 {
     public class DronesOutput
     {
+		public List<CommandBase> Commands { get; set; }
     }
 }
