@@ -32,17 +32,17 @@ namespace DronesProblem
 
         private void ValidateEvent(Event currEvent)
         {
-            if (currEvent.ProductsDelivered.Count > 0)
+            if (currEvent.DeliveredCount > 0)
             {
 
             }
-            else if (currEvent.ProductsTaken.Count > 0 )
+            else if (currEvent.TakenCount > 0 )
             {
 
             }
         }
 
-        public override DronesOutput GetResultFromReader(DronesInput input, StreamReader reader)
+        public override DronesOutput GetResultFromReader(DronesInput input, TextReader reader)
 		{
 			var commands = new List<CommandBase>();
 			var commandCount = int.Parse(reader.ReadLine());
@@ -84,6 +84,7 @@ namespace DronesProblem
 			var allEvents = new List<Event>();
 			foreach (var droneCommands in output.Commands.GroupBy(c => c.Drone.ID))
 			{
+				// TODO: Check the weights too
 				var drone = input.Drones[(int)droneCommands.Key];
 				long currentTurn = 0;
 				var droneLocation = drone.Location;
