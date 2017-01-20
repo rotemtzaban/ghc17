@@ -113,13 +113,23 @@ namespace HashCodeCommon
 			}
 
 			int newCalc = m_Calculator.Calculate(input.Clone(), newPath);
-			int finalCalc = m_Calculator.Calculate(input.Clone(), finalPath);
-			if (newCalc > finalCalc)
-			{
-				File.Delete(finalPath);
-				File.Move(newPath, finalPath);
-			}
-			return newCalc - finalCalc;
+            try
+            {
+                int finalCalc = m_Calculator.Calculate(input.Clone(), finalPath);
+                if (newCalc > finalCalc)
+                {
+                    File.Delete(finalPath);
+                    File.Move(newPath, finalPath);
+                }
+                return newCalc - finalCalc;
+            }
+            catch
+            {
+                Console.WriteLine("Warning: old file wasn't valid");
+                File.Delete(finalPath);
+                File.Move(newPath, finalPath);
+                return newCalc;
+            }
 		}
 
         public void CreateCodeZip()

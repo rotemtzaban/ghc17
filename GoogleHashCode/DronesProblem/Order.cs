@@ -17,10 +17,6 @@ namespace DronesProblem
         public Order(int index)
             :base (index)
         {
-            if (index == 1070)
-            {
-                int n = 0;
-            }
         }
 
         public Order(Order other)

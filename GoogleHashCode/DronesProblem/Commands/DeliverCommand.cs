@@ -30,11 +30,6 @@ namespace DronesProblem.Commands
 
 		public override string GetOutputLine()
 		{
-            if (Order.Index == 1070)
-            {
-                int n = 0;
-            }
-
 			return string.Format("{0} {1} {2} {3} {4}", Drone.Index, Tag, Order.Index, Product.Index, ProductCount);
 		}
 	}
