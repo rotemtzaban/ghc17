@@ -15,6 +15,11 @@ namespace DronesProblem
 		{
 			var events = CreateEvents(input, output);
 
+            foreach (Event currEvent in events)
+            {
+
+            }
+
 			return -1;
 		}
 
