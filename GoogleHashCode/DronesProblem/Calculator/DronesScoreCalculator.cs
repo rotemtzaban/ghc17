@@ -13,7 +13,16 @@ namespace DronesProblem
 	{
 		public override int Calculate(DronesInput input, DronesOutput output)
 		{
-			throw new NotImplementedException();
+			foreach (var droneCommands in output.Commands.GroupBy(c => c.Drone.ID))
+			{
+				var drone = input.Drones[(int)droneCommands.Key];
+				foreach (var command in droneCommands)
+				{
+					
+				}
+			}
+
+			return -1;
 		}
 
 		protected override DronesOutput GetResultFromReader(DronesInput input, StreamReader reader)

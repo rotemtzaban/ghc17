@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Calculator\Event.cs" />
     <Compile Include="Commands\CommandBase.cs" />
     <Compile Include="Commands\DeliverCommand.cs" />
     <Compile Include="Commands\InventoryCommand.cs" />
@@ -56,7 +57,7 @@
     <Compile Include="DronesOutput.cs" />
     <Compile Include="DronesParser.cs" />
     <Compile Include="DronesPrinter.cs" />
-    <Compile Include="DronesScoreCalculator.cs" />
+    <Compile Include="Calculator\DronesScoreCalculator.cs" />
     <Compile Include="DronesSolver.cs" />
     <Compile Include="Drone.cs" />
     <Compile Include="Order.cs" />
