@@ -22,8 +22,8 @@ namespace DronesProblem
 			runner.Run(Properties.Resources.mother_of_all_warehouses, "mother_of_all_warehouses", 1, false);
 			runner.Run(Properties.Resources.redundancy, "redundancy", 1, false);
 
+			runner.CreateCodeZip();
             Console.Read();
-			// runner.CreateCodeZip();
 		}
 	}
 }
