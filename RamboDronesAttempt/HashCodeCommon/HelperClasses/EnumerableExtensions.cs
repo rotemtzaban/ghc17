@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace HashCodeCommon
 {
-	public static class EnumerableExtensions
-	{
+    public static class EnumerableExtensions
+    {
 		public static IEnumerable<T> DeepClone<T>(this IEnumerable<T> lst)
-			where T : IGoodCloneable<T>
-		{
-			return lst.Select(x => x.Clone());
+            where T : IGoodCloneable<T>
+        {
+	        return lst.Select(x => x.Clone());
 		}
 
 		public static void ArgMax<T>(this IEnumerable<T> list, out T max, out int argMax)
@@ -117,5 +117,5 @@ namespace HashCodeCommon
 			}
 			return l[l.Count / 2];
 		}
-	}
+    }
 }
