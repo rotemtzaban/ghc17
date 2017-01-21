@@ -34,6 +34,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -48,8 +49,11 @@
     <Compile Include="BaseClasses\ScoreCalculatorBase.cs" />
     <Compile Include="HelperClasses\Coordinate.cs" />
     <Compile Include="HelperClasses\DictionaryExtensions.cs" />
-    <Compile Include="HelperClasses\ListExtensions.cs" />
+    <Compile Include="HelperClasses\EnumerableExtensions.cs" />
     <Compile Include="HelperClasses\Rectangle.cs" />
+    <Compile Include="HelperClasses\StringExtensions.cs" />
+    <Compile Include="HelperClasses\TextReaderExtensions.cs" />
+    <Compile Include="HelperClasses\TimedPrinter.cs" />
     <Compile Include="Interfaces\IGoodCloneable.cs" />
     <Compile Include="Interfaces\IParser.cs" />
     <Compile Include="Interfaces\ISolver.cs" />
