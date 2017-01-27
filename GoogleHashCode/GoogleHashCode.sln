@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HashCodeCommon", "HashCodeCommon\HashCodeCommon.csproj", "{FE988848-3527-4FDE-A140-65CE69E2F181}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DronesProblem", "DronesProblem\DronesProblem.csproj", "{4BCC8268-8E90-445D-A42F-8FB6E0EB7646}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DronesProblemTests", "DronesProblemTests\DronesProblemTests.csproj", "{57E5119F-63D7-4BDE-B0B6-62F5E1193DCA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FE988848-3527-4FDE-A140-65CE69E2F181}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE988848-3527-4FDE-A140-65CE69E2F181}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE988848-3527-4FDE-A140-65CE69E2F181}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE988848-3527-4FDE-A140-65CE69E2F181}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4BCC8268-8E90-445D-A42F-8FB6E0EB7646}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4BCC8268-8E90-445D-A42F-8FB6E0EB7646}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4BCC8268-8E90-445D-A42F-8FB6E0EB7646}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4BCC8268-8E90-445D-A42F-8FB6E0EB7646}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57E5119F-63D7-4BDE-B0B6-62F5E1193DCA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57E5119F-63D7-4BDE-B0B6-62F5E1193DCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57E5119F-63D7-4BDE-B0B6-62F5E1193DCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57E5119F-63D7-4BDE-B0B6-62F5E1193DCA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

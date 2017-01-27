@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Pizza_problem
+namespace HashCodeCommon
 {
-    public class Pizza
+    public interface IGoodCloneable<T>
     {
-		
+        T Clone();
     }
 }
