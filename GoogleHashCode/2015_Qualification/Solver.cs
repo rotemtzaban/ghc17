@@ -11,39 +11,29 @@ namespace _2015_Qualification
 {
 	public class Solver : ISolver<ProblemInput, ProblemOutput>
 	{
-		private int _nextRowToUse = 0;
-		private Dictionary<int, Row> _allRows;
 		private Dictionary<Pool, int> _poolGuaranteedCapacities;
 		private ProblemOutput _result;
 		private ProblemInput _input;
-
-		private Row GetNextRow()
-		{
-			var res = _nextRowToUse;
-
-			_nextRowToUse++;
-			if (_nextRowToUse >= _input.Rows)
-				_nextRowToUse = 0;
-			
-			return _allRows[res];
-		}
+		private RowAllocator _rowAllocator;
+		private ServerSelector _serverSelector;
 
 		public ProblemOutput Solve(ProblemInput input)
 		{
 			_input = input;
 			_poolGuaranteedCapacities = new Dictionary<Pool, int>();
-			CreateRows(input);
 			_result = new ProblemOutput{ _allocations = new Dictionary<Server, ServerAllocation>(), original_input = input};
 
+			_rowAllocator = new RowAllocator(_input, _result);
+			_serverSelector = new ServerSelector(_input, _result);
+
 			// TODO: Make sure order is correct
-			var availableServersByCapacity = new Stack<Server>(GetServerListByPreference(input));
 
-			InitializeServers(input, availableServersByCapacity);
+			InitializeServers(input, _serverSelector);
 
-			while (availableServersByCapacity.Count > 0)
+			while (_serverSelector.HasAvailableServer)
 			{
 				var pool = GetLowestCapacityPool();
-				if (!AllocateNextServerToPool(input, availableServersByCapacity, pool))
+				if (!_rowAllocator.AllocateNextServerToPool(input, _serverSelector, pool))
 					continue;
 
 				_poolGuaranteedCapacities[pool] = pool.GurranteedCapacity(_result);
@@ -57,63 +47,55 @@ namespace _2015_Qualification
 			return _poolGuaranteedCapacities.ArgMin(kvp => kvp.Value).Key;
 		}
 
-		private void InitializeServers(ProblemInput input, Stack<Server> availableServersByCapacity)
+		private void InitializeServers(ProblemInput input, ServerSelector serverSelector)
 		{
+			IEnumerable<Pool> reversedPools = input.Pools;
+			reversedPools.Reverse();
+
 			foreach (var pool in input.Pools)
 			{
-				if(!AllocateNextServerToPool(input, availableServersByCapacity, pool))
+				if (!_rowAllocator.AllocateNextServerToPool(input, serverSelector, pool))
 					throw new Exception("Couldn't allocate in initialization!");
-				if(!AllocateNextServerToPool(input, availableServersByCapacity, pool))
+			}
+
+			foreach (var pool in reversedPools)
+			{
+				if (!_rowAllocator.AllocateNextServerToPool(input, serverSelector, pool))
 					throw new Exception("Couldn't allocate in initialization!");
 			}
 
 			foreach (var pool in input.Pools)
 				_poolGuaranteedCapacities[pool] = pool.GurranteedCapacity(_result);
 		}
+	}
 
-		private bool AllocateNextServerToPool(ProblemInput input, Stack<Server> availableServersByCapacity, Pool pool)
+	public class ServerSelector
+	{
+		private readonly ProblemInput _input;
+		private readonly ProblemOutput _result;
+		private Stack<Server> _availableServersByCapacity;
+
+		public ServerSelector(ProblemInput input, ProblemOutput result)
 		{
-			var nextServer = availableServersByCapacity.Pop();
-			ServerAllocation allocation = AlllocateServerToRow(input, nextServer);
-			if (allocation == null)
-				return false;
+			_input = input;
+			_result = result;
 
-			allocation.Pool = pool;
-
-			_result._allocations.Add(allocation.Server, allocation);
-			return true;
+			_availableServersByCapacity = new Stack<Server>(GetServerListByPreference(input));
 		}
 
-		private void CreateRows(ProblemInput input)
+		public bool HasAvailableServer
 		{
-			_allRows = new Dictionary<int, Row>();
-			for (int i = 0; i < input.Rows; i++)
-				_allRows[i] = new Row(input, i);
-		}
-
-		private ServerAllocation AlllocateServerToRow(ProblemInput input, Server server)
-		{
-			Row row;
-			int column;
-			int tries = 0;
-			do
-			{
-				row = GetNextRow();
-				column = row.GetAndAqcuireSlot(server.Slots);
-				tries++;
-				if (tries > input.Rows*2)
-				{
-					// TODO: Does this happen? What should we do?
-					return null;
-				}
-			} while (column == -1);
-
-			return new ServerAllocation{ InitialColumn = column, Row = row._rowIndex, Server = server};
+			get { return _availableServersByCapacity.Count > 0; }
 		}
 
 		private IOrderedEnumerable<Server> GetServerListByPreference(ProblemInput input)
 		{
 			return input.Servers.OrderBy(x => ((double)x.Capacity) / x.Slots);
+		}
+
+		public Server UseNextServer()
+		{
+			return _availableServersByCapacity.Pop();
 		}
 	}
 }
