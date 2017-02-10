@@ -26,7 +26,14 @@ namespace _2015_Qualification
                 input.UnavilableSlots.Add(coord);
             }
 
-            int numOServers = int.Parse(lineNumbers[3]);
+            int numOfPools = int.Parse(lineNumbers[3]);
+            input.Pools = new List<Pool>();
+            for (int i = 0; i < numOfPools; i++)
+            {
+                input.Pools.Add(new Pool(i));
+            }
+
+                int numOServers = int.Parse(lineNumbers[4]);
             input.Servers = new List<Server>();
             for (int i = 0; i < numOServers; i++)
             {
