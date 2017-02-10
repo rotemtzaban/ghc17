@@ -16,7 +16,7 @@ namespace HashCodeCommon
 		private IPrinter<TOutput> m_Printer;
 		private IScoreCalculator<TInput, TOutput> m_Calculator;
 
-		public Runner(ParserBase<TInput> parser, ISolver<TInput, TOutput> solver, PrinterBase<TOutput> printer, ScoreCalculatorBase<TInput, TOutput> calculator = null)
+		public Runner(ParserBase<TInput> parser, SolverBase<TInput, TOutput> solver, PrinterBase<TOutput> printer, ScoreCalculatorBase<TInput, TOutput> calculator = null)
 		{
 			m_Parser = parser;
 			m_Solver = solver;
@@ -84,7 +84,7 @@ namespace HashCodeCommon
         {
             if (numberOfAttempts == 1)
             {
-                return m_Solver.Solve(GetInput(data));
+                return m_Solver.Solve(GetInput(data), new Random());
             }
 
             TOutput bestResults = default(TOutput);

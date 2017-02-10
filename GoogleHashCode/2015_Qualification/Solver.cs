@@ -17,7 +17,7 @@ namespace _2015_Qualification
 		private RowAllocator _rowAllocator;
 		private ServerSelector _serverSelector;
 
-		public override ProblemOutput Solve(ProblemInput input)
+		protected override ProblemOutput Solve(ProblemInput input)
 		{
 			_input = input;
 			_poolGuaranteedCapacities = new Dictionary<Pool, int>();

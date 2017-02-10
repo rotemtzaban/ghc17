@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HashCodeCommon
+namespace _2017_Qualification
 {
-    public interface ISolver<TInput, TOutput>
+    public class ProblemOutput
     {
-        TOutput Solve(TInput input, Random random);
     }
 }

@@ -40,7 +40,7 @@ namespace DronesProblem
 			return result;
 		}
 
-        public override DronesOutput Solve(DronesInput input)
+        protected override DronesOutput Solve(DronesInput input)
         {
 			DronesOutput result = new DronesOutput ();
 

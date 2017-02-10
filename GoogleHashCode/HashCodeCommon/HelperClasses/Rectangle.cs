@@ -36,6 +36,7 @@ namespace HashCodeCommon
         {
             get { return BottomRight.X - TopLeft.X + 1; }
         }
+
         public int Height
         {
             get { return BottomRight.Y - TopLeft.Y + 1; }
@@ -46,6 +47,22 @@ namespace HashCodeCommon
             bool overlapX = BottomRight.X >= other.TopLeft.X && TopLeft.X <= other.BottomRight.X;
             bool overlapY = BottomRight.Y >= other.TopLeft.Y && TopLeft.Y <= other.BottomRight.Y;
             return overlapX && overlapY;
+        }
+
+        public override bool Equals(object obj)
+        {
+            Rectangle other = obj as Rectangle;
+            if (other == null)
+            {
+                return false;
+            }
+
+            return TopLeft.Equals(other.TopLeft) && BottomRight.Equals(other.BottomRight);
+        }
+
+        public override int GetHashCode()
+        {
+            return TopLeft.GetHashCode() * 17 ^ BottomRight.GetHashCode() * 23;
         }
     }
 }

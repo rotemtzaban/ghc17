@@ -10,7 +10,7 @@ namespace HashCodeCommon
     {
         protected Random NumbersGenerator { get; private set; }
 
-        public abstract TOutput Solve(TInput input);
+        protected abstract TOutput Solve(TInput input);
 
         public TOutput Solve(TInput input, Random random)
         {
