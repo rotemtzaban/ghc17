@@ -29,14 +29,16 @@ namespace _2015_Qualification
 
         public int GetAndAqcuireSlot(int index)
         {
-
+            int size = GetSpace(index);
+            AqcuireSlot(index, size);
+            return size;
         }
 
         public void AqcuireSlot(int index, int size)
         {
             for (int i = 0; i < size; i++)
             {
-                _isAvailable[index + i] = true;
+                _isAvailable[index + i] = false;
             }
         }
 
