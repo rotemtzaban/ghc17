@@ -27,7 +27,7 @@ namespace _2015_Qualification
 			}
 		}
 
-		public int getSpace(int size)
+		public int GetSpace(int size)
 		{
 			// TODO: optimize this
 			for (int i = 0; i < _columns; i++)
