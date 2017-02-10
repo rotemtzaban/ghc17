@@ -18,7 +18,6 @@ namespace HashCodeCommon
 		public int X { get; private set; }
 		public int Y { get; private set; }
 
-		// TODO: test this
 		public double CalcEucledianDistance(Coordinate other)
 		{
 			var deltaX = this.X - other.X;
