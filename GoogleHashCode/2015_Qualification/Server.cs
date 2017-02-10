@@ -9,9 +9,11 @@ namespace _2015_Qualification
 {
     public class Server : IndexedObject
     {
-        public Server(int index)
+        public Server(int index, int slots, int capacity)
             : base (index)
         {
+            this.Capacity = capacity;
+            this.Slots = slots;
         }
 
         public int Capacity { get; set; }

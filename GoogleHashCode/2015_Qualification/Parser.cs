@@ -17,7 +17,23 @@ namespace _2015_Qualification
             string[] lineNumbers = firstLine.Split(' ');
             input.Rows = int.Parse(lineNumbers[0]);
             input.Columns = int.Parse(lineNumbers[1]);
+            int numOfUnavliableSlots = int.Parse(lineNumbers[2]);
 
+            input.UnavilableSlots = new List<Coordinate>();
+            for (int i = 0; i < numOfUnavliableSlots; i++)
+            {
+                Coordinate coord = ReadLineAsCoordinate(reader);
+                input.UnavilableSlots.Add(coord);
+            }
+
+            int numOServers = int.Parse(lineNumbers[3]);
+            input.Servers = new List<Server>();
+            for (int i = 0; i < numOServers; i++)
+            {
+                Coordinate coord = ReadLineAsCoordinate(reader);
+                Server server = new Server(i, coord.X, coord.Y);
+                input.Servers.Add(server);
+            }
 
             return input;
         }
