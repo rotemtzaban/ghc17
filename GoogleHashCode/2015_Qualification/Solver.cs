@@ -16,7 +16,11 @@ namespace _2015_Qualification
 
 			foreach (var pool in input.Pools)
 			{
-				// pool.Servers.Add
+				var nextServer = availableServersByCapacity.Pop();
+				var nextServer2 = availableServersByCapacity.Pop();
+
+				
+				//pool.Servers.Add()
 			}
 
 			return result;
