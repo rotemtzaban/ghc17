@@ -1,6 +1,7 @@
 ﻿using HashCodeCommon;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -47,9 +48,22 @@ namespace _2015_Qualification
 
 		private ServerAllocation AlllocateServerToRow(ProblemInput input, Server server)
 		{
-			var row = GetNextRow();
+			Row row;
+			int column;
+			int tries = 0;
+			do
+			{
+				row = GetNextRow();
+				column = row.GetSpace(server.Slots);
+				tries++;
+				if (tries > input.Rows*2)
+				{
+					// TODO: Does this happen? What should we do?
+					throw new Exception("Unable to allocate server because no more space!");
+				}
+			} while (column == -1);
 
-			return null;
+			return new ServerAllocation{ InitialColumn = column, Row = row.RowIndex, Server = server};
 		}
 	}
 }
