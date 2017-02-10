@@ -7,6 +7,18 @@ using System.Threading.Tasks;
 
 namespace _2015_Qualification
 {
+	class Row
+	{
+		public Row(ProblemInput input)
+		{
+			_isAvailable = new List<bool>(input.Rows);
+			for (int i = 0; i < input.Rows; i++)
+				_isAvailable[i] = true;
+		}
+
+		public IList<bool> _isAvailable;
+	}
+
 	class Solver : ISolver<ProblemInput, ProblemOutput>
 	{
 		public ProblemOutput Solve(ProblemInput input)
@@ -16,10 +28,20 @@ namespace _2015_Qualification
 
 			foreach (var pool in input.Pools)
 			{
-				// pool.Servers.Add
+				var nextServer = availableServersByCapacity.Pop();
+				var nextServer2 = availableServersByCapacity.Pop();
+
+				AlllocateServerToRow(input, nextServer);
+				//pool.Servers.Add()
 			}
 
 			return result;
+		}
+
+		private void AlllocateServerToRow(ProblemInput input, Server server)
+		{
+			//input.Rows.
+			throw new NotImplementedException();
 		}
 	}
 }
