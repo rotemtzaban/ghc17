@@ -50,12 +50,30 @@ namespace _2015_Qualification
 			{
 				var pool = GetLowestCapacityPool();
 				_rowAllocator.AllocateUnsedServerToPool(pool);
+				_poolGuaranteedCapacities[pool] = pool.GurranteedCapacity(_result);
 			}
+
+			var lowestPool = GetLowestCapacityPool();
+			var highestPool = _poolGuaranteedCapacities.ArgMax(kvp => kvp.Value).Key;
+
+			//Console.WriteLine("Lowest ({0})", lowestPool.GurranteedCapacity(_result));
+			//PrintPoolRows(lowestPool);
+			//Console.WriteLine("Highest ({0})", highestPool.GurranteedCapacity(_result));
+			//PrintPoolRows(highestPool);
 
 			//Console.WriteLine("Used: "+ used);
 			//Console.WriteLine("NotUsed: "+ notUsed);
 
 			return _result;
+		}
+
+		private void PrintPoolRows(Pool ppool)
+		{
+			foreach (
+				var row in _result._allocations.Values.Where(a => a.Pool.Equals(ppool)).GroupBy(a => a.Row).OrderBy(g => g.Key))
+			{
+				Console.WriteLine("Row {0}: total {1} ({2})", row.Key, row.Sum(x => x.Server.Capacity), string.Join(", ", row.Select(r => r.Server.Capacity).ToList()));
+			}
 		}
 
 		private Pool GetLowestCapacityPool()
