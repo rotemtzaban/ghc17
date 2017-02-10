@@ -6,13 +6,5 @@
 		public Pool Pool { get; set; }
 		public int Row { get; set; }
 		public int InitialColumn { get; set; }
-
-		public bool IsAllocated
-		{
-			get
-			{
-				return Row != -1;
-			}
-		}
 	}
 }

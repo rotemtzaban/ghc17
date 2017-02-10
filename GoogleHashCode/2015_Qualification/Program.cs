@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HashCodeCommon;
 
 namespace _2015_Qualification
 {
@@ -10,14 +11,15 @@ namespace _2015_Qualification
     {
         static void Main(string[] args)
         {
-            //Runner<DronesInput, DronesOutput> runner = new Runner<DronesInput, DronesOutput>(new DronesParser(), new DronesSolver(), new DronesPrinter(), new DronesScoreCalculator());
+			Runner<ProblemInput, ProblemOutput> runner = new Runner<ProblemInput, ProblemOutput> (new Parser (), new Solver (), new Printer (), new ScoreCalculator ());            
 
             //runner.Run(Properties.Resources.Example, "Example", 1, false);
             //runner.Run(Properties.Resources.busy_day, "busy_day", 1, false);
             //runner.Run(Properties.Resources.mother_of_all_warehouses, "mother_of_all_warehouses", 1, false);
-            //runner.Run(Properties.Resources.redundancy, "redundancy", 1, false);
+            //runner.Run(Properties.Resources.redundancy, "redundancy", 1, false);	
 
-            //runner.CreateCodeZip();
+            runner.CreateCodeZip();
+				
             Console.Read();
         }
     }
