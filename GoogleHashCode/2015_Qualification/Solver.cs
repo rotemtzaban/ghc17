@@ -7,22 +7,22 @@ using System.Threading.Tasks;
 
 namespace _2015_Qualification
 {
-	class Row
+	public class Solver : ISolver<ProblemInput, ProblemOutput>
 	{
-		public Row(ProblemInput input)
+		private int _nextRowToUse = 0;
+		private Dictionary<int, Row> _allRows; 
+
+
+		private Row GetNextRow()
 		{
-			_isAvailable = new List<bool>(input.Rows);
-			for (int i = 0; i < input.Rows; i++)
-				_isAvailable[i] = true;
+			var res = _nextRowToUse;
+			_nextRowToUse++;
+			return _allRows[res];
 		}
 
-		public IList<bool> _isAvailable;
-	}
-
-	class Solver : ISolver<ProblemInput, ProblemOutput>
-	{
 		public ProblemOutput Solve(ProblemInput input)
 		{
+			CreateRows(input);
 			var result = new ProblemOutput();
 			var availableServersByCapacity = new Stack<Server>(input.Servers.OrderBy(x => x.Capacity));
 
@@ -38,10 +38,18 @@ namespace _2015_Qualification
 			return result;
 		}
 
-		private void AlllocateServerToRow(ProblemInput input, Server server)
+		private void CreateRows(ProblemInput input)
 		{
-			//input.Rows.
-			throw new NotImplementedException();
+			_allRows = new Dictionary<int, Row>();
+			for (int i = 0; i < input.Rows; i++)
+				_allRows[i] = new Row(input, i);
+		}
+
+		private ServerAllocation AlllocateServerToRow(ProblemInput input, Server server)
+		{
+			var row = GetNextRow();
+
+			return null;
 		}
 	}
 }
