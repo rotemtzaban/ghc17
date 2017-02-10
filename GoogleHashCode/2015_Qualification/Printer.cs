@@ -65,18 +65,26 @@ namespace _2015_Qualification
 
 			using (var writer = new StreamWriter(outputPath))
 			{
-				foreach (var server_allocated in result._allocations.OrderBy (kvp => kvp.Key.Index)) {
-					if (key_index != server_allocated.Key.Index) { // not found in dictionary == it was not allocated
-						writer.WriteLine ("x");
-					}						
-					else {
-						writer.WriteLine (server_allocated.Value.Row + " " + server_allocated.Value.InitialColumn + " " + server_allocated.Value.Pool.Index);
-					}
+				for (int i = 0; i < result.original_input.Servers.Count; i++)
+				{
+					var server = result.original_input.Servers[i];
+					ServerAllocation allocation;
+					if (result._allocations.TryGetValue(server, out allocation))
+						writer.WriteLine(allocation.Row + " " + allocation.InitialColumn + " " + allocation.Pool.Index);
+					else
+						writer.WriteLine("x");
+				}
+				//foreach (var server_allocated in result._allocations.OrderBy (kvp => kvp.Key.Index)) {
+				//	if (key_index != server_allocated.Key.Index) { // not found in dictionary == it was not allocated
+				//		writer.WriteLine ("x");
+				//	}						
+				//	else {
+				//		writer.WriteLine (server_allocated.Value.Row + " " + server_allocated.Value.InitialColumn + " " + server_allocated.Value.Pool.Index);
+				//	}
 
-					key_index++; // inc for next index test.
-				}					
+				//	key_index++; // inc for next index test.
+				//}					
 			}
-
 		}
 	}
 }

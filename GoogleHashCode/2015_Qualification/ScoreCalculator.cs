@@ -54,6 +54,8 @@ namespace _2015_Qualification
             for (int i = 0; i < input.Servers.Count; i++)
             {
                 string[] line = reader.ReadLine().Split(' ');
+	            if (line[0] == "x")
+		            continue;
                 int row = int.Parse(line[0]);
                 int slot = int.Parse(line[1]);
                 int pool = int.Parse(line[2]);
