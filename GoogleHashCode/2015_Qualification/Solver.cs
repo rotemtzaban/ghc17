@@ -7,14 +7,19 @@ using System.Threading.Tasks;
 
 namespace _2015_Qualification
 {
-    class Solver : ISolver<ProblemInput, ProblemOutput>
-    {
-        public ProblemOutput Solve(ProblemInput input)
-        {
+	class Solver : ISolver<ProblemInput, ProblemOutput>
+	{
+		public ProblemOutput Solve(ProblemInput input)
+		{
 			var result = new ProblemOutput();
-			var availableServersByCapacity = input.Servers.OrderBy(x => x.Capacity).ToList();
+			var availableServersByCapacity = new Stack<Server>(input.Servers.OrderBy(x => x.Capacity));
+
+			foreach (var pool in input.Pools)
+			{
+				// pool.Servers.Add
+			}
 
 			return result;
-        }
-    }
+		}
+	}
 }
