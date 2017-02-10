@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace HashCodeCommon
 {
-    public interface ISolver<TInput, TOutput>
+    public interface IGoodCloneable<T>
     {
-        TOutput Solve(TInput input, Random random);
-
-        TOutput Solve(TInput input);
+        T Clone();
     }
 }

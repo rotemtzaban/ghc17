@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace HashCodeCommon
 {
-    public interface ISolver<TInput, TOutput>
+    public interface IParser<T>
     {
-        TOutput Solve(TInput input, Random random);
+        T ParseFromPath(string path);
 
-        TOutput Solve(TInput input);
+        T ParseFromData(string path);
     }
 }

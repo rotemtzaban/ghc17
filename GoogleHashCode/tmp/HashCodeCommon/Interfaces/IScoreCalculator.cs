@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace HashCodeCommon
 {
-    public interface ISolver<TInput, TOutput>
+    public interface IScoreCalculator<TIn, TOut>
     {
-        TOutput Solve(TInput input, Random random);
-
-        TOutput Solve(TInput input);
+        int Calculate(TIn input, TOut output);
+        int Calculate(TIn input, string path);
     }
 }

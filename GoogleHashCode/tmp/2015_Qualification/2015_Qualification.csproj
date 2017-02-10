@@ -1,19 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{FE988848-3527-4FDE-A140-65CE69E2F181}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{B3F50226-EB02-42CA-8669-B02E36944C26}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HashCodeCommon</RootNamespace>
-    <AssemblyName>HashCodeCommon</AssemblyName>
+    <RootNamespace>_2015_Qualification</RootNamespace>
+    <AssemblyName>2015_Qualification</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,6 +25,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -33,8 +36,6 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.IO.Compression.FileSystem" />
-    <Reference Include="System.Numerics" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -43,26 +44,46 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseClasses\ClonedIndexedObject.cs" />
-    <Compile Include="BaseClasses\IndexedObject.cs" />
-    <Compile Include="BaseClasses\PrinterBase.cs" />
-    <Compile Include="BaseClasses\ScoreCalculatorBase.cs" />
-    <Compile Include="BaseClasses\SolverBase.cs" />
-    <Compile Include="HelperClasses\Coordinate.cs" />
-    <Compile Include="HelperClasses\DictionaryExtensions.cs" />
-    <Compile Include="HelperClasses\EnumerableExtensions.cs" />
-    <Compile Include="HelperClasses\Rectangle.cs" />
-    <Compile Include="HelperClasses\StringExtensions.cs" />
-    <Compile Include="HelperClasses\TextReaderExtensions.cs" />
-    <Compile Include="HelperClasses\TimedPrinter.cs" />
-    <Compile Include="Interfaces\IGoodCloneable.cs" />
-    <Compile Include="Interfaces\IParser.cs" />
-    <Compile Include="Interfaces\ISolver.cs" />
-    <Compile Include="Interfaces\IPrinter.cs" />
-    <Compile Include="Interfaces\IScoreCalculator.cs" />
-    <Compile Include="BaseClasses\ParserBase.cs" />
+    <Compile Include="Parser.cs" />
+    <Compile Include="Pool.cs" />
+    <Compile Include="ProblemInput.cs" />
+    <Compile Include="ProblemOutput.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Runner.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Row.cs" />
+    <Compile Include="RowAllocator.cs" />
+    <Compile Include="Server.cs" />
+    <Compile Include="ServerAllocation.cs" />
+    <Compile Include="ServerSelector.cs" />
+    <Compile Include="Solver.cs" />
+    <Compile Include="Printer.cs" />
+    <Compile Include="ScoreCalculator.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HashCodeCommon\HashCodeCommon.csproj">
+      <Project>{FE988848-3527-4FDE-A140-65CE69E2F181}</Project>
+      <Name>HashCodeCommon</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Input.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TestInput.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

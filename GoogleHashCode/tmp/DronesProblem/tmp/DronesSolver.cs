@@ -8,7 +8,7 @@ using DronesProblem.Commands;
 
 namespace DronesProblem
 {
-    public class DronesSolver : SolverBase<DronesInput, DronesOutput>
+    public class DronesSolver : ISolver<DronesInput, DronesOutput>
 	{
 		private List<Drone> m_AvailableDrones;
 		private List<WorkItem> m_RequestedItems;
@@ -27,20 +27,20 @@ namespace DronesProblem
 			foreach (Warehouse w in input.WareHouses) {
 				int itemCount;
 				if (w.Products.TryGetValue (item.Item, out itemCount) && itemCount > 0) {
-					w.Products[item.Item]=itemCount-1;
+					w.Products[item.Item]--;
 					LoadCommand loadCmd = new LoadCommand (d, w, item.Item, /*productCount=*/ 1);
 					result.Add (loadCmd);
-					DeliverCommand deliverCommand = new DeliverCommand (d, item.ParentOrder, item.Item, /*productCount=*/1);
-					result.Add (deliverCommand);
-
 					break;
 				}								
-			}		
+			}
+
+			DeliverCommand deliverCommand = new DeliverCommand (d, item.ParentOrder, item.Item, /*productCount=*/1);
+			result.Add (deliverCommand);
 
 			return result;
 		}
 
-        public override DronesOutput Solve(DronesInput input)
+        public DronesOutput Solve(DronesInput input)
         {
 			DronesOutput result = new DronesOutput ();
 
@@ -75,8 +75,6 @@ namespace DronesProblem
 					}
 				}
 
-				HashSet<Drone> dronesToRemove = new HashSet<Drone> ();
-
 				foreach (Drone d in m_AvailableDrones) {
 					for (int i = 0; i < m_RequestedItems.Count; i++) {
 
@@ -86,9 +84,6 @@ namespace DronesProblem
 
 						IEnumerable<CommandBase> cmds = GetCommands(d, m_RequestedItems[i], input);
 						d.Commands.AddRange (cmds);
-						if (cmds.Any ()) {
-							dronesToRemove.Add (d);
-						}
 						result.Commands.AddRange (cmds);
 						foreach (CommandBase cmd in cmds) {
 							d.TurnsUntilAvailable += cmd.TurnsToComplete;
@@ -105,14 +100,8 @@ namespace DronesProblem
 							break; // do not add new work to this drone for now
 						}
 					}
-
-				}
-
-				foreach (Drone d in dronesToRemove) {
-					m_AvailableDrones.Remove (d);
 				}
 			}
-
 
 			return result;
         }
