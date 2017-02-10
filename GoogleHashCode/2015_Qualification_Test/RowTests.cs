@@ -18,7 +18,11 @@ namespace _2015_Qualification_Test
 			var parser = new Parser();
 			var input = parser.ParseFromData(Resources.RealInput);
 			var row = new Row(input, 2);
-			row.GetAndAcquireSlot(5);
+
+			row.GetAndAcquireSlot(2);
+			row.GetAndAcquireSlot(2);
+
+			
 		}
 	}
 }
