@@ -18,7 +18,9 @@ namespace _2015_Qualification
 
 		public override void PrintToConsole (ProblemOutput result)
 		{
-			for (int y = 0; y < result.original_input.Rows; y++)
+            int freeSlots = 0;
+
+            for (int y = 0; y < result.original_input.Rows; y++)
 			{				
 				for (int x = 0; x < result.original_input.Columns; x++)
 				{
@@ -33,7 +35,9 @@ namespace _2015_Qualification
 					if (numOfCandidateServers == 0) {
 						Console.ForegroundColor = ConsoleColor.White;
 						Console.Write ('.');
-						continue;
+                        freeSlots++;
+
+                        continue;
 					}
 
 					if (numOfCandidateServers > 1) {
@@ -50,6 +54,7 @@ namespace _2015_Qualification
 				Console.WriteLine ();
 			}
 
+            Console.WriteLine("free slots: " + freeSlots);
 		}
 
 		private ConsoleColor GetColor(int pool_index)
