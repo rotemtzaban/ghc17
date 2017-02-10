@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DronesProblem", "DronesProb
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DronesProblemTests", "DronesProblemTests\DronesProblemTests.csproj", "{57E5119F-63D7-4BDE-B0B6-62F5E1193DCA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2015_Qualification", "2015_Qualification\2015_Qualification.csproj", "{B3F50226-EB02-42CA-8669-B02E36944C26}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{57E5119F-63D7-4BDE-B0B6-62F5E1193DCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{57E5119F-63D7-4BDE-B0B6-62F5E1193DCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{57E5119F-63D7-4BDE-B0B6-62F5E1193DCA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3F50226-EB02-42CA-8669-B02E36944C26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3F50226-EB02-42CA-8669-B02E36944C26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3F50226-EB02-42CA-8669-B02E36944C26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3F50226-EB02-42CA-8669-B02E36944C26}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
