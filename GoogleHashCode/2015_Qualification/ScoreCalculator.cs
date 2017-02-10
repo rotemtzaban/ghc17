@@ -41,6 +41,8 @@ namespace _2015_Qualification
 				}
 
 				gc_pool [i] = totalSum - maxRowSum;
+
+                Console.WriteLine(gc_pool[i]);
 			}
 
 			return gc_pool.Min ();
