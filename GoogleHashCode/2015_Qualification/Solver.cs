@@ -23,7 +23,7 @@ namespace _2015_Qualification
 			_poolGuaranteedCapacities = new Dictionary<Pool, int>();
 			_result = new ProblemOutput{ _allocations = new Dictionary<Server, ServerAllocation>(), original_input = input};
 
-			_rowAllocator = new RowAllocator(_input, _result);
+			_rowAllocator = new RowAllocator(_input, _result, new Random());
 			_serverSelector = new ServerSelector(_input, _result);
 
 			// TODO: Make sure order is correct

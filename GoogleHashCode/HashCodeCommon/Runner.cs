@@ -40,7 +40,7 @@ namespace HashCodeCommon
 			if (m_Calculator != null)
 			{
                 ScoreChange score = ReplaceIfBetter(data, finalPath, newOutPath);
-				PrintResults(caseName, score.Improvment);
+				PrintResults(caseName, score);
                 return score.NewScore;
 			}
             else
@@ -56,19 +56,19 @@ namespace HashCodeCommon
             return m_Parser.ParseFromData(data);
         }
 
-		private void PrintResults(string caseName, int improvement)
+		private void PrintResults(string caseName, ScoreChange scoreChange)
 		{
-			if (improvement < 0)
+			if (scoreChange.Improvment < 0)
 			{
-				WriteLineToConsoleInColor(caseName + ": new was worse. decrease by " + improvement, ConsoleColor.Red);
+				WriteLineToConsoleInColor(caseName + ": new was worse: "+scoreChange.NewScore +". decrease by " + scoreChange.Improvment, ConsoleColor.Red);
 			}
-			else if (improvement == 0)
+			else if (scoreChange.Improvment == 0)
 			{
-				WriteLineToConsoleInColor(caseName + ": new was the same as last", ConsoleColor.Yellow);
+				WriteLineToConsoleInColor(caseName + ": new was the same as last: " + scoreChange.NewScore, ConsoleColor.Yellow);
 			}
 			else
 			{
-				WriteLineToConsoleInColor(caseName + " new was better. improve by " + improvement, ConsoleColor.Green);
+				WriteLineToConsoleInColor(caseName + " new was better: " + scoreChange.NewScore + ". improve by " + scoreChange.Improvment, ConsoleColor.Green);
 			}
 		}
 
@@ -92,6 +92,7 @@ namespace HashCodeCommon
 
 			for (int i = 0; i < numberOfAttempts; i++)
 			{
+				Console.Write("Running attempt {0}/{1}...                            \r", i, numberOfAttempts);
 				TOutput results = m_Solver.Solve(GetInput(data));
 
 				int newScore = m_Calculator.Calculate(GetInput(data), results);
@@ -101,6 +102,7 @@ namespace HashCodeCommon
 					bestScore = newScore;
 				}
 			}
+			Console.WriteLine();
 
 			return bestResults;
 		}

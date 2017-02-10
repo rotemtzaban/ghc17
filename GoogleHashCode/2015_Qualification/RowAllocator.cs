@@ -11,9 +11,11 @@ namespace _2015_Qualification
 		private Dictionary<int, Row> _allRows;
 		private readonly ProblemOutput _result;
 		private readonly ProblemInput _input;
+		private Random _random;
 
-		public RowAllocator(ProblemInput input, ProblemOutput result)
+		public RowAllocator(ProblemInput input, ProblemOutput result, Random random)
 		{
+			_random = random;
 			_result = result;
 			_input = input;
 			CreateRows();
@@ -57,13 +59,12 @@ namespace _2015_Qualification
 			return new ServerAllocation { InitialColumn = column, Row = row._rowIndex, Server = server };
 		}
 
-		private Random random = new Random();
 		private Row GetNextRowForPool(Pool pool)
 		{
-			var allRows = Enumerable.Range(0, _input.Rows);
+			var allRows = Enumerable.Range(0, _input.Rows).ToList();
 			var usedRows = new HashSet<int>(_result._allocations.Values.Where(v => Equals(v.Pool, pool)).Select(v => v.Row).Distinct());
 			var availbleRows = allRows.Where(r => !usedRows.Contains(r)).ToList();
-			var newRow = availbleRows.RandomElement(random);
+			var newRow = availbleRows.Any() ? availbleRows.RandomElement(_random) : allRows.RandomElement(_random);
 			return _allRows[newRow];
 		}
 
