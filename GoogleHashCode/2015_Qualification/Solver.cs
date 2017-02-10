@@ -113,7 +113,7 @@ namespace _2015_Qualification
 
 		private IOrderedEnumerable<Server> GetServerListByPreference(ProblemInput input)
 		{
-			return input.Servers.OrderBy(x => x.Capacity);
+			return input.Servers.OrderBy(x => ((double)x.Capacity) / x.Slots);
 		}
 	}
 }
