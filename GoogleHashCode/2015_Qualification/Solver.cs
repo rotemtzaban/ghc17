@@ -14,6 +14,8 @@ namespace _2015_Qualification
 			var result = new ProblemOutput();
 			var availableServersByCapacity = input.Servers.OrderBy(x => x.Capacity).ToList();
 
+			// foreach(var pool in input.)
+
 			return result;
         }
     }
