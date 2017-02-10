@@ -47,8 +47,14 @@ namespace _2015_Qualification
 					var server = serversStartInCell.First ();
 					Console.ForegroundColor = GetColor (server.Pool.Index);
 					for (int i = 0; i < server.Server.Slots; i++) {
+                        if (i !=0)
+                            x++;
 						Console.Write(server.Server.Index);	
-					}						
+					}
+                    if (x >= result.original_input.Columns)
+                    {
+                        throw new Exception();
+                    }						
 				}
 
 				Console.WriteLine ();

@@ -30,14 +30,24 @@ namespace _2015_Qualification
 
 			InitializeServers(input, _serverSelector);
 
+            int used = 0, notUsed = 0;
+
 			while (_serverSelector.HasAvailableServer)
 			{
 				var pool = GetLowestCapacityPool();
 				if (!_rowAllocator.AllocateNextServerToPool(input, _serverSelector, pool))
-					continue;
+                {
+                    notUsed++;
+                }
+                else
+                {
+                    used++;
+				    _poolGuaranteedCapacities[pool] = pool.GurranteedCapacity(_result);
+                }
+            }
 
-				_poolGuaranteedCapacities[pool] = pool.GurranteedCapacity(_result);
-			}
+            Console.WriteLine("Used: "+ used);
+            Console.WriteLine("NotUsed: "+ notUsed);
 
 			return _result;
 		}
