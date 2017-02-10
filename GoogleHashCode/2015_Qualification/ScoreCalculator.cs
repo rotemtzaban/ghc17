@@ -43,7 +43,12 @@ namespace _2015_Qualification
 				gc_pool [i] = totalSum - maxRowSum;
 			}
 
-			return gc_pool.Min ();
+            foreach (var item in gc_pool.OrderBy(_ => _))
+            {
+                Console.WriteLine(item);
+            }
+
+            return gc_pool.Min ();
 		}
 
 		public override ProblemOutput GetResultFromReader (ProblemInput input, TextReader reader)
