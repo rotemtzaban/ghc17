@@ -12,13 +12,20 @@ namespace _2015_Qualification
 		private readonly ProblemOutput _result;
 		private readonly ProblemInput _input;
 		private Random _random;
+		private Stack<Server> _unusedServers;
 
 		public RowAllocator(ProblemInput input, ProblemOutput result, Random random)
 		{
 			_random = random;
 			_result = result;
 			_input = input;
+			_unusedServers = new Stack<Server>();
 			CreateRows();
+		}
+
+		public bool HasUnusedServers
+		{
+			get { return _unusedServers.Any(); }
 		}
 
 		public bool AllocateNextServerToPool(ProblemInput input, ServerSelector serverSelector, Pool pool)
@@ -26,7 +33,10 @@ namespace _2015_Qualification
 			var nextServer = serverSelector.UseNextServer();
 			ServerAllocation allocation = AlllocateServerToRow(input, nextServer, pool);
 			if (allocation == null)
+			{
+				_unusedServers.Push(nextServer);
 				return false;
+			}
 
 			allocation.Pool = pool;
 
@@ -77,6 +87,31 @@ namespace _2015_Qualification
 				_nextRowToUse = 0;
 
 			return _allRows[res];
+		}
+
+		public void AllocateUnsedServerToPool(Pool pool)
+		{
+			var nextServer = _unusedServers.Pop();
+
+			int col = -1;
+			int row = 0;
+			for (; row < _input.Rows; row++)
+			{
+				col = _allRows[row].GetAndAcquireSlot(nextServer.Slots);
+				if (col != -1)
+				{
+					break;
+				}
+			}
+
+			if (col == -1)
+				return;
+
+			ServerAllocation allocation = new ServerAllocation {InitialColumn = col, Row = row, Server = nextServer};
+
+			allocation.Pool = pool;
+
+			_result._allocations.Add(allocation.Server, allocation);
 		}
 	}
 }

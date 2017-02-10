@@ -59,6 +59,7 @@
     <Compile Include="RowAllocator.cs" />
     <Compile Include="Server.cs" />
     <Compile Include="ServerAllocation.cs" />
+    <Compile Include="ServerSelector.cs" />
     <Compile Include="Solver.cs" />
     <Compile Include="Printer.cs" />
     <Compile Include="ScoreCalculator.cs" />
