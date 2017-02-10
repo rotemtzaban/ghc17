@@ -11,7 +11,10 @@ namespace _2015_Qualification
     {
         public ProblemOutput Solve(ProblemInput input)
         {
-            throw new NotImplementedException();
+			var result = new ProblemOutput();
+			var availableServersByCapacity = input.Servers.OrderBy(x => x.Capacity).ToList();
+
+
         }
     }
 }

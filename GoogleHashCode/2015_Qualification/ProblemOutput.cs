@@ -8,5 +8,6 @@ namespace _2015_Qualification
 {
     public class ProblemOutput
     {
+		public IEnumerable<ServerAllocation> _allocations { get; set; }
     }
 }
