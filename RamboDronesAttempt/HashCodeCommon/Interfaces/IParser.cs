@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace HashCodeCommon
 {
-    public interface IGoodCloneable<T>
+    public interface IParser<T>
     {
-        T Clone();
+        T ParseFromPath(string path);
+
+        T ParseFromData(string path);
     }
 }

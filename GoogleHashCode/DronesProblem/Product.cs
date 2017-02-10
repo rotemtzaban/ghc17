@@ -1,4 +1,4 @@
-﻿using HashCodeCommon.BaseClasses;
+﻿using HashCodeCommon;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace DronesProblem
 {
 	public class Product : IndexedObject
-	{
+    {
 		public uint Weight { get; private set; }
 
 		public Product(int index, string weight)
@@ -17,10 +17,10 @@ namespace DronesProblem
 			Weight = uint.Parse(weight);
 		}
 
-        public Product(Product other)
-            :base (other.Index)
+        public Product(int index, uint weight)
+            : base(index)
         {
-            this.Weight = other.Weight;
+            Weight = weight;
         }
     }
 }

@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace HashCodeCommon
 {
-    public interface IGoodCloneable<T>
+    public interface IScoreCalculator<TIn, TOut>
     {
-        T Clone();
+        int Calculate(TIn input, TOut output);
+        int Calculate(TIn input, string path);
     }
 }

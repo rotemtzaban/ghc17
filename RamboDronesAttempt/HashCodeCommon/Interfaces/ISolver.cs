@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace HashCodeCommon
 {
-    public interface IGoodCloneable<T>
+    public interface ISolver<TInput, TOutput>
     {
-        T Clone();
+        TOutput Solve(TInput input);
     }
 }

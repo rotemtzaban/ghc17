@@ -1,5 +1,4 @@
 ﻿using HashCodeCommon;
-using HashCodeCommon.BaseClasses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,18 +16,6 @@ namespace DronesProblem
         public Order(int index)
             :base (index)
         {
-        }
-
-        public Order(Order other)
-            :base (other.Index)
-        {
-            this.Location = other.Location;
-            this.WantedProducts = new List<Product>();
-
-            foreach (var item in other.WantedProducts)
-            {
-                this.WantedProducts.Add(new Product(item));
-            }
         }
     }
 }

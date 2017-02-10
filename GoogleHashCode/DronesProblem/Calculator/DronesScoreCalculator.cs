@@ -18,7 +18,7 @@ namespace DronesProblem
 			int score = 0;
 			foreach (Event currEvent in events)
 			{
-                Console.WriteLine(currEvent);
+                // Console.WriteLine(currEvent);
 				ValidateEvent(currEvent);
 
 				score += CalculateScore(currEvent, input);
@@ -51,7 +51,8 @@ namespace DronesProblem
 		{
 			if (currEvent.ProductTaken != null)
 			{
-				if (!currEvent.Warehouse.Products.Remove(currEvent.ProductTaken))
+                currEvent.Warehouse.Products[currEvent.ProductTaken] -= 1;
+                if (currEvent.Warehouse.Products[currEvent.ProductTaken] < 0)
 				{
 					throw new Exception("item not in warehouse");
 				}

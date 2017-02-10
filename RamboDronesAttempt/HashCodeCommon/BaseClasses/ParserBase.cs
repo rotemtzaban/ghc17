@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace HashCodeCommon
 {
-    public abstract class ParserBase<T> : IParser<T>
+    public abstract class ParserBase<TInput> : IParser<TInput>
     {
-        public T ParseFromData(string data)
+        public TInput ParseFromData(string data)
         {
             using (var reader = new StringReader(data))
             {
@@ -17,7 +17,7 @@ namespace HashCodeCommon
             }
         }
 
-        public T ParseFromPath(string path)
+        public TInput ParseFromPath(string path)
         {
             using (var reader = new StreamReader(path))
             {
@@ -51,6 +51,6 @@ namespace HashCodeCommon
             return result;
         }
 
-        protected abstract T ParseFromStream(TextReader reader);
+        protected abstract TInput ParseFromStream(TextReader reader);
     }
 }

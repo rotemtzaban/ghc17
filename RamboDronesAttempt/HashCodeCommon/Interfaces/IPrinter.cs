@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace HashCodeCommon
 {
-    public interface IGoodCloneable<T>
+    public interface IPrinter<T>
     {
-        T Clone();
+        void PrintToFile(T result, string outputPath);
+
+        void PrintToConsole(T result);
     }
 }

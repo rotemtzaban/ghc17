@@ -1,5 +1,4 @@
 ﻿using HashCodeCommon;
-using HashCodeCommon.BaseClasses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +8,7 @@ using System.Threading.Tasks;
 namespace DronesProblem
 {
 	public class Drone : IndexedObject
-	{
+    {
 		public Coordinate Location { get; set; }
 
 		public uint WeightLoad { get; set; }
@@ -35,13 +34,5 @@ namespace DronesProblem
 			this.TurnsUntilAvailable = 1; // Workaround for init case
 			this.Commands = new List<CommandBase>();
 		}
-
-        public Drone(Drone other)
-            : base(other.Index)
-        {
-            this.WeightLoad = other.WeightLoad;
-            this.TurnsUntilAvailable = other.TurnsUntilAvailable;
-            this.Commands = new List<CommandBase>();
-        }
     }
 }

@@ -47,6 +47,7 @@
     <Compile Include="BaseClasses\IndexedObject.cs" />
     <Compile Include="BaseClasses\PrinterBase.cs" />
     <Compile Include="BaseClasses\ScoreCalculatorBase.cs" />
+    <Compile Include="BaseClasses\SolverBase.cs" />
     <Compile Include="HelperClasses\Coordinate.cs" />
     <Compile Include="HelperClasses\DictionaryExtensions.cs" />
     <Compile Include="HelperClasses\EnumerableExtensions.cs" />
