@@ -53,13 +53,14 @@ namespace _2015_Qualification
 				_poolGuaranteedCapacities[pool] = pool.GurranteedCapacity(_result);
 			}
 
-			var lowestPool = GetLowestCapacityPool();
-			var highestPool = _poolGuaranteedCapacities.ArgMax(kvp => kvp.Value).Key;
-
+			//var lowestPool = GetLowestCapacityPool();
+			//var highestPool = GetHighestCapacityPool();
 			//Console.WriteLine("Lowest ({0})", lowestPool.GurranteedCapacity(_result));
 			//PrintPoolRows(lowestPool);
 			//Console.WriteLine("Highest ({0})", highestPool.GurranteedCapacity(_result));
 			//PrintPoolRows(highestPool);
+
+			TryToMoveServersFromBestToWorst();
 
 			//Console.WriteLine("Used: "+ used);
 			//Console.WriteLine("NotUsed: "+ notUsed);
@@ -67,18 +68,67 @@ namespace _2015_Qualification
 			return _result;
 		}
 
+		private void TryToMoveServersFromBestToWorst()
+		{
+			while (true)
+			{
+				var lowestPool = GetLowestCapacityPool();
+				var highestPool = GetHighestCapacityPool();
+
+				var lowestAllocations = GetAllPoolAllocations(lowestPool);
+				var highestRow = GetHighestRow(lowestAllocations);
+				var highestAllocations = GetAllPoolAllocations(highestPool);
+
+				var freeAllocation = highestAllocations.Where(a => a.Row != highestRow).ArgMin(a => a.Server.Capacity);
+
+				var lowestScore = _poolGuaranteedCapacities[lowestPool];
+
+				freeAllocation.Pool = lowestPool;
+
+				var newHighestScore = highestPool.GurranteedCapacity(_result);
+				var newLowestScore = lowestPool.GurranteedCapacity(_result);
+
+				if (newHighestScore <= lowestScore)
+				{
+					// Wasn't worth it
+					freeAllocation.Pool = highestPool;
+					break;
+				}
+				else
+				{
+					_poolGuaranteedCapacities[highestPool] = newHighestScore;
+					_poolGuaranteedCapacities[lowestPool] = newLowestScore;
+				}
+			}
+		}
+
+		private int GetHighestRow(IEnumerable<ServerAllocation> allocations)
+		{
+			return allocations.GroupBy(a => a.Row).ArgMax(g => g.Sum(x => x.Server.Capacity)).Key;
+		}
+
 		private void PrintPoolRows(Pool ppool)
 		{
 			foreach (
-				var row in _result._allocations.Values.Where(a => a.Pool.Equals(ppool)).GroupBy(a => a.Row).OrderBy(g => g.Key))
+				var row in GetAllPoolAllocations(ppool).GroupBy(a => a.Row).OrderBy(g => g.Key))
 			{
 				Console.WriteLine("Row {0}: total {1} ({2})", row.Key, row.Sum(x => x.Server.Capacity), string.Join(", ", row.Select(r => r.Server.Capacity).ToList()));
 			}
 		}
 
+		private IEnumerable<ServerAllocation> GetAllPoolAllocations(Pool ppool)
+		{
+			return _result._allocations.Values.Where(a => a.Pool.Equals(ppool));
+		}
+
 		private Pool GetLowestCapacityPool()
 		{
 			return _poolGuaranteedCapacities.ArgMin(kvp => kvp.Value).Key;
+		}
+
+		private Pool GetHighestCapacityPool()
+		{
+			return _poolGuaranteedCapacities.ArgMax(kvp => kvp.Value).Key;
 		}
 
 		private void InitializeServers(ProblemInput input, ServerSelector serverSelector)
