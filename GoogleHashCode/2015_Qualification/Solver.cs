@@ -15,6 +15,7 @@ namespace _2015_Qualification
 		private ProblemOutput _result;
 		private ProblemInput _input;
 		private RowAllocator _rowAllocator;
+		private ServerSelector _serverSelector;
 
 		public ProblemOutput Solve(ProblemInput input)
 		{
@@ -22,31 +23,22 @@ namespace _2015_Qualification
 			_poolGuaranteedCapacities = new Dictionary<Pool, int>();
 			_result = new ProblemOutput{ _allocations = new Dictionary<Server, ServerAllocation>(), original_input = input};
 
-			_rowAllocator = new RowAllocator(_input, _result);
-            ServerSelector _serverSelector = new ServerSelector(_input, _result);
+			_rowAllocator = new RowAllocator(_input, _result, new Random());
+			_serverSelector = new ServerSelector(_input, _result);
 
 			// TODO: Make sure order is correct
+
 			InitializeServers(input, _serverSelector);
-            int notused = 0;
-            int used = 0;
 
-            while (_serverSelector.HasAvailableServer)
-            {
-                var pool = GetLowestCapacityPool();
-                if (!_rowAllocator.AllocateNextServerToPool(input, _serverSelector, pool))
-                {
-                    continue;
-                    notused++;
-                }
-                else
-                {
-                    used++;
-                }
-                _poolGuaranteedCapacities[pool] = pool.GurranteedCapacity(_result);
-            }
+			while (_serverSelector.HasAvailableServer)
+			{
+				var pool = GetLowestCapacityPool();
+				if (!_rowAllocator.AllocateNextServerToPool(input, _serverSelector, pool))
+					continue;
 
-            Console.WriteLine("Used: " + used);
-            Console.WriteLine("Not used: " + notused);
+				_poolGuaranteedCapacities[pool] = pool.GurranteedCapacity(_result);
+			}
+
 			return _result;
 		}
 

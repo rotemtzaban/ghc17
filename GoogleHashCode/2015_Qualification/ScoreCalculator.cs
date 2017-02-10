@@ -45,7 +45,7 @@ namespace _2015_Qualification
 
             foreach (var item in gc_pool.OrderBy(_ => _))
             {
-                Console.WriteLine(item);
+                // Console.WriteLine(item);
             }
 
             return gc_pool.Min ();

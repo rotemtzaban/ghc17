@@ -120,6 +120,8 @@ namespace HashCodeCommon
 
 		public static T RandomElement<T>(this IList<T> list, Random random = null)
 		{
+			if(!list.Any())
+				throw new IndexOutOfRangeException();
 			random = random ?? new Random();
 			return list[random.Next(0, list.Count)];
 		} 
