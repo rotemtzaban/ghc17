@@ -58,8 +58,13 @@ namespace _2015_Qualification
                 int slot = int.Parse(line[1]);
                 int pool = int.Parse(line[2]);
 
-                Server current = new Server(i, input.Servers[i].Slots, input.Servers[i].Capacity);
+                Server current = input.Servers[i];
                 ServerAllocation alooc = new ServerAllocation();
+                alooc.Row = row;
+                alooc.Pool = input.Pools[pool];
+                alooc.Server = current;
+                alooc.InitialColumn = slot;
+
                 output._allocations.Add(current, alooc);
             }
 
