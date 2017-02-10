@@ -4,7 +4,7 @@ namespace _2015_Qualification
 {
 	public class Row
 	{
-		private readonly int _rowIndex;
+		public  readonly int _rowIndex;
 		private IList<bool> _isAvailable;
 		private int _columns;
 
@@ -26,6 +26,19 @@ namespace _2015_Qualification
 				_isAvailable[slot.X] = false;
 			}
 		}
+
+        public int GetAndAqcuireSlot(int index)
+        {
+
+        }
+
+        public void AqcuireSlot(int index, int size)
+        {
+            for (int i = 0; i < size; i++)
+            {
+                _isAvailable[index + i] = true;
+            }
+        }
 
 		public int GetSpace(int size)
 		{
