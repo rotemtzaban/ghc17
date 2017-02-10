@@ -7,7 +7,6 @@ namespace _2015_Qualification
 {
 	public class Printer : PrinterBase<ProblemOutput>
 	{		
-		private int consoleColorCount = 0;
 		private ConsoleColor[] printedColors = new ConsoleColor[]
 		{
 			ConsoleColor.Red,
@@ -55,8 +54,7 @@ namespace _2015_Qualification
 
 		private ConsoleColor GetColor(int pool_index)
 		{
-			int index = consoleColorCount % pool_index;
-			consoleColorCount++;
+			int index = pool_index % printedColors.Length;
 			return printedColors[index];
 		}
 
