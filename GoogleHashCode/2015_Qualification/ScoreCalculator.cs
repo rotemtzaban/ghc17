@@ -1,5 +1,7 @@
 ﻿using System;
 using HashCodeCommon;
+using System.IO;
+using System.Collections.Generic;
 
 namespace _2015_Qualification
 {
@@ -11,12 +13,27 @@ namespace _2015_Qualification
 
 		public override int Calculate (ProblemInput input, ProblemOutput output)
 		{
-			throw new NotImplementedException ();
+            return 0;
 		}
 
-		public override ProblemOutput GetResultFromReader (ProblemInput input, System.IO.TextReader reader)
+		public override ProblemOutput GetResultFromReader (ProblemInput input, TextReader reader)
 		{
-			throw new NotImplementedException ();
+            ProblemOutput output = new ProblemOutput();
+            output._allocations = new Dictionary<Server, ServerAllocation>();
+
+            for (int i = 0; i < input.Servers.Count; i++)
+            {
+                string[] line = reader.ReadLine().Split(' ');
+                int row = int.Parse(line[0]);
+                int slot = int.Parse(line[1]);
+                int pool = int.Parse(line[2]);
+
+                Server current = new Server(i, input.Servers[i].Slots, input.Servers[i].Capacity);
+                ServerAllocation alooc = new ServerAllocation();
+                output._allocations.Add(current, alooc);
+            }
+
+            return output;
 		}
 	}
 }
