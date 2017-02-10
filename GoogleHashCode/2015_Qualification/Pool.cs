@@ -15,5 +15,26 @@ namespace _2015_Qualification
         }
 
         public List<Server> Servers { get; private set; }
+
+        public int GurranteedCapacity(List<ServerAllocation> allocated)
+        {
+            Dictionary<int, int> rowsCpacity = new Dictionary<int, int>();
+
+            foreach (var server in allocated)
+            {
+                if (rowsCpacity.ContainsKey(server.Row))
+                {
+                    rowsCpacity[server.Row] += server.Server.Capacity;
+                }
+                else
+                {
+                    rowsCpacity.Add(server.Row,  server.Server.Capacity);
+                }
+            }
+
+            var maxRow = rowsCpacity.Max(_ => _.Value);
+            rowsCpacity.Remove(maxRow);
+            return rowsCpacity.Sum(_ => _.Value);
+        }
     }
 }
