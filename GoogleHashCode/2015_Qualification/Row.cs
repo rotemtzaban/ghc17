@@ -38,7 +38,7 @@ namespace _2015_Qualification
         {
             for (int i = 0; i < size; i++)
             {
-                _isAvailable[index + i] = true;
+                _isAvailable[index + i] = false;
             }
         }
 
