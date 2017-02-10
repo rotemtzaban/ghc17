@@ -44,8 +44,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Parser.cs" />
+    <Compile Include="Pool.cs" />
+    <Compile Include="ProblemInput.cs" />
+    <Compile Include="ProblemOutput.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Server.cs" />
+    <Compile Include="Solver.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
