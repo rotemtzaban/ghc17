@@ -19,5 +19,10 @@ namespace _2015_Qualification
         public int Capacity { get; set; }
 
         public int Slots { get; set; }
+
+        public override string ToString()
+        {
+            return "Index: " + this.Index + ",Slots: " + this.Slots + ",Capacity: " + this.Capacity;
+        }
     }
 }

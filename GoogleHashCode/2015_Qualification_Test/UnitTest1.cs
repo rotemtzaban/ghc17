@@ -1,7 +1,8 @@
-﻿using System;
+﻿using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using _2015_Qualification;
 using HashCodeCommon;
+using System.Collections.Generic;
 
 namespace _2015_Qualification_Test
 {
@@ -9,7 +10,7 @@ namespace _2015_Qualification_Test
     public class ParserTest
     {
         [TestMethod]
-        public void TestMethod1()
+        public void Parser_Test()
         {
             Parser parser = new Parser();
             ProblemInput input = parser.ParseFromData(Properties.Resources.TestInput);
@@ -21,6 +22,20 @@ namespace _2015_Qualification_Test
             Assert.AreEqual(5, input.Servers.Count);
 
             Assert.AreEqual(new Coordinate(0,0), input.UnavilableSlots[0]);
+        }
+
+        [TestMethod]
+        public void Parser_TestBla()
+        {
+            Parser parser = new Parser();
+            ProblemInput input = parser.ParseFromData(Properties.Resources.RealInput);
+
+            List<Server> servers = input.Servers.OrderByDescending(_ => _.Capacity).ToList();
+            List<Server> servers1 = input.Servers.OrderByDescending(_ => _.Slots).ToList();
+            List<Server> servers2 = input.Servers.OrderByDescending(_ => ((double)_.Capacity) / _.Slots).ToList();
+
+            int count = servers.Sum(_ => _.Slots);
+            int n = 0;
         }
     }
 }
