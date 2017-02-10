@@ -14,20 +14,29 @@ namespace _2015_Qualification
 		private int _nextRowToUse = 0;
 		private Dictionary<int, Row> _allRows;
 		private Dictionary<Pool, int> _poolGuaranteedCapacities;
-		private ProblemOutput _result; 
+		private ProblemOutput _result;
+		private ProblemInput _input;
 
 		private Row GetNextRow()
 		{
 			var res = _nextRowToUse;
+
 			_nextRowToUse++;
+			if (_nextRowToUse >= _input.Rows)
+				_nextRowToUse = 0;
+			
 			return _allRows[res];
 		}
 
 		public ProblemOutput Solve(ProblemInput input)
 		{
+			_input = input;
+			_poolGuaranteedCapacities = new Dictionary<Pool, int>();
 			CreateRows(input);
 			_result = new ProblemOutput();
-			var availableServersByCapacity = new Stack<Server>(input.Servers.OrderBy(x => x.Capacity));
+
+			// TODO: Make sure order is correct
+			var availableServersByCapacity = new Stack<Server>(GetServerListByPreference(input));
 
 			InitializeServers(input, availableServersByCapacity);
 
@@ -35,7 +44,9 @@ namespace _2015_Qualification
 			{
 				var pool = GetLowestCapacityPool();
 				if (!AllocateNextServerToPool(input, availableServersByCapacity, pool))
-					break;
+					continue;
+
+				_poolGuaranteedCapacities[pool] = pool.GurranteedCapacity(_result);
 			}
 
 			return _result;
@@ -43,7 +54,7 @@ namespace _2015_Qualification
 
 		private Pool GetLowestCapacityPool()
 		{
-			throw new NotImplementedException();
+			return _poolGuaranteedCapacities.ArgMin(kvp => kvp.Value).Key;
 		}
 
 		private void InitializeServers(ProblemInput input, Stack<Server> availableServersByCapacity)
@@ -55,14 +66,18 @@ namespace _2015_Qualification
 				if(!AllocateNextServerToPool(input, availableServersByCapacity, pool))
 					throw new Exception("Couldn't allocate in initialization!");
 			}
+
+			foreach (var pool in input.Pools)
+				_poolGuaranteedCapacities[pool] = pool.GurranteedCapacity(_result);
 		}
 
 		private bool AllocateNextServerToPool(ProblemInput input, Stack<Server> availableServersByCapacity, Pool pool)
 		{
 			var nextServer = availableServersByCapacity.Pop();
-			var allocation = AlllocateServerToRow(input, nextServer);
+			ServerAllocation allocation = AlllocateServerToRow(input, nextServer);
 			if (allocation == null)
 				return false;
+
 			allocation.Pool = pool;
 
 			_result._allocations.Add(allocation.Server, allocation);
@@ -95,6 +110,11 @@ namespace _2015_Qualification
 			} while (column == -1);
 
 			return new ServerAllocation{ InitialColumn = column, Row = row._rowIndex, Server = server};
+		}
+
+		private IOrderedEnumerable<Server> GetServerListByPreference(ProblemInput input)
+		{
+			return input.Servers.OrderBy(x => x.Capacity);
 		}
 	}
 }

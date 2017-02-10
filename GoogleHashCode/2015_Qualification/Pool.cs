@@ -16,9 +16,10 @@ namespace _2015_Qualification
 
         public List<Server> Servers { get; private set; }
 
-        public int GurranteedCapacity(List<ServerAllocation> allocated)
+        public int GurranteedCapacity(ProblemOutput output)
         {
             Dictionary<int, int> rowsCpacity = new Dictionary<int, int>();
+	        var allocated = output._allocations.Values.Where(allocation => Equals(allocation.Pool, this));
 
             foreach (var server in allocated)
             {
