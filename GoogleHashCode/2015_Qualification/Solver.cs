@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,8 +12,9 @@ namespace _2015_Qualification
 	public class Solver : ISolver<ProblemInput, ProblemOutput>
 	{
 		private int _nextRowToUse = 0;
-		private Dictionary<int, Row> _allRows; 
-
+		private Dictionary<int, Row> _allRows;
+		private Dictionary<Pool, int> _poolGuaranteedCapacities;
+		private ProblemOutput _result; 
 
 		private Row GetNextRow()
 		{
@@ -24,19 +26,48 @@ namespace _2015_Qualification
 		public ProblemOutput Solve(ProblemInput input)
 		{
 			CreateRows(input);
-			var result = new ProblemOutput();
+			_result = new ProblemOutput();
 			var availableServersByCapacity = new Stack<Server>(input.Servers.OrderBy(x => x.Capacity));
 
-			foreach (var pool in input.Pools)
-			{
-				var nextServer = availableServersByCapacity.Pop();
-				var nextServer2 = availableServersByCapacity.Pop();
+			InitializeServers(input, availableServersByCapacity);
 
-				AlllocateServerToRow(input, nextServer);
-				//pool.Servers.Add()
+			while (availableServersByCapacity.Count > 0)
+			{
+				var pool = GetLowestCapacityPool();
+				if (!AllocateNextServerToPool(input, availableServersByCapacity, pool))
+					break;
 			}
 
-			return result;
+			return _result;
+		}
+
+		private Pool GetLowestCapacityPool()
+		{
+			throw new NotImplementedException();
+		}
+
+		private void InitializeServers(ProblemInput input, Stack<Server> availableServersByCapacity)
+		{
+			foreach (var pool in input.Pools)
+			{
+				if(!AllocateNextServerToPool(input, availableServersByCapacity, pool))
+					throw new Exception("Couldn't allocate in initialization!");
+				if(!AllocateNextServerToPool(input, availableServersByCapacity, pool))
+					throw new Exception("Couldn't allocate in initialization!");
+			}
+		}
+
+		private bool AllocateNextServerToPool(ProblemInput input, Stack<Server> availableServersByCapacity, Pool pool)
+		{
+			var nextServer = availableServersByCapacity.Pop();
+			var allocation = AlllocateServerToRow(input, nextServer);
+			if (allocation == null)
+				return false;
+			allocation.Pool = pool;
+
+			_result._allocations.Add(allocation.Server, allocation);
+			pool.Servers.Add(nextServer);
+			return true;
 		}
 
 		private void CreateRows(ProblemInput input)
@@ -54,16 +85,16 @@ namespace _2015_Qualification
 			do
 			{
 				row = GetNextRow();
-				column = row.GetSpace(server.Slots);
+				column = row.GetAndAqcuireSlot(server.Slots);
 				tries++;
 				if (tries > input.Rows*2)
 				{
 					// TODO: Does this happen? What should we do?
-					throw new Exception("Unable to allocate server because no more space!");
+					return null;
 				}
 			} while (column == -1);
 
-			return new ServerAllocation{ InitialColumn = column, Row = row.RowIndex, Server = server};
+			return new ServerAllocation{ InitialColumn = column, Row = row._rowIndex, Server = server};
 		}
 	}
 }
