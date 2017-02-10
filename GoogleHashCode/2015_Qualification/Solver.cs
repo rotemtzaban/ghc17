@@ -63,11 +63,15 @@ namespace _2015_Qualification
 			{
 				if(!AllocateNextServerToPool(input, availableServersByCapacity, pool))
 					throw new Exception("Couldn't allocate in initialization!");
-				if(!AllocateNextServerToPool(input, availableServersByCapacity, pool))
-					throw new Exception("Couldn't allocate in initialization!");
 			}
 
-			foreach (var pool in input.Pools)
+            for (int i = input.Pools.Count; i >= 0; i--)
+            {
+                if (!AllocateNextServerToPool(input, availableServersByCapacity, input.Pools[i]))
+                    throw new Exception("Couldn't allocate in initialization!");
+            }
+
+            foreach (var pool in input.Pools)
 				_poolGuaranteedCapacities[pool] = pool.GurranteedCapacity(_result);
 		}
 
