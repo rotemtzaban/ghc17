@@ -5,15 +5,15 @@ namespace _2015_Qualification
 	public class Row
 	{
 		public  readonly int _rowIndex;
-		private IList<bool> _isAvailable;
+		private bool[] _isAvailable;
 		private int _columns;
 
 		public Row(ProblemInput input, int rowIndex)
 		{
 			_rowIndex = rowIndex;
 			_columns = input.Columns;
-			_isAvailable = new List<bool>(input.Columns);
-			for (int i = 0; i < input.Rows; i++)
+			_isAvailable = new bool[input.Columns];
+			for (int i = 0; i < input.Columns; i++)
 			{
 				_isAvailable[i] = true;
 			}
@@ -27,14 +27,15 @@ namespace _2015_Qualification
 			}
 		}
 
-        public int GetAndAqcuireSlot(int index)
+        public int GetAndAqcuireSlot(int size)
         {
-            int size = GetSpace(index);
-            AqcuireSlot(index, size);
-            return size;
+            int index = GetSpace(size);
+			if(index != -1)
+				AcquireSlots(index, size);
+            return index;
         }
 
-        public void AqcuireSlot(int index, int size)
+        public void AcquireSlots(int index, int size)
         {
             for (int i = 0; i < size; i++)
             {
@@ -47,6 +48,8 @@ namespace _2015_Qualification
 			// TODO: optimize this
 			for (int i = 0; i < _columns; i++)
 			{
+				if (i + size > _isAvailable.Length)
+					break;
 				if (!_isAvailable[i])
 					continue;
 

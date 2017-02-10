@@ -33,7 +33,7 @@ namespace _2015_Qualification
 			_input = input;
 			_poolGuaranteedCapacities = new Dictionary<Pool, int>();
 			CreateRows(input);
-			_result = new ProblemOutput();
+			_result = new ProblemOutput{ _allocations = new Dictionary<Server, ServerAllocation>(), original_input = input};
 
 			// TODO: Make sure order is correct
 			var availableServersByCapacity = new Stack<Server>(GetServerListByPreference(input));
@@ -81,7 +81,6 @@ namespace _2015_Qualification
 			allocation.Pool = pool;
 
 			_result._allocations.Add(allocation.Server, allocation);
-			pool.Servers.Add(nextServer);
 			return true;
 		}
 
