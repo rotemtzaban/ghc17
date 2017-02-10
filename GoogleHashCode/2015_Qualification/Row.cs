@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text;
 
 namespace _2015_Qualification
 {
@@ -69,6 +70,15 @@ namespace _2015_Qualification
 			}
 
 			return -1;
+		}
+
+		public override string ToString()
+		{
+			var builder = new StringBuilder();
+			for (int i = 0; i < _columns; i++)
+				builder.Append(_isAvailable[i] ? "." : "x");
+
+			return builder.ToString();
 		}
 	}
 }
