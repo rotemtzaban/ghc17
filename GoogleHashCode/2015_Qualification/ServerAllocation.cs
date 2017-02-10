@@ -1,0 +1,17 @@
+﻿namespace _2015_Qualification
+{
+	public class ServerAllocation
+	{
+		public Server Server { get; set; }
+		public int Row { get; set; }
+		public int InitialColumn { get; set; }
+
+		public bool IsAllocated
+		{
+			get
+			{
+				return Row != -1;
+			}
+		}
+	}
+}
