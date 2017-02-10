@@ -117,5 +117,11 @@ namespace HashCodeCommon
 			}
 			return l[l.Count / 2];
 		}
+
+		public static T RandomElement<T>(this IList<T> list, Random random = null)
+		{
+			random = random ?? new Random();
+			return list[random.Next(0, list.Count)];
+		} 
 	}
 }

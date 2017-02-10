@@ -27,7 +27,7 @@ namespace _2015_Qualification
 			}
 		}
 
-        public int GetAndAqcuireSlot(int size)
+        public int GetAndAcquireSlot(int size)
         {
             int index = GetSpace(size);
 			if(index != -1)
