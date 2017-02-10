@@ -66,6 +66,16 @@ namespace _2015_Qualification
                 int pool = int.Parse(line[2]);
 
                 Server current = input.Servers[i];
+
+				for (int j=0;j<current.Slots;j++) {
+					if (input.UnavilableSlots.Contains(new Coordinate(slot+j,row)))
+					{
+						throw new InvalidProgramException("Validation failed, server placed in unavailable slot");
+					}
+				}
+				// Dictionary will validate that server is not used twice
+				// Validation for server not in same spot in the printer to console code 
+
                 ServerAllocation alooc = new ServerAllocation();
                 alooc.Row = row;
                 alooc.Pool = input.Pools[pool];
