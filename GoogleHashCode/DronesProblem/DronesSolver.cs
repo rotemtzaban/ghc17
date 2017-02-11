@@ -8,7 +8,7 @@ using DronesProblem.Commands;
 
 namespace DronesProblem
 {
-    public class DronesSolver : ISolver<DronesInput, DronesOutput>
+    public class DronesSolver : SolverBase<DronesInput, DronesOutput>
 	{
 		private List<Drone> m_AvailableDrones;
 		private List<WorkItem> m_RequestedItems;
@@ -40,7 +40,7 @@ namespace DronesProblem
 			return result;
 		}
 
-        public DronesOutput Solve(DronesInput input)
+        protected override DronesOutput Solve(DronesInput input)
         {
 			DronesOutput result = new DronesOutput ();
 

@@ -16,7 +16,7 @@ namespace HashCodeCommon
 		private IPrinter<TOutput> m_Printer;
 		private IScoreCalculator<TInput, TOutput> m_Calculator;
 
-		public Runner(ParserBase<TInput> parser, ISolver<TInput, TOutput> solver, PrinterBase<TOutput> printer, ScoreCalculatorBase<TInput, TOutput> calculator = null)
+		public Runner(ParserBase<TInput> parser, SolverBase<TInput, TOutput> solver, PrinterBase<TOutput> printer, ScoreCalculatorBase<TInput, TOutput> calculator = null)
 		{
 			m_Parser = parser;
 			m_Solver = solver;
@@ -40,7 +40,7 @@ namespace HashCodeCommon
 			if (m_Calculator != null)
 			{
                 ScoreChange score = ReplaceIfBetter(data, finalPath, newOutPath);
-				PrintResults(caseName, score.Improvment);
+				PrintResults(caseName, score);
                 return score.NewScore;
 			}
             else
@@ -56,19 +56,19 @@ namespace HashCodeCommon
             return m_Parser.ParseFromData(data);
         }
 
-		private void PrintResults(string caseName, int improvement)
+		private void PrintResults(string caseName, ScoreChange scoreChange)
 		{
-			if (improvement < 0)
+			if (scoreChange.Improvment < 0)
 			{
-				WriteLineToConsoleInColor(caseName + ": new was worse. decrease by " + improvement, ConsoleColor.Red);
+				WriteLineToConsoleInColor(caseName + ": new was worse: "+scoreChange.NewScore +". decrease by " + scoreChange.Improvment, ConsoleColor.Red);
 			}
-			else if (improvement == 0)
+			else if (scoreChange.Improvment == 0)
 			{
-				WriteLineToConsoleInColor(caseName + ": new was the same as last", ConsoleColor.Yellow);
+				WriteLineToConsoleInColor(caseName + ": new was the same as last: " + scoreChange.NewScore, ConsoleColor.Yellow);
 			}
 			else
 			{
-				WriteLineToConsoleInColor(caseName + " new was better. improve by " + improvement, ConsoleColor.Green);
+				WriteLineToConsoleInColor(caseName + " new was better: " + scoreChange.NewScore + ". improve by " + scoreChange.Improvment, ConsoleColor.Green);
 			}
 		}
 
@@ -81,31 +81,66 @@ namespace HashCodeCommon
 		}
 
 		private TOutput GetBestResult(int numberOfAttempts, string data)
-		{
+        {
             if (numberOfAttempts == 1)
             {
-                return m_Solver.Solve(GetInput(data));
+                return m_Solver.Solve(GetInput(data), new Random());
             }
 
-			TOutput bestResults = default(TOutput);
-			int bestScore = -1;
+            TOutput bestResults = default(TOutput);
+            int bestScore = -1;
+            int bestSeed = -1;
+            Random seedesGenerator = new Random();
 
-			for (int i = 0; i < numberOfAttempts; i++)
-			{
-				TOutput results = m_Solver.Solve(GetInput(data));
+            for (int i = 0; i < numberOfAttempts; i++)
+            {
+                Console.Write("Running attempt {0}/{1}...                            \r", i, numberOfAttempts);
 
-				int newScore = m_Calculator.Calculate(GetInput(data), results);
-				if (newScore > bestScore)
-				{
-					bestResults = results;
-					bestScore = newScore;
-				}
-			}
+                int seed = seedesGenerator.Next();
+                Random random = new Random(seed);
+                TOutput results = m_Solver.Solve(GetInput(data), random);
 
-			return bestResults;
-		}
+                int newScore = m_Calculator.Calculate(GetInput(data), results);
+                if (newScore > bestScore)
+                {
+                    bestSeed = seed;
+                    bestResults = results;
+                    bestScore = newScore;
+                }
+            }
+            Console.WriteLine();
+            bestResults = CompareAndUpdateBestSeed(data, bestResults, bestScore, bestSeed);
 
-		private ScoreChange ReplaceIfBetter(string data, string finalPath, string newPath)
+            return bestResults;
+        }
+
+        private TOutput CompareAndUpdateBestSeed(string data, TOutput bestResults, int bestScore, int bestSeed)
+        {
+            string seedsFile = "seeds.txt";
+
+            if (!File.Exists(seedsFile))
+            {
+                File.WriteAllLines(seedsFile, new string[] { bestSeed.ToString() });
+            }
+            else
+            {
+                int seed = int.Parse(File.ReadAllLines(seedsFile)[0]);
+                Random random = new Random(seed);
+                TOutput results = m_Solver.Solve(GetInput(data), random);
+
+                int newScore = m_Calculator.Calculate(GetInput(data), results);
+                if (newScore > bestScore)
+                {
+                    bestSeed = seed;
+                    bestResults = results;
+                    File.WriteAllLines(seedsFile, new string[] { bestSeed.ToString() });
+                }
+            }
+
+            return bestResults;
+        }
+
+        private ScoreChange ReplaceIfBetter(string data, string finalPath, string newPath)
 		{
 			if (!File.Exists(newPath))
 				throw new ArgumentException("output file wasn't created - " + newPath, "newPath");
