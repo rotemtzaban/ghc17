@@ -17,6 +17,13 @@ namespace _2017_Qualification
             input.Rows = int.Parse(firstLineSplited[0]);
             input.Columns = int.Parse(firstLineSplited[1]);
 
+            int someCount = int.Parse(firstLineSplited[2]);
+            for (int i = 0; i < someCount; i++)
+            {
+                string[] lineSplitted = reader.ReadLine().Split(' ');
+                int x = int.Parse(lineSplitted[0]);
+            }
+
             return input;
         }
     }
