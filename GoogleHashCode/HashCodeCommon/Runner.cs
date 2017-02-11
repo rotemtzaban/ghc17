@@ -114,30 +114,30 @@ namespace HashCodeCommon
             return bestResults;
         }
 
-        private TOutput CompareAndUpdateBestSeed(string data, TOutput bestResults, int bestScore, int bestSeed)
+        private TOutput CompareAndUpdateBestSeed(string data, TOutput bestResults, int bestCurrentScore, int bestSeedFound)
         {
             string seedsFile = "seeds.txt";
 
-            if (!File.Exists(seedsFile))
-            {
-                File.WriteAllLines(seedsFile, new string[] { bestSeed.ToString() });
-            }
-            else
-            {
-                int seed = int.Parse(File.ReadAllLines(seedsFile)[0]);
-                Random random = new Random(seed);
-                TOutput results = m_Solver.Solve(GetInput(data), random);
+            int bestSeedOfAllTimes = bestSeedFound;
+            TOutput bestResultOfAllTimes = bestResults;
 
-                int newScore = m_Calculator.Calculate(GetInput(data), results);
-                if (newScore > bestScore)
+            if (File.Exists(seedsFile))
+            {
+                int savedSeed = int.Parse(File.ReadLines(seedsFile).First());
+                Random random = new Random(savedSeed);
+                TOutput resultOfSavedSeed = m_Solver.Solve(GetInput(data), random);
+
+                int scoreOfSavedSeed = m_Calculator.Calculate(GetInput(data), resultOfSavedSeed);
+                if (scoreOfSavedSeed >= bestCurrentScore)
                 {
-                    bestSeed = seed;
-                    bestResults = results;
-                    File.WriteAllLines(seedsFile, new string[] { bestSeed.ToString() });
+                    bestSeedOfAllTimes = savedSeed;
+                    bestResultOfAllTimes = resultOfSavedSeed;
                 }
             }
 
-            return bestResults;
+            File.WriteAllText(seedsFile, bestSeedOfAllTimes.ToString()); 
+
+            return bestResultOfAllTimes;
         }
 
         private ScoreChange ReplaceIfBetter(string data, string finalPath, string newPath)
