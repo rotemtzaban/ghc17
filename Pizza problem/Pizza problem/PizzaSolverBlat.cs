@@ -30,8 +30,21 @@ namespace Pizza_problem
 
                 if (IsSliceTooLarge(currentSlice))
                 {
-                    results.AddRange(Solve(xEnd + 1, yStart, maxX, yEnd));
-                    results.AddRange(Solve(xStart, yEnd + 1, maxX, maxY));
+
+                    var x1 = Solve(xEnd + 1, yStart, maxX, yEnd);
+                    var x2 = Solve(xStart, yEnd + 1, maxX, maxY);
+
+                    if (x1.Count() + x2.Count() == 0)
+                    {
+                        if (yStart == maxY)
+                            xStart++;
+                        else
+                            yStart++;
+                        continue;
+                    }
+
+                    results.AddRange(x1);
+                    results.AddRange(x2);
                     return results;
                 }
 
