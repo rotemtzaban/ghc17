@@ -17,7 +17,11 @@ namespace _2017_Qualification
 
         public override ProblemOutput GetResultFromReader(ProblemInput input, TextReader reader)
         {
+            ProblemOutput output = new ProblemOutput();
+
             throw new NotImplementedException();
+
+            return output;
         }
     }
 }
