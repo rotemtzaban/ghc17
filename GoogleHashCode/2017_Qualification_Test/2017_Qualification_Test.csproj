@@ -59,10 +59,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\2015_Qualification\2015_Qualification.csproj">
-      <Project>{B3F50226-EB02-42CA-8669-B02E36944C26}</Project>
-      <Name>2015_Qualification</Name>
-    </ProjectReference>
     <ProjectReference Include="..\2017_Qualification\2017_Qualification.csproj">
       <Project>{e1e3121d-03dc-44f0-8690-0cdea2c54b42}</Project>
       <Name>2017_Qualification</Name>
