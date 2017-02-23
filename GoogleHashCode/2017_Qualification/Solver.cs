@@ -21,20 +21,24 @@ namespace _2017_Qualification
 			_output = new ProblemOutput { ServerAssignments = new Dictionary<CachedServer, List<Video>>() };
 			_currentTime = new Dictionary<RequestsDescription, double>();
 			_bestTime = new Dictionary<RequestsDescription, Tuple<CachedServer, double>>();
+			var bulkSize = 1000;
 
 			while (true)
 			{
-				var request = GetBestCurrentRequest();
-				if (request == null)
+				var requests = GetBestCurrentRequests(bulkSize).ToList();
+				if (!requests.Any())
 					break;
 
-				var availableServers = _input.CachedServers.Where(s => IsServerAvailableForVideo(s, request.Video)).ToList();
-				if (!availableServers.Any())
-					continue;
+				foreach (var request in requests)
+				{
+					var availableServers = _input.CachedServers.Where(s => IsServerAvailableForVideo(s, request.Video)).ToList();
+					if (!availableServers.Any())
+						continue;
 
-				var selectedServer = availableServers.ArgMin(s => CalculateServerTimeForRequest(s, request));
+					var selectedServer = availableServers.ArgMin(s => CalculateServerTimeForRequest(s, request));
 
-				AssignVideoToServer(selectedServer, request);
+					AssignVideoToServer(selectedServer, request);
+				}
 			}
 
 			return _output;
@@ -49,15 +53,16 @@ namespace _2017_Qualification
 		private void AssignVideoToServer(CachedServer selectedServer, RequestsDescription request)
 		{
 			assigned++;
-			Console.WriteLine("Assigned "+assigned);
+			if (assigned % 20 == 0)
+				Console.WriteLine("Assigned " + assigned);
 			selectedServer.Capacity -= request.Video.Size;
 			_output.ServerAssignments.GetOrCreate(selectedServer, _ => new List<Video>()).Add(request.Video);
 			_input.RequestsDescriptions.Remove(request);
 
-			foreach(var rr in _input.RequestsDescriptions.Where(r => Equals(r.Video, request.Video)))
+			foreach (var rr in _input.RequestsDescriptions.Where(r => Equals(r.Video, request.Video)))
 				_currentTime.Remove(rr);
 
-			foreach (var rr in _bestTime.Where(kvp => Equals(kvp.Value.Item1, selectedServer)).ToList())
+			foreach (var rr in _bestTime.Where(kvp => Equals(kvp.Value.Item1, selectedServer) && selectedServer.Capacity < kvp.Key.Video.Size).ToList())
 				_bestTime.Remove(rr.Key);
 		}
 
@@ -66,15 +71,15 @@ namespace _2017_Qualification
 			return request.Endpoint.ServersLatency.GetOrDefault(cachedServer, request.Endpoint.DataCenterLatency);
 		}
 
-		protected virtual RequestsDescription GetBestCurrentRequest()
+		protected virtual IEnumerable<RequestsDescription> GetBestCurrentRequests(int bulkSize)
 		{
-			var availableDescriptions = _input.RequestsDescriptions.Where(HasAvailableDescription).ToList();
+			var availableDescriptions = _input.RequestsDescriptions.Where(HasAvailableServer).ToList();
 			if (!availableDescriptions.Any())
-				return null;
-			return availableDescriptions.ArgMax(CalculateRequestValue);
+				return Enumerable.Empty<RequestsDescription>();
+			return availableDescriptions.OrderBy(CalculateRequestValue).Take(bulkSize);
 		}
 
-		private bool HasAvailableDescription(RequestsDescription requestsDescription)
+		private bool HasAvailableServer(RequestsDescription requestsDescription)
 		{
 			return _input.CachedServers.Any(s => IsServerAvailableForVideo(s, requestsDescription.Video));
 		}
@@ -83,14 +88,14 @@ namespace _2017_Qualification
 		{
 			double currentTime = _currentTime.GetOrCreate(requestsDescription, CalculateCurrentTime);
 			double bestTime = _bestTime.GetOrCreate(requestsDescription, GetBestTimeForRequest).Item2;
-			return requestsDescription.NumOfRequests * (bestTime - currentTime) / requestsDescription.Video.Size;
+			return requestsDescription.NumOfRequests * (currentTime - bestTime) / (requestsDescription.Video.Size);
 		}
 
 		private Tuple<CachedServer, double> GetBestTimeForRequest(RequestsDescription requestsDescription)
 		{
 			double time;
 			var server = _input.CachedServers.ArgMin(s => CalculateServerTimeForRequest(s, requestsDescription), out time);
-			return new Tuple<CachedServer, double>(server, time); 
+			return new Tuple<CachedServer, double>(server, time);
 		}
 
 		private double CalculateCurrentTime(RequestsDescription requestsDescription)
