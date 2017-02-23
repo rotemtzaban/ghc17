@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace _2017_Qualification
 {
-	public class Solver : SolverBase<ProblemInput, ProblemOutput>
+	public class SolverRambo : SolverBase<ProblemInput, ProblemOutput>
 	{
 		private ProblemInput _input;
 		private ProblemOutput _output;
@@ -22,21 +22,14 @@ namespace _2017_Qualification
 
 		protected override ProblemOutput Solve(ProblemInput input)
 		{
-			_input = input;
-			_output = new ProblemOutput { ServerAssignments = new Dictionary<CachedServer, List<Video>>() };
-			_currentTime = new Dictionary<RequestsDescription, double>();
-			_bestTime = new Dictionary<RequestsDescription, Tuple<CachedServer, double>>();
-
-			_videoToDescription = new Dictionary<Video, List<RequestsDescription>>();
-			foreach (var req in _input.RequestsDescriptions)
-				_videoToDescription.GetOrCreate(req.Video, _ => new List<RequestsDescription>()).Add(req);
-
-			_serverToRequests = new Dictionary<CachedServer, HashSet<RequestsDescription>>();
+			Init(input);
 
 			var bulkSize = 200;
 
 			while (true)
 			{
+				var assignment = GetBestVideoAssignment();
+				AssignVideoToServer(assignment.Item2, assignment.Item1);
 				var requests = GetBestCurrentRequests(bulkSize).ToList();
 				if (!requests.Any())
 					break;
@@ -49,11 +42,29 @@ namespace _2017_Qualification
 
 					var selectedServer = availableServers.ArgMin(s => CalculateServerTimeForRequest(s, request));
 
-					AssignVideoToServer(selectedServer, request);
 				}
 			}
 
 			return _output;
+		}
+
+		private Tuple<Video, CachedServer> GetBestVideoAssignment()
+		{
+			throw new NotImplementedException();
+		}
+
+		private void Init(ProblemInput input)
+		{
+			_input = input;
+			_output = new ProblemOutput {ServerAssignments = new Dictionary<CachedServer, List<Video>>()};
+			_currentTime = new Dictionary<RequestsDescription, double>();
+			_bestTime = new Dictionary<RequestsDescription, Tuple<CachedServer, double>>();
+
+			_videoToDescription = new Dictionary<Video, List<RequestsDescription>>();
+			foreach (var req in _input.RequestsDescriptions)
+				_videoToDescription.GetOrCreate(req.Video, _ => new List<RequestsDescription>()).Add(req);
+
+			_serverToRequests = new Dictionary<CachedServer, HashSet<RequestsDescription>>();
 		}
 
 		private bool IsServerAvailableForVideo(CachedServer cachedServer, Video video)
@@ -62,20 +73,19 @@ namespace _2017_Qualification
 		}
 
 		private int assigned = 0;
-		private void AssignVideoToServer(CachedServer selectedServer, RequestsDescription request)
+		private void AssignVideoToServer(CachedServer selectedServer, Video video)
 		{
 			assigned++;
 			if (assigned % 200 == 0)
 				Console.WriteLine("Assigned " + assigned);
 
-			_input.RequestsDescriptions.Remove(request);
-			if (_output.ServerAssignments.GetOrDefault(selectedServer, new List<Video>()).Contains(request.Video))
+			if (_output.ServerAssignments.GetOrDefault(selectedServer, new List<Video>()).Contains(video))
 				return;
 
-			selectedServer.Capacity -= request.Video.Size;
-			_output.ServerAssignments.GetOrCreate(selectedServer, _ => new List<Video>()).Add(request.Video);
+			selectedServer.Capacity -= video.Size;
+			_output.ServerAssignments.GetOrCreate(selectedServer, _ => new List<Video>()).Add(video);
 
-			foreach (var rr in _videoToDescription[request.Video])
+			foreach (var rr in _videoToDescription[video])
 				if (rr.Endpoint.ServersLatency.ContainsKey(selectedServer))
 					_currentTime.Remove(rr);
 
