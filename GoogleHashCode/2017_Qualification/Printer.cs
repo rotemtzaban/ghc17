@@ -17,10 +17,21 @@ namespace _2017_Qualification
 
         public override void PrintToFile(ProblemOutput result, string outputPath)
         {
-            using (var writer = new StreamWriter(outputPath))
-            {
-                throw new NotImplementedException();
-            }
+			// Fomrat: N (number of cache server to follow)
+			// c (cache_id) v0 v1 ... vN (videos stored)
+			using (var writer = new StreamWriter(outputPath))
+			{
+				writer.WriteLine (result.ServerAssignments.Count);
+							
+				foreach (var serverAssignment in result.ServerAssignments) {
+					writer.Write (serverAssignment.Server.Index);
+					foreach (var video in serverAssignment.Videos) {
+						writer.Write (" " + video.Index);
+					}
+
+					writer.WriteLine ();
+				}			
+			}		           
         }
     }
 }
