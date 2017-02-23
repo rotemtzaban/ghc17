@@ -24,11 +24,11 @@ namespace _2017_Qualification
 		{
 			Init(input);
 
-			var bulkSize = 200;
+			var bulkSize = 500;
 
 			while (true)
 			{
-				var assignments = GetBestVideoAssignments();
+				var assignments = GetBestVideoAssignments(bulkSize);
 				if (assignments == null || !assignments.Any())
 					break;
 				foreach (var assignment in assignments)
@@ -42,7 +42,7 @@ namespace _2017_Qualification
 			return _output;
 		}
 
-		private List<Tuple<Video, CachedServer, double>> GetBestVideoAssignments()
+		private List<Tuple<Video, CachedServer, double>> GetBestVideoAssignments(int bulkSize)
 		{
 			var bestVideos = new List<Tuple<Video, CachedServer, double>>();
 			foreach (var video in _videoToDescription.Keys)
@@ -68,7 +68,7 @@ namespace _2017_Qualification
 
 			bestVideos.Sort((x, y) => -x.Item3.CompareTo(y.Item3));
 
-			return bestVideos;
+			return bestVideos.Take(bulkSize).ToList();
 		}
 
 		private double CalculateImprovement(Video video, CachedServer server)
