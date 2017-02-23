@@ -69,6 +69,10 @@ namespace _2017_Qualification
 				Console.WriteLine("Assigned " + assigned);
 
 			_input.RequestsDescriptions.Remove(request);
+            if (CalculateServerTimeForRequest(selectedServer, request) >= request.Endpoint.DataCenterLatency)
+            {
+                return;
+            }
 			if (_output.ServerAssignments.GetOrDefault(selectedServer, new List<Video>()).Contains(request.Video))
 				return;
 
