@@ -32,6 +32,13 @@ namespace _2017_Qualification
             for (int index = 0; index < input.NumberOfEndpoints; index++)
             {
                 string[] currDescription = reader.ReadLine().Split(' ');
+                EndPoint endPoint = new _2017_Qualification.EndPoint(index);
+                endPoint.DataCenterLatency = int.Parse(currDescription[0]);
+                endPoint.ServersLatency = new Dictionary<CachedServer, int>();
+                for (int i = 0; i < int.Parse(currDescription[1]); i++)
+                {
+                    string[] latencyServer = reader.ReadLine().Split(' ');
+                }
             }
 
             return input;
