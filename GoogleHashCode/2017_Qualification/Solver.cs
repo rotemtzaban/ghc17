@@ -9,7 +9,7 @@ namespace _2017_Qualification
 {
 	public class Solver : SolverBase<ProblemInput, ProblemOutput>
 	{
-		private ProblemInput _input;
+		protected ProblemInput _input;
 		private ProblemOutput _output;
 
 		private Dictionary<RequestsDescription, double> _currentTime;
@@ -67,12 +67,12 @@ namespace _2017_Qualification
 			return availableDescriptions.ArgMax(CalculateRequestValue);
 		}
 
-		private bool HasAvailableDescription(RequestsDescription requestsDescription)
+        protected bool HasAvailableDescription(RequestsDescription requestsDescription)
 		{
 			return _input.CachedServers.Any(s => IsServerAvailableForVideo(s, requestsDescription.Video));
 		}
 
-		private double CalculateRequestValue(RequestsDescription requestsDescription)
+        protected double CalculateRequestValue(RequestsDescription requestsDescription)
 		{
 			double currentTime = _currentTime.GetOrCreate(requestsDescription, CalculateCurrentTime);
 			double bestTime = _input.CachedServers.Min(s => CalculateServerTimeForRequest(s, requestsDescription));
