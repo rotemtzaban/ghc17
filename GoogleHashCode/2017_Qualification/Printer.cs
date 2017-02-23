@@ -17,7 +17,7 @@ namespace _2017_Qualification
 			foreach (var serverAssignment in result.ServerAssignments.OrderBy(kvp => kvp.Key.Index))
 			{
 				Console.Write(serverAssignment.Key.Index);
-				foreach (var video in serverAssignment.Value)
+				foreach (var video in serverAssignment.Value.OrderBy(v => v.Index))
 				{
 					Console.Write(" " + video.Index);
 				}
@@ -37,7 +37,7 @@ namespace _2017_Qualification
 				foreach (var serverAssignment in result.ServerAssignments.OrderBy(kvp => kvp.Key.Index))
 				{
 					writer.Write(serverAssignment.Key.Index);
-					foreach (var video in serverAssignment.Value)
+					foreach (var video in serverAssignment.Value.OrderBy(v => v.Index))
 					{
 						writer.Write(" " + video.Index);
 					}
