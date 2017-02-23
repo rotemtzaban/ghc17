@@ -20,5 +20,7 @@ namespace _2017_Qualification
         public List<RequestsDescription> RequestsDescriptions { get; set; }
 
         public List<CachedServer> CachedServers { get; set; }
+
+        public List<EndPoint> Endpoints { get; set; }
     }
 }
