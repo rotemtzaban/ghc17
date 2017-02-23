@@ -32,7 +32,7 @@ namespace _2017_Qualification
 
 		private bool IsServerAvailableForVideo(CachedServer cachedServer, Video video)
 		{
-			throw new Exception();
+            return video.Size <= cachedServer.Capacity;
 		}
 
 		private void AssignVideoToServer(CachedServer selectedServer, RequestsDescription request, ProblemOutput result)
