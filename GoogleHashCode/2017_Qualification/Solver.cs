@@ -11,7 +11,9 @@ namespace _2017_Qualification
     {
         protected override ProblemOutput Solve(ProblemInput input)
         {
-            throw new NotImplementedException();
+	        var result = new ProblemOutput();
+
+			return result;
         }
     }
 }

@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="EndPoint.cs" />
     <Compile Include="RequestsDescription.cs" />
+    <Compile Include="ServerAssignment.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Video.cs" />
     <Compile Include="CachedServer.cs" />
