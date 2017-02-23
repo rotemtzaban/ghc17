@@ -1,6 +1,7 @@
 ﻿using HashCodeCommon;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,8 @@ namespace _2017_Qualification
 		private Dictionary<RequestsDescription, double> _currentTime;
 		private Dictionary<RequestsDescription, Tuple<CachedServer, double>> _bestTime;
 
+		private Dictionary<CachedServer, HashSet<RequestsDescription>> _serverToRequests;
+
 		private Dictionary<Video, List<RequestsDescription>> _videoToDescription; 
 
 		protected override ProblemOutput Solve(ProblemInput input)
@@ -27,6 +30,8 @@ namespace _2017_Qualification
 			_videoToDescription = new Dictionary<Video, List<RequestsDescription>>();
 			foreach (var req in _input.RequestsDescriptions)
 				_videoToDescription.GetOrCreate(req.Video, _ => new List<RequestsDescription>()).Add(req);
+
+			_serverToRequests = new Dictionary<CachedServer, HashSet<RequestsDescription>>();
 
 			var bulkSize = 1000;
 
@@ -69,8 +74,15 @@ namespace _2017_Qualification
 			foreach (var rr in _videoToDescription[request.Video])
 				_currentTime.Remove(rr);
 
-			foreach (var rr in _bestTime.Where(kvp => Equals(kvp.Value.Item1, selectedServer) && selectedServer.Capacity < kvp.Key.Video.Size).ToList())
-				_bestTime.Remove(rr.Key);
+			foreach (
+				var rr in
+					_serverToRequests.GetOrDefault(selectedServer, new HashSet<RequestsDescription>())
+						.Where(rrr => selectedServer.Capacity < rrr.Video.Size)
+						.ToList())
+			{
+				_bestTime.Remove(rr);
+				_serverToRequests[selectedServer].Remove(rr);
+			}
 		}
 
 		private double CalculateServerTimeForRequest(CachedServer cachedServer, RequestsDescription request)
@@ -94,7 +106,9 @@ namespace _2017_Qualification
 		private double CalculateRequestValue(RequestsDescription requestsDescription)
 		{
 			double currentTime = _currentTime.GetOrCreate(requestsDescription, CalculateCurrentTime);
-			double bestTime = _bestTime.GetOrCreate(requestsDescription, GetBestTimeForRequest).Item2;
+			var bestTuple = _bestTime.GetOrCreate(requestsDescription, GetBestTimeForRequest);
+			_serverToRequests.GetOrCreate(bestTuple.Item1, _ => new HashSet<RequestsDescription>()).Add(requestsDescription);
+			double bestTime = bestTuple.Item2;
 			return requestsDescription.NumOfRequests * (currentTime - bestTime) / (requestsDescription.Video.Size);
 		}
 
