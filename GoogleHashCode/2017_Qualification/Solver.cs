@@ -45,11 +45,14 @@ namespace _2017_Qualification
 			return video.Size <= cachedServer.Capacity;
 		}
 
+		private int assigned = 0;
 		private void AssignVideoToServer(CachedServer selectedServer, RequestsDescription request)
 		{
-			Console.WriteLine("Assigned");
+			assigned++;
+			Console.WriteLine("Assigned "+assigned);
 			selectedServer.Capacity -= request.Video.Size;
 			_output.ServerAssignments.GetOrCreate(selectedServer, _ => new List<Video>()).Add(request.Video);
+			_input.RequestsDescriptions.Remove(request);
 
 			foreach(var rr in _input.RequestsDescriptions.Where(r => Equals(r.Video, request.Video)))
 				_currentTime.Remove(rr);
