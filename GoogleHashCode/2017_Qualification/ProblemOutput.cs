@@ -8,6 +8,6 @@ namespace _2017_Qualification
 {
     public class ProblemOutput
     {
-		public List<ServerAssignment> ServerAssignments { get; set; }
+		public Dictionary<CachedServer, List<Video>> ServerAssignments{ get; set; }
     }
 }
