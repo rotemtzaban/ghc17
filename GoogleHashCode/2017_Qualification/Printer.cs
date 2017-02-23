@@ -12,7 +12,7 @@ namespace _2017_Qualification
     {
         public override void PrintToConsole(ProblemOutput result)
         {
-            throw new NotImplementedException();
+	        Console.WriteLine(result.ServerAssignments.Count);
         }
 
         public override void PrintToFile(ProblemOutput result, string outputPath)
