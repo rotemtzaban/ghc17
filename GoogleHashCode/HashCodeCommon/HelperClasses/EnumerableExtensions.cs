@@ -104,6 +104,30 @@ namespace HashCodeCommon
 			return argMin;
 		}
 
+		public static T ArgMin<T, S>(this IEnumerable<T> list, Func<T, S> selector, out S value)
+			where S : IComparable<S>
+		{
+			if (!list.Any())
+			{
+				value = default(S);
+				return default(T);
+			}
+			T argMin = list.First();
+			S min = selector(argMin);
+			foreach (T t in list.Skip(1))
+			{
+				S selected = selector(t);
+				if (selected.CompareTo(min) < 0)
+				{
+					min = selected;
+					argMin = t;
+				}
+			}
+
+			value = min;
+			return argMin;
+		}
+
 		public static T GetMedian<T>(this IEnumerable<T> list, Comparison<T> comparison = null)
 		{
 			var l = list.ToList();
