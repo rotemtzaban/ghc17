@@ -61,7 +61,7 @@ namespace _2017_Qualification
 			return request.Endpoint.ServersLatency.GetOrDefault(cachedServer, request.Endpoint.DataCenterLatency);
 		}
 
-		private RequestsDescription GetBestCurrentRequest()
+		protected virtual RequestsDescription GetBestCurrentRequest()
 		{
 			var availableDescriptions = _input.RequestsDescriptions.Where(HasAvailableDescription).ToList();
 			if (!availableDescriptions.Any())
