@@ -43,7 +43,7 @@ namespace _2017_Qualification
 
 	    private double CalculateServerDistanceToRequest(CachedServer cachedServer, RequestsDescription request)
 	    {
-		    throw new NotImplementedException();
+		    return request.Endpoint.ServersLatency.GetOrDefault(cachedServer, request.Endpoint.DataCenterLatency);
 	    }
 
 	    private RequestsDescription GetBestCurrentRequest(ProblemInput input)
