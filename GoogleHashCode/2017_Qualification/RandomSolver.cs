@@ -17,23 +17,21 @@ namespace _2017_Qualification
             return base.Solve(input);
         }
 
-        protected override RequestsDescription GetBestCurrentRequest()
+        protected override IEnumerable<RequestsDescription> GetBestCurrentRequests(int bulkSize)
         {
-            int number = this.NumbersGenerator.Next();
-            if (number % m_rand == 0)
+            var list = base.GetBestCurrentRequests(bulkSize).ToList();
+            for (int i = 1; i < list.Count; i++)
             {
-                var availableDescriptions = _input.RequestsDescriptions.Where(HasAvailableDescription).ToList();
-                if (!availableDescriptions.Any())
-                    return null;
-                RequestsDescription max = availableDescriptions.ArgMax(CalculateRequestValue);
-                availableDescriptions.Remove(max);
+                int number = this.NumbersGenerator.Next();
+                if (number % m_rand == 0)
+                {
+                    var temp = list[i];
+                    list[i] = list[i + 1];
+                    list[i + 1] = temp;
+                }
+            }
 
-                return availableDescriptions.ArgMax(CalculateRequestValue);
-            }
-            else
-            {
-                return base.GetBestCurrentRequest();
-            }
+            return list;
         }
     }
 }
