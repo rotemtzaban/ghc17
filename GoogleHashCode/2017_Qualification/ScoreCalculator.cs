@@ -12,7 +12,26 @@ namespace _2017_Qualification
     {
         public override int Calculate(ProblemInput input, ProblemOutput output)
         {
-            throw new NotImplementedException();
+			long savedTime = 0;
+
+			foreach (var req in input.RequestsDescriptions) {
+
+				long timeFromDataCenter = req.NumOfRequests * req.Endpoint.DataCenterLatency;
+				long fromCache = timeFromDataCenter;
+				foreach (var kvp in output.ServerAssignments) {
+					if (kvp.Value.Contains (req.Video)) {
+						// Can fetch from cache
+						long fromCurrentCache = req.Endpoint.ServersLatency[kvp.Key] * req.NumOfRequests;
+						fromCache = Math.Min (fromCache, fromCurrentCache);
+					}
+				}
+
+				// Can save to list here for algo.
+				savedTime += timeFromDataCenter - fromCache;
+			}	
+
+			// cast to int - maybe bug
+			return (int)savedTime;
         }
 
         public override ProblemOutput GetResultFromReader(ProblemInput input, TextReader reader)

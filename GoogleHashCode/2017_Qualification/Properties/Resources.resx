@@ -121,4 +121,16 @@
   <data name="ExampleInput" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ExampleInput.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1255</value>
   </data>
+  <data name="Kittens" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Kittens.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1255</value>
+  </data>
+  <data name="MeAtTheZoo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MeAtTheZoo.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1255</value>
+  </data>
+  <data name="TrendingToday" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TrendingToday.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1255</value>
+  </data>
+  <data name="VideosWorthSpreading" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\VideosWorthSpreading.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1255</value>
+  </data>
 </root>

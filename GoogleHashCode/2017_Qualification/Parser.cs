@@ -15,15 +15,15 @@ namespace _2017_Qualification
             ProblemInput input = new ProblemInput();
             string[] firstLineSplited = reader.ReadLine().Split(' ');
             input.NumberOfVideos = int.Parse(firstLineSplited[0]);
-            input.NumberOfEndpoints = int.Parse(firstLineSplited[0]);
-            input.NumberOfRequestDescription = int.Parse(firstLineSplited[0]);
-            input.NumberOfCachedServers = int.Parse(firstLineSplited[0]);
-            input.ServerCapacity = int.Parse(firstLineSplited[0]);
+            input.NumberOfEndpoints = int.Parse(firstLineSplited[1]);
+            input.NumberOfRequestDescription = int.Parse(firstLineSplited[2]);
+            input.NumberOfCachedServers = int.Parse(firstLineSplited[3]);
+            input.ServerCapacity = int.Parse(firstLineSplited[4]);
 
             input.CachedServers = new List<CachedServer>();
             for (int i = 0; i < input.NumberOfCachedServers; i++)
             {
-                input.CachedServers.Add(new CachedServer(i));
+                input.CachedServers.Add(new CachedServer(i) { Capacity = input.ServerCapacity });
             }
 
             string[] videos = reader.ReadLine().Split(' ');

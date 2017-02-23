@@ -82,6 +82,18 @@
   <ItemGroup>
     <None Include="Resources\ExampleInput.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Kittens.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MeAtTheZoo.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TrendingToday.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\VideosWorthSpreading.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
