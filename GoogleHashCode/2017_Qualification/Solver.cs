@@ -15,12 +15,19 @@ namespace _2017_Qualification
 		private Dictionary<RequestsDescription, double> _currentTime;
 		private Dictionary<RequestsDescription, Tuple<CachedServer, double>> _bestTime;
 
+		private Dictionary<Video, List<RequestsDescription>> _videoToDescription; 
+
 		protected override ProblemOutput Solve(ProblemInput input)
 		{
 			_input = input;
 			_output = new ProblemOutput { ServerAssignments = new Dictionary<CachedServer, List<Video>>() };
 			_currentTime = new Dictionary<RequestsDescription, double>();
 			_bestTime = new Dictionary<RequestsDescription, Tuple<CachedServer, double>>();
+
+			_videoToDescription = new Dictionary<Video, List<RequestsDescription>>();
+			foreach (var req in _input.RequestsDescriptions)
+				_videoToDescription.GetOrCreate(req.Video, _ => new List<RequestsDescription>()).Add(req);
+
 			var bulkSize = 1000;
 
 			while (true)
@@ -59,7 +66,7 @@ namespace _2017_Qualification
 			_output.ServerAssignments.GetOrCreate(selectedServer, _ => new List<Video>()).Add(request.Video);
 			_input.RequestsDescriptions.Remove(request);
 
-			foreach (var rr in _input.RequestsDescriptions.Where(r => Equals(r.Video, request.Video)))
+			foreach (var rr in _videoToDescription[request.Video])
 				_currentTime.Remove(rr);
 
 			foreach (var rr in _bestTime.Where(kvp => Equals(kvp.Value.Item1, selectedServer) && selectedServer.Capacity < kvp.Key.Video.Size).ToList())
