@@ -20,25 +20,47 @@ namespace _2017_Qualification
             input.NumberOfCachedServers = int.Parse(firstLineSplited[0]);
             input.ServerCapacity = int.Parse(firstLineSplited[0]);
 
-            string[] servers = reader.ReadLine().Split(' ');
+            input.CachedServers = new List<CachedServer>();
+            for (int i = 0; i < input.NumberOfCachedServers; i++)
+            {
+                input.CachedServers.Add(new CachedServer(i));
+            }
+
+            string[] videos = reader.ReadLine().Split(' ');
             input.Videos = new List<Video>();
-            for (int i = 0; i < servers.Length; i++)
+            for (int i = 0; i < videos.Length; i++)
             {
                 Video video = new Video(i);
-                video.Size = int.Parse(servers[i]);
+                video.Size = int.Parse(videos[i]);
                 input.Videos.Add(video);
             }
 
+            input.Endpoints = new List<_2017_Qualification.EndPoint>();
             for (int index = 0; index < input.NumberOfEndpoints; index++)
             {
                 string[] currDescription = reader.ReadLine().Split(' ');
                 EndPoint endPoint = new _2017_Qualification.EndPoint(index);
+                input.Endpoints.Add(endPoint);
                 endPoint.DataCenterLatency = int.Parse(currDescription[0]);
                 endPoint.ServersLatency = new Dictionary<CachedServer, int>();
                 for (int i = 0; i < int.Parse(currDescription[1]); i++)
                 {
                     string[] latencyServer = reader.ReadLine().Split(' ');
+                    CachedServer server = input.CachedServers[int.Parse(latencyServer[0])];
+                    int latency = int.Parse(latencyServer[1]);
+                    endPoint.ServersLatency.Add(server, latency);
                 }
+            }
+
+            input.RequestsDescriptions = new List<RequestsDescription>();
+            for (int i = 0; i < input.NumberOfRequestDescription; i++)
+            {
+                string[] reqDesc = reader.ReadLine().Split(' ');
+                RequestsDescription desc = new _2017_Qualification.RequestsDescription(i);
+                desc.NumOfRequests = int.Parse(reqDesc[2]);
+                desc.Video = input.Videos[int.Parse(reqDesc[0])];
+                desc.Endpoint = input.Endpoints[int.Parse(reqDesc[1])];
+                input.RequestsDescriptions.Add(desc);
             }
 
             return input;
