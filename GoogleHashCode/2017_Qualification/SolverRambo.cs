@@ -44,19 +44,26 @@ namespace _2017_Qualification
 
 		private List<Tuple<Video, CachedServer, double>> GetBestVideoAssignments()
 		{
-			Console.WriteLine("Getting best...");
 			var bestVideos = new List<Tuple<Video, CachedServer, double>>();
 			foreach (var video in _videoToDescription.Keys)
 			{
+				CachedServer bestServer = null;
+				double bestValue = 0;
 				foreach (var server in _input.CachedServers)
 				{
 					if (!IsServerAvailableForVideo(server, video))
 						continue;
 
 					var value = CalculateImprovement(video, server);
-					if(value > 0)
-						bestVideos.Add(new Tuple<Video, CachedServer, double>(video, server, value));
+					if (value > bestValue)
+					{
+						bestValue = value;
+						bestServer = server;
+					}
 				}
+
+				if(bestServer != null)
+					bestVideos.Add(new Tuple<Video, CachedServer, double>(video, bestServer, bestValue));
 			}
 
 			bestVideos.Sort((x, y) => -x.Item3.CompareTo(y.Item3));
