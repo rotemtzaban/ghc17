@@ -24,9 +24,9 @@ namespace _2017_Qualification
 				writer.WriteLine (result.ServerAssignments.Count);
 							
 				foreach (var serverAssignment in result.ServerAssignments) {
-					writer.Write (serverAssignment.Server.Index);
-					foreach (var video in serverAssignment.Videos) {
-						writer.Write (" " + video.Index);
+					writer.Write (serverAssignment.Key.Index);
+					foreach (var video in serverAssignment.Value) {
+						writer.Write (" " + video.Index);	 
 					}
 
 					writer.WriteLine ();
