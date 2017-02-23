@@ -28,29 +28,52 @@ namespace _2017_Qualification
 
 			while (true)
 			{
-				var assignment = GetBestVideoAssignment();
-				AssignVideoToServer(assignment.Item2, assignment.Item1);
-				var requests = GetBestCurrentRequests(bulkSize).ToList();
-				if (!requests.Any())
+				var assignments = GetBestVideoAssignments();
+				if (assignments == null || !assignments.Any())
 					break;
-
-				foreach (var request in requests)
+				foreach (var assignment in assignments)
 				{
-					var availableServers = _input.CachedServers.Where(s => IsServerAvailableForVideo(s, request.Video)).ToList();
-					if (!availableServers.Any())
-						continue;
-
-					var selectedServer = availableServers.ArgMin(s => CalculateServerTimeForRequest(s, request));
-
+					//Console.WriteLine(assignment.Item3);
+					if (IsServerAvailableForVideo(assignment.Item2, assignment.Item1))
+						AssignVideoToServer(assignment.Item2, assignment.Item1);
 				}
 			}
 
 			return _output;
 		}
 
-		private Tuple<Video, CachedServer> GetBestVideoAssignment()
+		private List<Tuple<Video, CachedServer, double>> GetBestVideoAssignments()
 		{
-			throw new NotImplementedException();
+			Console.WriteLine("Getting best...");
+			var bestVideos = new List<Tuple<Video, CachedServer, double>>();
+			foreach (var video in _videoToDescription.Keys)
+			{
+				foreach (var server in _input.CachedServers)
+				{
+					if (!IsServerAvailableForVideo(server, video))
+						continue;
+
+					var value = CalculateImprovement(video, server);
+					if(value > 0)
+						bestVideos.Add(new Tuple<Video, CachedServer, double>(video, server, value));
+				}
+			}
+
+			bestVideos.Sort((x, y) => -x.Item3.CompareTo(y.Item3));
+
+			return bestVideos;
+		}
+
+		private double CalculateImprovement(Video video, CachedServer server)
+		{
+			double improvement = 0;
+			foreach (var req in _videoToDescription[video])
+			{
+				var current = _currentTime.GetOrCreate(req, CalculateCurrentTime);
+				var newTime = CalculateServerTimeForRequest(server, req);
+				improvement += current - newTime;
+			}
+			return improvement;
 		}
 
 		private void Init(ProblemInput input)
@@ -103,35 +126,6 @@ namespace _2017_Qualification
 		private double CalculateServerTimeForRequest(CachedServer cachedServer, RequestsDescription request)
 		{
 			return request.Endpoint.ServersLatency.GetOrDefault(cachedServer, request.Endpoint.DataCenterLatency);
-		}
-
-		protected virtual IEnumerable<RequestsDescription> GetBestCurrentRequests(int bulkSize)
-		{
-			var availableDescriptions = _input.RequestsDescriptions.Where(HasAvailableServer).ToList();
-			if (!availableDescriptions.Any())
-				return Enumerable.Empty<RequestsDescription>();
-			return availableDescriptions.OrderBy(CalculateRequestValue).Take(bulkSize);
-		}
-
-		private bool HasAvailableServer(RequestsDescription requestsDescription)
-		{
-			return _input.CachedServers.Any(s => IsServerAvailableForVideo(s, requestsDescription.Video));
-		}
-
-		private double CalculateRequestValue(RequestsDescription requestsDescription)
-		{
-			double currentTime = _currentTime.GetOrCreate(requestsDescription, CalculateCurrentTime);
-			var bestTuple = _bestTime.GetOrCreate(requestsDescription, GetBestTimeForRequest);
-			_serverToRequests.GetOrCreate(bestTuple.Item1, _ => new HashSet<RequestsDescription>()).Add(requestsDescription);
-			double bestTime = bestTuple.Item2;
-			return requestsDescription.NumOfRequests * (currentTime - bestTime) / (requestsDescription.Video.Size);
-		}
-
-		private Tuple<CachedServer, double> GetBestTimeForRequest(RequestsDescription requestsDescription)
-		{
-			double time;
-			var server = _input.CachedServers.ArgMin(s => CalculateServerTimeForRequest(s, requestsDescription), out time);
-			return new Tuple<CachedServer, double>(server, time);
 		}
 
 		private double CalculateCurrentTime(RequestsDescription requestsDescription)
