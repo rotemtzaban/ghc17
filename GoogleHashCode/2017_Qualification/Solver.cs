@@ -9,25 +9,30 @@ namespace _2017_Qualification
 {
     public class Solver : SolverBase<ProblemInput, ProblemOutput>
     {
-        protected override ProblemOutput Solve(ProblemInput input)
+	    private ProblemInput _input;
+	    private ProblemOutput _output;
+
+	    protected override ProblemOutput Solve(ProblemInput input)
         {
-	        var result = new ProblemOutput();
+	        _input = input;
+	        _output = new ProblemOutput();
 
 	        while (true)
 	        {
-		        var request = GetBestCurrentRequest(input);
+		        var request = GetBestCurrentRequest();
 		        if (request == null)
 			        break;
-		        var availableServers = input.CachedServers.Where(s => IsServerAvailableForVideo(s, request.Video));
+
+				var availableServers = _input.CachedServers.Where(s => IsServerAvailableForVideo(s, request.Video)).ToList();
 		        if (!availableServers.Any())
 			        continue;
 
-				var selectedServer = availableServers.ArgMin(s => CalculateServerDistanceToRequest(s, request));
+				var selectedServer = availableServers.ArgMin(s => CalculateServerTimeForRequest(s, request));
 
-		        AssignVideoToServer(selectedServer, request, result);
+		        AssignVideoToServer(selectedServer, request);
 	        }
 
-			return result;
+			return _output;
         }
 
 		private bool IsServerAvailableForVideo(CachedServer cachedServer, Video video)
@@ -35,20 +40,44 @@ namespace _2017_Qualification
             return video.Size <= cachedServer.Capacity;
 		}
 
-		private void AssignVideoToServer(CachedServer selectedServer, RequestsDescription request, ProblemOutput result)
+		private void AssignVideoToServer(CachedServer selectedServer, RequestsDescription request)
 		{
 			selectedServer.Capacity -= request.Video.Size;
-			result.ServerAssignments.GetOrCreate(selectedServer, _ => new List<Video>()).Add(request.Video);
+			_output.ServerAssignments.GetOrCreate(selectedServer, _ => new List<Video>()).Add(request.Video);
 		}
 
-	    private double CalculateServerDistanceToRequest(CachedServer cachedServer, RequestsDescription request)
+	    private double CalculateServerTimeForRequest(CachedServer cachedServer, RequestsDescription request)
 	    {
 		    return request.Endpoint.ServersLatency.GetOrDefault(cachedServer, request.Endpoint.DataCenterLatency);
 	    }
 
-	    private RequestsDescription GetBestCurrentRequest(ProblemInput input)
+	    private RequestsDescription GetBestCurrentRequest()
 	    {
-		    throw new NotImplementedException();
+		    var availableDescriptions = _input.RequestsDescriptions.Where(HasAvailableDescription).ToList();
+		    if (!availableDescriptions.Any())
+			    return null;
+		    return availableDescriptions.ArgMax(CalculateRequestValue);
+	    }
+
+	    private bool HasAvailableDescription(RequestsDescription requestsDescription)
+	    {
+		    return _input.CachedServers.Any(s => IsServerAvailableForVideo(s, requestsDescription.Video));
+	    }
+
+	    private double CalculateRequestValue(RequestsDescription requestsDescription)
+	    {
+		    double currentTime = CalculateCurrentTime(requestsDescription);
+			double bestTime = _input.CachedServers.Min(s => CalculateServerTimeForRequest(s, requestsDescription));
+		    return requestsDescription.NumOfRequests*(bestTime - currentTime)/requestsDescription.Video.Size;
+	    }
+
+	    private double CalculateCurrentTime(RequestsDescription requestsDescription)
+	    {
+		    var serversWithVideo = _output.ServerAssignments.Where(kvp => kvp.Value.Contains(requestsDescription.Video)).ToList();
+		    if (!serversWithVideo.Any())
+			    return requestsDescription.Endpoint.DataCenterLatency;
+
+		    return serversWithVideo.Min(kvp => CalculateServerTimeForRequest(kvp.Key, requestsDescription));
 	    }
     }
 }
