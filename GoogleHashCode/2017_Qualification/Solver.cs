@@ -65,11 +65,15 @@ namespace _2017_Qualification
 		private void AssignVideoToServer(CachedServer selectedServer, RequestsDescription request)
 		{
 			assigned++;
-			if (assigned % 20 == 0)
+			if (assigned % 200 == 0)
 				Console.WriteLine("Assigned " + assigned);
+
+			_input.RequestsDescriptions.Remove(request);
+			if (_output.ServerAssignments.GetOrDefault(selectedServer, new List<Video>()).Contains(request.Video))
+				return;
+
 			selectedServer.Capacity -= request.Video.Size;
 			_output.ServerAssignments.GetOrCreate(selectedServer, _ => new List<Video>()).Add(request.Video);
-			_input.RequestsDescriptions.Remove(request);
 
 			foreach (var rr in _videoToDescription[request.Video])
 				_currentTime.Remove(rr);
