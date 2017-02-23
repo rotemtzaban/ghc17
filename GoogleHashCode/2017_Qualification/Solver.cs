@@ -13,7 +13,41 @@ namespace _2017_Qualification
         {
 	        var result = new ProblemOutput();
 
+	        while (true)
+	        {
+		        var request = GetBestCurrentRequest(input);
+		        if (request == null)
+			        break;
+		        var availableServers = input.CachedServers.Where(s => IsServerAvailableForVideo(s, request.Video));
+		        if (!availableServers.Any())
+			        continue;
+
+				var selectedServer = availableServers.Min(s => CalculateServerDistanceToRequest(s, request));
+
+		        AssignVideoToServer(selectedServer, request, result);
+	        }
+
 			return result;
         }
+
+		private bool IsServerAvailableForVideo(CachedServer cachedServer, Video video)
+		{
+			throw new Exception();
+		}
+
+	    private void AssignVideoToServer(double selectedServer, RequestsDescription request, ProblemOutput result)
+	    {
+		    throw new NotImplementedException();
+	    }
+
+	    private double CalculateServerDistanceToRequest(CachedServer cachedServer, RequestsDescription request)
+	    {
+		    throw new NotImplementedException();
+	    }
+
+	    private RequestsDescription GetBestCurrentRequest(ProblemInput input)
+	    {
+		    throw new NotImplementedException();
+	    }
     }
 }
