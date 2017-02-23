@@ -13,12 +13,14 @@ namespace _2017_Qualification
 		private ProblemOutput _output;
 
 		private Dictionary<RequestsDescription, double> _currentTime;
+		private Dictionary<RequestsDescription, double> _bestTime;
 
 		protected override ProblemOutput Solve(ProblemInput input)
 		{
 			_input = input;
 			_output = new ProblemOutput { ServerAssignments = new Dictionary<CachedServer, List<Video>>() };
 			_currentTime = new Dictionary<RequestsDescription, double>();
+			_bestTime = new Dictionary<RequestsDescription, double>();
 
 			while (true)
 			{
@@ -75,8 +77,13 @@ namespace _2017_Qualification
 		private double CalculateRequestValue(RequestsDescription requestsDescription)
 		{
 			double currentTime = _currentTime.GetOrCreate(requestsDescription, CalculateCurrentTime);
-			double bestTime = _input.CachedServers.Min(s => CalculateServerTimeForRequest(s, requestsDescription));
+			double bestTime = GetBestTimeForRequest(requestsDescription);
 			return requestsDescription.NumOfRequests * (bestTime - currentTime) / requestsDescription.Video.Size;
+		}
+
+		private double GetBestTimeForRequest(RequestsDescription requestsDescription)
+		{
+			return _input.CachedServers.Min(s => CalculateServerTimeForRequest(s, requestsDescription));
 		}
 
 		private double CalculateCurrentTime(RequestsDescription requestsDescription)
