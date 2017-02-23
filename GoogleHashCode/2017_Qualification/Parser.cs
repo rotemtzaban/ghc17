@@ -14,30 +14,26 @@ namespace _2017_Qualification
         {
             ProblemInput input = new ProblemInput();
             string[] firstLineSplited = reader.ReadLine().Split(' ');
-            input.Rows = int.Parse(firstLineSplited[0]);
-            input.Columns = int.Parse(firstLineSplited[1]);
+            input.NumberOfVideos = int.Parse(firstLineSplited[0]);
+            input.NumberOfEndpoints = int.Parse(firstLineSplited[0]);
+            input.NumberOfRequestDescription = int.Parse(firstLineSplited[0]);
+            input.NumberOfCachedServers = int.Parse(firstLineSplited[0]);
+            input.ServerCapacity = int.Parse(firstLineSplited[0]);
 
-            int someCount = int.Parse(firstLineSplited[2]);
-            input.FirstObject = new List<Object1>();
-            for (int i = 0; i < someCount; i++)
+            string[] servers = reader.ReadLine().Split(' ');
+            input.Videos = new List<Video>();
+            for (int i = 0; i < servers.Length; i++)
             {
-                string[] lineSplitted = reader.ReadLine().Split(' ');
-                // int x = int.Parse(lineSplitted[0]);
-                // new Coordinate(int.Parse(locationAsString[0]), int.Parse(locationAsString[1])
-                // ReadLineAsCoordinate(reader)
-                Object1 newObj = new Object1(i);
-                input.FirstObject.Add(newObj);
+                Video video = new Video(i);
+                video.Size = int.Parse(servers[i]);
+                input.Videos.Add(video);
             }
 
-            int secondSomeCount = int.Parse(firstLineSplited[3]);
-            input.SecondObject = new List<Object2>();
-            for (int i = 0; i < someCount; i++)
+            for (int index = 0; index < input.NumberOfEndpoints; index++)
             {
-                string[] lineSplitted = reader.ReadLine().Split(' ');
-                // int x = int.Parse(lineSplitted[0]);
-                Object2 newObj = new Object2(i);
-                input.SecondObject.Add(newObj);
+                // Do
             }
+
 
             return input;
         }

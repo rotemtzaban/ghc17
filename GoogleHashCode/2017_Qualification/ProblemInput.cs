@@ -8,12 +8,15 @@ namespace _2017_Qualification
 {
     public class ProblemInput
     {
-        public int Rows { get; set; }
+        public int NumberOfVideos { get; set; }
 
-        public int Columns { get; set; }
+        public int NumberOfEndpoints { get; set; }
+        public int NumberOfRequestDescription { get; set; }
+        public int NumberOfCachedServers { get; set; }
+        public int ServerCapacity { get; set; }
 
-        public List<Object1> FirstObject { get; set; }
+        public List<Video> Videos { get; set; }
 
-        public List<Object2> SecondObject { get; set; }
+        public List<RequestsDescription> RequestsDescriptions { get; set; }
     }
 }

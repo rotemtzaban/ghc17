@@ -7,11 +7,14 @@ using System.Threading.Tasks;
 
 namespace _2017_Qualification
 {
-    public class Object1 : IndexedObject
+    public class Video : IndexedObject
     {
-        public Object1(int index)
+        public int Size { get; set; }
+
+        public Video(int index)
             :base(index)
         {
+
         }
     }
 }

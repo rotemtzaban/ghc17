@@ -7,10 +7,12 @@ using System.Threading.Tasks;
 
 namespace _2017_Qualification
 {
-    public class Object2 : IndexedObject
+    public class EndPoint : IndexedObject
     {
-        public Object2(int index)
-            : base(index)
+        public Dictionary<CachedServer, int> ServersLatency { get; set; }
+
+        public EndPoint(int index)
+            :base (index)
         {
         }
     }

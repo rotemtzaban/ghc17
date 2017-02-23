@@ -44,8 +44,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Object1.cs" />
-    <Compile Include="Object2.cs" />
+    <Compile Include="EndPoint.cs" />
+    <Compile Include="RequestsDescription.cs" />
+    <Compile Include="User.cs" />
+    <Compile Include="Video.cs" />
+    <Compile Include="CachedServer.cs" />
     <Compile Include="Parser.cs" />
     <Compile Include="Printer.cs" />
     <Compile Include="ProblemInput.cs" />
