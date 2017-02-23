@@ -61,11 +61,100 @@ namespace _2017_Qualification.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to 5 2 4 3 100
+        ///50 50 80 30 110
+        ///1000 3
+        ///0 100
+        ///2 200
+        ///1 300
+        ///500 0
+        ///3 0 1500
+        ///0 1 1000
+        ///4 0 500
+        ///1 0 1000.
         /// </summary>
         internal static string ExampleInput {
             get {
                 return ResourceManager.GetString("ExampleInput", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 10000 1000 200000 500 6000
+        ///936 564 1 246 665 465 347 33 834 688 331 996 847 240 377 751 678 626 246 524 628 756 262 568 412 347 604 752 488 678 97 997 280 378 396 699 867 543 749 262 646 624 971 566 336 577 48 930 744 809 954 486 765 449 704 377 128 726 144 720 640 180 901 619 631 538 322 443 885 374 801 444 337 624 649 80 28 370 475 1 608 282 283 449 28 902 663 976 77 296 96 744 759 687 385 872 591 959 877 490 574 445 252 969 302 25 663 936 81 754 136 286 255 594 483 572 33 415 270 919 364 958 391 385 715  [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Kittens {
+            get {
+                return ResourceManager.GetString("Kittens", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 100 10 100 10 100
+        ///20 11 50 26 5 3 6 32 40 22 4 20 50 27 49 44 1 37 35 27 14 33 6 22 23 48 44 14 26 9 46 44 15 32 31 8 39 27 39 27 1 17 1 47 44 42 16 3 44 48 5 25 4 39 39 7 24 28 14 44 22 11 27 37 11 16 50 33 22 26 7 12 17 30 12 12 4 32 12 46 43 4 12 34 11 7 47 29 24 40 41 10 5 22 22 24 37 34 50 5
+        ///1013 3
+        ///0 170
+        ///1 22
+        ///2 224
+        ///696 2
+        ///0 7
+        ///1 50
+        ///1114 3
+        ///1 202
+        ///4 175
+        ///5 2
+        ///464 2
+        ///1 24
+        ///8 25
+        ///522 5
+        ///3 216
+        ///5 155
+        ///6 139
+        ///7 208
+        ///8 145
+        ///321 4
+        ///0 26
+        ///2 70
+        ///8 159
+        ///9 92
+        ///1288 2
+        ///2 163
+        ///9 153
+        ///226 1
+        ///7 86
+        ///316 5
+        ///4 236
+        ///5 79
+        ///6 9
+        ///7 53
+        ///8 67
+        ///365 5
+        ///2 225
+        /// [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string MeAtTheZoo {
+            get {
+                return ResourceManager.GetString("MeAtTheZoo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 10000 100 100000 100 50000
+        ///284 993 227 331 560 1000 920 220 111 238 239 214 296 460 606 650 315 690 367 105 380 604 278 410 446 353 983 1000 724 1000 1000 115 948 535 204 232 297 813 327 977 215 525 121 586 198 693 617 322 1000 325 670 218 1000 157 252 1000 199 276 1000 1000 527 1000 798 388 342 316 404 454 457 511 242 386 502 232 198 663 741 193 958 834 110 217 1000 391 370 862 395 95 313 796 254 148 361 162 451 347 378 339 281 1000 295 568 820 957 1000 807 1000 180 825 654 214 1000 946 118 1000 678 426 23 [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string TrendingToday {
+            get {
+                return ResourceManager.GetString("TrendingToday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 10000 100 100000 100 10000
+        ///476 538 270 486 392 193 286 91 38 63 540 207 429 303 104 149 263 264 314 96 224 170 246 204 359 474 389 40 57 408 171 435 394 544 524 201 350 85 210 581 420 236 358 563 186 227 475 488 403 498 444 412 316 388 255 218 218 109 129 569 292 136 83 47 507 61 463 502 531 23 203 460 79 227 98 499 463 486 100 263 247 406 143 267 171 450 270 321 186 486 282 502 221 569 591 278 170 230 317 580 491 481 84 151 385 525 333 62 508 511 172 458 164 544 89 263 568 134 271 210 17 32 302 142 597 225 [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string VideosWorthSpreading {
+            get {
+                return ResourceManager.GetString("VideosWorthSpreading", resourceCulture);
             }
         }
     }
