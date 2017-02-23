@@ -31,9 +31,8 @@ namespace _2017_Qualification
 
             for (int index = 0; index < input.NumberOfEndpoints; index++)
             {
-                // Do
+                string[] currDescription = reader.ReadLine().Split(' ');
             }
-
 
             return input;
         }
