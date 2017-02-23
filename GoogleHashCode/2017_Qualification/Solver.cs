@@ -76,7 +76,8 @@ namespace _2017_Qualification
 			_output.ServerAssignments.GetOrCreate(selectedServer, _ => new List<Video>()).Add(request.Video);
 
 			foreach (var rr in _videoToDescription[request.Video])
-				_currentTime.Remove(rr);
+				if(request.Endpoint.ServersLatency.ContainsKey(selectedServer))
+					_currentTime.Remove(rr);
 
 			foreach (
 				var rr in

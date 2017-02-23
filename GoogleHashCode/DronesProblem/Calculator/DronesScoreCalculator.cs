@@ -11,7 +11,7 @@ namespace DronesProblem
 {
 	public class DronesScoreCalculator : ScoreCalculatorBase<DronesInput, DronesOutput>
 	{
-		public override int Calculate(DronesInput input, DronesOutput output)
+		public override long Calculate(DronesInput input, DronesOutput output)
 		{
 			var events = CreateEvents(input, output);
 

@@ -12,7 +12,7 @@ namespace _2015_Qualification
 		{
 		}
 
-		public override int Calculate (ProblemInput input, ProblemOutput output)
+		public override long Calculate (ProblemInput input, ProblemOutput output)
 		{
 			// calculate gc= gauaranteed capacity
 			int[] gc_pool = new int[input.Pools.Count];
