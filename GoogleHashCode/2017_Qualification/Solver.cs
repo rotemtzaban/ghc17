@@ -22,7 +22,7 @@ namespace _2017_Qualification
 		        if (!availableServers.Any())
 			        continue;
 
-				var selectedServer = availableServers.Min(s => CalculateServerDistanceToRequest(s, request));
+				var selectedServer = availableServers.ArgMin(s => CalculateServerDistanceToRequest(s, request));
 
 		        AssignVideoToServer(selectedServer, request, result);
 	        }
@@ -35,10 +35,11 @@ namespace _2017_Qualification
 			throw new Exception();
 		}
 
-	    private void AssignVideoToServer(double selectedServer, RequestsDescription request, ProblemOutput result)
-	    {
-		    throw new NotImplementedException();
-	    }
+		private void AssignVideoToServer(CachedServer selectedServer, RequestsDescription request, ProblemOutput result)
+		{
+			selectedServer.Capacity -= request.Video.Size;
+			result.ServerAssignments.GetOrCreate(selectedServer, _ => new List<Video>()).Add(request.Video);
+		}
 
 	    private double CalculateServerDistanceToRequest(CachedServer cachedServer, RequestsDescription request)
 	    {
