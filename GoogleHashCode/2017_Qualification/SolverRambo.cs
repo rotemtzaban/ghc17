@@ -66,9 +66,14 @@ namespace _2017_Qualification
 					bestVideos.Add(new Tuple<Video, CachedServer, double>(video, bestServer, bestValue));
 			}
 
-			bestVideos.Sort((x, y) => -x.Item3.CompareTo(y.Item3));
+			bestVideos.Sort((x, y) => -CalculateActualValue(x).CompareTo(CalculateActualValue(y)));
 
 			return bestVideos.Take(bulkSize).ToList();
+		}
+
+		private static double CalculateActualValue(Tuple<Video, CachedServer, double> x)
+		{
+			return x.Item3 / x.Item1.Size;
 		}
 
 		private double CalculateImprovement(Video video, CachedServer server)
@@ -78,7 +83,7 @@ namespace _2017_Qualification
 			{
 				var current = _currentTime.GetOrCreate(req, CalculateCurrentTime);
 				var newTime = CalculateServerTimeForRequest(server, req);
-				improvement += current - newTime;
+				improvement += req.NumOfRequests*(current - newTime);
 			}
 			return improvement;
 		}
