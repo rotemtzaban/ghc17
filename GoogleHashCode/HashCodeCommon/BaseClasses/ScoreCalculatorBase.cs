@@ -9,9 +9,9 @@ namespace HashCodeCommon
 {
     public abstract class ScoreCalculatorBase<TIn, TOut> : IScoreCalculator<TIn, TOut>
     {
-	    public abstract int Calculate(TIn input, TOut output);
+	    public abstract long Calculate(TIn input, TOut output);
 
-	    public int Calculate(TIn input, string path)
+	    public long Calculate(TIn input, string path)
         {
             using (StreamReader reader = new StreamReader(path))
             {

@@ -11,9 +11,9 @@ namespace _2017_Qualification
 {
     public class ScoreCalculator : ScoreCalculatorBase<ProblemInput, ProblemOutput>
     {
-        public override int Calculate(ProblemInput input, ProblemOutput output)
+        public override long Calculate(ProblemInput input, ProblemOutput output)
         {	    
-			int result;
+			long result;
 			long savedTime = 0;
 
 	        foreach (var req in input.RequestsDescriptions)
@@ -38,9 +38,8 @@ namespace _2017_Qualification
 	        }
 
 	        // cast to int - maybe bug
-			checked {
-				result = (int)savedTime;
-			}
+				result = savedTime;
+			
 			return result;
         }
 

@@ -33,7 +33,7 @@ namespace _2017_Qualification
 
 			_serverToRequests = new Dictionary<CachedServer, HashSet<RequestsDescription>>();
 
-			var bulkSize = 1000;
+			var bulkSize = 200;
 
 			while (true)
 			{

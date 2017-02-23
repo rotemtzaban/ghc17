@@ -24,7 +24,7 @@ namespace HashCodeCommon
 			m_Calculator = calculator;
 		}
 
-		public int Run(string data, string caseName, int numberOfAttempts = 1, bool printResults = true)
+		public long Run(string data, string caseName, int numberOfAttempts = 1, bool printResults = true)
 		{
             TOutput bestResults = GetBestResult(numberOfAttempts, data);
 
@@ -88,7 +88,7 @@ namespace HashCodeCommon
             }
 
             TOutput bestResults = default(TOutput);
-            int bestScore = -1;
+            long bestScore = -1;
             int bestSeed = -1;
             Random seedesGenerator = new Random();
 
@@ -100,7 +100,7 @@ namespace HashCodeCommon
                 Random random = new Random(seed);
                 TOutput results = m_Solver.Solve(GetInput(data), random);
 
-                int newScore = m_Calculator.Calculate(GetInput(data), results);
+                long newScore = m_Calculator.Calculate(GetInput(data), results);
                 if (newScore > bestScore)
                 {
                     bestSeed = seed;
@@ -114,7 +114,7 @@ namespace HashCodeCommon
             return bestResults;
         }
 
-        private TOutput CompareAndUpdateBestSeed(string data, TOutput bestResults, int bestCurrentScore, int bestSeedFound)
+        private TOutput CompareAndUpdateBestSeed(string data, TOutput bestResults, long bestCurrentScore, int bestSeedFound)
         {
             string seedsFile = "seeds.txt";
 
@@ -127,7 +127,7 @@ namespace HashCodeCommon
                 Random random = new Random(savedSeed);
                 TOutput resultOfSavedSeed = m_Solver.Solve(GetInput(data), random);
 
-                int scoreOfSavedSeed = m_Calculator.Calculate(GetInput(data), resultOfSavedSeed);
+                long scoreOfSavedSeed = m_Calculator.Calculate(GetInput(data), resultOfSavedSeed);
                 if (scoreOfSavedSeed >= bestCurrentScore)
                 {
                     bestSeedOfAllTimes = savedSeed;
@@ -151,10 +151,10 @@ namespace HashCodeCommon
 				return new ScoreChange(m_Calculator.Calculate(GetInput(data), finalPath));
 			}
 
-			int newCalc = m_Calculator.Calculate(GetInput(data), newPath);
+			long newCalc = m_Calculator.Calculate(GetInput(data), newPath);
             try
             {
-                int finalCalc = m_Calculator.Calculate(GetInput(data), finalPath);
+                long finalCalc = m_Calculator.Calculate(GetInput(data), finalPath);
                 if (newCalc > finalCalc)
                 {
                     File.Delete(finalPath);
@@ -205,16 +205,16 @@ namespace HashCodeCommon
 
         public class ScoreChange
         {
-            public int Improvment { get; set; }
-            public int NewScore { get; set; }
+            public long Improvment { get; set; }
+            public long NewScore { get; set; }
 
-            public ScoreChange(int newScore)
+            public ScoreChange(long newScore)
             {
                 this.Improvment = newScore;
                 this.NewScore = newScore;
             }
 
-            public ScoreChange(int newScore, int improvment)
+            public ScoreChange(long newScore, long improvment)
             {
                 this.Improvment = improvment;
                 this.NewScore = newScore;

@@ -8,7 +8,7 @@ namespace HashCodeCommon
 {
     public interface IScoreCalculator<TIn, TOut>
     {
-        int Calculate(TIn input, TOut output);
-        int Calculate(TIn input, string path);
+        long Calculate(TIn input, TOut output);
+        long Calculate(TIn input, string path);
     }
 }
