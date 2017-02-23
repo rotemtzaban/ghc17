@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EndPoint.cs" />
+    <Compile Include="RandomSolver.cs" />
     <Compile Include="RequestsDescription.cs" />
     <Compile Include="ServerAssignment.cs" />
     <Compile Include="User.cs" />

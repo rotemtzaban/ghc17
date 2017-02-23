@@ -1,6 +1,7 @@
 ﻿using HashCodeCommon;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,10 @@ namespace _2017_Qualification
 		private Dictionary<RequestsDescription, double> _currentTime;
 		private Dictionary<RequestsDescription, Tuple<CachedServer, double>> _bestTime;
 
+		private Dictionary<CachedServer, HashSet<RequestsDescription>> _serverToRequests;
+
+		private Dictionary<Video, List<RequestsDescription>> _videoToDescription; 
+
 		protected override ProblemOutput Solve(ProblemInput input)
 		{
 			_input = input;
@@ -22,19 +27,30 @@ namespace _2017_Qualification
 			_currentTime = new Dictionary<RequestsDescription, double>();
 			_bestTime = new Dictionary<RequestsDescription, Tuple<CachedServer, double>>();
 
+			_videoToDescription = new Dictionary<Video, List<RequestsDescription>>();
+			foreach (var req in _input.RequestsDescriptions)
+				_videoToDescription.GetOrCreate(req.Video, _ => new List<RequestsDescription>()).Add(req);
+
+			_serverToRequests = new Dictionary<CachedServer, HashSet<RequestsDescription>>();
+
+			var bulkSize = 1000;
+
 			while (true)
 			{
-				var request = GetBestCurrentRequest();
-				if (request == null)
+				var requests = GetBestCurrentRequests(bulkSize).ToList();
+				if (!requests.Any())
 					break;
 
-				var availableServers = _input.CachedServers.Where(s => IsServerAvailableForVideo(s, request.Video)).ToList();
-				if (!availableServers.Any())
-					continue;
+				foreach (var request in requests)
+				{
+					var availableServers = _input.CachedServers.Where(s => IsServerAvailableForVideo(s, request.Video)).ToList();
+					if (!availableServers.Any())
+						continue;
 
-				var selectedServer = availableServers.ArgMin(s => CalculateServerTimeForRequest(s, request));
+					var selectedServer = availableServers.ArgMin(s => CalculateServerTimeForRequest(s, request));
 
-				AssignVideoToServer(selectedServer, request);
+					AssignVideoToServer(selectedServer, request);
+				}
 			}
 
 			return _output;
@@ -45,17 +61,28 @@ namespace _2017_Qualification
 			return video.Size <= cachedServer.Capacity;
 		}
 
+		private int assigned = 0;
 		private void AssignVideoToServer(CachedServer selectedServer, RequestsDescription request)
 		{
-			Console.WriteLine("Assigned");
+			assigned++;
+			if (assigned % 20 == 0)
+				Console.WriteLine("Assigned " + assigned);
 			selectedServer.Capacity -= request.Video.Size;
 			_output.ServerAssignments.GetOrCreate(selectedServer, _ => new List<Video>()).Add(request.Video);
+			_input.RequestsDescriptions.Remove(request);
 
-			foreach(var rr in _input.RequestsDescriptions.Where(r => Equals(r.Video, request.Video)))
+			foreach (var rr in _videoToDescription[request.Video])
 				_currentTime.Remove(rr);
 
-			foreach (var rr in _bestTime.Where(kvp => Equals(kvp.Value.Item1, selectedServer)).ToList())
-				_bestTime.Remove(rr.Key);
+			foreach (
+				var rr in
+					_serverToRequests.GetOrDefault(selectedServer, new HashSet<RequestsDescription>())
+						.Where(rrr => selectedServer.Capacity < rrr.Video.Size)
+						.ToList())
+			{
+				_bestTime.Remove(rr);
+				_serverToRequests[selectedServer].Remove(rr);
+			}
 		}
 
 		private double CalculateServerTimeForRequest(CachedServer cachedServer, RequestsDescription request)
@@ -63,15 +90,15 @@ namespace _2017_Qualification
 			return request.Endpoint.ServersLatency.GetOrDefault(cachedServer, request.Endpoint.DataCenterLatency);
 		}
 
-		protected virtual RequestsDescription GetBestCurrentRequest()
+		protected virtual IEnumerable<RequestsDescription> GetBestCurrentRequests(int bulkSize)
 		{
-			var availableDescriptions = _input.RequestsDescriptions.Where(HasAvailableDescription).ToList();
+			var availableDescriptions = _input.RequestsDescriptions.Where(HasAvailableServer).ToList();
 			if (!availableDescriptions.Any())
-				return null;
-			return availableDescriptions.ArgMax(CalculateRequestValue);
+				return Enumerable.Empty<RequestsDescription>();
+			return availableDescriptions.OrderBy(CalculateRequestValue).Take(bulkSize);
 		}
 
-		private bool HasAvailableDescription(RequestsDescription requestsDescription)
+		private bool HasAvailableServer(RequestsDescription requestsDescription)
 		{
 			return _input.CachedServers.Any(s => IsServerAvailableForVideo(s, requestsDescription.Video));
 		}
@@ -79,15 +106,17 @@ namespace _2017_Qualification
 		private double CalculateRequestValue(RequestsDescription requestsDescription)
 		{
 			double currentTime = _currentTime.GetOrCreate(requestsDescription, CalculateCurrentTime);
-			double bestTime = _bestTime.GetOrCreate(requestsDescription, GetBestTimeForRequest).Item2;
-			return requestsDescription.NumOfRequests * (bestTime - currentTime) / requestsDescription.Video.Size;
+			var bestTuple = _bestTime.GetOrCreate(requestsDescription, GetBestTimeForRequest);
+			_serverToRequests.GetOrCreate(bestTuple.Item1, _ => new HashSet<RequestsDescription>()).Add(requestsDescription);
+			double bestTime = bestTuple.Item2;
+			return requestsDescription.NumOfRequests * (currentTime - bestTime) / (requestsDescription.Video.Size);
 		}
 
 		private Tuple<CachedServer, double> GetBestTimeForRequest(RequestsDescription requestsDescription)
 		{
 			double time;
 			var server = _input.CachedServers.ArgMin(s => CalculateServerTimeForRequest(s, requestsDescription), out time);
-			return new Tuple<CachedServer, double>(server, time); 
+			return new Tuple<CachedServer, double>(server, time);
 		}
 
 		private double CalculateCurrentTime(RequestsDescription requestsDescription)
