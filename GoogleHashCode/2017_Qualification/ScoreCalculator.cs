@@ -12,13 +12,12 @@ namespace _2017_Qualification
     public class ScoreCalculator : ScoreCalculatorBase<ProblemInput, ProblemOutput>
     {
         public override int Calculate(ProblemInput input, ProblemOutput output)
-        {
-	        return 0;
+        {	    
+			int result;
 			long savedTime = 0;
 
 	        foreach (var req in input.RequestsDescriptions)
 	        {
-
 		        long timeFromDataCenter = req.NumOfRequests*req.Endpoint.DataCenterLatency;
 		        long fromCache = timeFromDataCenter;
 		        foreach (var kvp in output.ServerAssignments)
@@ -26,8 +25,11 @@ namespace _2017_Qualification
 			        if (kvp.Value.Contains(req.Video))
 			        {
 				        // Can fetch from cache
-				        long fromCurrentCache = req.Endpoint.ServersLatency[kvp.Key]*req.NumOfRequests;
-				        fromCache = Math.Min(fromCache, fromCurrentCache);
+						int val;
+						if (req.Endpoint.ServersLatency.TryGetValue (kvp.Key, out val)) {
+							long fromCurrentCache = val * req.NumOfRequests;
+							fromCache = Math.Min (fromCache, fromCurrentCache);
+						}
 			        }
 		        }
 
@@ -36,7 +38,10 @@ namespace _2017_Qualification
 	        }
 
 	        // cast to int - maybe bug
-			return (int)savedTime;
+			checked {
+				result = (int)savedTime;
+			}
+			return result;
         }
 
         public override ProblemOutput GetResultFromReader(ProblemInput input, TextReader reader)
