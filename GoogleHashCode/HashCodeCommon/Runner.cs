@@ -15,21 +15,26 @@ namespace HashCodeCommon
 		private ISolver<TInput, TOutput> m_Solver;
 		private IPrinter<TOutput> m_Printer;
 		private IScoreCalculator<TInput, TOutput> m_Calculator;
+        private string m_OutputDirectory;
 
-		public Runner(ParserBase<TInput> parser, SolverBase<TInput, TOutput> solver, PrinterBase<TOutput> printer, ScoreCalculatorBase<TInput, TOutput> calculator = null)
+		public Runner(string outputDirectoryName, ParserBase<TInput> parser, SolverBase<TInput, TOutput> solver, PrinterBase<TOutput> printer, ScoreCalculatorBase<TInput, TOutput> calculator = null)
 		{
 			m_Parser = parser;
 			m_Solver = solver;
 			m_Printer = printer;
 			m_Calculator = calculator;
-		}
+            var solutionPath = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location))));
+            m_OutputDirectory = Path.Combine(solutionPath, "Output", outputDirectoryName);
 
-		public long Run(string data, string caseName, int numberOfAttempts = 1, bool printResults = true)
+            Directory.CreateDirectory(m_OutputDirectory);
+        }
+
+        public long Run(string data, string caseName, int numberOfAttempts = 1, bool printResults = true)
 		{
             TOutput bestResults = GetBestResult(numberOfAttempts, data);
 
-			string newOutPath = caseName + ".new.out";
-			string finalPath = caseName + ".out";
+			string newOutPath = Path.Combine(m_OutputDirectory, caseName + ".new.out");
+			string finalPath = Path.Combine(m_OutputDirectory, caseName + ".out");
 
 			m_Printer.PrintToFile(bestResults, newOutPath);
 			if (printResults)
@@ -183,7 +188,12 @@ namespace HashCodeCommon
             foreach (var codeFile in Directory.EnumerateFiles(solutionPath, "*", SearchOption.AllDirectories))
             {
                 var relative = codeFile.Substring(solutionPath.Length + 1);
-                if (relative.StartsWith("obj") || relative.StartsWith(tmpDirectoryName))
+                if (relative.StartsWith(tmpDirectoryName) || relative.StartsWith("Output") || relative.StartsWith("packages"))
+                    continue;
+
+                int indexSubString = relative.IndexOf("\\");
+                var projectDir = relative.Substring(indexSubString == -1 ? 0 : indexSubString + 1);
+                if (projectDir.StartsWith("obj") || projectDir.StartsWith("bin") || relative.StartsWith(tmpDirectoryName))
                     continue;
                 var target = Path.Combine(tmpFolder, relative);
                 var dir = Path.GetDirectoryName(target);
@@ -192,7 +202,7 @@ namespace HashCodeCommon
                 File.Copy(codeFile, target);
             }
 
-            var targetZip = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Code.zip");
+            var targetZip = Path.Combine(m_OutputDirectory, "Code.zip");
 
             if (File.Exists(targetZip))
                 File.Delete(targetZip);

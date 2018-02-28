@@ -15,7 +15,7 @@ namespace DronesProblem
 	{
 		static void Main(string[] args)
 		{
-            Runner<DronesInput, DronesOutput>  runner = new Runner<DronesInput, DronesOutput>(new DronesParser(), new DronesSolver(), new DronesPrinter(), null);
+            Runner<DronesInput, DronesOutput>  runner = new Runner<DronesInput, DronesOutput>("Drones", new DronesParser(), new DronesSolver(), new DronesPrinter(), null);
             runner.Run(Properties.Resources.Example, "Example", 1, false);
 
 			//runner = new Runner<DronesInput, DronesOutput>(new DronesParser(), new DronesSolver(), new DronesPrinter(), new DronesScoreCalculator());
