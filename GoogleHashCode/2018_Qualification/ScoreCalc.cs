@@ -19,7 +19,13 @@ namespace _2018_Qualification
             if (IsNotValid(ride, input, minStartTurn, timeToStart))
                 return -1;
 
-            return timeToStart ;
+            double scoreWithoutBonus = timeToStart;
+            if (currTime + distance <= ride.StartTime)
+            {
+                // scoreWithoutBonus /= Math.Sqrt(input.Bonus);
+            }
+
+            return scoreWithoutBonus;
         }
 
         private static bool IsNotValid(Ride ride, ProblemInput input, long minStartTurn, long timeToStart)
