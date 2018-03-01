@@ -9,7 +9,7 @@ namespace _2018_Qualification
 {
     public class ScoreCalc
     {
-        public long GetScore(Ride ride, Coordinate location, int currTime, ProblemInput input)
+        public double GetScore(Ride ride, Coordinate location, int currTime, ProblemInput input)
         {
             long distance = GetDistance(ride.Start, location);
             long timeToStart = currTime - ride.StartTime;
@@ -17,7 +17,7 @@ namespace _2018_Qualification
 
             long turnsToWaitTillExacStart = ride.StartTime - currTime - distance;
 
-            return (distance + timeToStart) * 10 / ride.Distance;
+            return (distance + timeToStart) * 10.0 / ride.Distance;
         }
 
         public long GetDistance(Coordinate x, Coordinate y)
