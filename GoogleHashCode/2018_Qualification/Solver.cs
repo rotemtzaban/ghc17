@@ -26,7 +26,7 @@ namespace _2018_Qualification
                     {
                         // TODO: break cond
                         var score = ScoreCalc.GetScore(ride, currLoc, car.CurrentTime, input);
-                        if (score != -1 && score < minScore)
+                        if (score < minScore)
                         {
                             minScore = score;
                             maxRide = ride;

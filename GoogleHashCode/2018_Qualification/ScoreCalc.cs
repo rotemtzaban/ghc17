@@ -17,11 +17,14 @@ namespace _2018_Qualification
             timeToStart = timeToStart < 0 ? 0 : timeToStart;
 
             if (IsNotValid(ride, input, minStartTurn, timeToStart))
-                return -1;
+                return double.MaxValue;
 
             double scoreWithoutBonus = timeToStart;
+            //double scoreWithoutBonus = timeToStart -Math.Log(ride.Distance);  good for c  
             if (currTime + distance <= ride.StartTime)
             {
+                return scoreWithoutBonus - Math.Sqrt(input.Bonus);
+                //return scoreWithoutBonus - Math.Sqrt(input.Bonus) + Math.Log(ride.Distance); good for d for some reason
                 // scoreWithoutBonus /= Math.Sqrt(input.Bonus);
             }
 
