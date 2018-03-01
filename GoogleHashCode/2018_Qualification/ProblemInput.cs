@@ -18,5 +18,10 @@ namespace _2018_Qualification
         public List<Car> Cars { get; } = new List<Car>();
 
         public List<Ride> Rides { get; set; }
+
+        public ProblemInput()
+        {
+            this.Rides = new List<Ride>();
+        }
     }
 }

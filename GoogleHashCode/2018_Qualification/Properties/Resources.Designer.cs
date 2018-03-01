@@ -61,12 +61,15 @@ namespace _2018_Qualification.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized string similar to 3 4 2 3 2 10
+        ///0 0 1 3 2 9
+        ///1 2 1 0 0 9
+        ///2 0 2 2 0 9
+        ///.
         /// </summary>
-        internal static byte[] a_example {
+        internal static string a_example {
             get {
-                object obj = ResourceManager.GetObject("a_example", resourceCulture);
-                return ((byte[])(obj));
+                return ResourceManager.GetString("a_example", resourceCulture);
             }
         }
         
