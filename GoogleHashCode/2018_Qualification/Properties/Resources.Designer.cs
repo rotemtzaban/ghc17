@@ -74,42 +74,106 @@ namespace _2018_Qualification.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized string similar to 800 1000 100 300 25 25000
+        ///395 43 296 955 244 3620
+        ///734 467 300 833 21919 23595
+        ///473 815 21 810 24428 24959
+        ///210 150 387 12 12646 13491
+        ///314 563 141 419 2744 3381
+        ///237 432 151 805 16506 17940
+        ///264 491 445 767 14518 16078
+        ///219 215 154 449 2806 3698
+        ///508 681 180 701 2744 3179
+        ///460 585 320 715 23246 23518
+        ///732 600 101 985 15613 19024
+        ///790 935 686 121 12617 14630
+        ///761 85 111 567 18517 21011
+        ///126 185 470 739 4056 5036
+        ///31 325 197 802 11368 12202
+        ///190 614 588 972 5453 7904
+        ///493 783 48 358 16842 18899
+        ///648 494 602 [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static byte[] b_should_be_easy {
+        internal static string b_should_be_easy {
             get {
-                object obj = ResourceManager.GetObject("b_should_be_easy", resourceCulture);
-                return ((byte[])(obj));
+                return ResourceManager.GetString("b_should_be_easy", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized string similar to 3000 2000 81 10000 1 200000
+        ///1795 1043 2296 1955 0 200000
+        ///144 1933 1934 467 0 200000
+        ///1700 833 10 1987 0 200000
+        ///1473 1815 2821 810 0 200000
+        ///1372 478 1210 150 0 200000
+        ///2787 12 1232 30 0 200000
+        ///2314 563 1341 419 0 200000
+        ///2492 339 1037 1432 0 200000
+        ///1551 805 1322 331 0 200000
+        ///2664 491 45 767 0 200000
+        ///2390 210 2019 215 0 200000
+        ///2954 449 2164 1905 0 200000
+        ///708 1681 2580 701 0 200000
+        ///1545 664 1460 585 0 200000
+        ///520 1715 819 634 0 200000
+        ///1932 1600 301 985 0 200000
+        ///2443 54 990 935 0 200000
+        ///1886 1121  [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static byte[] c_no_hurry {
+        internal static string c_no_hurry {
             get {
-                object obj = ResourceManager.GetObject("c_no_hurry", resourceCulture);
-                return ((byte[])(obj));
+                return ResourceManager.GetString("c_no_hurry", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized string similar to 10000 10000 400 10000 2 50000
+        ///2417 326 3453 1998 42918 50000
+        ///4039 1660 3262 739 18491 44622
+        ///2783 1647 2663 1331 27522 31514
+        ///2762 1728 2269 1282 29072 34006
+        ///2352 763 3359 842 45045 46871
+        ///2631 453 2914 1747 35448 42358
+        ///1835 760 3298 182 45898 50000
+        ///2711 1328 2775 956 37027 50000
+        ///2667 669 2721 1380 43661 45586
+        ///2211 986 2633 851 43280 44795
+        ///3281 223 3508 1376 27363 35520
+        ///2979 722 2836 1476 28738 37063
+        ///3040 1205 2706 844 43489 50000
+        ///2741 729 3846 1048 42654 48390
+        ///2622 217 3045 1736 39030 41953
+        ///26 [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static byte[] d_metropolis {
+        internal static string d_metropolis {
             get {
-                object obj = ResourceManager.GetObject("d_metropolis", resourceCulture);
-                return ((byte[])(obj));
+                return ResourceManager.GetString("d_metropolis", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized string similar to 1500 2000 350 10000 1000 150000
+        ///295 1043 796 1955 38684 51050
+        ///434 467 200 833 89213 91692
+        ///1473 1815 1321 810 17720 26914
+        ///1210 150 1287 12 23916 24939
+        ///814 563 1341 419 21032 26079
+        ///1037 1432 51 805 29678 33707
+        ///1164 491 45 767 119516 121962
+        ///519 215 1454 449 105332 113663
+        ///708 1681 1080 701 100612 107764
+        ///1460 585 520 1715 70895 89502
+        ///432 1600 301 985 116813 118814
+        ///990 935 386 1121 114780 117582
+        ///761 1085 211 567 130406 137161
+        ///426 1185 470 1739 3568 6600
+        ///531 325 897 802 83486 84351
+        ///390 614 1188 972 [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static byte[] e_high_bonus {
+        internal static string e_high_bonus {
             get {
-                object obj = ResourceManager.GetObject("e_high_bonus", resourceCulture);
-                return ((byte[])(obj));
+                return ResourceManager.GetString("e_high_bonus", resourceCulture);
             }
         }
     }

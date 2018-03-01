@@ -122,15 +122,15 @@
     <value>..\Resources\a_example.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1255</value>
   </data>
   <data name="b_should_be_easy" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\b_should_be_easy.in;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\b_should_be_easy.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
   <data name="c_no_hurry" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\c_no_hurry.in;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\c_no_hurry.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;iso-8859-1</value>
   </data>
   <data name="d_metropolis" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\d_metropolis.in;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\d_metropolis.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
   <data name="e_high_bonus" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\e_high_bonus.in;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\e_high_bonus.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
 </root>

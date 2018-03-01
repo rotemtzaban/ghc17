@@ -62,10 +62,6 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="Resources\a_example.in" />
-    <None Include="Resources\b_should_be_easy.in" />
-    <None Include="Resources\c_no_hurry.in" />
-    <None Include="Resources\d_metropolis.in" />
-    <None Include="Resources\e_high_bonus.in" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HashCodeCommon\HashCodeCommon.csproj">
@@ -78,6 +74,18 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\b_should_be_easy.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\c_no_hurry.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\d_metropolis.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\e_high_bonus.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
