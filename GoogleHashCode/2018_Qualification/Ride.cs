@@ -13,6 +13,8 @@ namespace _2018_Qualification
         {
         }
 
+        public int LatestFinish { get; set; }
+
         public int StartTime { get; set; }
 
         public Coordinate Start {get; set;}
