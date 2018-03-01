@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="Calcutaor.cs" />
     <Compile Include="Car.cs" />
+    <Compile Include="ScoreCalc.cs" />
     <Compile Include="Parser.cs" />
     <Compile Include="Printer.cs" />
     <Compile Include="ProblemInput.cs" />
