@@ -22,7 +22,7 @@ namespace _2018_Qualification
             return timeToStart * 10.0 / ride.Distance;
         }
 
-        public static double GetScoreBonus(Ride ride, Coordinate location, int currTime, ProblemInput input)
+        public static double GetScoreBonus(Ride ride, Coordinate location, long currTime, ProblemInput input)
         {
             long distance = GetDistance(ride.Start, location);
             long minStartTurn = Math.Min(currTime + distance, ride.StartTime);
@@ -32,7 +32,7 @@ namespace _2018_Qualification
             if (timeToStart < 0 || minStartTurn + ride.Distance >= ride.LatestFinish)
                 return -1;
 
-            double scoreWithBonus = timeToStart * 10.0 / ride.Distance;
+            double scoreWithBonus = timeToStart / Math.Sqrt(ride.Distance);
 
 
             return scoreWithBonus / Math.Sqrt(input.Bonus);

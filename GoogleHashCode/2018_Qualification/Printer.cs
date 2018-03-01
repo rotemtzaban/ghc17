@@ -9,6 +9,7 @@ namespace _2018_Qualification
     {
         public override void PrintToConsole(ProblemOutput result)
         {
+            return;
             foreach (var item in result.Cars)
             {
                 string s = item.RidesTaken.Count + " ";

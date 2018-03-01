@@ -44,6 +44,7 @@ namespace _2018_Qualification
                 }
 
                 j++;
+                s = reader.ReadLine();
             }
 
             return output;
