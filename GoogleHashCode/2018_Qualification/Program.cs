@@ -14,7 +14,7 @@ namespace _2018_Qualification
             Runner<ProblemInput, ProblemOutput> runner1 = new Runner<ProblemInput, ProblemOutput>(
                 "2018", new Parser(), new Solver(), new Printer());
 
-            // runner1.Run(Properties.Resources.MeAtTheZoo, "MeAtTheZoo", 1, true);
+            runner1.Run(Properties.Resources.a_example, "a_example", 1, true);
 
             runner1.CreateCodeZip();
 

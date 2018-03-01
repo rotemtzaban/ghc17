@@ -16,5 +16,10 @@ namespace _2018_Qualification
         public long NumberOfSteps { get; set; }
 
         public List<Ride> Rides { get; set; }
+
+        public ProblemInput()
+        {
+            this.Rides = new List<Ride>();
+        }
     }
 }
