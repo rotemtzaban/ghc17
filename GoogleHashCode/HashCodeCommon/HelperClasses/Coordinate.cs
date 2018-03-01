@@ -26,5 +26,10 @@ namespace HashCodeCommon
 
 			return result;
 		}
+
+	    public int CalcGridDistance(Coordinate other)
+	    {
+	        return Math.Abs(this.X - other.X) + Math.Abs(this.Y - other.Y);
+	    }
 	}
 }
