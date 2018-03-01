@@ -31,6 +31,11 @@ namespace _2018_Qualification
 
                 input.Rides.Add(ride);
             }
+
+            for (var i = 0; i < input.NumberOfVheicles; i++)
+            {
+                input.Cars.Add(new Car(i));
+            }
             
             return input;
         }

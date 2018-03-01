@@ -12,9 +12,8 @@ namespace _2018_Qualification
             foreach (var item in result.Cars)
             {
                 string s = item.RidesTaken.Count + " ";
-
-                string.Join(" ", item.RidesTaken.Select(_ => _.Index).ToArray());
-                Console.WriteLine(s);
+                var join = string.Join(" ", item.RidesTaken.Select(_ => _.Index).ToArray());
+                Console.WriteLine(s + join);
             }
         }
 
@@ -25,9 +24,8 @@ namespace _2018_Qualification
                 foreach (var item in result.Cars)
                 {
                     string s = item.RidesTaken.Count + " ";
-
-                    string.Join(" ", item.RidesTaken.Select(_ => _.Index).ToArray());
-                    writer.Write(item);
+                    var join = string.Join(" ", item.RidesTaken.Select(_ => _.Index).ToArray());
+                    writer.WriteLine(s + join);
                 }
             }
         }

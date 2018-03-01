@@ -10,13 +10,16 @@ namespace _2018_Qualification
         protected override ProblemOutput Solve(ProblemInput input)
         {
             ProblemOutput output = new ProblemOutput();
-
+            foreach (var inputCar in input.Cars)
+            {
+                output.Cars.Add(inputCar);
+            }
             while (true)
             {
                 bool assignedRide = false;
                 foreach (var car in input.Cars)
                 {
-                    double minScore = 0;
+                    double minScore = double.MaxValue;
                     Ride maxRide = null;
                     Coordinate currLoc = car.CurrentTime > 0 ? car.RidesTaken.Last().End : new Coordinate(0, 0);
                     foreach (var ride in input.Rides)

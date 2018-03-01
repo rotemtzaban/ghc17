@@ -11,6 +11,7 @@ namespace _2018_Qualification
     {
         public Car(int index) : base(index)
         {
+            RidesTaken = new List<Ride>();
         }
 
         public bool IsOnRide { get; set; }
