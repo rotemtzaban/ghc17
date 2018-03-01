@@ -8,7 +8,7 @@ namespace _2018_Qualification
     public class Solver : SolverBase<ProblemInput, ProblemOutput>
     {
         protected override ProblemOutput Solve(ProblemInput input)
-        {   
+        {
             ProblemOutput output = new ProblemOutput();
 
             while (true)
@@ -16,24 +16,30 @@ namespace _2018_Qualification
                 bool assignedRide = false;
                 foreach (var car in input.Cars)
                 {
-                    List<Ride> ridesAssigned = new List<Ride>();
-
+                    double maxScore = 0;
+                    Ride maxRide = null;
+                    Coordinate currLoc = car.CurrentTime > 0 ? car.RidesTaken.Last().End : new Coordinate(0, 0);
                     foreach (var ride in input.Rides)
                     {
-                        Coordinate currLoc = car.CurrentTime > 0 ? car.RidesTaken.Last().End : new Coordinate(0, 0);
-                        if (ScoreRide(car.IsOnRide, ride, currLoc, car.CurrentTime, input) != -1)
+                        // TODO: break cond
+                        var score = ScoreCalc.GetScore(car.IsOnRide, ride, currLoc, car.CurrentTime, input);
+                        if (score != -1 && score > maxScore)
                         {
-
-                            ridesAssigned.Add(ride);
+                            maxRide = ride;
                             assignedRide = true;
-
                         }
                     }
 
-                    foreach (var ride in ridesAssigned)
+                    if (maxRide != null)
                     {
-                        input.Rides.Remove(ride);
-                    }            
+                        input.Rides.Remove(maxRide);
+                        car.IsOnRide = true;
+                        car.RidesTaken.Add(maxRide);
+                        long minStartTurn = Math.Max(car.CurrentTime + currLoc.CalcGridDistance(maxRide.Start),
+                            maxRide.StartTime);
+
+                        car.CurrentTime = minStartTurn + maxRide.Distance;
+                    }
                 }
 
                 if (!assignedRide)
