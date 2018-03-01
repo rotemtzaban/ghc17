@@ -8,5 +8,11 @@ namespace _2018_Qualification
 {
     public class ProblemInput
     {
+        public long NumberOfRows { get; set; }
+        public long NumberOfCols { get; set; }
+        public long NumberOfVheicles { get; set; }
+        public long NumberOfRides { get; set; }
+        public long Bonus { get; set; }
+        public long NumberOfSteps { get; set; }
     }
 }

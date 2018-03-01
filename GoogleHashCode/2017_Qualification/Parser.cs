@@ -20,6 +20,8 @@ namespace _2017_Qualification
             input.NumberOfCachedServers = int.Parse(firstLineSplited[3]);
             input.ServerCapacity = int.Parse(firstLineSplited[4]);
 
+
+
             input.CachedServers = new List<CachedServer>();
             for (int i = 0; i < input.NumberOfCachedServers; i++)
             {
