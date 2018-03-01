@@ -20,5 +20,10 @@ namespace _2018_Qualification
         public Coordinate Start {get; set;}
 
         public Coordinate End { get; set;}
+
+        public long Distance
+        {
+            get { return Math.Abs(End.X - Start.X) + Math.Abs(End.Y - Start.Y); }
+        }
     }
 }
