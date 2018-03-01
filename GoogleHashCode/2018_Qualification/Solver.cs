@@ -28,19 +28,12 @@ namespace _2018_Qualification
                             assignedRide = true;
 
                         }
-
-                                               
                     }
 
                     foreach (var ride in ridesAssigned)
                     {
                         input.Rides.Remove(ride);
                     }            
-
-                    if (!car.IsOnRide)
-                    {
-                        
-                    }
                 }
 
                 if (!assignedRide)
