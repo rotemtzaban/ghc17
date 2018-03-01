@@ -59,5 +59,55 @@ namespace _2018_Qualification.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] a_example {
+            get {
+                object obj = ResourceManager.GetObject("a_example", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] b_should_be_easy {
+            get {
+                object obj = ResourceManager.GetObject("b_should_be_easy", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] c_no_hurry {
+            get {
+                object obj = ResourceManager.GetObject("c_no_hurry", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] d_metropolis {
+            get {
+                object obj = ResourceManager.GetObject("d_metropolis", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] e_high_bonus {
+            get {
+                object obj = ResourceManager.GetObject("e_high_bonus", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }

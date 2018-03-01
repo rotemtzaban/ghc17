@@ -57,6 +57,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Resources\a_example.in" />
+    <None Include="Resources\b_should_be_easy.in" />
+    <None Include="Resources\c_no_hurry.in" />
+    <None Include="Resources\d_metropolis.in" />
+    <None Include="Resources\e_high_bonus.in" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HashCodeCommon\HashCodeCommon.csproj">
