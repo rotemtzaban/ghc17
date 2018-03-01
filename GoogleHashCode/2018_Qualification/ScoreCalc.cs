@@ -18,7 +18,7 @@ namespace _2018_Qualification
             if (timeToStart < 0)
                 return -1;
 
-            return (distance + timeToStart) * 10.0 / ride.Distance;
+            return timeToStart * 10.0 / ride.Distance;
         }
 
         public double GetScoreBonus(Ride ride, Coordinate location, int currTime, ProblemInput input)
@@ -30,7 +30,10 @@ namespace _2018_Qualification
             if (timeToStart < 0)
                 return -1;
 
-            return (distance + timeToStart) * 10.0 / ride.Distance;
+            double scoreWithBonus = timeToStart * 10.0 / ride.Distance;
+
+
+            return scoreWithBonus / Math.Sqrt(input.Bonus);
         }
 
         public long GetDistance(Coordinate x, Coordinate y)
