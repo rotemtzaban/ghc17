@@ -16,10 +16,15 @@ namespace _2018_Qualification
             long timeToStart = minStartTurn - currTime;
             timeToStart = timeToStart < 0 ? 0 : timeToStart;
 
-            if (timeToStart < 0 || minStartTurn + ride.Distance >= ride.LatestFinish)
+            if (IsNotValid(ride, input, minStartTurn, timeToStart))
                 return -1;
 
-            return timeToStart * 10.0 / ride.Distance;
+            return timeToStart / Math.Sqrt(distance);
+        }
+
+        private static bool IsNotValid(Ride ride, ProblemInput input, long minStartTurn, long timeToStart)
+        {
+            return timeToStart < 0 || minStartTurn + ride.Distance >= ride.LatestFinish || minStartTurn + ride.Distance >= input.NumberOfSteps;
         }
 
         public static double GetScoreBonus(Ride ride, Coordinate location, long currTime, ProblemInput input)
@@ -29,11 +34,10 @@ namespace _2018_Qualification
             long timeToStart = minStartTurn - currTime;
             timeToStart = timeToStart < 0 ? 0 : timeToStart;
 
-            if (timeToStart < 0 || minStartTurn + ride.Distance >= ride.LatestFinish)
+            if (IsNotValid(ride, input, minStartTurn, timeToStart))
                 return -1;
 
             double scoreWithBonus = timeToStart / Math.Sqrt(ride.Distance);
-
 
             return scoreWithBonus / Math.Sqrt(input.Bonus);
         }
