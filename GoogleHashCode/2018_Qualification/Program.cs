@@ -12,7 +12,7 @@ namespace _2018_Qualification
         static void Main(string[] args)
         {
             Runner<ProblemInput, ProblemOutput> runner1 = new Runner<ProblemInput, ProblemOutput>(
-                "2018", new Parser(), new Solver(), new Printer());
+                "2018", new Parser(), new Solver(), new Printer(), new Calcutaor());
 
             // runner1.Run(Properties.Resources.MeAtTheZoo, "MeAtTheZoo", 1, true);
 
