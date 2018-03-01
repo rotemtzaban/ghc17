@@ -12,7 +12,7 @@ namespace _2018_Qualification
         public static double GetScore(Ride ride, Coordinate location, long currTime, ProblemInput input)
         {
             long distance = GetDistance(ride.Start, location);
-            long minStartTurn = Math.Min(currTime + distance, ride.StartTime);
+            long minStartTurn = Math.Max(currTime + distance, ride.StartTime);
             long timeToStart = minStartTurn - currTime;
             timeToStart = timeToStart < 0 ? 0 : timeToStart;
 
@@ -25,7 +25,7 @@ namespace _2018_Qualification
         public static double GetScoreBonus(Ride ride, Coordinate location, long currTime, ProblemInput input)
         {
             long distance = GetDistance(ride.Start, location);
-            long minStartTurn = Math.Min(currTime + distance, ride.StartTime);
+            long minStartTurn = Math.Max(currTime + distance, ride.StartTime);
             long timeToStart = minStartTurn - currTime;
             timeToStart = timeToStart < 0 ? 0 : timeToStart;
 

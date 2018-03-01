@@ -12,16 +12,20 @@ namespace _2018_Qualification
             long result = 0;
             foreach (var car in output.Cars)
             {
+                Coordinate location = new Coordinate();
                 long time = 0;
                 foreach (var ride in car.RidesTaken)
                 {
-                    if (ride.StartTime == time)
+                    int distance = location.CalcGridDistance(ride.Start);
+                    long minStartTurn = Math.Max(time + distance, ride.StartTime);
+                    if (ride.StartTime >= minStartTurn)
                     {
                         result += input.Bonus;
                     }
 
+                    time = minStartTurn + ride.Distance;
+                    location = ride.End;
                     result += ride.Distance;
-                    time += ride.Distance;
                 }
             }
 
