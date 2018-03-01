@@ -9,7 +9,23 @@ namespace _2018_Qualification
     {
         public override long Calculate(ProblemInput input, ProblemOutput output)
         {
-            throw new NotImplementedException();
+            long result = 0;
+            foreach (var car in output.Cars)
+            {
+                long time = 0;
+                foreach (var ride in car.RidesTaken)
+                {
+                    if (ride.StartTime == time)
+                    {
+                        result += input.Bonus;
+                    }
+
+                    result += ride.Distance;
+                    time += ride.Distance;
+                }
+            }
+
+            return result;
         }
 
         public override ProblemOutput GetResultFromReader(ProblemInput input, TextReader reader)
