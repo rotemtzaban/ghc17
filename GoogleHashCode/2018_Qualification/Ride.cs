@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace _2018_Qualification
 {
-    public class Rides : IndexedObject
+    public class Ride : IndexedObject
     {
-        public Rides(int index) : base(index)
+        public Ride(int index) : base(index)
         {
         }
 
