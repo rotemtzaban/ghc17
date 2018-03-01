@@ -16,5 +16,7 @@ namespace _2018_Qualification
         public long NumberOfSteps { get; set; }
 
         public List<Car> Cars { get; } = new List<Car>();
+
+        public List<Ride> Rides { get; set; }
     }
 }
