@@ -16,5 +16,7 @@ namespace _2018_Qualification
         public bool IsOnRide { get; set; }
 
         public List<Ride> RidesTaken { get; set; }
+
+        public long CurrentTime { get; set; }
     }
 }
