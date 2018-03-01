@@ -9,7 +9,7 @@ namespace _2018_Qualification
 {
     public class ScoreCalc
     {
-        public double GetScore(Ride ride, Coordinate location, int currTime, ProblemInput input)
+        public static double GetScore(bool isOnRide, Ride ride, Coordinate location, long currTime, ProblemInput input)
         {
             long distance = GetDistance(ride.Start, location);
             long minStartTurn = Math.Min(currTime + distance, ride.StartTime);
@@ -22,7 +22,7 @@ namespace _2018_Qualification
             return timeToStart * 10.0 / ride.Distance;
         }
 
-        public double GetScoreBonus(Ride ride, Coordinate location, int currTime, ProblemInput input)
+        public static double GetScoreBonus(Ride ride, Coordinate location, int currTime, ProblemInput input)
         {
             long distance = GetDistance(ride.Start, location);
             long minStartTurn = Math.Min(currTime + distance, ride.StartTime);
@@ -38,9 +38,9 @@ namespace _2018_Qualification
             return scoreWithBonus / Math.Sqrt(input.Bonus);
         }
 
-        public long GetDistance(Coordinate x, Coordinate y)
+        public static  long GetDistance(Coordinate x, Coordinate y)
         {
-            return Math.Abs(x.X - y.X) + Math.Abs(x.Y - y.Y);
+            return x.CalcGridDistance(y);
         }
     }
 }

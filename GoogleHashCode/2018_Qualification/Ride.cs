@@ -23,7 +23,7 @@ namespace _2018_Qualification
 
         public long Distance
         {
-            get { return Math.Abs(End.X - Start.X) + Math.Abs(End.Y - Start.Y); }
+            get { return End.CalcGridDistance(Start); }
         }
     }
 }
