@@ -17,7 +17,7 @@ namespace _2018_Qualification
             while (true)
             {
                 bool assignedRide = false;
-                IEnumerable<Car> cars = input.Cars.OrderBy(_ => _.CurrentTime).Take(input.Cars.Count * 19 / 20);
+                IEnumerable<Car> cars = input.Cars.OrderBy(_ => _.CurrentTime).Take(input.Cars.Count - 1);
                 assignedRide = Apply(input, assignedRide, cars);
 
                 if (!assignedRide)

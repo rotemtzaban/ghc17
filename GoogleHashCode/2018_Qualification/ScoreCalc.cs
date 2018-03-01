@@ -19,12 +19,12 @@ namespace _2018_Qualification
             if (IsNotValid(ride, input, minStartTurn, timeToStart))
                 return double.MaxValue;
 
-            double scoreWithoutBonus = timeToStart;
-            //double scoreWithoutBonus = timeToStart -Math.Log(ride.Distance);  good for c  
+            // double scoreWithoutBonus = timeToStart;
+            double scoreWithoutBonus = timeToStart / Math.Pow(ride.Distance, 0.4);  // good for c  
             if (currTime + distance <= ride.StartTime)
             {
-                return scoreWithoutBonus - Math.Sqrt(input.Bonus);
-                //return scoreWithoutBonus - Math.Sqrt(input.Bonus) + Math.Log(ride.Distance); good for d for some reason
+                // return scoreWithoutBonus - Math.Sqrt(input.Bonus);
+                return scoreWithoutBonus - Math.Sqrt(input.Bonus) + Math.Log(ride.Distance); //   good for d for some reason
                 // scoreWithoutBonus /= Math.Sqrt(input.Bonus);
             }
 
@@ -33,7 +33,7 @@ namespace _2018_Qualification
 
         private static bool IsNotValid(Ride ride, ProblemInput input, long minStartTurn, long timeToStart)
         {
-            return timeToStart < 0 || minStartTurn + ride.Distance >= ride.LatestFinish || minStartTurn + ride.Distance >= input.NumberOfSteps;
+            return timeToStart < 0 || minStartTurn + ride.Distance >= ride.LatestFinish || minStartTurn + ride.Distance >= input.NumberOfSteps + 1;
         }
 
         //public static double GetScoreBonus(Ride ride, Coordinate location, long currTime, ProblemInput input)
