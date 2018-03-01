@@ -193,7 +193,7 @@ namespace HashCodeCommon
 
                 int indexSubString = relative.IndexOf("\\");
                 var projectDir = relative.Substring(indexSubString == -1 ? 0 : indexSubString + 1);
-                if (projectDir.StartsWith("obj") || projectDir.StartsWith("bin") || relative.StartsWith(tmpDirectoryName))
+                if (projectDir.StartsWith("obj") || projectDir.StartsWith("bin") || projectDir.StartsWith("Resources") || relative.StartsWith(tmpDirectoryName))
                     continue;
                 var target = Path.Combine(tmpFolder, relative);
                 var dir = Path.GetDirectoryName(target);
