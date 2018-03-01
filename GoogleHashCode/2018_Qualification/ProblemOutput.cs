@@ -8,6 +8,6 @@ namespace _2018_Qualification
 {
     public class ProblemOutput
     {
-        public List<Car> Cars { get; set; }
+        public List<Car> Cars { get; set; } = new List<Car>();
     }
 }

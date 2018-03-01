@@ -188,7 +188,7 @@ namespace HashCodeCommon
             foreach (var codeFile in Directory.EnumerateFiles(solutionPath, "*", SearchOption.AllDirectories))
             {
                 var relative = codeFile.Substring(solutionPath.Length + 1);
-                if (relative.StartsWith(tmpDirectoryName) || relative.StartsWith("Output") || relative.StartsWith("packages"))
+                if (relative.StartsWith(tmpDirectoryName) || relative.StartsWith("Output") || relative.StartsWith("packages") || relative.StartsWith(".vs"))
                     continue;
 
                 int indexSubString = relative.IndexOf("\\");

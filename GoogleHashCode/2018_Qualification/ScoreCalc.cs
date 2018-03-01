@@ -9,7 +9,7 @@ namespace _2018_Qualification
 {
     public class ScoreCalc
     {
-        public static double GetScore(bool isOnRide, Ride ride, Coordinate location, long currTime, ProblemInput input)
+        public static double GetScore(Ride ride, Coordinate location, long currTime, ProblemInput input)
         {
             long distance = GetDistance(ride.Start, location);
             long minStartTurn = Math.Min(currTime + distance, ride.StartTime);
