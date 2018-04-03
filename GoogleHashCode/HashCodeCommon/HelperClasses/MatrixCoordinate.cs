@@ -14,8 +14,8 @@ namespace HashCodeCommon
             Row = row;
         }
 
-        public int Column { get; private set; }
-        public int Row { get; private set; }
+        public int Column { get; }
+        public int Row { get; }
 
         public double CalcEucledianDistance(Coordinate other)
         {
@@ -29,6 +29,11 @@ namespace HashCodeCommon
         public int CalcGridDistance(Coordinate other)
         {
             return Math.Abs(this.Column - other.X) + Math.Abs(this.Row - other.Y);
+        }
+
+        public int CalcShitDistance(MatrixCoordinate other)
+        {
+            return Math.Max(Math.Abs(this.Column - other.Column), Math.Abs(this.Row - other.Row));
         }
     }
 }
