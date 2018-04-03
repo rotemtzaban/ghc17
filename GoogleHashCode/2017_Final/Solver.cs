@@ -48,23 +48,23 @@ namespace _2017_Final
             foreach (var coordinate in coordinates)
             {
                 MatrixCoordinate startingBackbonePosition = input.StartingBackbonePosition;
-                var backbonePrice = coordinate.CalcShitDistance(startingBackbonePosition) * input.BackBonePrice;
-                int totalCost = backbonePrice + input.RouterPrice;
-                if (budget - cost < totalCost)
-                {
-                    break;
-                }
+                cost += input.RouterPrice;
 
-                cost += totalCost;
-
-                routerCoordinates.Add(coordinate);
                 MatrixCoordinate backboneCoordinate = coordinate;
-                while (!backboneCoordinate.Equals(startingBackbonePosition))
+                List<Coordinate> coords = new List<Coordinate>();
+                while (!backboneCoordinate.Equals(startingBackbonePosition) && budget > cost)
                 {
                     backBoneCoordinates.Add(backboneCoordinate);
                     backboneCoordinate = new MatrixCoordinate(backboneCoordinate.Row - Math.Sign(backboneCoordinate.Row - startingBackbonePosition.Row),
-                        backboneCoordinate.Column - Math.Sign(backboneCoordinate.Column - startingBackbonePosition.Column));
+                    backboneCoordinate.Column - Math.Sign(backboneCoordinate.Column - startingBackbonePosition.Column));
+                    cost++;
                 }
+
+                if (cost >budget)
+                {
+                    break;
+                }
+                routerCoordinates.Add(coordinate);
             }
 
             backBoneCoordinates.Add(input.StartingBackbonePosition);
