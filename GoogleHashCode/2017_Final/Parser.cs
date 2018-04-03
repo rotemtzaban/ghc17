@@ -10,7 +10,7 @@ namespace _2017_Final
         {
             ProblemInput input = new ProblemInput();
             int[] firstLineSplited = ReadLineAsIntArray(reader);
-            input.Cells = new Cell[firstLineSplited[0], firstLineSplited[1]];
+            input.Cells = new Cell[firstLineSplited[1], firstLineSplited[0]];
             input.RouterRadius = firstLineSplited[2];
 
             int[] secondLineSplited = ReadLineAsIntArray(reader);
@@ -18,7 +18,8 @@ namespace _2017_Final
             input.RouterPrice = secondLineSplited[1];
             input.StartingBudger = secondLineSplited[2];
 
-            input.StartingBackbonePosition = ReadLineAsCoordinate(reader);
+            int[] thirdLine = ReadLineAsIntArray(reader);
+            input.StartingBackbonePosition = new Coordinate(thirdLine[1], thirdLine[0]);
 
             for (int i = 0; i < firstLineSplited[0]; i++)
             {
@@ -28,15 +29,15 @@ namespace _2017_Final
                     Char curr = line[j];
                     if (curr == '-')
                     {
-                        input.Cells[i, j] = Cell.Empty;
+                        input.Cells[j, i] = Cell.Empty;
                     }
                     else if (curr == '#')
                     {
-                        input.Cells[i, j] = Cell.Wall;
+                        input.Cells[j, i] = Cell.Wall;
                     }
                     else if (curr == '.')
                     {
-                        input.Cells[i, j] = Cell.Traget;
+                        input.Cells[j, i] = Cell.Traget;
                     }
                     else { throw new Exception(); }
                 }

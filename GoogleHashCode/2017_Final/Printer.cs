@@ -1,5 +1,6 @@
 ﻿using System;
 using HashCodeCommon;
+using System.IO;
 
 namespace _2017_Final
 {
@@ -12,7 +13,20 @@ namespace _2017_Final
 
         public override void PrintToFile(ProblemOutput result, string outputPath)
         {
-            throw new NotImplementedException();
+            using (var writer = new StreamWriter(outputPath))
+            {
+                WriteCoordinateArray(writer, result.BackBoneCoordinates);
+                WriteCoordinateArray(writer, result.RouterCoordinates);
+            }
+        }
+
+        private void WriteCoordinateArray(StreamWriter writer, Coordinate[] backBoneCoordinates)
+        {
+            writer.WriteLine(backBoneCoordinates.Length);
+            foreach (var item in backBoneCoordinates)
+            {
+                writer.WriteLine(item.X  + " " + item.Y);
+            }
         }
     }
 }
