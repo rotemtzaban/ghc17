@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Linq;
 using System.IO;
 using HashCodeCommon;
+using HashCodeCommon.HelperClasses;
 
 namespace _2017_Final
 {
@@ -13,7 +15,26 @@ namespace _2017_Final
 
         public override ProblemOutput GetResultFromReader(ProblemInput input, TextReader reader)
         {
-            throw new NotImplementedException();
+            ProblemOutput output = new ProblemOutput();
+            MatrixCoordinate[] coordaintes = NewMethod(reader);
+            MatrixCoordinate[] coordaintes2 = NewMethod(reader);
+
+            output.BackBoneCoordinates = coordaintes.ToArray();
+            output.RouterCoordinates = coordaintes.ToArray();
+            return output;
+        }
+
+        private static MatrixCoordinate[] NewMethod(TextReader reader)
+        {
+            int numOfBackbones = int.Parse(reader.ReadLine());
+            MatrixCoordinate[] coordaintes = new MatrixCoordinate[numOfBackbones];
+            for (int i = 0; i < numOfBackbones; i++)
+            {
+                string line = reader.ReadLine();
+                coordaintes[i] = new MatrixCoordinate(line[0], line[1]);
+            }
+
+            return coordaintes;
         }
     }
 }

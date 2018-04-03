@@ -82,7 +82,7 @@
     <None Include="Resources\opera.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\rue_de_londres.ico" />
+    <None Include="Resources\rue_de_londres.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

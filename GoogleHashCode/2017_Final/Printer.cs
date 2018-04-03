@@ -20,12 +20,12 @@ namespace _2017_Final
             }
         }
 
-        private void WriteCoordinateArray(StreamWriter writer, Coordinate[] backBoneCoordinates)
+        private void WriteCoordinateArray(StreamWriter writer, MatrixCoordinate[] backBoneCoordinates)
         {
             writer.WriteLine(backBoneCoordinates.Length);
             foreach (var item in backBoneCoordinates)
             {
-                writer.WriteLine(item.X  + " " + item.Y);
+                writer.WriteLine(item.Row  + " " + item.Column);
             }
         }
     }

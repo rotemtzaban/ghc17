@@ -4,8 +4,8 @@ namespace _2017_Final
 {
     internal class ProblemOutput
     {
-        public Coordinate[] BackBoneCoordinates { get; set; }
+        public MatrixCoordinate[] BackBoneCoordinates { get; set; }
 
-        public Coordinate[] RouterCoordinates { get; set; }
+        public MatrixCoordinate[] RouterCoordinates { get; set; }
     }
 }

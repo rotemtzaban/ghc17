@@ -9,7 +9,7 @@ namespace _2017_Final
         public int BackBonePrice { get; set; }
         public int RouterPrice { get; set; }
         public int StartingBudger { get; set; }
-        public Coordinate StartingBackbonePosition { get; set; }
+        public MatrixCoordinate StartingBackbonePosition { get; set; }
     }
 
     public enum Cell
