@@ -10,7 +10,20 @@ namespace _2017_Final
     {
         public override long Calculate(ProblemInput input, ProblemOutput output)
         {
-            throw new NotImplementedException();
+            int moneyLeft = input.StartingBudger -
+                            output.RouterCoordinates.Length * input.RouterPrice -
+                            output.BackBoneCoordinates.Length * input.BackBonePrice;
+
+            foreach (var item in output.RouterCoordinates)
+            {
+                for (int i = output.RouterCoordinates.Length - input.RouterRadius;
+                    i <= output.RouterCoordinates.Length + input.RouterRadius; i++)
+                {
+                    // AddScoreByRotemFunc();
+                }
+            }
+
+            return moneyLeft;
         }
 
         public override ProblemOutput GetResultFromReader(ProblemInput input, TextReader reader)
