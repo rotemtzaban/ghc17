@@ -45,16 +45,16 @@ namespace _2017_Final
             int cost = 0;
             List<MatrixCoordinate> routerCoordinates = new List<MatrixCoordinate>();
             HashSet<MatrixCoordinate> backBoneCoordinates = new HashSet<MatrixCoordinate>();
-            for (var index = 0; index < coordinates.Count; index++)
+            foreach (var coordinate in coordinates)
             {
-                var coordinate = coordinates[index];
                 MatrixCoordinate startingBackbonePosition = input.StartingBackbonePosition;
-                var calcShitDistance = coordinate.CalcShitDistance(startingBackbonePosition);
-                int totalCost = calcShitDistance + input.RouterPrice;
+                var backbonePrice = coordinate.CalcShitDistance(startingBackbonePosition) * input.BackBonePrice;
+                int totalCost = backbonePrice + input.RouterPrice;
                 if (budget - cost < totalCost)
                 {
                     break;
                 }
+
                 cost += totalCost;
 
                 routerCoordinates.Add(coordinate);
@@ -77,7 +77,7 @@ namespace _2017_Final
 
         private static List<MatrixCoordinate> CalculateRouterCoordinates(ProblemInput input, Dictionary<MatrixCoordinate, ScoredCoordinate> scoreDictionary, SortedSet<ScoredCoordinate> set, Cell[,] cells)
         {
-            int maxRouters = input.StartingBudger / input.RouterPrice;
+            int maxRouters = (int)Math.Ceiling((double)input.StartingBudger / input.RouterPrice);
             List<MatrixCoordinate> coordinates = new List<MatrixCoordinate>();
             for (int i = 0; i < maxRouters; i++)
             {
