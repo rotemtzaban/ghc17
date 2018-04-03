@@ -122,7 +122,7 @@ namespace _2017_Final
             return coordinates;
         }
 
-        private static void NewMethod(ProblemInput input, Cell[,] cells, int[,] cellScores, int i, int j)
+        public static void NewMethod(ProblemInput input, Cell[,] cells, int[,] cellScores, int i, int j)
         {
             int routerRadius = input.RouterRadius;
             bool[,] notPosible = GetNotPossibleCells(input, cells, i, j, routerRadius);

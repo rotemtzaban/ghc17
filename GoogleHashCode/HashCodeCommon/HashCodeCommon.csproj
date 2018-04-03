@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Algorithems\Kruskal.cs" />
+    <Compile Include="Algorithems\Prim.cs" />
     <Compile Include="BaseClasses\ClonedIndexedObject.cs" />
     <Compile Include="BaseClasses\IndexedObject.cs" />
     <Compile Include="BaseClasses\PrinterBase.cs" />
