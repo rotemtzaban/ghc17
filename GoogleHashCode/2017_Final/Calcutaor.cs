@@ -18,7 +18,7 @@ namespace _2017_Final
             int[,] cellScores = new int[cells.GetLength(0), cells.GetLength(1)];
             foreach (var item in output.RouterCoordinates)
             {
-                Solver.NewMethod(input, cells, cellScores, item.Row, item.Column);
+                Solver.InitScoreMatrix(input, cells, cellScores, item.Row, item.Column);
             }
 
 
@@ -26,16 +26,7 @@ namespace _2017_Final
             {
                 if (item == 0)
                     continue;
-                moneyLeft += 1000;
-            }
-
-            foreach (var item in output.RouterCoordinates)
-            {
-                for (int i = output.RouterCoordinates.Length - input.RouterRadius;
-                    i <= output.RouterCoordinates.Length + input.RouterRadius; i++)
-                {
-                    // AddScoreByRotemFunc();
-                }
+                // moneyLeft += 1000;
             }
 
             return moneyLeft;
