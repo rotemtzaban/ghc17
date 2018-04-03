@@ -8,7 +8,14 @@ namespace _2017_Final
     {
         protected override ProblemInput ParseFromStream(TextReader reader)
         {
-            throw new NotImplementedException();
+            ProblemInput input = new ProblemInput();
+            string[] firstLineSplited = reader.ReadLine().Split(' ');
+
+            string[] secondLineSplited = reader.ReadLine().Split(' ');
+
+            string[] thirdLineSplited = reader.ReadLine().Split(' ');
+
+            return input;
         }
     }
 }

@@ -1,6 +1,18 @@
-﻿namespace _2017_Final
+﻿using HashCodeCommon;
+
+namespace _2017_Final
 {
     internal class ProblemInput
+    {
+        public Cell[,] Cells { get; set; }
+        public int RouterRadius { get; set; }
+        public int BackBonePrice { get; set; }
+        public int RouterPrice { get; set; }
+        public int StartingBudger { get; set; }
+        public Coordinate StartingBackbonePosition { get; set; }
+    }
+
+    public enum Cell
     {
     }
 }
