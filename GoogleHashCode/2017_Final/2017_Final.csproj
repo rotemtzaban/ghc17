@@ -7,7 +7,7 @@
     <ProjectGuid>{A5F7E7E4-B251-44F5-9E47-2980C1DA20FB}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>_2017_Final</RootNamespace>
-    <AssemblyName>_2017_Final</AssemblyName>
+    <AssemblyName>2017_Final</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -42,11 +42,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Calcutaor.cs" />
+    <Compile Include="Parser.cs" />
+    <Compile Include="Printer.cs" />
+    <Compile Include="ProblemInput.cs" />
+    <Compile Include="ProblemOutput.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Solver.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HashCodeCommon\HashCodeCommon.csproj">
+      <Project>{fe988848-3527-4fde-a140-65ce69e2f181}</Project>
+      <Name>HashCodeCommon</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

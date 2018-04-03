@@ -1,6 +1,14 @@
-﻿namespace _2017_Final
+﻿using System;
+using System.IO;
+using HashCodeCommon;
+
+namespace _2017_Final
 {
-    internal class Parser : HashCodeCommon.ParserBase<ProblemInput>
+    internal class Parser : ParserBase<ProblemInput>
     {
+        protected override ProblemInput ParseFromStream(TextReader reader)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -1,6 +1,13 @@
-﻿namespace _2017_Final
+﻿using System;
+using HashCodeCommon;
+
+namespace _2017_Final
 {
-    internal class Solver : HashCodeCommon.SolverBase<ProblemInput, ProblemOutput>
+    internal class Solver : SolverBase<ProblemInput, ProblemOutput>
     {
+        protected override ProblemOutput Solve(ProblemInput input)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
