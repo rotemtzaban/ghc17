@@ -2,7 +2,7 @@
 
 namespace _2017_Final
 {
-    internal class ProblemInput
+    public class ProblemInput
     {
         public Cell[,] Cells { get; set; }
         public int RouterRadius { get; set; }

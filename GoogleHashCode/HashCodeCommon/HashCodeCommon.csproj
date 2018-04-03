@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Algorithems\Kruskal.cs" />
     <Compile Include="BaseClasses\ClonedIndexedObject.cs" />
     <Compile Include="BaseClasses\IndexedObject.cs" />
     <Compile Include="BaseClasses\PrinterBase.cs" />
