@@ -54,13 +54,15 @@ namespace _2017_Final
                 List<Coordinate> coords = new List<Coordinate>();
                 while (!backboneCoordinate.Equals(startingBackbonePosition) && budget > cost)
                 {
-                    backBoneCoordinates.Add(backboneCoordinate);
+                    if (backBoneCoordinates.Add(backboneCoordinate))
+                    {
+                        cost += input.BackBonePrice;
+                    }
                     backboneCoordinate = new MatrixCoordinate(backboneCoordinate.Row - Math.Sign(backboneCoordinate.Row - startingBackbonePosition.Row),
                     backboneCoordinate.Column - Math.Sign(backboneCoordinate.Column - startingBackbonePosition.Column));
-                    cost++;
                 }
 
-                if (cost >budget)
+                if (cost > budget)
                 {
                     break;
                 }
