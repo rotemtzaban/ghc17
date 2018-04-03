@@ -6,158 +6,102 @@ using System.Threading.Tasks;
 
 namespace HashCodeCommon.Algorithems
 {
-    public class KEdge
+    public class MyKruskal
     {
-        public KVertex V1 { get; set; }
-        public KVertex V2 { get; set; }
-        public int weight { get; set; }
-        public KEdge(KVertex src, KVertex dest, int wt)
+        public struct Edge
         {
-            V1 = src;
-            V2 = dest;
-            weight = wt;
-        }
-        public KEdge()
-        {
-
-        }
-    }
-    public class KVertex
-    {
-
-        //public KVertex this[int index]
-        //{
-        //    get { return vertcoll[index]; }
-        //    set { vertcoll[index] = value; }
-        //}
-        public string Label { get; set; }
-    }
-    public class KGraph
-    {
-        public List<KEdge> Edgecoll = null;
-        public KVertex[] vertcoll = null;
-        KVertex v = null;
-        //public KEdge this[KVertex v]
-        //{
-        //    get { return Edgecoll[v]; }
-        //    set { Edgecoll[v] = value; }
-        //}
-
-
-        public KGraph(int size)
-        {
-            vertcoll = new KVertex[size];
-            for (int i = 0; i < size; i++)
-            {
-                v = new KVertex();
-                v.Label = i.ToString();
-                vertcoll[i] = v;
-            }
-
-        }
-    }
-    class KSubsets
-    {
-        public KVertex parent { get; set; }
-        public int rank { get; set; }
-    }
-
-
-    class Kruskal
-    {
-        static void Main(string[] args)
-        {
-            int k = 1;
-            int vert = 7;
-            int e = 0;
-            KGraph objGraph = new KGraph(vert);
-            KVertex[] vertcoll = objGraph.vertcoll;
-            KEdge[] result = new KEdge[vert];
-
-            List<KEdge> edgecoll = new List<KEdge>();
-            KEdge objEdge = new KEdge();
-
-            for (int i = 0; i < vert; i++)
-            {
-                for (int j = i; j < vert; j++)
-                {
-                    if (i != j)
-                    {
-                        Console.WriteLine("KEdge weight from src{0} to destn{1}", i, j);
-                        int wt = int.Parse(Console.ReadLine());
-                        if (wt == 0) continue;
-                        objEdge = new KEdge(vertcoll[i], vertcoll[j], wt);
-                        edgecoll.Add(objEdge);
-                        k++;
-                    }
-                }
-            }
-
-            //edgecoll.ToList().OrderBy(p => p.weight).ToList();
-
-            objGraph.Edgecoll = edgecoll.ToList().OrderBy(p => p.weight).ToList();//edgecoll.OrderBy(g=>g.weight).ToList();
-
-            KSubsets[] sub = new KSubsets[vert];
-            KSubsets subobj;
-            for (int i = 0; i < vert; i++)
-            {
-                subobj = new KSubsets();
-                subobj.parent = vertcoll[i];
-                subobj.rank = 0;
-                sub[i] = subobj;
-            }
-            k = 0;
-            while (e < vert - 1)
-            {
-                objEdge = objGraph.Edgecoll.ElementAt(k);
-                KVertex x = find(sub, objEdge.V1, Array.IndexOf(objGraph.vertcoll, objEdge.V1), objGraph.vertcoll);
-                KVertex y = find(sub, objEdge.V2, Array.IndexOf(objGraph.vertcoll, objEdge.V2), objGraph.vertcoll);
-                if (x != y)
-                {
-                    result[e] = objEdge;
-                    Union(sub, x, y, objGraph.vertcoll);
-                    e++;
-                }
-                k++;
-
-
-            }
-
-            for (int i = 0; i < e; i++)
-            {
-                Console.WriteLine("edge from src:{0} to dest:{1} with weight:{2}", result[i].V1.Label, result[i].V2.Label, result[i].weight);
-            }
-            return;
+            public int Source;
+            public int Destination;
+            public int Weight;
         }
 
-        private static void Union(KSubsets[] sub, KVertex xr, KVertex yr, KVertex[] vertex)
+        public struct Graph
         {
-            KVertex x = find(sub, xr, Array.IndexOf(vertex, xr), vertex);
-            KVertex y = find(sub, yr, Array.IndexOf(vertex, yr), vertex);
+            public int VerticesCount;
+            public int EdgesCount;
+            public Edge[] edge;
+        }
 
-            if (sub[Array.IndexOf(vertex, x)].rank < sub[Array.IndexOf(vertex, y)].rank)
-            {
-                sub[Array.IndexOf(vertex, x)].parent = y;
-            }
-            else if (sub[Array.IndexOf(vertex, x)].rank > sub[Array.IndexOf(vertex, y)].rank)
-            {
-                sub[Array.IndexOf(vertex, y)].parent = x;
-            }
+        public struct Subset
+        {
+            public int Parent;
+            public int Rank;
+        }
+
+        public static Graph CreateGraph(int verticesCount, int edgesCoun)
+        {
+            Graph graph = new Graph();
+            graph.VerticesCount = verticesCount;
+            graph.EdgesCount = edgesCoun;
+            graph.edge = new Edge[graph.EdgesCount];
+
+            return graph;
+        }
+
+        private static int Find(Subset[] subsets, int i)
+        {
+            if (subsets[i].Parent != i)
+                subsets[i].Parent = Find(subsets, subsets[i].Parent);
+
+            return subsets[i].Parent;
+        }
+
+        private static void Union(Subset[] subsets, int x, int y)
+        {
+            int xroot = Find(subsets, x);
+            int yroot = Find(subsets, y);
+
+            if (subsets[xroot].Rank < subsets[yroot].Rank)
+                subsets[xroot].Parent = yroot;
+            else if (subsets[xroot].Rank > subsets[yroot].Rank)
+                subsets[yroot].Parent = xroot;
             else
             {
-                sub[Array.IndexOf(vertex, y)].parent = x;
-                sub[Array.IndexOf(vertex, x)].rank++;
+                subsets[yroot].Parent = xroot;
+                ++subsets[xroot].Rank;
             }
         }
 
-        private static KVertex find(KSubsets[] sub, KVertex vertex, int k, KVertex[] vertdic)
+        private static void Print(Edge[] result, int e)
         {
-            if (sub[k].parent != vertex)
+            for (int i = 0; i < e; ++i)
+                Console.WriteLine("{0} -- {1} == {2}", result[i].Source, result[i].Destination, result[i].Weight);
+        }
+
+        public static void Kruskal(Graph graph)
+        {
+            int verticesCount = graph.VerticesCount;
+            Edge[] result = new Edge[verticesCount];
+            int i = 0;
+            int e = 0;
+
+            Array.Sort(graph.edge, delegate (Edge a, Edge b)
             {
-                sub[k].parent = find(sub, sub.ElementAt(k).parent, Array.IndexOf(vertdic, sub.ElementAt(k).parent), vertdic);// find(sub, vertex, Array.IndexOf(vertdic,vertex),vertdic);//sub.Select(j => j.parent).Where(v => v.Label == vertex.Label).FirstOrDefault();
+                return a.Weight.CompareTo(b.Weight);
+            });
+
+            Subset[] subsets = new Subset[verticesCount];
+
+            for (int v = 0; v < verticesCount; ++v)
+            {
+                subsets[v].Parent = v;
+                subsets[v].Rank = 0;
             }
 
-            return sub[k].parent;
+            while (e < verticesCount - 1)
+            {
+                Edge nextEdge = graph.edge[i++];
+                int x = Find(subsets, nextEdge.Source);
+                int y = Find(subsets, nextEdge.Destination);
+
+                if (x != y)
+                {
+                    result[e++] = nextEdge;
+                    Union(subsets, x, y);
+                }
+            }
+
+            Print(result, e);
         }
     }
 }
