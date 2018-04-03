@@ -31,14 +31,14 @@ namespace HashCodeCommon
             return new Coordinate(int.Parse(locationAsString[0]), int.Parse(locationAsString[1]));
         }
 
-        public static long ReadLineAsLong(TextReader reader)
+        public long ReadLineAsLong(TextReader reader)
         {
             string line = reader.ReadLine();
             long result = long.Parse(line);
             return result;
         }
 
-        public static long[] ReadLineAsLongArray(TextReader reader)
+        public long[] ReadLineAsLongArray(TextReader reader)
         {
             string line = reader.ReadLine();
             string[] splitedLine = line.Split(' ');
@@ -46,6 +46,19 @@ namespace HashCodeCommon
             for (int index = 0; index < splitedLine.Length; index++)
             {
                 result[index] = long.Parse(splitedLine[index]);
+            }
+
+            return result;
+        }
+
+        public int[] ReadLineAsIntArray(TextReader reader)
+        {
+            string line = reader.ReadLine();
+            string[] splitedLine = line.Split(' ');
+            int[] result = new int[splitedLine.Length];
+            for (int index = 0; index < splitedLine.Length; index++)
+            {
+                result[index] = int.Parse(splitedLine[index]);
             }
 
             return result;

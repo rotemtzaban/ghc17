@@ -9,11 +9,38 @@ namespace _2017_Final
         protected override ProblemInput ParseFromStream(TextReader reader)
         {
             ProblemInput input = new ProblemInput();
-            string[] firstLineSplited = reader.ReadLine().Split(' ');
+            int[] firstLineSplited = ReadLineAsIntArray(reader);
+            input.Cells = new Cell[firstLineSplited[0], firstLineSplited[1]];
+            input.RouterRadius = firstLineSplited[2];
 
-            string[] secondLineSplited = reader.ReadLine().Split(' ');
+            int[] secondLineSplited = ReadLineAsIntArray(reader);
+            input.BackBonePrice = secondLineSplited[0];
+            input.RouterPrice = secondLineSplited[1];
+            input.StartingBudger = secondLineSplited[2];
 
-            string[] thirdLineSplited = reader.ReadLine().Split(' ');
+            input.StartingBackbonePosition = ReadLineAsCoordinate(reader);
+
+            for (int i = 0; i < firstLineSplited[0]; i++)
+            {
+                string line = reader.ReadLine();
+                for (int j = 0; j < line.Length; j++)
+                {
+                    Char curr = line[j];
+                    if (curr == '-')
+                    {
+                        input.Cells[i, j] = Cell.Empty;
+                    }
+                    else if (curr == '#')
+                    {
+                        input.Cells[i, j] = Cell.Wall;
+                    }
+                    else if (curr == '.')
+                    {
+                        input.Cells[i, j] = Cell.Traget;
+                    }
+                    else { throw new Exception(); }
+                }
+            }
 
             return input;
         }
