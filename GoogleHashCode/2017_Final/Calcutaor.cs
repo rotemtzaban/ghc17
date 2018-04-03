@@ -14,6 +14,21 @@ namespace _2017_Final
                             output.RouterCoordinates.Length * input.RouterPrice -
                             output.BackBoneCoordinates.Length * input.BackBonePrice;
 
+            Cell[,] cells = input.Cells;
+            int[,] cellScores = new int[cells.GetLength(0), cells.GetLength(1)];
+            foreach (var item in output.RouterCoordinates)
+            {
+                Solver.NewMethod(input, cells, cellScores, item.Row, item.Column);
+            }
+
+
+            foreach (var item in cellScores)
+            {
+                if (item == 0)
+                    continue;
+                moneyLeft += 1000;
+            }
+
             foreach (var item in output.RouterCoordinates)
             {
                 for (int i = output.RouterCoordinates.Length - input.RouterRadius;
@@ -33,7 +48,7 @@ namespace _2017_Final
             MatrixCoordinate[] coordaintes2 = NewMethod(reader);
 
             output.BackBoneCoordinates = coordaintes.ToArray();
-            output.RouterCoordinates = coordaintes.ToArray();
+            output.RouterCoordinates = coordaintes2.ToArray();
             return output;
         }
 
