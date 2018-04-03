@@ -19,7 +19,7 @@ namespace _2017_Final
                 {
                     if (cells[i, j] == Cell.Traget)
                     {
-                        NewMethod(input, cells, cellScores, i, j);
+                        InitScoreMatrix(input, cells, cellScores, i, j);
                     }
                 }
             }
@@ -124,7 +124,7 @@ namespace _2017_Final
             return coordinates;
         }
 
-        public static void NewMethod(ProblemInput input, Cell[,] cells, int[,] cellScores, int i, int j)
+        public static void InitScoreMatrix(ProblemInput input, Cell[,] cells, int[,] cellScores, int i, int j)
         {
             int routerRadius = input.RouterRadius;
             bool[,] notPosible = GetNotPossibleCells(input, cells, i, j, routerRadius);
