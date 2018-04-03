@@ -40,6 +40,43 @@ namespace _2017_Final
             }
 
             int budget = input.StartingBudger;
+            List<MatrixCoordinate> coordinates = CalculateRouterCoordinates(input, scoreDictionary, set, cells);
+
+            int cost = 0;
+            List<MatrixCoordinate> routerCoordinates = new List<MatrixCoordinate>();
+            HashSet<MatrixCoordinate> backBoneCoordinates = new HashSet<MatrixCoordinate>();
+            for (var index = 0; index < coordinates.Count; index++)
+            {
+                var coordinate = coordinates[index];
+                MatrixCoordinate startingBackbonePosition = input.StartingBackbonePosition;
+                var calcShitDistance = coordinate.CalcShitDistance(startingBackbonePosition);
+                int totalCost = calcShitDistance + input.RouterPrice;
+                if (budget - cost < totalCost)
+                {
+                    break;
+                }
+                cost += totalCost;
+
+                routerCoordinates.Add(coordinate);
+                MatrixCoordinate backboneCoordinate = coordinate;
+                while (!backboneCoordinate.Equals(startingBackbonePosition))
+                {
+                    backBoneCoordinates.Add(backboneCoordinate);
+                    backboneCoordinate = new MatrixCoordinate(backboneCoordinate.Row - Math.Sign(backboneCoordinate.Row - startingBackbonePosition.Row),
+                        backboneCoordinate.Column - Math.Sign(backboneCoordinate.Column - startingBackbonePosition.Column));
+                }
+            }
+
+            backBoneCoordinates.Add(input.StartingBackbonePosition);
+            return new ProblemOutput
+            {
+                BackBoneCoordinates = backBoneCoordinates.ToArray(),
+                RouterCoordinates = routerCoordinates.ToArray()
+            };
+        }
+
+        private static List<MatrixCoordinate> CalculateRouterCoordinates(ProblemInput input, Dictionary<MatrixCoordinate, ScoredCoordinate> scoreDictionary, SortedSet<ScoredCoordinate> set, Cell[,] cells)
+        {
             int maxRouters = input.StartingBudger / input.RouterPrice;
             List<MatrixCoordinate> coordinates = new List<MatrixCoordinate>();
             for (int i = 0; i < maxRouters; i++)
@@ -82,37 +119,7 @@ namespace _2017_Final
                 }
             }
 
-            int cost = 0;
-            List<MatrixCoordinate> routerCoordinates = new List<MatrixCoordinate>();
-            HashSet<MatrixCoordinate> backBoneCoordinates = new HashSet<MatrixCoordinate>();
-            for (var index = 0; index < coordinates.Count; index++)
-            {
-                var coordinate = coordinates[index];
-                MatrixCoordinate startingBackbonePosition = input.StartingBackbonePosition;
-                var calcShitDistance = coordinate.CalcShitDistance(startingBackbonePosition);
-                int totalCost = calcShitDistance + input.RouterPrice;
-                if (budget - cost < totalCost)
-                {
-                    break;
-                }
-                cost += totalCost;
-
-                routerCoordinates.Add(coordinate);
-                MatrixCoordinate backboneCoordinate = coordinate;
-                while (!backboneCoordinate.Equals(startingBackbonePosition))
-                {
-                    backBoneCoordinates.Add(backboneCoordinate);
-                    backboneCoordinate = new MatrixCoordinate(backboneCoordinate.Row - Math.Sign(backboneCoordinate.Row - startingBackbonePosition.Row),
-                        backboneCoordinate.Column - Math.Sign(backboneCoordinate.Column - startingBackbonePosition.Column));
-                }
-            }
-
-            backBoneCoordinates.Add(input.StartingBackbonePosition);
-            return new ProblemOutput
-            {
-                BackBoneCoordinates = backBoneCoordinates.ToArray(),
-                RouterCoordinates = routerCoordinates.ToArray()
-            };
+            return coordinates;
         }
 
         private static void NewMethod(ProblemInput input, Cell[,] cells, int[,] cellScores, int i, int j)
