@@ -14,5 +14,8 @@ namespace _2017_Final
 
     public enum Cell
     {
+        Empty,
+        Wall,
+        Traget
     }
 }
