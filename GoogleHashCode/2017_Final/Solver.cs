@@ -95,14 +95,15 @@ namespace _2017_Final
                 {
                     break;
                 }
+                cost += totalCost;
 
                 routerCoordinates.Add(coordinate);
                 MatrixCoordinate backboneCoordinate = coordinate;
                 while (!backboneCoordinate.Equals(startingBackbonePosition))
                 {
                     backBoneCoordinates.Add(backboneCoordinate);
-                    backboneCoordinate = new MatrixCoordinate(coordinate.Row + Math.Sign(coordinate.Row - startingBackbonePosition.Row),
-                        coordinate.Column + Math.Sign(coordinate.Column - startingBackbonePosition.Column));
+                    backboneCoordinate = new MatrixCoordinate(backboneCoordinate.Row - Math.Sign(backboneCoordinate.Row - startingBackbonePosition.Row),
+                        backboneCoordinate.Column - Math.Sign(backboneCoordinate.Column - startingBackbonePosition.Column));
                 }
             }
 
@@ -144,7 +145,7 @@ namespace _2017_Final
             for (int k = Math.Max(0, i - routerRadius); k <= Math.Min(cells.GetLength(0) - 1, i + routerRadius); k++)
             {
                 for (int l = Math.Max(0, j - routerRadius);
-                    l <= Math.Max(cells.GetLength(1) - 1, j + routerRadius);
+                    l <= Math.Min(cells.GetLength(1) - 1, j + routerRadius);
                     l++)
                 {
                     int matX = k - i + routerRadius, matY = l - j + routerRadius;

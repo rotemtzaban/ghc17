@@ -8,7 +8,7 @@ namespace _2017_Final
     {
         public override void PrintToConsole(ProblemOutput result)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         public override void PrintToFile(ProblemOutput result, string outputPath)
