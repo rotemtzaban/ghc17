@@ -35,5 +35,10 @@ namespace HashCodeCommon
         {
             return Math.Max(Math.Abs(this.Column - other.Column), Math.Abs(this.Row - other.Row));
         }
+
+        public override string ToString()
+        {
+            return Row + " " + Column;
+        }
     }
 }
