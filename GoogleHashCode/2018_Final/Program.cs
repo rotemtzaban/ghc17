@@ -25,12 +25,12 @@ namespace _2018_Final
         private static void DataAnalyze()
         {
             string[] data = new string[]
-                            {
+            {
                     //Properties.Resources.charleston_road,
                     //Properties.Resources.lets_go_higher,
                     //Properties.Resources.opera,
                     //Properties.Resources.rue_de_londres,
-                            };
+            };
 
             for (int i = 0; i < data.Length; i++)
             {
