@@ -1,18 +1,22 @@
 ﻿using System;
 using HashCodeCommon;
+using System.IO;
 
 namespace _2018_Final
 {
-    internal class Printer : PrinterBase<ProblemOutput>
+    public class Printer : PrinterBase<ProblemOutput>
     {
         public override void PrintToConsole(ProblemOutput result)
         {
-            throw new NotImplementedException();
+            return;
         }
 
         public override void PrintToFile(ProblemOutput result, string outputPath)
         {
-            throw new NotImplementedException();
+            using (var writer = new StreamWriter(outputPath))
+            {
+                // writer.WriteLine
+            }
         }
     }
 }

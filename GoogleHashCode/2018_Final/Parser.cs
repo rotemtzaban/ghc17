@@ -4,7 +4,7 @@ using HashCodeCommon;
 
 namespace _2018_Final
 {
-    internal class Parser : ParserBase<ProblemInput>
+    public class Parser : ParserBase<ProblemInput>
     {
         protected override ProblemInput ParseFromStream(TextReader reader)
         {
