@@ -21,5 +21,24 @@ namespace _2018_Final
             runner1.CreateCodeZip();
             Console.Read();
         }
+
+        private static void DataAnalyze()
+        {
+            string[] data = new string[]
+                            {
+                    //Properties.Resources.charleston_road,
+                    //Properties.Resources.lets_go_higher,
+                    //Properties.Resources.opera,
+                    //Properties.Resources.rue_de_londres,
+                            };
+
+            for (int i = 0; i < data.Length; i++)
+            {
+                ProblemInput prob = new Parser().ParseFromData(data[i]);
+
+                Console.WriteLine($"case {i}:");
+                Console.WriteLine($"insert case data");
+            }
+        }
     }
 }
