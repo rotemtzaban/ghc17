@@ -58,7 +58,7 @@ namespace _2018_Final
                 ProblemInput prob = new Parser().ParseFromData(data[i]);
 
                 Console.WriteLine($"case {i}:");
-                Console.WriteLine($"insert case data Width: {prob.Width}, Height:{prob.Height}, MaxDistance: {prob.MaxDistance}");
+                Console.WriteLine($"insert case data Rows: {prob.Rows}, Columns:{prob.Columns}, MaxDistance: {prob.MaxDistance}");
             }
         }
     }
