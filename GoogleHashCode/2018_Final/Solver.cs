@@ -18,8 +18,7 @@ namespace _2018_Final
 
             while (true)
             {
-                // Get best fit
-                // 
+
             }
         }
 

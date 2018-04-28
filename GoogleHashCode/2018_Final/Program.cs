@@ -72,9 +72,11 @@ namespace _2018_Final
                     }
                 }
 
+                var bestRes = residtianls.Max(_ => 1.0 * _.Capacity / _.Plan.GetLength(0) / _.Plan.GetLength(1));
                 Console.WriteLine($"case {i}:");
                 Console.WriteLine($"insert case data Rows: {prob.Rows}, Columns:{prob.Columns}, MaxDistance: {prob.MaxDistance}");
                 Console.WriteLine($"Are two util same type : { anyTwiceUtil}");
+                Console.WriteLine($"Best res: {bestRes}");
             }
         }
     }
