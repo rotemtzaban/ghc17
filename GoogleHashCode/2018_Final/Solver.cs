@@ -121,7 +121,22 @@ namespace _2018_Final
                 inputCoordinate.Column + item.Plan.GetLength(1) > filledCells.GetLength(1))
                 return int.MinValue;
 
-            if (item.BuildingType == BuildingType.Residential)
+            for (int row = 0; row < item.Plan.GetLength(0); row++)
+            {
+                for (int col = 0; col < item.Plan.GetLength(1); col++)
+                {
+                    int rowToCheck = inputCoordinate.Row + row;
+                    int colToCheck = inputCoordinate.Column + col;
+
+                    if (!InMatrix(rowToCheck, colToCheck))
+                        return int.MinValue;
+
+                    if (filledCells[rowToCheck, colToCheck].IsOccupied)
+                        return int.MinValue;
+                }
+            }
+
+                    if (item.BuildingType == BuildingType.Residential)
                 return GetResidntialScore(item, filledCells, inputCoordinate);
             return GetUtilityScore(item, filledCells, inputCoordinate);
         }
@@ -133,9 +148,6 @@ namespace _2018_Final
             {
                 for (int col = 0; col < item.Plan.GetLength(1); col++)
                 {
-                    if (filledCells[row, col].IsOccupied)
-                        return int.MinValue;
-
                     if (!item.Plan[row, col])
                     {
                         continue;
@@ -184,9 +196,6 @@ namespace _2018_Final
             {
                 for (int col = 0; col < item.Plan.GetLength(1); col++)
                 {
-                    if (filledCells[row, col].IsOccupied)
-                        return int.MinValue;
-
                     if (!item.Plan[row, col])
                     {
                         continue;
