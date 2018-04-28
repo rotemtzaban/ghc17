@@ -13,6 +13,7 @@ namespace _2018_Final
         {
             m_Input = input;
             ProblemOutput output = new ProblemOutput();
+            output.Buildings = new List<OutputBuilding>();
 
             //var residtianls = input.BuildingProjects.Where(_ => _.BuildingType == BuildingType.Residential).ToList();
             //var utilities = input.BuildingProjects.Where(_ => _.BuildingType == BuildingType.Utility).ToList();
@@ -24,7 +25,12 @@ namespace _2018_Final
             {
                 for (int j = 0; j < filledCells.GetLength(1); j++)
                 {
-                    filledCells[i, j] = new CellType() { IsOccupied = false };
+                    filledCells[i, j] = new CellType()
+                    {
+                        IsOccupied = false,
+                        NearUtilities = new HashSet<int>(),
+                        BuildingIndex = -1
+                    };
                 }
             }
 
