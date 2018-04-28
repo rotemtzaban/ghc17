@@ -14,8 +14,8 @@ namespace _2018_Final
             if (input.Rows != 1000)
                 return base.Solve(input);
 
-            input.Rows /= 10;
-            input.Columns /= 10;
+            input.Rows /= 5;
+            input.Columns /= 5;
 
             ProblemOutput basePit = base.Solve(input);
 

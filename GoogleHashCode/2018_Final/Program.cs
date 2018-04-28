@@ -15,7 +15,7 @@ namespace _2018_Final
             DataAnalyze();
             Stopwatch watch = Stopwatch.StartNew();
 
-            Runner<ProblemInput, ProblemOutput> runner1 = RunAll();
+            Runner<ProblemInput, ProblemOutput> runner1 = RunAll(null);
 
             runner1.CreateCodeZip();
 
@@ -23,30 +23,30 @@ namespace _2018_Final
             Console.Read();
         }
 
-        private static Runner<ProblemInput, ProblemOutput> RunAll()
+        private static Runner<ProblemInput, ProblemOutput> RunAll(Calculator calc)
         {
             Runner<ProblemInput, ProblemOutput> runner1 = new Runner<ProblemInput, ProblemOutput>(
-                            "2018_Final", new Parser(), new EfficintSolver(), new Printer(), new Calculator());
+                            "2018_Final", new Parser(), new EfficintSolver(), new Printer(), calc);
             runner1.Run(Properties.Resources.a_example, "a_example", 1, true);
 
             Runner<ProblemInput, ProblemOutput> runner2 = new Runner<ProblemInput, ProblemOutput>(
-                "2018_Final", new Parser(), new EfficintSolver(), new Printer(), new Calculator());
+                "2018_Final", new Parser(), new EfficintSolver(), new Printer(), calc);
             runner2.Run(Properties.Resources.b_short_walk, "b_short_walk", 1, true);
 
             Runner<ProblemInput, ProblemOutput> runner3 = new Runner<ProblemInput, ProblemOutput>(
-                "2018_Final", new Parser(), new EfficintSolver(), new Printer(), new Calculator());
+                "2018_Final", new Parser(), new EfficintSolver(), new Printer(), calc);
             runner3.Run(Properties.Resources.c_going_green, "c_going_green", 1, true);
 
             Runner<ProblemInput, ProblemOutput> runner4 = new Runner<ProblemInput, ProblemOutput>(
-                "2018_Final", new Parser(), new EfficintSolver(), new Printer(), new Calculator());
+                "2018_Final", new Parser(), new EfficintSolver(), new Printer(), calc);
             runner4.Run(Properties.Resources.d_wide_selection, "d_wide_selection", 1, true);
 
             Runner<ProblemInput, ProblemOutput> runner5 = new Runner<ProblemInput, ProblemOutput>(
-                "2018_Final", new Parser(), new EScroer(), new Printer(), new Calculator());
+                "2018_Final", new Parser(), new EScroer(), new Printer(), calc);
             runner5.Run(Properties.Resources.e_precise_fit, "e_precise_fit", 1, true);
 
             Runner<ProblemInput, ProblemOutput> runner6 = new Runner<ProblemInput, ProblemOutput>(
-                "2018_Final", new Parser(), new EfficintSolver(), new Printer(), new Calculator());
+                "2018_Final", new Parser(), new EfficintSolver(), new Printer(), calc);
             runner6.Run(Properties.Resources.f_different_footprints, "f_different_footprints", 1, true);
             return runner1;
         }
