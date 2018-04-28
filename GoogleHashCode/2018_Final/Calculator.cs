@@ -68,7 +68,7 @@ namespace _2018_Final
         private static bool IsWithinGrid(int[,] utilityGrid, int currGridRow, int currGridCol)
         {
             return currGridRow < utilityGrid.GetLength(0) && currGridRow >= 0 &&
-                   currGridCol < utilityGrid.GetLength(0) && currGridCol >= 0;
+                   currGridCol < utilityGrid.GetLength(1) && currGridCol >= 0;
         }
 
         private static int[,] GetUtilityGrid(ProblemInput input, ProblemOutput output)
