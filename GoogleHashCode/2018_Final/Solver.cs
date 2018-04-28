@@ -20,6 +20,13 @@ namespace _2018_Final
             //var orderutilities = utilities.OrderBy(OrderByUtilityMethod).ToList();
 
             CellType[,] filledCells = new CellType[input.Rows, input.Columns];
+            for (int i = 0; i < filledCells.GetLength(0); i++)
+            {
+                for (int j = 0; j < filledCells.GetLength(1); j++)
+                {
+                    filledCells[i, j] = new CellType() { IsOccupied = false };
+                }
+            }
 
             List<MatrixCoordinate> possiblePoints = new List<MatrixCoordinate>();
             possiblePoints.Add(new MatrixCoordinate(0, 0));
@@ -31,12 +38,45 @@ namespace _2018_Final
                 if (bestProject == null)
                     break;
 
-                // Add the best fit
+                first = AddBestProject(filledCells, first, bestProject);
 
                 output.Buildings.Add(new OutputBuilding() { Coordinate = first, ProjectNumber = bestProject.Index });
             }
 
             return output;
+        }
+
+        private MatrixCoordinate AddBestProject(CellType[,] filledCells, MatrixCoordinate first, BuildingProject bestProject)
+        {
+            for (int row = 0; row < bestProject.Plan.GetLength(0); row++)
+            {
+                for (int col = 0; col < bestProject.Plan.GetLength(1); col++)
+                {
+                    filledCells[row + first.Row, first.Column + col].IsOccupied = bestProject.Plan[row, col];
+                    filledCells[row + first.Row, first.Column + col].BuildingType = bestProject.BuildingType;
+
+                    for (int i = -m_Input.MaxDistance; i <= m_Input.MaxDistance; i++)
+                    {
+                        for (int j = -m_Input.MaxDistance + Math.Abs(i); j <= m_Input.MaxDistance - Math.Abs(i); j++)
+                        {
+                            int rowToCheck = row + i;
+                            int colToCheck = col + i;
+
+                            if (!InMatrix(rowToCheck, colToCheck))
+                                continue;
+
+                            var cellToCheck = filledCells[rowToCheck, colToCheck];
+                            if (!cellToCheck.IsOccupied)
+                                continue;
+
+                            if (cellToCheck.BuildingType == BuildingType.Utility)
+                                filledCells[row + first.Row, first.Column + col].NearUtilities.Add(cellToCheck.UtilityIndex);
+                        }
+                    }
+                }
+            }
+
+            return first;
         }
 
         private BuildingProject GetBestFit(IEnumerable<BuildingProject> orderResidntial, CellType[,] filledCells, MatrixCoordinate inputCoordinate)
@@ -74,6 +114,9 @@ namespace _2018_Final
             {
                 for (int col = 0; col < item.Plan.GetLength(1); col++)
                 {
+                    if (filledCells[row, col].IsOccupied)
+                        return int.MinValue;
+
                     if (!item.Plan[row, col])
                     {
                         continue;
@@ -122,6 +165,9 @@ namespace _2018_Final
             {
                 for (int col = 0; col < item.Plan.GetLength(1); col++)
                 {
+                    if (filledCells[row, col].IsOccupied)
+                        return int.MinValue;
+
                     if (!item.Plan[row, col])
                     {
                         continue;
@@ -149,7 +195,7 @@ namespace _2018_Final
                 }
             }
 
-            return nearUtilities.Sum(_ => m_Input.BuildingProjects[_].Capacity);
+            return nearUtilities.Count * item.Capacity;
         }
 
         private object OrderByUtilityMethod(BuildingProject arg)

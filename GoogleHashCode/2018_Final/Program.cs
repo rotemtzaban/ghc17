@@ -72,14 +72,63 @@ namespace _2018_Final
                     }
                 }
 
+                bool canPutInside = CanPutInside(prob);
+
                 var bestRes = residtianls.Max(_ => 1.0 * _.Capacity / _.Plan.GetLength(0) / _.Plan.GetLength(1));
                 Console.WriteLine($"case {i}:");
                 Console.WriteLine($"insert case data Rows: {prob.Rows}, Columns:{prob.Columns}, MaxDistance: {prob.MaxDistance}");
                 Console.WriteLine($"Are two util same type : { anyTwiceUtil}");
+                Console.WriteLine($"Can put inside: {canPutInside}");
                 Console.WriteLine($"Best res: {bestRes}");
 
                 Console.WriteLine($"different utilities :{utility.Select(project => project.UtilityType).Distinct().Count()}");
             }
+        }
+
+        private static bool CanPutInside(ProblemInput prob)
+        {
+            bool canPutInside = false;
+            foreach (var currProject in prob.BuildingProjects)
+            {
+                foreach (var insideProjects in prob.BuildingProjects)
+                {
+                    for (int row = 0; row < currProject.Plan.GetLength(0); row++)
+                    {
+                        for (int col = 0; col < currProject.Plan.GetLength(1); col++)
+                        {
+                            bool isSuspect = true;
+                            for (int i = 0; i <= insideProjects.Plan.GetLength(0) && isSuspect; i++)
+                            {
+                                for (int j = 0; j <= insideProjects.Plan.GetLength(1) && isSuspect; j++)
+                                {
+                                    int rowToCheck = row + i;
+                                    int colToCheck = col + i;
+
+                                    if (!InMatrix(rowToCheck, colToCheck, currProject.Plan) ||
+                                        currProject.Plan[rowToCheck, colToCheck])
+                                    {
+                                        isSuspect = false;
+                                        break;
+                                    }
+                                }
+                            }
+
+                            if (isSuspect)
+                                canPutInside = true;
+                        }
+                    }
+                }
+            }
+
+            return canPutInside;
+        }
+
+        private static bool InMatrix(int rowToCheck, int colToCheck, bool[,] matrix)
+        {
+            return rowToCheck >= 0 &&
+                colToCheck >= 0 &&
+                rowToCheck < matrix.GetLength(0) &&
+                colToCheck < matrix.GetLength(1);
         }
     }
 }
