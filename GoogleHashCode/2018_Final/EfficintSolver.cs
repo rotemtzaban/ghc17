@@ -13,9 +13,10 @@ namespace _2018_Final
         {
             if (input.Rows != 1000)
                 return base.Solve(input);
+            int Factor = 5;
 
-            input.Rows /= 5;
-            input.Columns /= 5;
+            input.Rows /= Factor;
+            input.Columns /= Factor;
 
             ProblemOutput basePit = base.Solve(input);
 
@@ -23,14 +24,14 @@ namespace _2018_Final
             newOutput.Buildings = new List<OutputBuilding>();
             foreach (var item in basePit.Buildings.ToList())
             {
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < Factor; i++)
                 {
-                    for (int j = 0; j < 10; j++)
+                    for (int j = 0; j < Factor; j++)
                     {
                         newOutput.Buildings.Add(new OutputBuilding()
                         {
-                            Coordinate = new MatrixCoordinate(item.Coordinate.Row + i * 100, 
-                            item.Coordinate.Column + j * 100),
+                            Coordinate = new MatrixCoordinate(item.Coordinate.Row + i * input.Rows / Factor, 
+                            item.Coordinate.Column + j * input.Rows / Factor),
                             ProjectNumber = item.ProjectNumber
                         });
                     }

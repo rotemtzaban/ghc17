@@ -12,7 +12,7 @@ namespace _2018_Final
     {
         static void Main(string[] args)
         {
-            DataAnalyze();
+            // DataAnalyze();
             Stopwatch watch = Stopwatch.StartNew();
 
             new Runner<ProblemInput, ProblemOutput>(
