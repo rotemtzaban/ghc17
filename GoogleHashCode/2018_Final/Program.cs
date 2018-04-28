@@ -12,7 +12,7 @@ namespace _2018_Final
     {
         static void Main(string[] args)
         {
-            DataAnalyze();
+            // DataAnalyze();
             Stopwatch watch = Stopwatch.StartNew();
 
             new Runner<ProblemInput, ProblemOutput>(
@@ -67,6 +67,8 @@ namespace _2018_Final
                 "2018_Final", new Parser(), new EfficintSolver(), new Printer(), calc);
                 runner6.Run(Properties.Resources.f_different_footprints, "f_different_footprints", 1, true);
             });
+
+            Task.WaitAll(t, t2, t3, t4, t5, t6);
         }
 
         private static void DataAnalyze()
