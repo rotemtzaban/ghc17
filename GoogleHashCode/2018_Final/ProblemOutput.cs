@@ -1,10 +1,19 @@
 ﻿using HashCodeCommon;
+using System.Collections.Generic;
 
 namespace _2018_Final
 {
+    public class CellType
+    {
+        public BuildingType BuildingType { get; set; }
+        public int BuildingIndex { get; set; }
+        public bool IsOccupied { get; set; }
+        public HashSet<int> NearUtilities { get; set; }
+    }
+
     public class ProblemOutput
     {
-        public OutputBuilding[] Buildings { get; set; }
+        public List<OutputBuilding> Buildings { get; set; }
     }
 
     public class OutputBuilding
