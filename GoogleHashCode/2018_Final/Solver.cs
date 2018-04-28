@@ -40,6 +40,9 @@ namespace _2018_Final
 
                 first = AddBestProject(filledCells, first, bestProject);
 
+                possiblePoints.Add(new MatrixCoordinate(first.Row + bestProject.Plan.GetLength(0), first.Column));
+                possiblePoints.Add(new MatrixCoordinate(first.Row, first.Column + bestProject.Plan.GetLength(1)));
+                possiblePoints.Add(new MatrixCoordinate(first.Row + bestProject.Plan.GetLength(0), first.Column + bestProject.Plan.GetLength(1)));
                 output.Buildings.Add(new OutputBuilding() { Coordinate = first, ProjectNumber = bestProject.Index });
             }
 
