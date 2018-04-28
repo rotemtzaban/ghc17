@@ -2,9 +2,9 @@
 {
     public class ProblemInput
     {
-        public int Height { get; set; }
+        public int Rows { get; set; }
 
-        public int Width { get; set; }
+        public int Columns { get; set; }
 
         public int MaxDistance { get; set; }
 
