@@ -142,11 +142,11 @@ namespace _2018_Final
             BuildingProject bestResdintial = null;
             int bestResidntialScore = int.MinValue;
             object lockObject = new object();
-            Parallel.ForEach(orderResidntial, new ParallelOptions() { MaxDegreeOfParallelism = 5 }, item =>
-            //foreach (var item in orderResidntial)
+            // Parallel.ForEach(orderResidntial, new ParallelOptions() { MaxDegreeOfParallelism = 5 }, item =>
+            foreach (var item in orderResidntial)
             {
                 int currScore = GetScore(item, filledCells, inputCoordinate);
-                lock (lockObject)
+                //lock (lockObject)
                  {
                     if (bestResidntialScore < currScore)
                     {
@@ -154,8 +154,8 @@ namespace _2018_Final
                         bestResidntialScore = currScore;
                     }
                 }
-              //}
-           });
+             }
+           //});
 
             return bestResdintial;
         }

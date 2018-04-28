@@ -15,40 +15,58 @@ namespace _2018_Final
             DataAnalyze();
             Stopwatch watch = Stopwatch.StartNew();
 
-            Runner<ProblemInput, ProblemOutput> runner1 = RunAll(null);
+            new Runner<ProblemInput, ProblemOutput>(
+               "2018_Final", new Parser(), new EfficintSolver(), new Printer(), null).CreateCodeZip();
 
-            runner1.CreateCodeZip();
+            RunAll(null);
 
             Console.WriteLine("Time:" + watch.ElapsedMilliseconds);
             Console.Read();
         }
 
-        private static Runner<ProblemInput, ProblemOutput> RunAll(Calculator calc)
+        private static void RunAll(Calculator calc)
         {
-            Runner<ProblemInput, ProblemOutput> runner1 = new Runner<ProblemInput, ProblemOutput>(
-                            "2018_Final", new Parser(), new EfficintSolver(), new Printer(), calc);
-            runner1.Run(Properties.Resources.a_example, "a_example", 1, true);
+            Task t = Task.Run(() =>
+            {
+                Runner<ProblemInput, ProblemOutput> runner1 = new Runner<ProblemInput, ProblemOutput>(
+                              "2018_Final", new Parser(), new EfficintSolver(), new Printer(), calc);
+                runner1.Run(Properties.Resources.a_example, "a_example", 1, true);
+            });
 
-            Runner<ProblemInput, ProblemOutput> runner2 = new Runner<ProblemInput, ProblemOutput>(
+            Task t2 = Task.Run(() =>
+            {
+                Runner<ProblemInput, ProblemOutput> runner2 = new Runner<ProblemInput, ProblemOutput>(
                 "2018_Final", new Parser(), new EfficintSolver(), new Printer(), calc);
-            runner2.Run(Properties.Resources.b_short_walk, "b_short_walk", 1, true);
+                runner2.Run(Properties.Resources.b_short_walk, "b_short_walk", 1, true);
+            });
 
-            Runner<ProblemInput, ProblemOutput> runner3 = new Runner<ProblemInput, ProblemOutput>(
+            Task t3 = Task.Run(() =>
+            {
+                Runner<ProblemInput, ProblemOutput> runner3 = new Runner<ProblemInput, ProblemOutput>(
                 "2018_Final", new Parser(), new EfficintSolver(), new Printer(), calc);
-            runner3.Run(Properties.Resources.c_going_green, "c_going_green", 1, true);
+                runner3.Run(Properties.Resources.c_going_green, "c_going_green", 1, true);
+            });
 
-            Runner<ProblemInput, ProblemOutput> runner4 = new Runner<ProblemInput, ProblemOutput>(
+            Task t4 = Task.Run(() =>
+            {
+                Runner<ProblemInput, ProblemOutput> runner4 = new Runner<ProblemInput, ProblemOutput>(
                 "2018_Final", new Parser(), new EfficintSolver(), new Printer(), calc);
-            runner4.Run(Properties.Resources.d_wide_selection, "d_wide_selection", 1, true);
+                runner4.Run(Properties.Resources.d_wide_selection, "d_wide_selection", 1, true);
+            });
 
-            Runner<ProblemInput, ProblemOutput> runner5 = new Runner<ProblemInput, ProblemOutput>(
+            Task t5 = Task.Run(() =>
+            {
+                Runner<ProblemInput, ProblemOutput> runner5 = new Runner<ProblemInput, ProblemOutput>(
                 "2018_Final", new Parser(), new EScroer(), new Printer(), calc);
-            runner5.Run(Properties.Resources.e_precise_fit, "e_precise_fit", 1, true);
+                runner5.Run(Properties.Resources.e_precise_fit, "e_precise_fit", 1, true);
+            });
 
-            Runner<ProblemInput, ProblemOutput> runner6 = new Runner<ProblemInput, ProblemOutput>(
+            Task t6 = Task.Run(() =>
+            {
+                Runner<ProblemInput, ProblemOutput> runner6 = new Runner<ProblemInput, ProblemOutput>(
                 "2018_Final", new Parser(), new EfficintSolver(), new Printer(), calc);
-            runner6.Run(Properties.Resources.f_different_footprints, "f_different_footprints", 1, true);
-            return runner1;
+                runner6.Run(Properties.Resources.f_different_footprints, "f_different_footprints", 1, true);
+            });
         }
 
         private static void DataAnalyze()
