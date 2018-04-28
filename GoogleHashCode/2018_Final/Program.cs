@@ -77,6 +77,8 @@ namespace _2018_Final
                 Console.WriteLine($"insert case data Rows: {prob.Rows}, Columns:{prob.Columns}, MaxDistance: {prob.MaxDistance}");
                 Console.WriteLine($"Are two util same type : { anyTwiceUtil}");
                 Console.WriteLine($"Best res: {bestRes}");
+
+                Console.WriteLine($"different utilities :{utility.Select(project => project.UtilityType).Distinct().Count()}");
             }
         }
     }
