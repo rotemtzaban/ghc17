@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using HashCodeCommon;
 using HashCodeCommon.HelperClasses;
+using System.Diagnostics;
 
 namespace _2018_Final
 {
@@ -11,6 +12,7 @@ namespace _2018_Final
     {
         public override long Calculate(ProblemInput input, ProblemOutput output)
         {
+            Stopwatch watch = Stopwatch.StartNew();
             ValidateOutput(input, output);
             var utilityGrid = GetUtilityGrid(input, output);
             long score = 0;
@@ -25,6 +27,8 @@ namespace _2018_Final
                     score += capacity * utilities.Count;
                 }
             }
+
+            Console.WriteLine("Calcu time: " + watch.ElapsedMilliseconds);
 
             return score;
         }

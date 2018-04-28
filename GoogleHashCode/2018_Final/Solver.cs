@@ -120,20 +120,20 @@ namespace _2018_Final
             BuildingProject bestResdintial = null;
             int bestResidntialScore = int.MinValue;
             object lockObject = new object();
-            // Parallel.ForEach(orderResidntial, new ParallelOptions() { MaxDegreeOfParallelism = 5 }, item =>
-            foreach (var item in orderResidntial)
+            Parallel.ForEach(orderResidntial, new ParallelOptions() { MaxDegreeOfParallelism = 5 }, item =>
+            //foreach (var item in orderResidntial)
             {
                 int currScore = GetScore(item, filledCells, inputCoordinate);
-                //lock (lockObject)
-                // {
+                lock (lockObject)
+                 {
                     if (bestResidntialScore < currScore)
                     {
                         bestResdintial = item;
                         bestResidntialScore = currScore;
                     }
-                // }
-              }
-            //});
+                }
+              //}
+           });
 
             return bestResdintial;
         }
@@ -166,7 +166,7 @@ namespace _2018_Final
 
         private int GetUtilityScore(BuildingProject item, CellType[,] filledCells, MatrixCoordinate inputCoordinate)
         {
-            return 20;
+            // return 20;
 
             HashSet<int> nearResidntials = new HashSet<int>();
             for (int row = 0; row < item.Plan.GetLength(0); row++)
@@ -216,7 +216,7 @@ namespace _2018_Final
 
         private int GetResidntialScore(BuildingProject item, CellType[,] filledCells, MatrixCoordinate inputCoordinate)
         {
-            return (int)(100.0 * item.Capacity / item.Plan.GetLength(0) / item.Plan.GetLength(1));
+            // return (int)(100.0 * item.Capacity / item.Plan.GetLength(0) / item.Plan.GetLength(1));
 
             HashSet<int> nearUtilities = new HashSet<int>();
             for (int row = 0; row < item.Plan.GetLength(0); row++)

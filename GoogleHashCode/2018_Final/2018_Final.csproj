@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Calculator.cs" />
+    <Compile Include="EfficintSolver.cs" />
     <Compile Include="EScroer.cs" />
     <Compile Include="Parser.cs" />
     <Compile Include="Printer.cs" />
