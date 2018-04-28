@@ -15,13 +15,9 @@ namespace _2018_Final
             DataAnalyze();
             Stopwatch watch = Stopwatch.StartNew();
 
-            // Runner<ProblemInput, ProblemOutput> runner1 = RunAll();
+            Runner<ProblemInput, ProblemOutput> runner1 = RunAll();
 
-            Runner<ProblemInput, ProblemOutput> runner5 = new Runner<ProblemInput, ProblemOutput>(
-                "2018_Final", new Parser(), new EScroer(), new Printer(), new Calculator());
-            runner5.Run(Properties.Resources.e_precise_fit, "e_precise_fit", 1, true);
-
-            runner5.CreateCodeZip();
+            runner1.CreateCodeZip();
 
             Console.WriteLine("Time:" + watch.ElapsedMilliseconds);
             Console.Read();
@@ -105,6 +101,8 @@ namespace _2018_Final
 
                 Console.WriteLine($"different utilities :{utility.Select(project => project.UtilityType).Distinct().Count()}");
                 Console.WriteLine($"Num res :{residtianls.Count}");
+                bool anySize1Res = prob.BuildingProjects.Any(_ => _.Plan.Length == 1 && _.BuildingType == BuildingType.Residential);
+                Console.WriteLine("Size 1 res: " + anySize1Res);
                 // Console.WriteLine($"Num res :{residtianls.Count}");
             }
         }

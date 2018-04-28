@@ -54,8 +54,30 @@ namespace _2018_Final
             }
 
             AddExtraBuildings(filledCells);
+            FillEmptyCells(input, output, filledCells);
 
             return output;
+        }
+
+        private static void FillEmptyCells(ProblemInput input, ProblemOutput output, CellType[,] filledCells)
+        {
+            var Size1Building = input.BuildingProjects.FirstOrDefault(_ => _.Plan.Length == 1 && _.BuildingType == BuildingType.Residential);
+            if (Size1Building != null)
+            {
+                for (int i = 0; i < filledCells.GetLength(0); i++)
+                {
+                    for (int j = 0; j < filledCells.GetLength(1); j++)
+                    {
+                        if (filledCells[i, j].IsOccupied)
+                            continue;
+                        output.Buildings.Add(new OutputBuilding()
+                        {
+                            Coordinate = new MatrixCoordinate(i, j),
+                            ProjectNumber = Size1Building.Index
+                        });
+                    }
+                }
+            }
         }
 
         private void AddExtraBuildings(CellType[,] filledCells)
