@@ -52,7 +52,23 @@ namespace _2018_Final
                 output.Buildings.Add(new OutputBuilding() { Coordinate = first, ProjectNumber = bestProject.Index });
             }
 
+            AddExtraBuildings(filledCells);
+
             return output;
+        }
+
+        private void AddExtraBuildings(CellType[,] filledCells)
+        {
+            return;
+
+            for (int i = 0; i < filledCells.GetLength(0); i++)
+            {
+                for (int j = 0; j < filledCells.GetLength(1); j++)
+                {
+                    if (filledCells[i, j].IsOccupied)
+                        continue;
+                }
+            }
         }
 
         private MatrixCoordinate AddBestProject(CellType[,] filledCells, MatrixCoordinate first, BuildingProject bestProject)
