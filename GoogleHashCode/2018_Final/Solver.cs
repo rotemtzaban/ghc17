@@ -2,6 +2,7 @@
 using System.Linq;
 using HashCodeCommon;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace _2018_Final
 {
@@ -118,15 +119,21 @@ namespace _2018_Final
         {
             BuildingProject bestResdintial = null;
             int bestResidntialScore = int.MinValue;
+            object lockObject = new object();
+            // Parallel.ForEach(orderResidntial, new ParallelOptions() { MaxDegreeOfParallelism = 5 }, item =>
             foreach (var item in orderResidntial)
             {
                 int currScore = GetScore(item, filledCells, inputCoordinate);
-                if (bestResidntialScore < currScore)
-                {
-                    bestResdintial = item;
-                    bestResidntialScore = currScore;
-                }
-            }
+                //lock (lockObject)
+                // {
+                    if (bestResidntialScore < currScore)
+                    {
+                        bestResdintial = item;
+                        bestResidntialScore = currScore;
+                    }
+                // }
+              }
+            //});
 
             return bestResdintial;
         }
@@ -137,6 +144,9 @@ namespace _2018_Final
                 inputCoordinate.Column + item.Plan.GetLength(1) > filledCells.GetLength(1))
                 return int.MinValue;
 
+            if (!InMatrix(inputCoordinate.Row + item.Plan.GetLength(0), inputCoordinate.Column + item.Plan.GetLength(1)))
+                return int.MinValue;
+
             for (int row = 0; row < item.Plan.GetLength(0); row++)
             {
                 for (int col = 0; col < item.Plan.GetLength(1); col++)
@@ -144,21 +154,20 @@ namespace _2018_Final
                     int rowToCheck = inputCoordinate.Row + row;
                     int colToCheck = inputCoordinate.Column + col;
 
-                    if (!InMatrix(rowToCheck, colToCheck))
-                        return int.MinValue;
-
                     if (filledCells[rowToCheck, colToCheck].IsOccupied)
                         return int.MinValue;
                 }
             }
 
-                    if (item.BuildingType == BuildingType.Residential)
+            if (item.BuildingType == BuildingType.Residential)
                 return GetResidntialScore(item, filledCells, inputCoordinate);
             return GetUtilityScore(item, filledCells, inputCoordinate);
         }
 
         private int GetUtilityScore(BuildingProject item, CellType[,] filledCells, MatrixCoordinate inputCoordinate)
         {
+            return 20;
+
             HashSet<int> nearResidntials = new HashSet<int>();
             for (int row = 0; row < item.Plan.GetLength(0); row++)
             {
@@ -207,6 +216,8 @@ namespace _2018_Final
 
         private int GetResidntialScore(BuildingProject item, CellType[,] filledCells, MatrixCoordinate inputCoordinate)
         {
+            return (int)(100.0 * item.Capacity / item.Plan.GetLength(0) / item.Plan.GetLength(1));
+
             HashSet<int> nearUtilities = new HashSet<int>();
             for (int row = 0; row < item.Plan.GetLength(0); row++)
             {

@@ -49,8 +49,8 @@ namespace _2018_Final
                     Properties.Resources.b_short_walk,
                     Properties.Resources.c_going_green,
                     Properties.Resources.d_wide_selection,
-                    Properties.Resources.f_different_footprints,
                     Properties.Resources.e_precise_fit,
+                    Properties.Resources.f_different_footprints,
             };
 
             for (int i = 0; i < data.Length; i++)
@@ -75,11 +75,19 @@ namespace _2018_Final
                 bool canPutInside = CanPutInside(prob);
 
                 var bestRes = residtianls.Max(_ => 1.0 * _.Capacity / _.Plan.GetLength(0) / _.Plan.GetLength(1));
+                BuildingProject bestBuilding = null;
+                foreach (var item in residtianls)
+                {
+                    var _ = item;
+                    if (1.0 * _.Capacity / _.Plan.GetLength(0) / _.Plan.GetLength(1) == bestRes)
+                        bestBuilding = item;
+                }
+
                 Console.WriteLine($"case {i}:");
                 Console.WriteLine($"insert case data Rows: {prob.Rows}, Columns:{prob.Columns}, MaxDistance: {prob.MaxDistance}");
                 Console.WriteLine($"Are two util same type : { anyTwiceUtil}");
                 Console.WriteLine($"Can put inside: {canPutInside}");
-                Console.WriteLine($"Best res: {bestRes}");
+                Console.WriteLine($"Best res: {bestRes}, size: {bestBuilding.Plan.GetLength(0)}, {bestBuilding.Plan.GetLength(1)}");
 
                 Console.WriteLine($"different utilities :{utility.Select(project => project.UtilityType).Distinct().Count()}");
             }
