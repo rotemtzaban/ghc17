@@ -13,7 +13,7 @@ namespace _2018_Final
         {
             if (input.Rows != 1000)
                 return base.Solve(input);
-            int Factor = 5;
+            int Factor = 10;
 
             input.Rows /= Factor;
             input.Columns /= Factor;
@@ -30,8 +30,8 @@ namespace _2018_Final
                     {
                         newOutput.Buildings.Add(new OutputBuilding()
                         {
-                            Coordinate = new MatrixCoordinate(item.Coordinate.Row + i * input.Rows / Factor, 
-                            item.Coordinate.Column + j * input.Rows / Factor),
+                            Coordinate = new MatrixCoordinate(item.Coordinate.Row + i * input.Rows, 
+                            item.Coordinate.Column + j * input.Columns),
                             ProjectNumber = item.ProjectNumber
                         });
                     }
