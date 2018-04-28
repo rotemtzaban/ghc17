@@ -36,10 +36,10 @@ namespace _2018_Final
 
                 for (int j = 0; j < rows; j++)
                 {
-                    var row = reader.GetStringList();
+                    var row = reader.ReadLine();
                     for (int k = 0; k < columns; k++)
                     {
-                        project.Plan[j, k] = row[k] == "#";
+                        project.Plan[j, k] = row[k] == '#';
                     }
                 }
 
