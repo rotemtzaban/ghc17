@@ -63,6 +63,7 @@ namespace _2018_Final
                 {
                     filledCells[row + first.Row, first.Column + col].IsOccupied = bestProject.Plan[row, col];
                     filledCells[row + first.Row, first.Column + col].BuildingType = bestProject.BuildingType;
+                    filledCells[row + first.Row, first.Column + col].BuildingIndex = bestProject.Index;
 
                     for (int i = -m_Input.MaxDistance; i <= m_Input.MaxDistance; i++)
                     {

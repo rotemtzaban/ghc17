@@ -11,7 +11,7 @@ namespace _2018_Final
     {
         static void Main(string[] args)
         {
-            DataAnalyze();
+            // DataAnalyze();
 
             Runner<ProblemInput, ProblemOutput> runner1 = new Runner<ProblemInput, ProblemOutput>(
                 "2018_Final", new Parser(), new Solver(), new Printer(), new Calculator());
