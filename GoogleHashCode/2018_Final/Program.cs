@@ -57,8 +57,24 @@ namespace _2018_Final
             {
                 ProblemInput prob = new Parser().ParseFromData(data[i]);
 
+                var residtianls = prob.BuildingProjects.Where(_ => _.BuildingType == BuildingType.Residential).ToList();
+                var utility = prob.BuildingProjects.Where(_ => _.BuildingType == BuildingType.Utility).ToList();
+                bool anyTwiceUtil = false;
+                for (int j = 0; j < utility.Count; j++)
+                {
+                    for (int n = 0; n < utility.Count; n++)
+                    {
+                        if (j != n && utility[j].UtilityType == utility[n].UtilityType)
+                        {
+                            anyTwiceUtil = true;
+                            break;
+                        }
+                    }
+                }
+
                 Console.WriteLine($"case {i}:");
                 Console.WriteLine($"insert case data Rows: {prob.Rows}, Columns:{prob.Columns}, MaxDistance: {prob.MaxDistance}");
+                Console.WriteLine($"Are two util same type : { anyTwiceUtil}");
             }
         }
     }
