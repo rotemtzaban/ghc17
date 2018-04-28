@@ -15,7 +15,12 @@ namespace _2018_Final
         {
             using (var writer = new StreamWriter(outputPath))
             {
-                // writer.WriteLine
+                writer.WriteLine(result.Buildings.Length);
+                foreach (var building in result.Buildings)
+                {
+                    writer.WriteLine(
+                        $"{building.ProjectNumber} {building.Coordinate.Row} {building.Coordinate.Column}");
+                }
             }
         }
     }
