@@ -31,5 +31,10 @@ namespace HashCodeCommon
 	    {
             return Math.Abs(this.X - other.X) + Math.Abs(this.Y - other.Y);
 	    }
+
+	    public override string ToString()
+	    {
+	        return $"{X}, {Y}";
+	    }
 	}
 }

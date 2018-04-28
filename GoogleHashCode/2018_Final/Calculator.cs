@@ -4,7 +4,7 @@ using HashCodeCommon;
 
 namespace _2018_Final
 {
-    public class Calcutaor : ScoreCalculatorBase<ProblemInput, ProblemOutput>
+    public class Calculator : ScoreCalculatorBase<ProblemInput, ProblemOutput>
     {
         public override long Calculate(ProblemInput input, ProblemOutput output)
         {
