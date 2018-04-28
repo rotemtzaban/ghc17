@@ -13,9 +13,23 @@ namespace _2018_Final
             var residtianls = input.BuildingProjects.Where(_ => _.BuildingType == BuildingType.Residential).ToList();
             var utility = input.BuildingProjects.Where(_ => _.BuildingType == BuildingType.Utility).ToList();
 
-            // Order residintial
-            // Order utility
+            var orderResidntial = residtianls.OrderBy(OrderByResidintialMethod).ToList();
+            var orderutility = utility.OrderBy(OrderByUtilityMethod).ToList();
 
+            while (true)
+            {
+                // Get best fit
+                // 
+            }
+        }
+
+        private object OrderByUtilityMethod(BuildingProject arg)
+        {
+            throw new NotImplementedException();
+        }
+
+        private object OrderByResidintialMethod(BuildingProject arg)
+        {
             throw new NotImplementedException();
         }
     }

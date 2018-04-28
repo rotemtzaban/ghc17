@@ -26,7 +26,7 @@ namespace _2018_Final
                 int columns = int.Parse(buildingLine[2]);
                 int number = int.Parse(buildingLine[3]);
 
-                BuildingProject project = new BuildingProject
+                BuildingProject project = new BuildingProject(i)
                 {
                     BuildingType = type,
                     Capacity = number,

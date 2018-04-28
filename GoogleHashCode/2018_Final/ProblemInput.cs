@@ -1,4 +1,6 @@
-﻿namespace _2018_Final
+﻿using HashCodeCommon;
+
+namespace _2018_Final
 {
     public class ProblemInput
     {
@@ -11,8 +13,12 @@
         public BuildingProject[] BuildingProjects { get; set; }
     }
 
-    public class BuildingProject
+    public class BuildingProject : IndexedObject
     {
+        public BuildingProject(int index) : base(index)
+        {
+        }
+
         public bool[,] Plan { get; set; }
 
         public BuildingType BuildingType { get; set; }

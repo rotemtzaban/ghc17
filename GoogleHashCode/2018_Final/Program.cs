@@ -11,6 +11,8 @@ namespace _2018_Final
     {
         static void Main(string[] args)
         {
+            DataAnalyze();
+
             Runner<ProblemInput, ProblemOutput> runner1 = new Runner<ProblemInput, ProblemOutput>(
                 "2018_Final", new Parser(), new Solver(), new Printer(), new Calculator());
             runner1.Run(Properties.Resources.a_example , "a_example", 1, true);
@@ -34,8 +36,6 @@ namespace _2018_Final
             Runner<ProblemInput, ProblemOutput> runner6 = new Runner<ProblemInput, ProblemOutput>(
                 "2018_Final", new Parser(), new Solver(), new Printer(), new Calculator());
             runner6.Run(Properties.Resources.f_different_footprints, "f_different_footprints", 1, true);
-
-            DataAnalyze();
 
             runner1.CreateCodeZip();
             Console.Read();
