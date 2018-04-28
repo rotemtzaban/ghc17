@@ -12,6 +12,12 @@ namespace _2018_Final
         protected override ProblemOutput Solve(ProblemInput input)
         {
             var utiliyu = GetBestUtility(input);
+            return null;
+        }
+
+        private object GetBestUtility(ProblemInput input)
+        {
+            throw new NotImplementedException();
         }
     }
 }
