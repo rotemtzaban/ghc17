@@ -96,7 +96,16 @@ namespace _2018_Final
                                 continue;
 
                             if (cellToCheck.BuildingType == BuildingType.Utility)
+                            {
                                 filledCells[row + first.Row, first.Column + col].NearUtilities.Add(cellToCheck.UtilityIndex);
+                            }
+                            else
+                            {
+                                if (bestProject.BuildingType == BuildingType.Utility)
+                                {
+                                    cellToCheck.NearUtilities.Add(bestProject.UtilityType);
+                                }
+                            }
                         }
                     }
                 }
