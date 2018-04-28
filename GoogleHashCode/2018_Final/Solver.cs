@@ -15,7 +15,20 @@ namespace _2018_Final
             m_Input = input;
             ProblemOutput output = new ProblemOutput();
             output.Buildings = new List<OutputBuilding>();
+            Array.Sort(m_Input.BuildingProjects, (project1, project2) =>
+            {
+                if (project1.BuildingType != project2.BuildingType)
+                {
+                    return project1.BuildingType.CompareTo(project2.BuildingType);
+                }
 
+                if (project1.BuildingType == BuildingType.Residential)
+                {
+                    return GetResidntialHeuristic(project1).CompareTo(GetResidntialHeuristic(project2));
+                }
+
+                return GetUtilityHeuristic(project1).CompareTo(GetUtilityHeuristic(project2));
+            });
             //var residtianls = input.BuildingProjects.Where(_ => _.BuildingType == BuildingType.Residential).ToList();
             //var utilities = input.BuildingProjects.Where(_ => _.BuildingType == BuildingType.Utility).ToList();
             //var orderResidntial = residtianls.OrderBy(OrderByResidintialMethod).ToList();
@@ -57,6 +70,16 @@ namespace _2018_Final
             FillEmptyCells(input, output, filledCells);
 
             return output;
+        }
+
+        private double GetResidntialHeuristic(BuildingProject project1)
+        {
+            return project1.Capacity / (double)project1.Plan.Cast<bool>().Count(b => b);
+        }
+
+        private double GetUtilityHeuristic(BuildingProject project1)
+        {
+            return 1.0 / project1.Plan.Cast<bool>().Count(b => b);
         }
 
         private static void FillEmptyCells(ProblemInput input, ProblemOutput output, CellType[,] filledCells)

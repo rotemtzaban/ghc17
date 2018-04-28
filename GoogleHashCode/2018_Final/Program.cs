@@ -16,9 +16,9 @@ namespace _2018_Final
             Stopwatch watch = Stopwatch.StartNew();
 
             new Runner<ProblemInput, ProblemOutput>(
-               "2018_Final", new Parser(), new EfficintSolver(), new Printer(), null).CreateCodeZip();
+               "2018_Final", new Parser(), new EfficintSolver(), new Printer(), new Calculator()).CreateCodeZip();
 
-            RunAll(null);
+            RunAll(new Calculator());
 
             Console.WriteLine("Time:" + watch.ElapsedMilliseconds);
             Console.Read();
