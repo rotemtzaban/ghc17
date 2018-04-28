@@ -36,13 +36,13 @@ namespace _2018_Final
 
             List<MatrixCoordinate> possiblePoints = new List<MatrixCoordinate>();
             possiblePoints.Add(new MatrixCoordinate(0, 0));
-            while (true)
+            while (possiblePoints.Count != 0)
             {
                 MatrixCoordinate first = possiblePoints[0];
                 possiblePoints.RemoveAt(0);
                 BuildingProject bestProject = GetBestFit(input.BuildingProjects, filledCells, first);
                 if (bestProject == null)
-                    break;
+                    continue;
 
                 first = AddBestProject(filledCells, first, bestProject);
 
