@@ -58,6 +58,10 @@ namespace _2018_Final
                 if (bestProject == null)
                     continue;
 
+                if (output.Buildings.Count == 1700)
+                {
+                    int r = 0;
+                }
                 first = AddBestProject(filledCells, first, bestProject);
 
                 possiblePoints.Add(new MatrixCoordinate(first.Row + bestProject.Plan.GetLength(0), first.Column));
@@ -93,6 +97,11 @@ namespace _2018_Final
                     {
                         if (filledCells[i, j].IsOccupied)
                             continue;
+
+                        if (output.Buildings.Count == 0)
+                        {
+                            int r = 0;
+                        }
                         output.Buildings.Add(new OutputBuilding()
                         {
                             Coordinate = new MatrixCoordinate(i, j),
