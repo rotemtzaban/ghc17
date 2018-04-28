@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.IO;
 using HashCodeCommon;
@@ -131,7 +132,7 @@ namespace _2018_Final
         {
             ProblemOutput output = new ProblemOutput();
             var buildings = reader.GetInt();
-            output.Buildings = new OutputBuilding[buildings];
+            output.Buildings = new OutputBuilding[buildings].ToList();
             for (int i = 0; i < buildings; i++)
             {
                 var intList = reader.GetIntList();

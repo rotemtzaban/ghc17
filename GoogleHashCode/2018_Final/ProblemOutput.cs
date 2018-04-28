@@ -9,6 +9,7 @@ namespace _2018_Final
         public int BuildingIndex { get; set; }
         public bool IsOccupied { get; set; }
         public HashSet<int> NearUtilities { get; set; }
+        public int UtilityIndex { get; set; }
     }
 
     public class ProblemOutput

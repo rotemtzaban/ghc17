@@ -117,7 +117,7 @@ namespace _2018_Final
 
         private int GetResidntialScore(BuildingProject item, CellType[,] filledCells, MatrixCoordinate inputCoordinate)
         {
-            HashSet<int> nearResidntials = new HashSet<int>();
+            HashSet<int> nearUtilities = new HashSet<int>();
             for (int row = 0; row < item.Plan.GetLength(0); row++)
             {
                 for (int col = 0; col < item.Plan.GetLength(1); col++)
@@ -140,19 +140,16 @@ namespace _2018_Final
                             if (!cellToCheck.IsOccupied)
                                 continue;
 
-                            if (cellToCheck.BuildingType == BuildingType.Utility)
+                            if (cellToCheck.BuildingType == BuildingType.Residential)
                                 continue;
 
-                            if (cellToCheck.NearUtilities.Contains(item.UtilityType))
-                                continue;
-
-                            nearResidntials.Add(cellToCheck.BuildingIndex);
+                            nearUtilities.Add(cellToCheck.UtilityIndex);
                         }
                     }
                 }
             }
 
-            return nearResidntials.Sum(_ => m_Input.BuildingProjects[_].Capacity);
+            return nearUtilities.Sum(_ => m_Input.BuildingProjects[_].Capacity);
         }
 
         private object OrderByUtilityMethod(BuildingProject arg)
