@@ -25,7 +25,12 @@ namespace _2018_Final
             {
                 for (int j = 0; j < filledCells.GetLength(1); j++)
                 {
-                    filledCells[i, j] = new CellType() { IsOccupied = false, NearUtilities = new HashSet<int>() };
+                    filledCells[i, j] = new CellType()
+                    {
+                        IsOccupied = false,
+                        NearUtilities = new HashSet<int>(),
+                        BuildingIndex = -1
+                    };
                 }
             }
 

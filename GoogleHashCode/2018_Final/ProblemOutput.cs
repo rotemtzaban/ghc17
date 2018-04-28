@@ -10,6 +10,11 @@ namespace _2018_Final
         public bool IsOccupied { get; set; }
         public HashSet<int> NearUtilities { get; set; }
         public int UtilityIndex { get; set; }
+
+        public override string ToString()
+        {
+            return BuildingIndex.ToString();
+        }
     }
 
     public class ProblemOutput
