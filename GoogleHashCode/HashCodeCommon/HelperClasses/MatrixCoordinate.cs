@@ -40,5 +40,26 @@ namespace HashCodeCommon
         {
             return Row + " " + Column;
         }
+
+        public override bool Equals(object obj)
+        {
+            if(obj is MatrixCoordinate coordinate)
+            {
+                return coordinate.Column == Column && coordinate.Row == Row;
+            }
+
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return (713 + Row) * 31 + Column;
+            int hash = 23;
+            hash = hash * 31 + Row;
+            hash = hash * 31 + Column;
+            return hash;
+            //return Column  + Row * 23;
+            //return Column * 17 + Row * 23;
+        }
     }
 }

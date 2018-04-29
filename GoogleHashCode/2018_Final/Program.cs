@@ -18,8 +18,14 @@ namespace _2018_Final
             new Runner<ProblemInput, ProblemOutput>(
                "2018_Final", new Parser(), new EfficintSolver(), new Printer(), new Calculator()).CreateCodeZip();
 
-            RunAll(new Calculator());
+            // RunAll(new Calculator());
 
+            //Runner<ProblemInput, ProblemOutput> runner6 = new Runner<ProblemInput, ProblemOutput>(
+            //    "2018_Final", new Parser(), new EScroer(), new Printer(), new Calculator());
+            //runner6.Run(Properties.Resources.e_precise_fit, "e_precise_fit", 1, true);
+            var runner = new Runner<ProblemInput, ProblemOutput>("2018_Final", new Parser(), new EfficintSolver(), new Printer(), new Calculator());
+
+             runner.Run(Properties.Resources.c_going_green, "c_going_green", 1, true);
             Console.WriteLine("Time:" + watch.ElapsedMilliseconds);
             Console.Read();
         }
@@ -54,12 +60,12 @@ namespace _2018_Final
                 runner4.Run(Properties.Resources.d_wide_selection, "d_wide_selection", 1, true);
             });
 
-            Task t5 = Task.Run(() =>
-            {
-                Runner<ProblemInput, ProblemOutput> runner5 = new Runner<ProblemInput, ProblemOutput>(
-                "2018_Final", new Parser(), new EScroer(), new Printer(), calc);
-                runner5.Run(Properties.Resources.e_precise_fit, "e_precise_fit", 1, true);
-            });
+            //Task t5 = Task.Run(() =>
+            //{
+            //    Runner<ProblemInput, ProblemOutput> runner5 = new Runner<ProblemInput, ProblemOutput>(
+            //    "2018_Final", new Parser(), new EScroer(), new Printer(), calc);
+            //    runner5.Run(Properties.Resources.e_precise_fit, "e_precise_fit", 1, true);
+            //});
 
             Task t6 = Task.Run(() =>
             {
@@ -68,7 +74,7 @@ namespace _2018_Final
                 runner6.Run(Properties.Resources.f_different_footprints, "f_different_footprints", 1, true);
             });
 
-            Task.WaitAll(t, t2, t3, t4, t5, t6);
+            Task.WaitAll(t, t2, t3, t4, t6);
         }
 
         private static void DataAnalyze()
@@ -123,6 +129,8 @@ namespace _2018_Final
                 Console.WriteLine($"Num res :{residtianls.Count}");
                 bool anySize1Res = prob.BuildingProjects.Any(_ => _.Plan.Length == 1 && _.BuildingType == BuildingType.Residential);
                 Console.WriteLine("Size 1 res: " + anySize1Res);
+                Console.WriteLine($"Min res: " + prob.BuildingProjects.Min(_ => _.Plan.Length));
+                Console.WriteLine($"Any spcial: " + prob.BuildingProjects.Any(_ => _.Plan.Length != 1 && _.Plan.Cast<bool>().Count(__ => __) == 1));
                 // Console.WriteLine($"Num res :{residtianls.Count}");
             }
         }

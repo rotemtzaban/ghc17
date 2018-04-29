@@ -3,17 +3,20 @@ using System.Linq;
 using HashCodeCommon;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace _2018_Final
 {
     public class Solver : SolverBase<ProblemInput, ProblemOutput>
     {
+        private Dictionary<BuildingProject, MatrixCoordinate[]> m_AffectedCoordinates;
         private ProblemInput m_Input;
 
         protected override ProblemOutput Solve(ProblemInput input)
         {
             m_Input = input;
             ProblemOutput output = new ProblemOutput();
+            m_AffectedCoordinates = CalcAffectedCoordinates(input);
             output.Buildings = new List<OutputBuilding>();
             Array.Sort(m_Input.BuildingProjects, (project1, project2) =>
             {
@@ -53,6 +56,10 @@ namespace _2018_Final
             while (possiblePoints.Count != 0)
             {
                 MatrixCoordinate first = possiblePoints[0];
+                if (first.Row == 99)
+                {
+                    int n = 0;
+                }
                 possiblePoints.RemoveAt(0);
                 BuildingProject bestProject = GetBestFit(input.BuildingProjects, filledCells, first);
                 if (bestProject == null)
@@ -73,17 +80,78 @@ namespace _2018_Final
             AddExtraBuildings(filledCells);
             FillEmptyCells(input, output, filledCells);
 
+            PrintToFile(filledCells);
             return output;
+        }
+
+        private void PrintToFile(CellType[,] state)
+        {
+            using (var writer = new StreamWriter(@"C:\temp\c.txt"))
+            {
+                for (int i = 0; i < state.GetLength(0); i++)
+                {
+                    for (int j = 0; j < state.GetLength(1); j++)
+                    {
+                        if (!state[i, j].IsOccupied)
+                            writer.Write("E" + "-1" + "E");
+                        else if (state[i, j].BuildingType == BuildingType.Residential)
+                            writer.Write("R" + state[i, j].BuildingIndex.ToString("00") + "R");
+                        else if (state[i, j].BuildingType == BuildingType.Utility)
+                            writer.Write("U" + state[i, j].BuildingIndex.ToString("00") + "U");
+                        else
+                            throw new Exception();
+                    }
+
+                    writer.WriteLine();
+                }
+            }
+        }
+
+        private Dictionary<BuildingProject, MatrixCoordinate[]> CalcAffectedCoordinates(ProblemInput input)
+        {
+            Dictionary<BuildingProject, MatrixCoordinate[]> map = new Dictionary<BuildingProject, MatrixCoordinate[]>();
+            foreach (var currProject in m_Input.BuildingProjects)
+            {
+                HashSet<MatrixCoordinate> coordinates = new HashSet<MatrixCoordinate>();
+                for (int row = 0; row < currProject.Plan.GetLength(0); row++)
+                {
+                    for (int col = 0; col < currProject.Plan.GetLength(1); col++)
+                    {
+                        if (!currProject.Plan[row, col])
+                            continue;
+
+                        for (int i = -m_Input.MaxDistance; i <= m_Input.MaxDistance; i++)
+                        {
+                            for (int j = -m_Input.MaxDistance + Math.Abs(i); j <= m_Input.MaxDistance - Math.Abs(i); j++)
+                            {
+                                if (row + i >= 0 && col + j >= 0 &&
+                                    row + i < currProject.Plan.GetLength(0) &&
+                                    col + j < currProject.Plan.GetLength(1) &&
+                                    currProject.Plan[row + i, col + j])
+                                    continue;
+
+                                coordinates.Add(new MatrixCoordinate(row + i, col + j));
+                            }
+                        }
+                    }
+                }
+
+                map.Add(currProject, coordinates.ToArray());
+            }
+
+            return map;
         }
 
         private double GetResidntialHeuristic(BuildingProject project1)
         {
-            return project1.Capacity / (double)project1.Plan.Cast<bool>().Count(b => b);
+            // return project1.Capacity / (double)project1.Plan.Cast<bool>().Count(b => b);
+            return project1.Capacity / (double)project1.Plan.Length;
         }
 
         private double GetUtilityHeuristic(BuildingProject project1)
         {
-            return 1.0 / project1.Plan.Cast<bool>().Count(b => b);
+            // return 1.0 / project1.Plan.Cast<bool>().Count(b => b);
+            return 1.0 / project1.Plan.Length;
         }
 
         private static void FillEmptyCells(ProblemInput input, ProblemOutput output, CellType[,] filledCells)
@@ -111,7 +179,7 @@ namespace _2018_Final
                 }
             }
         }
-
+            
         private void AddExtraBuildings(CellType[,] filledCells)
         {
             return;
@@ -126,15 +194,23 @@ namespace _2018_Final
             }
         }
 
+        int resId = 1000000;
         private MatrixCoordinate AddBestProject(CellType[,] filledCells, MatrixCoordinate first, BuildingProject bestProject)
         {
+            resId++;
             for (int row = 0; row < bestProject.Plan.GetLength(0); row++)
             {
                 for (int col = 0; col < bestProject.Plan.GetLength(1); col++)
                 {
+                    if (filledCells[row + first.Row, first.Column + col].IsOccupied)
+                    {
+                        int n = 0;
+                    }
                     filledCells[row + first.Row, first.Column + col].IsOccupied = bestProject.Plan[row, col];
                     filledCells[row + first.Row, first.Column + col].BuildingType = bestProject.BuildingType;
+
                     filledCells[row + first.Row, first.Column + col].BuildingIndex = bestProject.Index;
+                    filledCells[row + first.Row, first.Column + col].BuildingUniqueIndex = resId;
 
                     for (int i = -m_Input.MaxDistance; i <= m_Input.MaxDistance; i++)
                     {
@@ -172,12 +248,12 @@ namespace _2018_Final
         private BuildingProject GetBestFit(IEnumerable<BuildingProject> orderResidntial, CellType[,] filledCells, MatrixCoordinate inputCoordinate)
         {
             BuildingProject bestResdintial = null;
-            int bestResidntialScore = int.MinValue;
+            double bestResidntialScore = int.MinValue;
             object lockObject = new object();
             // Parallel.ForEach(orderResidntial, new ParallelOptions() { MaxDegreeOfParallelism = 5 }, item =>
             foreach (var item in orderResidntial)
             {
-                int currScore = GetScore(item, filledCells, inputCoordinate);
+                double currScore = GetScore(item, filledCells, inputCoordinate);
                 //lock (lockObject)
                  {
                     if (bestResidntialScore < currScore)
@@ -192,13 +268,14 @@ namespace _2018_Final
             return bestResdintial;
         }
 
-        private int GetScore(BuildingProject item, CellType[,] filledCells, MatrixCoordinate inputCoordinate)
+        private double GetScore(BuildingProject item, CellType[,] filledCells, MatrixCoordinate inputCoordinate)
         {
             if (inputCoordinate.Row + item.Plan.GetLength(0) > filledCells.GetLength(0) ||
                 inputCoordinate.Column + item.Plan.GetLength(1) > filledCells.GetLength(1))
                 return int.MinValue;
 
-            if (!InMatrix(inputCoordinate.Row + item.Plan.GetLength(0), inputCoordinate.Column + item.Plan.GetLength(1)))
+            if (!InMatrix(inputCoordinate.Row + item.Plan.GetLength(0) - 1, 
+                        inputCoordinate.Column + item.Plan.GetLength(1) - 1))
                 return int.MinValue;
 
             for (int row = 0; row < item.Plan.GetLength(0); row++)
@@ -214,50 +291,35 @@ namespace _2018_Final
             }
 
             if (item.BuildingType == BuildingType.Residential)
-                return GetResidntialScore(item, filledCells, inputCoordinate);
-            return GetUtilityScore(item, filledCells, inputCoordinate);
+                return 1.0 * GetResidntialScore(item, filledCells, inputCoordinate) / Math.Sqrt(item.Plan.Length);
+            return 1.0 * GetUtilityScore(item, filledCells, inputCoordinate) / Math.Sqrt(item.Plan.Length);
         }
 
         private int GetUtilityScore(BuildingProject item, CellType[,] filledCells, MatrixCoordinate inputCoordinate)
         {
-            // return 20;
-
             HashSet<int> nearResidntials = new HashSet<int>();
-            for (int row = 0; row < item.Plan.GetLength(0); row++)
+            List<int> nearResidntials2 = new List<int>();
+            foreach (var currCoordinate in m_AffectedCoordinates[item])
             {
-                for (int col = 0; col < item.Plan.GetLength(1); col++)
-                {
-                    if (!item.Plan[row, col])
-                    {
-                        continue;
-                    }
-                    for (int i = - m_Input.MaxDistance; i <= m_Input.MaxDistance; i++)
-                    {
-                        for (int j = - m_Input.MaxDistance + Math.Abs(i); j <= m_Input.MaxDistance - Math.Abs(i); j++)
-                        {
-                            int rowToCheck = row + i;
-                            int colToCheck = col + i;
+                if (!InMatrix(currCoordinate.Row + inputCoordinate.Row, currCoordinate.Column + inputCoordinate.Column))
+                    continue;
 
-                            if (!InMatrix(rowToCheck, colToCheck))
-                                continue;
+                var cellToCheck = filledCells[currCoordinate.Row + inputCoordinate.Row, currCoordinate.Column + inputCoordinate.Column];
+                if (!cellToCheck.IsOccupied)
+                    continue;
 
-                            var cellToCheck = filledCells[rowToCheck, colToCheck];
-                            if (!cellToCheck.IsOccupied)
-                                continue;
+                if (cellToCheck.BuildingType == BuildingType.Utility)
+                    continue;
 
-                            if (cellToCheck.BuildingType == BuildingType.Utility)
-                                continue;
-
-                            if (cellToCheck.NearUtilities.Contains(item.UtilityType))
-                                continue;
-
-                            nearResidntials.Add(cellToCheck.BuildingIndex);
-                        }
-                    }
-                }
+                if (cellToCheck.NearUtilities.Contains(item.UtilityType))
+                    continue;
+                if (nearResidntials.Add(cellToCheck.BuildingUniqueIndex))
+                    nearResidntials2.Add(cellToCheck.BuildingIndex);
             }
 
-            return nearResidntials.Sum(_ => m_Input.BuildingProjects[_].Capacity);
+            if (nearResidntials2.Any())
+                return nearResidntials2.Sum(_ => m_Input.BuildingProjects[_].Capacity);
+            return 1;
         }
 
         private bool InMatrix(int rowToCheck, int colToCheck)
@@ -273,38 +335,24 @@ namespace _2018_Final
             // return (int)(100.0 * item.Capacity / item.Plan.GetLength(0) / item.Plan.GetLength(1));
 
             HashSet<int> nearUtilities = new HashSet<int>();
-            for (int row = 0; row < item.Plan.GetLength(0); row++)
+            foreach (var currCoordinate in m_AffectedCoordinates[item])
             {
-                for (int col = 0; col < item.Plan.GetLength(1); col++)
-                {
-                    if (!item.Plan[row, col])
-                    {
-                        continue;
-                    }
-                    for (int i = -m_Input.MaxDistance; i <= m_Input.MaxDistance; i++)
-                    {
-                        for (int j = -m_Input.MaxDistance + Math.Abs(i); j <= m_Input.MaxDistance - Math.Abs(i); j++)
-                        {
-                            int rowToCheck = row + i;
-                            int colToCheck = col + i;
+                if (!InMatrix(currCoordinate.Row + inputCoordinate.Row, currCoordinate.Column + inputCoordinate.Column))
+                    continue;
 
-                            if (!InMatrix(rowToCheck, colToCheck))
-                                continue;
+                var cellToCheck = filledCells[currCoordinate.Row + inputCoordinate.Row, currCoordinate.Column + inputCoordinate.Column];
+                if (!cellToCheck.IsOccupied)
+                    continue;
 
-                            var cellToCheck = filledCells[rowToCheck, colToCheck];
-                            if (!cellToCheck.IsOccupied)
-                                continue;
+                if (cellToCheck.BuildingType == BuildingType.Residential)
+                    continue;
 
-                            if (cellToCheck.BuildingType == BuildingType.Residential)
-                                continue;
-
-                            nearUtilities.Add(cellToCheck.UtilityIndex);
-                        }
-                    }
-                }
+                nearUtilities.Add(cellToCheck.UtilityIndex);
             }
 
-            return nearUtilities.Count * item.Capacity;
+            if (nearUtilities.Any())
+                return nearUtilities.Count * item.Capacity;
+            return 1;
         }
 
         private object OrderByUtilityMethod(BuildingProject arg)

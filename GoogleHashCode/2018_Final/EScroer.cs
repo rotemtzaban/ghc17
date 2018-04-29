@@ -18,9 +18,9 @@ namespace _2018_Final
             List<OutputBuilding> residntialis = new List<OutputBuilding>();
 
             bool[,] filles = new bool[input.Rows, input.Columns];
-            for (int row = 0; row < input.Rows; row += input.MaxDistance * 2 + utiliy.Plan.GetLength(0))
+            for (int row = 0; row < input.Rows; row += input.MaxDistance  + utiliy.Plan.GetLength(0))
             {
-                for (int col = 0; col < input.Columns; col += input.MaxDistance * 2 + utiliy.Plan.GetLength(1))
+                for (int col = 0; col < input.Columns; col += input.MaxDistance + utiliy.Plan.GetLength(1) + 1)
                 {
                     output.Buildings.Add(new OutputBuilding()
                     { Coordinate = new MatrixCoordinate(row, col), ProjectNumber = utiliy.Index });

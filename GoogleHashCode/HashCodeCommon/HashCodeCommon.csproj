@@ -55,6 +55,7 @@
     <Compile Include="HelperClasses\EnumerableExtensions.cs" />
     <Compile Include="HelperClasses\HashExtensions.cs" />
     <Compile Include="HelperClasses\MatrixCoordinate.cs" />
+    <Compile Include="HelperClasses\MatrixCoordinateSet.cs" />
     <Compile Include="HelperClasses\Rectangle.cs" />
     <Compile Include="HelperClasses\StringExtensions.cs" />
     <Compile Include="HelperClasses\TextReaderExtensions.cs" />

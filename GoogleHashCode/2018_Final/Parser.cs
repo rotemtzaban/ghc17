@@ -12,8 +12,8 @@ namespace _2018_Final
             int[] firstLine = ReadLineAsIntArray(reader);
             ProblemInput input = new ProblemInput
             {
-                Columns = firstLine[0],
-                Rows = firstLine[1],
+                Columns = firstLine[1],
+                Rows = firstLine[0],
                 MaxDistance = firstLine[2],
                 BuildingProjects = new BuildingProject[firstLine[3]]
             };

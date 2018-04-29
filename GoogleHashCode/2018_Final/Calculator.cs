@@ -10,12 +10,22 @@ namespace _2018_Final
 {
     public class Calculator : ScoreCalculatorBase<ProblemInput, ProblemOutput>
     {
+        public enum CellState
+        {
+            Empty,
+            Res,
+            Util
+        }
+
         public override long Calculate(ProblemInput input, ProblemOutput output)
         {
+            // PrintToFile(input, output);
+
             Stopwatch watch = Stopwatch.StartNew();
             ValidateOutput(input, output);
             var utilityGrid = GetUtilityGrid(input, output);
             long score = 0;
+            var affected = CalcAffectedCoordinates(input);
 
             foreach (var building in output.Buildings)
             {
@@ -23,7 +33,7 @@ namespace _2018_Final
                 if (buildingProject.BuildingType == BuildingType.Residential)
                 {
                     var capacity = buildingProject.Capacity;
-                    var utilities = GetUtilities(input, utilityGrid, building, buildingProject);
+                    var utilities = GetUtilities(input, utilityGrid, building, buildingProject, affected);
                     score += capacity * utilities.Count;
                 }
             }
@@ -33,36 +43,101 @@ namespace _2018_Final
             return score;
         }
 
-        private static HashSet<int> GetUtilities(ProblemInput input, int[,] utilityGrid, OutputBuilding building, BuildingProject buildingProject)
+        private static void PrintToFile(ProblemInput input, ProblemOutput output)
         {
-            HashSet<int> utilities = new HashSet<int>();
-            bool[,] plan = buildingProject.Plan;
-            for (int row = 0; row < plan.GetLength(0); row++)
+            try
             {
-                for (int column = 0; column < plan.GetLength(1); column++)
+                File.Delete(@"C:\temp\f.txt");
+            }
+            catch { }
+            using (var writer = new StreamWriter(@"C:\temp\f.txt"))
+            {
+                CellState[,] state = new CellState[input.Rows, input.Columns];
+                foreach (var item in output.Buildings)
                 {
-                    if (plan[row, column])
+                    BuildingProject buildingProject1 = input.BuildingProjects[item.ProjectNumber];
+                    for (int i = 0; i < buildingProject1.Plan.GetLength(0); i++)
                     {
-                        int gridRow = row + building.Coordinate.Row;
-                        int gridCol = column + building.Coordinate.Column;
-                        int maxDistance = input.MaxDistance;
-                        for (int i = -maxDistance; i <= maxDistance; i++)
+                        for (int j = 0; j < buildingProject1.Plan.GetLength(1); j++)
                         {
-                            int maxColDistance = maxDistance - Math.Abs(i);
-                            for (int j = -maxColDistance; j <= maxColDistance; j++)
+                            if (!buildingProject1.Plan[i, j])
+                                continue;
+
+                            if (buildingProject1.BuildingType == BuildingType.Residential)
+                                state[item.Coordinate.Row + i, item.Coordinate.Column + j] = CellState.Res;
+                            else
+                                state[item.Coordinate.Row + i, item.Coordinate.Column + j] = CellState.Util;
+                        }
+                    }
+                }
+
+                for (int i = 0; i < state.GetLength(0); i++)
+                {
+                    for (int j = 0; j < state.GetLength(1); j++)
+                    {
+                        if (state[i, j] == CellState.Empty)
+                            writer.Write("E");
+                        else if (state[i, j] == CellState.Res)
+                            writer.Write("R");
+                        else if (state[i, j] == CellState.Util)
+                            writer.Write("U");
+                        else
+                            throw new Exception();
+                    }
+
+                    writer.WriteLine();
+                }
+            }
+        }
+
+        private Dictionary<BuildingProject, MatrixCoordinate[]> CalcAffectedCoordinates(ProblemInput input)
+        {
+            Dictionary<BuildingProject, MatrixCoordinate[]> map = new Dictionary<BuildingProject, MatrixCoordinate[]>();
+            foreach (var currProject in input.BuildingProjects)
+            {
+                HashSet<MatrixCoordinate> coordinates = new HashSet<MatrixCoordinate>();
+                for (int row = 0; row < currProject.Plan.GetLength(0); row++)
+                {
+                    for (int col = 0; col < currProject.Plan.GetLength(1); col++)
+                    {
+                        if (!currProject.Plan[row, col])
+                            continue;
+
+                        for (int i = -input.MaxDistance; i <= input.MaxDistance; i++)
+                        {
+                            for (int j = -input.MaxDistance + Math.Abs(i); j <= input.MaxDistance - Math.Abs(i); j++)
                             {
-                                var currGridRow = gridRow + i;
-                                var currGridCol = gridCol + j;
-                                if (IsWithinGrid(utilityGrid, currGridRow, currGridCol))
-                                {
-                                    if (utilityGrid[currGridRow, currGridCol] != 0)
-                                    {
-                                        utilities.Add(utilityGrid[currGridRow, currGridCol]);
-                                    }
-                                }
+                                if (row + i >= 0 && col + j >= 0 &&
+                                    row + i < currProject.Plan.GetLength(0) &&
+                                    col + j < currProject.Plan.GetLength(1) &&
+                                    currProject.Plan[row + i, col + j])
+                                    continue;
+
+                                coordinates.Add(new MatrixCoordinate(row + i, col + j));
                             }
                         }
                     }
+                }
+
+                map.Add(currProject, coordinates.ToArray());
+            }
+
+            return map;
+        }
+
+        private static HashSet<int> GetUtilities(ProblemInput input, int[,] utilityGrid, OutputBuilding building, BuildingProject buildingProject, Dictionary<BuildingProject, MatrixCoordinate[]> dic)
+        {
+            HashSet<int> utilities = new HashSet<int>();
+            bool[,] plan = buildingProject.Plan;
+            var coordinates = dic[buildingProject];
+
+            foreach (var item in coordinates)
+            {
+                int gridRow = item.Row + building.Coordinate.Row;
+                int gridCol = item.Column + building.Coordinate.Column;
+                if (IsWithinGrid(utilityGrid, gridRow, gridCol) && utilityGrid[gridRow, gridCol] != 0)
+                {
+                    utilities.Add(utilityGrid[gridRow, gridCol]);
                 }
             }
 

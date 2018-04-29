@@ -7,6 +7,7 @@ namespace _2018_Final
     {
         public BuildingType BuildingType { get; set; }
         public int BuildingIndex { get; set; }
+        public int BuildingUniqueIndex { get; set; }
         public bool IsOccupied { get; set; }
         public HashSet<int> NearUtilities { get; set; }
         public int UtilityIndex { get; set; }
