@@ -16,7 +16,7 @@ namespace _2015_Qualification
 			runner.Run(Properties.Resources.Input, "Example", 100, true);
 			// runner.Run(Properties.Resources.TestInput, "Example", 1, true);
 
-            runner.CreateCodeZip();
+            ZipCreator.CreateCodeZip("Example");
 				
             Console.Read();
         }

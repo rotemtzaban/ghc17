@@ -93,5 +93,8 @@
   <ItemGroup>
     <None Include="Resources\a_example.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\f.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

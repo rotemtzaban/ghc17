@@ -36,5 +36,28 @@ namespace HashCodeCommon
 	    {
 	        return $"{X}, {Y}";
 	    }
-	}
+
+        public bool InMatrix<T>(T[,] matrix)
+        {
+            return X >= 0 && Y >= 0 && X < matrix.GetLength(0) && Y < matrix.GetLength(1);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is Coordinate coordinate)
+            {
+                return coordinate.X == X && coordinate.Y == Y;
+            }
+
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            int hash = 23;
+            hash = hash * 31 + X;
+            hash = hash * 31 + Y;
+            return hash;
+        }
+    }
 }

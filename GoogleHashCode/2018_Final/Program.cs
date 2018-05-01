@@ -1,8 +1,11 @@
-﻿using HashCodeCommon;
+﻿using _2018_Final.Properties;
+using HashCodeCommon;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
+using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,8 +18,7 @@ namespace _2018_Final
             // DataAnalyze();
             Stopwatch watch = Stopwatch.StartNew();
 
-            new Runner<ProblemInput, ProblemOutput>(
-               "2018_Final", new Parser(), new EfficintSolver(), new Printer(), new Calculator()).CreateCodeZip();
+            ZipCreator.CreateCodeZip("2018_Final");
 
             // RunAll(new Calculator());
 
@@ -25,7 +27,7 @@ namespace _2018_Final
             //runner6.Run(Properties.Resources.e_precise_fit, "e_precise_fit", 1, true);
             var runner = new Runner<ProblemInput, ProblemOutput>("2018_Final", new Parser(), new EfficintSolver(), new Printer(), new Calculator());
 
-             runner.Run(Properties.Resources.c_going_green, "c_going_green", 1, true);
+            runner.Run(Resources.c_going_green, "c_going_green", 1, true);
             Console.WriteLine("Time:" + watch.ElapsedMilliseconds);
             Console.Read();
         }

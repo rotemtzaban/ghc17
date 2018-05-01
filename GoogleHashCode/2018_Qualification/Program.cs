@@ -31,7 +31,7 @@ namespace _2018_Qualification
                 "2018", new Parser(), new Solver(), new Printer(), new Calcutaor());
             runner5.Run(Properties.Resources.e_high_bonus, "e_high_bonus", 1, true);
 
-            runner1.CreateCodeZip();
+            ZipCreator.CreateCodeZip("e_high_bonus");
 
             Console.Read();
         }

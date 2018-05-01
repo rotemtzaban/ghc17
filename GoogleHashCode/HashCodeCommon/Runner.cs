@@ -31,7 +31,7 @@ namespace HashCodeCommon
 
         public long Run(string data, string caseName, int numberOfAttempts = 1, bool printResults = true)
 		{
-            TOutput bestResults = GetBestResult(numberOfAttempts, data);
+            TOutput bestResults = GetBestResult(numberOfAttempts, data, caseName);
 
 			string newOutPath = Path.Combine(m_OutputDirectory, caseName + ".new.out");
 			string finalPath = Path.Combine(m_OutputDirectory, caseName + ".out");
@@ -85,11 +85,11 @@ namespace HashCodeCommon
 			Console.ForegroundColor = oldColor;
 		}
 
-		private TOutput GetBestResult(int numberOfAttempts, string data)
+		private TOutput GetBestResult(int numberOfAttempts, string data, string caseName)
         {
             if (numberOfAttempts == 1)
             {
-                return m_Solver.Solve(GetInput(data), new Random());
+                return m_Solver.Solve(GetInput(data), new Random(), caseName);
             }
 
             TOutput bestResults = default(TOutput);
@@ -103,7 +103,7 @@ namespace HashCodeCommon
 
                 int seed = seedesGenerator.Next();
                 Random random = new Random(seed);
-                TOutput results = m_Solver.Solve(GetInput(data), random);
+                TOutput results = m_Solver.Solve(GetInput(data), random, caseName);
 
                 long newScore = m_Calculator.Calculate(GetInput(data), results);
                 if (newScore > bestScore)
@@ -114,12 +114,12 @@ namespace HashCodeCommon
                 }
             }
             Console.WriteLine();
-            bestResults = CompareAndUpdateBestSeed(data, bestResults, bestScore, bestSeed);
+            bestResults = CompareAndUpdateBestSeed(data, bestResults, bestScore, bestSeed, caseName);
 
             return bestResults;
         }
 
-        private TOutput CompareAndUpdateBestSeed(string data, TOutput bestResults, long bestCurrentScore, int bestSeedFound)
+        private TOutput CompareAndUpdateBestSeed(string data, TOutput bestResults, long bestCurrentScore, int bestSeedFound, string caseName)
         {
             string seedsFile = "seeds.txt";
 
@@ -130,7 +130,7 @@ namespace HashCodeCommon
             {
                 int savedSeed = int.Parse(File.ReadLines(seedsFile).First());
                 Random random = new Random(savedSeed);
-                TOutput resultOfSavedSeed = m_Solver.Solve(GetInput(data), random);
+                TOutput resultOfSavedSeed = m_Solver.Solve(GetInput(data), random, caseName);
 
                 long scoreOfSavedSeed = m_Calculator.Calculate(GetInput(data), resultOfSavedSeed);
                 if (scoreOfSavedSeed >= bestCurrentScore)
@@ -175,43 +175,6 @@ namespace HashCodeCommon
                 return new ScoreChange(newCalc);
             }
 		}
-
-        public void CreateCodeZip()
-        {
-            var tmpDirectoryName = "tmp";
-
-            var solutionPath = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location))));
-            var tmpFolder = Path.Combine(solutionPath, tmpDirectoryName);
-            if (Directory.Exists(tmpFolder))
-                Directory.Delete(tmpFolder, true);
-            Directory.CreateDirectory(tmpFolder);
-            foreach (var codeFile in Directory.EnumerateFiles(solutionPath, "*", SearchOption.AllDirectories))
-            {
-                var relative = codeFile.Substring(solutionPath.Length + 1);
-                if (relative.StartsWith(tmpDirectoryName) || relative.StartsWith("Output") || relative.StartsWith("packages") || relative.StartsWith(".vs"))
-                    continue;
-
-                int indexSubString = relative.IndexOf("\\");
-                var projectDir = relative.Substring(indexSubString == -1 ? 0 : indexSubString + 1);
-                if (projectDir.StartsWith("obj") || projectDir.StartsWith("bin") || projectDir.StartsWith("Resources") || relative.StartsWith(tmpDirectoryName))
-                    continue;
-                var target = Path.Combine(tmpFolder, relative);
-                var dir = Path.GetDirectoryName(target);
-                if (!Directory.Exists(dir))
-                    Directory.CreateDirectory(dir);
-                File.Copy(codeFile, target);
-            }
-
-            var targetZip = Path.Combine(m_OutputDirectory, "Code.zip");
-
-            if (File.Exists(targetZip))
-                File.Delete(targetZip);
-            ZipFile.CreateFromDirectory(tmpFolder, targetZip);
-
-            Directory.Delete(tmpFolder, true);
-
-            Console.WriteLine("finish create zip");
-        }
 
         public class ScoreChange
         {

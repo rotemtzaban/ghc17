@@ -29,7 +29,7 @@ namespace _2017_Final
 
             //DataAnalyze();
 
-            runner1.CreateCodeZip();
+            ZipCreator.CreateCodeZip("2017_Final");
             Console.Read();
         }
 

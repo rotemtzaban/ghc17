@@ -41,6 +41,11 @@ namespace HashCodeCommon
             return Row + " " + Column;
         }
 
+        public bool InMatrix<T>(T[,] matrix)
+        {
+            return Row >= 0 && Column >= 0 && Row < matrix.GetLength(0) && Column < matrix.GetLength(1);
+        }
+
         public override bool Equals(object obj)
         {
             if(obj is MatrixCoordinate coordinate)
@@ -53,13 +58,10 @@ namespace HashCodeCommon
 
         public override int GetHashCode()
         {
-            return (713 + Row) * 31 + Column;
             int hash = 23;
             hash = hash * 31 + Row;
             hash = hash * 31 + Column;
             return hash;
-            //return Column  + Row * 23;
-            //return Column * 17 + Row * 23;
         }
     }
 }

@@ -8,6 +8,6 @@ namespace HashCodeCommon
 {
     public interface ISolver<TInput, TOutput>
     {
-        TOutput Solve(TInput input, Random random);
+        TOutput Solve(TInput input, Random random, string problemName);
     }
 }

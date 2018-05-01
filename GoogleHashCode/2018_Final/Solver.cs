@@ -16,43 +16,27 @@ namespace _2018_Final
         {
             m_Input = input;
             ProblemOutput output = new ProblemOutput();
-            m_AffectedCoordinates = CalcAffectedCoordinates(input);
             output.Buildings = new List<OutputBuilding>();
-            Array.Sort(m_Input.BuildingProjects, (project1, project2) =>
+            m_AffectedCoordinates = CalcAffectedCoordinates(input);
+            SortBuildingPrjects();
+
+            CellType[,] filledCells = InitMatrixCells(input);
+            // TourmenetSolution(input, output, filledCells);
+
+            TurkishAirportSolution(input, output, filledCells);
+
+            FillEmptyCells(input, output, filledCells);
+
+            // PrintToFile(filledCells);
+            return output;
+        }
+
+        private void TourmenetSolution(ProblemInput input, ProblemOutput output, CellType[,] filledCells)
+        {
+            List<MatrixCoordinate> possiblePoints = new List<MatrixCoordinate>
             {
-                if (project1.BuildingType != project2.BuildingType)
-                {
-                    return project1.BuildingType.CompareTo(project2.BuildingType);
-                }
-
-                if (project1.BuildingType == BuildingType.Residential)
-                {
-                    return GetResidntialHeuristic(project1).CompareTo(GetResidntialHeuristic(project2));
-                }
-
-                return GetUtilityHeuristic(project1).CompareTo(GetUtilityHeuristic(project2));
-            });
-            //var residtianls = input.BuildingProjects.Where(_ => _.BuildingType == BuildingType.Residential).ToList();
-            //var utilities = input.BuildingProjects.Where(_ => _.BuildingType == BuildingType.Utility).ToList();
-            //var orderResidntial = residtianls.OrderBy(OrderByResidintialMethod).ToList();
-            //var orderutilities = utilities.OrderBy(OrderByUtilityMethod).ToList();
-
-            CellType[,] filledCells = new CellType[input.Rows, input.Columns];
-            for (int i = 0; i < filledCells.GetLength(0); i++)
-            {
-                for (int j = 0; j < filledCells.GetLength(1); j++)
-                {
-                    filledCells[i, j] = new CellType()
-                    {
-                        IsOccupied = false,
-                        NearUtilities = new HashSet<int>(),
-                        BuildingIndex = -1
-                    };
-                }
-            }
-
-            List<MatrixCoordinate> possiblePoints = new List<MatrixCoordinate>();
-            possiblePoints.Add(new MatrixCoordinate(0, 0));
+                new MatrixCoordinate(0, 0)
+            };
             while (possiblePoints.Count != 0)
             {
                 MatrixCoordinate first = possiblePoints[0];
@@ -76,12 +60,43 @@ namespace _2018_Final
                 possiblePoints.Add(new MatrixCoordinate(first.Row + bestProject.Plan.GetLength(0), first.Column + bestProject.Plan.GetLength(1)));
                 output.Buildings.Add(new OutputBuilding() { Coordinate = first, ProjectNumber = bestProject.Index });
             }
+        }
 
-            AddExtraBuildings(filledCells);
-            FillEmptyCells(input, output, filledCells);
+        private static CellType[,] InitMatrixCells(ProblemInput input)
+        {
+            CellType[,] filledCells = new CellType[input.Rows, input.Columns];
+            for (int i = 0; i < filledCells.GetLength(0); i++)
+            {
+                for (int j = 0; j < filledCells.GetLength(1); j++)
+                {
+                    filledCells[i, j] = new CellType()
+                    {
+                        IsOccupied = false,
+                        NearUtilities = new HashSet<int>(),
+                        BuildingIndex = -1
+                    };
+                }
+            }
 
-            PrintToFile(filledCells);
-            return output;
+            return filledCells;
+        }
+
+        private void SortBuildingPrjects()
+        {
+            Array.Sort(m_Input.BuildingProjects, (project1, project2) =>
+            {
+                if (project1.BuildingType != project2.BuildingType)
+                {
+                    return project1.BuildingType.CompareTo(project2.BuildingType);
+                }
+
+                if (project1.BuildingType == BuildingType.Residential)
+                {
+                    return GetResidntialHeuristic(project1).CompareTo(GetResidntialHeuristic(project2));
+                }
+
+                return GetUtilityHeuristic(project1).CompareTo(GetUtilityHeuristic(project2));
+            });
         }
 
         private void PrintToFile(CellType[,] state)
@@ -179,21 +194,33 @@ namespace _2018_Final
                 }
             }
         }
-            
-        private void AddExtraBuildings(CellType[,] filledCells)
-        {
-            return;
 
+        private void TurkishAirportSolution(ProblemInput input, ProblemOutput output, CellType[,] filledCells)
+        {
+            var Size1Building = input.BuildingProjects.FirstOrDefault(_ => _.Plan.Length == 1 && _.BuildingType == BuildingType.Residential);
             for (int i = 0; i < filledCells.GetLength(0); i++)
             {
                 for (int j = 0; j < filledCells.GetLength(1); j++)
                 {
                     if (filledCells[i, j].IsOccupied)
                         continue;
+
+                    BuildingProject bestProject = GetBestFit(input.BuildingProjects, filledCells, new MatrixCoordinate(i, j));
+
+                    if (bestProject == null)
+                        continue;
+
+                    AddBestProject(filledCells, new MatrixCoordinate(i, j), bestProject);
+
+                    output.Buildings.Add(new OutputBuilding()
+                    {
+                        Coordinate = new MatrixCoordinate(i, j),
+                        ProjectNumber = bestProject.Index
+                    });
                 }
             }
         }
-
+            
         int resId = 1000000;
         private MatrixCoordinate AddBestProject(CellType[,] filledCells, MatrixCoordinate first, BuildingProject bestProject)
         {
@@ -291,8 +318,8 @@ namespace _2018_Final
             }
 
             if (item.BuildingType == BuildingType.Residential)
-                return 1.0 * GetResidntialScore(item, filledCells, inputCoordinate) / Math.Sqrt(item.Plan.Length);
-            return 1.0 * GetUtilityScore(item, filledCells, inputCoordinate) / Math.Sqrt(item.Plan.Length);
+                return 1.0 * GetResidntialScore(item, filledCells, inputCoordinate);
+            return 1.0 * GetUtilityScore(item, filledCells, inputCoordinate);
         }
 
         private int GetUtilityScore(BuildingProject item, CellType[,] filledCells, MatrixCoordinate inputCoordinate)
@@ -353,16 +380,6 @@ namespace _2018_Final
             if (nearUtilities.Any())
                 return nearUtilities.Count * item.Capacity;
             return 1;
-        }
-
-        private object OrderByUtilityMethod(BuildingProject arg)
-        {
-            throw new NotImplementedException();
-        }
-
-        private object OrderByResidintialMethod(BuildingProject arg)
-        {
-            throw new NotImplementedException();
         }
     }
 }
