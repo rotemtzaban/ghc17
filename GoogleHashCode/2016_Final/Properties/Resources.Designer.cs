@@ -19,7 +19,7 @@ namespace _2016_Final.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -57,6 +57,147 @@ namespace _2016_Final.Properties {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 259200
+        ///25
+        ///-91637 -40501 400 16 2814
+        ///-65455 -162001 400 19 425
+        ///-65455 -81001 400 15 4197
+        ///-65455 -1 400 17 6577
+        ///-39273 -405001 400 18 4018
+        ///-39273 -283501 400 15 3947
+        ///-39273 -202501 400 18 7381
+        ///-39273 -121501 400 16 9036
+        ///-39273 80999 400 20 3508
+        ///-39273 161999 400 19 5297
+        ///-39273 242999 400 17 7695
+        ///-13091 -445501 400 19 2436
+        ///-13091 -324001 400 14 6517
+        ///-13091 202499 400 17 7514
+        ///-13091 283499 400 12 9630
+        ///13090 -567001 400 13 7471
+        ///13090 -486001 400 12 8547
+        ///13090 323999 400 13 8777
+        ///13090 526499 4 [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string constellation {
+            get {
+                return ResourceManager.GetString("constellation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 604800
+        ///1
+        ///51833 -283267 117 15 4197
+        ///1024
+        ///192 1 1
+        ///125237 204357
+        ///0 604799
+        ///240 1 1
+        ///137106 161841
+        ///0 604799
+        ///240 1 1
+        ///114579 349220
+        ///0 604799
+        ///176 1 1
+        ///164941 300170
+        ///0 604799
+        ///256 1 1
+        ///169613 530607
+        ///0 604799
+        ///240 1 1
+        ///42319 1230
+        ///0 604799
+        ///256 1 1
+        ///57503 133258
+        ///0 604799
+        ///160 1 1
+        ///111753 -377761
+        ///0 604799
+        ///192 1 1
+        ///97797 -340859
+        ///0 604799
+        ///128 1 1
+        ///28346 130959
+        ///0 604799
+        ///32 1 1
+        ///84015 -398095
+        ///0 604799
+        ///128 1 1
+        ///180358 165987
+        ///0 604799
+        ///112 1 1
+        ///162605 -546036
+        ///0 604799
+        ///32 1 1
+        ///179991 -276979
+        ///0 6047 [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string forever_alone {
+            get {
+                return ResourceManager.GetString("forever_alone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 604800
+        ///32
+        ///51833 -283267 117 15 4197
+        ///125237 204357 261 15 3947
+        ///177819 308486 462 20 3508
+        ///198968 38498 408 19 2436
+        ///-38955 196571 401 12 9630
+        ///-105350 320266 -442 13 8777
+        ///2360 175652 -171 12 5949
+        ///-38068 524340 -277 18 6319
+        ///-19252 142732 -208 13 7864
+        ///133410 180544 469 10 6937
+        ///-172385 219825 464 20 5735
+        ///547 502255 246 20 1164
+        ///53158 -554379 427 16 8942
+        ///57503 133258 319 12 447
+        ///-35856 -167863 211 16 6802
+        ///-274075 581536 -394 14 274
+        ///-77411 -193935 -183 13 6940
+        ///-167894 95510 239 13 5516
+        ///-73526 -1910 [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string overlap {
+            get {
+                return ResourceManager.GetString("overlap", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 172800
+        ///40
+        ///51833 -283267 117 15 4197
+        ///125237 204357 261 15 3947
+        ///177819 308486 462 20 3508
+        ///198968 38498 408 19 2436
+        ///-38955 196571 401 12 9630
+        ///-105350 320266 -442 13 8777
+        ///2360 175652 -171 12 5949
+        ///-38068 524340 -277 18 6319
+        ///-19252 142732 -208 13 7864
+        ///133410 180544 469 10 6937
+        ///-172385 219825 464 20 5735
+        ///547 502255 246 20 1164
+        ///53158 -554379 427 16 8942
+        ///57503 133258 319 12 447
+        ///-35856 -167863 211 16 6802
+        ///-274075 581536 -394 14 274
+        ///-77411 -193935 -183 13 6940
+        ///-167894 95510 239 13 5516
+        ///-73526 -1910 [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string weekend {
+            get {
+                return ResourceManager.GetString("weekend", resourceCulture);
             }
         }
     }

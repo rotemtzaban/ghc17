@@ -9,6 +9,8 @@ namespace _2016_Final
 {
     public class ProblemInput
     {
+        public long Turns { get; set; }
+
         public Satallite[] Satallites { get; set; }
 
         public Collection[] Collections { get; set; }

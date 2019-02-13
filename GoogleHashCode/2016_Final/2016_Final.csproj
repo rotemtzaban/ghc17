@@ -61,15 +61,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="Resources\constellation.in" />
-    <None Include="Resources\forever_alone.in" />
-    <None Include="Resources\overlap.in" />
-    <None Include="Resources\weekend.in" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -77,6 +74,18 @@
       <Project>{fe988848-3527-4fde-a140-65ce69e2f181}</Project>
       <Name>HashCodeCommon</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\constellation.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\forever_alone.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\overlap.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\weekend.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

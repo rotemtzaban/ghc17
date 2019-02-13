@@ -13,6 +13,7 @@ namespace _2016_Final
     {
         protected override ProblemInput ParseFromStream(TextReader reader)
         {
+            var turns = reader.GetLong();
             var satCount = reader.GetInt();
             Satallite[] satallites = new Satallite[satCount];
             for (int i = 0; i < satCount; i++)
@@ -48,6 +49,7 @@ namespace _2016_Final
 
             return new ProblemInput
             {
+                Turns = turns,
                 Satallites = satallites,
                 Collections = collections
             };
