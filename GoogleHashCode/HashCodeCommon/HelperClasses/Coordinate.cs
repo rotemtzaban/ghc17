@@ -44,8 +44,9 @@ namespace HashCodeCommon
 
         public override bool Equals(object obj)
         {
-            if (obj is Coordinate coordinate)
+            if (obj is Coordinate)            
             {
+                var coordinate = (Coordinate)obj;
                 return coordinate.X == X && coordinate.Y == Y;
             }
 

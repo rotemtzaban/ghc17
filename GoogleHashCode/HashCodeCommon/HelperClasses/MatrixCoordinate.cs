@@ -48,8 +48,9 @@ namespace HashCodeCommon
 
         public override bool Equals(object obj)
         {
-            if(obj is MatrixCoordinate coordinate)
+            if(obj is MatrixCoordinate)
             {
+                MatrixCoordinate coordinate = (MatrixCoordinate)obj;
                 return coordinate.Column == Column && coordinate.Row == Row;
             }
 
