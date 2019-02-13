@@ -45,21 +45,23 @@ namespace _2016_Final
 
         public long Velocity { get; set; }
 
-        public long InitialLat { get; set; }
+        public long InitialLat { get; }
 
-        public long InitialLon { get; set; }
+        public long InitialLon { get; }
 
-        public long InitialVelocity { get; set; }
+        public long InitialVelocity { get; }
 
-        public long MaxOrientationChange { get; set; }
+        public long MaxOrientationChange { get; }
 
-        public long MaxOrientation { get; set; }
+        public long MaxOrientation { get; }
 
-        public Satallite(int index, long lat, long lon, long velocity) : base(index)
+        public Satallite(int index, long lat, long lon, long velocity, long maxOrientationChange, long maxOrientation) : base(index)
         {
-            this.InitialLat = lat;
-            this.InitialLon = lon;
+            this.InitialLat = this.Lat = lat;
+            this.InitialLon = this.Lon = lon;
             this.InitialVelocity = velocity;
+            MaxOrientationChange = maxOrientationChange;
+            MaxOrientation = maxOrientation;
         }
 
         public void CalcPosition(long turn)

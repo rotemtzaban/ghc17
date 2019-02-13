@@ -8,6 +8,6 @@ namespace _2016_Final
 {
     public class ProblemOutput
     {
-        public List<ImageTakenDetails> ImagesTaken { get; set; }
+        public HashSet<ImageTakenDetails> ImagesTaken { get; set; }
     }
 }
