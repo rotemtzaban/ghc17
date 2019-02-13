@@ -18,7 +18,11 @@ namespace _2016_Final
         {
             using (var writer = new StreamWriter(outputPath))
             {
-
+                writer.WriteLine(result.ImagesTaken.Count);
+                foreach (var imageTaken in result.ImagesTaken)
+                {
+                    writer.WriteLine($"{imageTaken.Latitude} {imageTaken.Longitude} {imageTaken.TurnTaken} {imageTaken.SatelliteId}");
+                }
             }
         }
     }
