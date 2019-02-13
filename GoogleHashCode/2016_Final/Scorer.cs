@@ -12,7 +12,21 @@ namespace _2016_Final
     {
         public override long Calculate(ProblemInput input, ProblemOutput output)
         {
-            
+            long score = 0;
+            foreach (var collection in input.Collections)
+            {
+                if (IsCollectionCovered(collection, input, output))
+                {
+                    score += collection.Value;
+                }
+            }
+
+            return score;
+        }
+
+        private bool IsCollectionCovered(Collection collection, ProblemInput input, ProblemOutput output)
+        {
+            throw new NotImplementedException();
         }
 
         public override ProblemOutput GetResultFromReader(ProblemInput input, TextReader reader)
