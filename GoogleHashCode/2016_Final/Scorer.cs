@@ -33,7 +33,7 @@ namespace _2016_Final
         {
             var numOfPicsTaken = long.Parse(reader.ReadLine());
 
-            var list = new HashSet<ImageTakenDetails>();
+            var list = new List<ImageTakenDetails>();
 
             while (true)
             {
