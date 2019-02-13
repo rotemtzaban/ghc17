@@ -12,14 +12,14 @@ namespace _2016_Final
     {
         public override long Calculate(ProblemInput input, ProblemOutput output)
         {
-            throw new NotImplementedException();
+            
         }
 
         public override ProblemOutput GetResultFromReader(ProblemInput input, TextReader reader)
         {
             var numOfPicsTaken = long.Parse(reader.ReadLine());
 
-            var list = new List<ImageTakenDetails>();
+            var list = new HashSet<ImageTakenDetails>();
 
             while (true)
             {
