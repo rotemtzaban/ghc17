@@ -18,7 +18,7 @@ namespace _2016_Final
         public override ProblemOutput GetResultFromReader(ProblemInput input, TextReader reader)
         {
             var numOfPicsTaken = long.Parse(reader.ReadLine());
-
+            throw new NotImplementedException();
         }
     }
 }
