@@ -18,7 +18,32 @@ namespace _2016_Final
         public override ProblemOutput GetResultFromReader(ProblemInput input, TextReader reader)
         {
             var numOfPicsTaken = long.Parse(reader.ReadLine());
-            throw new NotImplementedException();
+
+            var list = new List<ImageTakenDetails>();
+
+            while (true)
+            {
+                string line = reader.ReadLine();
+                if (line == null)
+                {
+                    break;
+                }
+                var sep = line.Split(' ');
+
+                var a = new ImageTakenDetails()
+                {
+                    Latitude = long.Parse(sep[0]),
+                    Longitude = long.Parse(sep[1]),
+                    TurnTaken = long.Parse(sep[2]),
+                    SatelliteId = long.Parse(sep[3]),
+                };
+                list.Add(a);
+            }
+
+            return new ProblemOutput()
+            {
+                ImagesTaken = list
+            };
         }
     }
 }
