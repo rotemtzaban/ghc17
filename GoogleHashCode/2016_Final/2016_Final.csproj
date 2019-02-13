@@ -61,6 +61,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Resources\constellation.in" />
+    <None Include="Resources\forever_alone.in" />
+    <None Include="Resources\overlap.in" />
+    <None Include="Resources\weekend.in" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
