@@ -25,11 +25,19 @@ namespace _2016_Final
         public TimeRange[] TimeRanges { get; set; }
     }
 
-    public class TimeRange
+    public class TimeRange : IComparable<TimeRange>
     {
         public long Start { get; set; }
 
         public long End { get; set; }
+
+        public int CompareTo(TimeRange other)
+        {
+            long startDiff = this.Start - other.Start;
+            long endDiff = this.End - other.End;
+
+            return (int)(startDiff == 0 ? startDiff : endDiff);
+        }
     }
 
     public class Location
