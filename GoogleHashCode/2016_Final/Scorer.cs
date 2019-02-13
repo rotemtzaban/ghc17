@@ -26,14 +26,21 @@ namespace _2016_Final
 
         private bool IsCollectionCovered(Collection collection, ProblemInput input, ProblemOutput output)
         {
-            throw new NotImplementedException();
+            foreach (var location in collection.Locations)
+            {
+                if (!output.ImagesTaken.Any(_ => _.Latitude == location.Lat && _.Longitude == location.Lon))
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         public override ProblemOutput GetResultFromReader(ProblemInput input, TextReader reader)
         {
             var numOfPicsTaken = long.Parse(reader.ReadLine());
 
-            var list = new HashSet<ImageTakenDetails>();
+            var list = new List<ImageTakenDetails>();
 
             while (true)
             {
