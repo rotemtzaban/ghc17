@@ -12,6 +12,7 @@
             int hash = 23;
             hash = hash * 31 + Latitude.GetHashCode();
             hash = hash * 31 + Longitude.GetHashCode();
+
             return hash;
         }
     }
