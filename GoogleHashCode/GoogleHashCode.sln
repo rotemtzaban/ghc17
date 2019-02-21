@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.421
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HashCodeCommon", "HashCodeCommon\HashCodeCommon.csproj", "{FE988848-3527-4FDE-A140-65CE69E2F181}"
 EndProject
@@ -26,6 +26,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2018_Final", "2018_Final\2018_Final.csproj", "{7E2A6BDE-7403-4B05-8484-7AE52211AF3B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2016_Final", "2016_Final\2016_Final.csproj", "{0409795E-DF09-42CB-9261-2E32F9063182}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2019_Qualification", "2019_Qualification\2019_Qualification.csproj", "{0480ED21-CEDE-464A-B9F7-8C35CD696889}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,8 +83,15 @@ Global
 		{0409795E-DF09-42CB-9261-2E32F9063182}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0409795E-DF09-42CB-9261-2E32F9063182}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0409795E-DF09-42CB-9261-2E32F9063182}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0480ED21-CEDE-464A-B9F7-8C35CD696889}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0480ED21-CEDE-464A-B9F7-8C35CD696889}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0480ED21-CEDE-464A-B9F7-8C35CD696889}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0480ED21-CEDE-464A-B9F7-8C35CD696889}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {042425C5-2466-455D-8A73-63A241C403C5}
 	EndGlobalSection
 EndGlobal
