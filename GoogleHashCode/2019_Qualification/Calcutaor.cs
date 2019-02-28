@@ -15,9 +15,9 @@ namespace _2019_Qualification
         {
             var firstTags = firstPhotos.Tags.ToArray();
             var secondTags = secPhoto.Tags.ToArray();
-
-            var score = Math.Min(Math.Min(firstTags.Intersect(secondTags).Count(), secondTags.Except(firstTags).Count()),
-                firstTags.Except(secondTags).Count());
+            var intersection = firstTags.Intersect(secondTags);
+            var score = Math.Min(Math.Min(intersection.Count(), secondTags.Except(intersection).Count()),
+                firstTags.Except(intersection).Count());
 
             return score;
         }
