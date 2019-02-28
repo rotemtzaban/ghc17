@@ -12,7 +12,13 @@ namespace _2019_Qualification
     {
         protected override ProblemOutput Solve(ProblemInput input)
         {
-            throw new NotImplementedException();
+            ProblemOutput res = new ProblemOutput();
+            res.Slides = new List<Slide>();
+            res.Slides.Add(new Slide(new List<Photo>() { new Photo(0, false, null) }));
+            res.Slides.Add(new Slide(new List<Photo>() { new Photo(3, false, null) }));
+            res.Slides.Add(new Slide(new List<Photo>() { new Photo(1, true, null), new Photo(2, true, null) }));
+
+            return res;
         }
 
         protected ProblemOutput Solve2(ProblemInput input)

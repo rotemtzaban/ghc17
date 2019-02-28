@@ -62,7 +62,7 @@ namespace _2019_Qualification
                 else if (intList.Count == 2)
                 {
                     var x = input.Photos[intList[0]];
-                    var y = input.Photos[intList[0]];
+                    var y = input.Photos[intList[1]];
 
                     if (!(x.IsVertical && y.IsVertical))
                     {
@@ -73,10 +73,10 @@ namespace _2019_Qualification
                     slide.Add(y);
                 }
 
-                slides[i] = new Slide { Images = slide };
+                slides[i] = new Slide(slide);
             }
 
-            return new ProblemOutput { Slides = new List<Slide>() };
+            return new ProblemOutput { Slides = slides.ToList() };
         }
     }
 }
