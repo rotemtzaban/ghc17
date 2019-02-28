@@ -4,6 +4,6 @@ namespace _2019_Qualification
 {
     public class Slide
     {
-        public IList<long> Images { get; set; }
+        public List<Photo> Images { get; set; }
     }
 }
