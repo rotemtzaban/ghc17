@@ -29,35 +29,56 @@ namespace _2019_Qualification
             res.Slides = new List<Slide>();
             HashSet<int> takenPhotos = new HashSet<int>();
 
-            int count = 0;
-            int index = 0;
+            int count = 1;
+            int index = 1;
+            int lastTaken = 0;
+            res.Slides.Add(new Slide(new List<Photo>() { input.Photos[0]}));
+            takenPhotos.Add(input.Photos[0].Index);
             while (count < input.Photos.Length && index < input.Photos.Length)
             {
-                Photo photo;
-                if (res.Slides.Count != 0)
-                {
-                    photo = res.Slides[res.Slides.Count -1].Images[0];
-                }
-                else
-                {
-                    photo = input.Photos[index];
-                }
-                takenPhotos.Add(photo.Index);
+                count++;
+                var photo = res.Slides[res.Slides.Count - 1].Images[0];
                 Photo nextSlide = GetNextSlide(takenPhotos, input, photo);
                 if (nextSlide == null)
                 {
-                    takenPhotos.Remove(photo.Index);
-                    index++;
+                    Photo random = GetFirstSlide(takenPhotos, input);
+                    if (random == null)
+                    {
+                        break;
+                    }
+
+                    lastTaken = random.Index;
+                    takenPhotos.Add(random.Index);
+                    res.Slides.Add(new Slide(new List<Photo>() { random }));
                 }
                 else
                 {
-                    res.Slides.Add(new Slide(new List<Photo>() { photo }));
-                    res.Slides.Add(new Slide(new List<Photo>(){ nextSlide}));
-                    count++;
+                    lastTaken = nextSlide.Index;
+                    takenPhotos.Add(nextSlide.Index);
+                    res.Slides.Add(new Slide(new List<Photo>() { nextSlide }));
+                }
+
+                if (count % 500 == 0)
+                {
+                    Console.WriteLine($"we are in: {count}");
+                    Console.WriteLine($"lastTaken: {lastTaken}");
                 }
             }
 
             return res;
+        }
+
+        private Photo GetFirstSlide(HashSet<int> takenPhotos, ProblemInput input)
+        {
+            for (int i = 0; i < input.Photos.Length; i++)
+            {
+                if (!takenPhotos.Contains(input.Photos[i].Index))
+                {
+                    return input.Photos[i];
+                }
+            }
+
+            return null;
         }
 
         private Photo GetNextSlide(HashSet<int> takenPhotos, ProblemInput input, Photo firstPhoto)
