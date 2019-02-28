@@ -63,7 +63,7 @@ namespace _2019_Qualification
                     slide.Add(y);
                 }
 
-                slides[i] = new Slide { Images = slide };
+                slides[i] = new Slide(slide);
             }
 
             return new ProblemOutput { Slides = new List<Slide>() };

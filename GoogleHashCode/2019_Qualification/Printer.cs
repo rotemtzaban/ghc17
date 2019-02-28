@@ -16,11 +16,11 @@ namespace _2019_Qualification
             {
                 if (slide.Images.Count() == 1)
                 {
-                    Console.WriteLine(slide.Images[0]);
+                    Console.WriteLine(slide.Images[0].Index);
                 }
                 else
                 {
-                    Console.WriteLine($"{slide.Images[0]} {slide.Images[1]}");
+                    Console.WriteLine($"{slide.Images[0].Index} {slide.Images[1].Index}");
                 }
             }
         }
@@ -34,11 +34,11 @@ namespace _2019_Qualification
                 {
                     if (slide.Images.Count() == 1)
                     {
-                        writer.WriteLine(slide.Images[0]);
+                        writer.WriteLine(slide.Images[0].Index);
                     }
                     else
                     {
-                        writer.WriteLine($"{slide.Images[0]} {slide.Images[1]}");
+                        writer.WriteLine($"{slide.Images[0].Index} {slide.Images[1].Index}");
                     }
                 }
             }
