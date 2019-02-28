@@ -10,7 +10,7 @@ namespace _2019_Qualification
 {
     public class Solver : SolverBase<ProblemInput, ProblemOutput>
     {
-        protected override ProblemOutput Solve(ProblemInput input)
+        protected ProblemOutput SolveConst(ProblemInput input)
         {
             ProblemOutput res = new ProblemOutput();
             res.Slides = new List<Slide>();
@@ -19,6 +19,52 @@ namespace _2019_Qualification
             res.Slides.Add(new Slide(new List<Photo>() { new Photo(1, true, null), new Photo(2, true, null) }));
 
             return res;
+        }
+
+        protected override ProblemOutput Solve(ProblemInput input)
+        {
+            ProblemOutput res = new ProblemOutput();
+            res.Slides = new List<Slide>();
+
+            HashSet<long> visited = new HashSet<long>();
+
+            // TODO: Go over all slides instead of photots and find optimal pair for each slide 'greedily'
+            for (int i = 0; i < input.Photos.Length; i++)
+            {
+                if (visited.Contains(i))
+                {
+                    continue;
+                }
+
+                long bestScore = 0;
+                int pairId = -1;
+
+                for (int j = 0; j < 100; j++)
+                {
+                    int nextId = this.NumbersGenerator.Next(i+1, input.Photos.Length-1);
+
+                    if (visited.Contains(nextId) || i == nextId)
+                    {
+                        continue;
+                    }
+
+                    long myScore = Calcutaor.CalculatePhotosScore(input.Photos[i], input.Photos[nextId]);
+
+                    if (bestScore < myScore)
+                    {
+                        bestScore = myScore;
+                        pairId = nextId;
+                    }
+                }
+
+                visited.Add(i);
+                visited.Add(pairId);
+
+                res.Slides.Add(new Slide(new List<Photo>() { new Photo(i, false, null), new Photo(pairId, false, null) }));
+            }
+
+            return res;
+            // TODO: add consideration for (1) vertical slides, (2) order between pairs.
         }
 
         protected ProblemOutput Solve2(ProblemInput input)
