@@ -11,6 +11,16 @@ namespace _2019_Qualification
 {
     public class Calcutaor : ScoreCalculatorBase<ProblemInput, ProblemOutput>
     {
+        public static int CalculatePhotosScore(Photo firstPhotos, Photo secPhoto)
+        {
+            var firstTags = firstPhotos.Tags.ToArray();
+            var secondTags = secPhoto.Tags.ToArray();
+
+            var score = Math.Min(Math.Min(firstTags.Intersect(secondTags).Count(), secondTags.Except(firstTags).Count()),
+                firstTags.Except(secondTags).Count());
+
+            return score;
+        }
         public override long Calculate(ProblemInput input, ProblemOutput output)
         {
             long sum = 0;
