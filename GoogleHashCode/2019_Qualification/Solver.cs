@@ -10,7 +10,7 @@ namespace _2019_Qualification
 {
     public class Solver : SolverBase<ProblemInput, ProblemOutput>
     {
-        protected override ProblemOutput Solve(ProblemInput input)
+        protected ProblemOutput SolveConst(ProblemInput input)
         {
             //ProblemOutput res = new ProblemOutput();
             //res.Slides = new List<Slide>();
@@ -21,6 +21,69 @@ namespace _2019_Qualification
             //return res;
 
             return Solve2(input);
+        }
+
+        protected override ProblemOutput Solve(ProblemInput input)
+        {
+            var dictionary = input.Photos.GroupBy(photo => photo.IsVertical).ToDictionary(photos => photos.Key);
+            var vertical = dictionary[true];
+            var horizontal = dictionary[false];
+
+            var slides = horizontal.Select(photo => new Slide(new List<Photo> {photo}))
+                .Concat(VerticalUnifier.GetUnified(vertical.ToList(), NumbersGenerator));
+            ProblemOutput res = new ProblemOutput();
+            res.Slides = new List<Slide>();
+
+            HashSet<int> notPaired = new HashSet<int>(input.Photos.Select(x => x.Index).ToList());
+            List<int> notPairedList = new List<int>(input.Photos.Select(x => x.Index).ToList());
+
+            // TODO: Go over all slides instead of photots and find optimal pair for each slide 'greedily'
+            for (int i = 0; i < input.Photos.Length; i++)
+            {
+                if (!notPaired.Contains(i))
+                {
+                    continue;
+                }
+
+                long bestScore = -1;
+                int pairId = -1;
+
+                for (int j = 0; j < 100;)
+                {
+                    int nextId = notPairedList[this.NumbersGenerator.Next(0, notPairedList.Count)];
+
+                    if (!notPaired.Contains(nextId) || i == nextId)
+                    {
+                        continue;
+                    }
+
+                    long myScore = Calcutaor.CalculatePhotosScore(input.Photos[i], input.Photos[nextId]);
+
+                    if (bestScore < myScore)
+                    {
+                        bestScore = myScore;
+                        pairId = nextId;
+                    }
+
+                    j++;
+                }
+
+                if (pairId == -1 || pairId == i)
+                {
+                    continue; // bug
+                }
+
+                notPaired.Remove(i);
+                notPaired.Remove(pairId);
+                notPairedList.Remove(i);
+                notPairedList.Remove(pairId);
+
+                res.Slides.Add(new Slide(new List<Photo>() { new Photo(i, false, null) }));
+                res.Slides.Add(new Slide(new List<Photo>() { new Photo(pairId, false, null) }));
+            }
+
+            return res;
+            // TODO: add consideration for (1) vertical slides, (2) order between pairs.
         }
 
         protected ProblemOutput Solve2(ProblemInput input)

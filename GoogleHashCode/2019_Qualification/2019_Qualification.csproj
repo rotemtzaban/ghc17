@@ -57,6 +57,7 @@
     <Compile Include="Calcutaor.cs" />
     <Compile Include="Slide.cs" />
     <Compile Include="Solver.cs" />
+    <Compile Include="VerticalUnifier.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
