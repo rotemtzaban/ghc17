@@ -46,6 +46,14 @@ namespace _2019_Qualification
             var used = new HashSet<long>();
             var slideCount = reader.GetInt();
             var slides = new Slide[slideCount];
+            if (slideCount == 0)
+            {
+                throw new Exception("No Slides");
+            }
+            if (slideCount > input.Photos.Length)
+            {
+                throw new Exception("Too many slides");
+            }
             for (int i = 0; i < slideCount; i++)
             {
                 List<Photo> slide = new List<Photo>();
