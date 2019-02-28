@@ -66,7 +66,7 @@ namespace _2019_Qualification
                 slides[i] = new Slide(slide);
             }
 
-            return new ProblemOutput { Slides = new List<Slide>() };
+            return new ProblemOutput { Slides = slides.ToList() };
         }
     }
 }
