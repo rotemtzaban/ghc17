@@ -25,6 +25,12 @@ namespace _2019_Qualification
 
         protected override ProblemOutput Solve(ProblemInput input)
         {
+            var dictionary = input.Photos.GroupBy(photo => photo.IsVertical).ToDictionary(photos => photos.Key);
+            var vertical = dictionary[true];
+            var horizontal = dictionary[false];
+
+            var slides = horizontal.Select(photo => new Slide(new List<Photo> {photo}))
+                .Concat(VerticalUnifier.GetUnified(vertical.ToList(), NumbersGenerator));
             ProblemOutput res = new ProblemOutput();
             res.Slides = new List<Slide>();
 
