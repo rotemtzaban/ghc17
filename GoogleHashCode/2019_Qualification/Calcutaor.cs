@@ -15,9 +15,9 @@ namespace _2019_Qualification
         {
             var firstTags = firstPhotos.Tags.ToArray();
             var secondTags = secPhoto.Tags.ToArray();
-
-            var score = Math.Min(Math.Min(firstTags.Intersect(secondTags).Count(), secondTags.Except(firstTags).Count()),
-                firstTags.Except(secondTags).Count());
+            var intersection = firstTags.Intersect(secondTags);
+            var score = Math.Min(Math.Min(intersection.Count(), secondTags.Except(intersection).Count()),
+                firstTags.Except(intersection).Count());
 
             return score;
         }
@@ -55,8 +55,17 @@ namespace _2019_Qualification
 
         public override ProblemOutput GetResultFromReader(ProblemInput input, TextReader reader)
         {
+            var used = new HashSet<long>();
             var slideCount = reader.GetInt();
             var slides = new Slide[slideCount];
+            if (slideCount == 0)
+            {
+                throw new Exception("No Slides");
+            }
+            if (slideCount > input.Photos.Length)
+            {
+                throw new Exception("Too many slides");
+            }
             for (int i = 0; i < slideCount; i++)
             {
                 List<Photo> slide = new List<Photo>();
@@ -86,6 +95,14 @@ namespace _2019_Qualification
                 }
 
                 slides[i] = new Slide(slide);
+                foreach (var photo in slide)
+                {
+                    if (used.Contains(photo.Index))
+                    {
+                        throw new Exception("Used a photo more than once");
+                    }
+                    used.Add(photo.Index);
+                }
             }
 
             return new ProblemOutput { Slides = slides.ToList() };
