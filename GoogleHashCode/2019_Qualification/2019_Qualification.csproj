@@ -55,6 +55,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Calcutaor.cs" />
+    <Compile Include="Slide.cs" />
     <Compile Include="Solver.cs" />
   </ItemGroup>
   <ItemGroup>
