@@ -44,22 +44,27 @@ namespace _2019_Qualification
 
                 for (int j = 0; j < 100;)
                 {
-                    int nextId = this.NumbersGenerator.Next(0, notPairedList.Count);
+                    int nextId = notPairedList[this.NumbersGenerator.Next(0, notPairedList.Count)];
 
-                    if (!notPaired.Contains(notPairedList[nextId]) || i == nextId)
+                    if (!notPaired.Contains(nextId) || i == nextId)
                     {
                         continue;
                     }
 
-                    long myScore = Calcutaor.CalculatePhotosScore(input.Photos[i], input.Photos[notPairedList[nextId]]);
+                    long myScore = Calcutaor.CalculatePhotosScore(input.Photos[i], input.Photos[nextId]);
 
                     if (bestScore < myScore)
                     {
                         bestScore = myScore;
-                        pairId = notPairedList[nextId];
+                        pairId = nextId;
                     }
 
                     j++;
+                }
+
+                if (pairId == -1 || pairId == i)
+                {
+                    continue; // bug
                 }
 
                 notPaired.Remove(i);
