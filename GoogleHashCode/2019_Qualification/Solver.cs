@@ -25,6 +25,24 @@ namespace _2019_Qualification
 
         protected ProblemOutput Solve2(ProblemInput input)
         {
+         //   HashSet<string> tags = new HashSet<string>();
+            Dictionary<string, List<Photo>> tagToImages = new Dictionary<string, List<Photo>>();
+            foreach (var image in input.Photos)
+            {
+                foreach (var tag in image.Tags)
+                {
+                    if (tagToImages.ContainsKey(tag))
+                    {
+                        tagToImages[tag].Add(image);
+                    }
+                    else
+                    {
+                        tagToImages.Add(tag, new List<Photo>(){image});
+                    }
+                }
+            }
+
+
             ProblemOutput res = new ProblemOutput();
             res.Slides = new List<Slide>();
             HashSet<int> takenPhotos = new HashSet<int>();
@@ -32,13 +50,20 @@ namespace _2019_Qualification
             int count = 1;
             int index = 1;
             int lastTaken = 0;
-            res.Slides.Add(new Slide(new List<Photo>() { input.Photos[0]}));
-            takenPhotos.Add(input.Photos[0].Index);
+
+            var first = GetFirstSlide(takenPhotos, input);
+            if (first == null)
+            {
+                return res;
+            }
+            res.Slides.Add(new Slide(new List<Photo>() { first }));
+            takenPhotos.Add(first.Index);
+
             while (count < input.Photos.Length && index < input.Photos.Length)
             {
                 count++;
                 var photo = res.Slides[res.Slides.Count - 1].Images[0];
-                Photo nextSlide = GetNextSlide(takenPhotos, input, photo);
+                Photo nextSlide = GetNextSlide(tagToImages, takenPhotos, input, photo);
                 if (nextSlide == null)
                 {
                     Photo random = GetFirstSlide(takenPhotos, input);
@@ -63,6 +88,11 @@ namespace _2019_Qualification
                     Console.WriteLine($"we are in: {count}");
                     Console.WriteLine($"lastTaken: {lastTaken}");
                 }
+
+                if (count == 2000)
+                {
+                    return res;
+                }
             }
 
             return res;
@@ -72,6 +102,11 @@ namespace _2019_Qualification
         {
             for (int i = 0; i < input.Photos.Length; i++)
             {
+                if (input.Photos[i].IsVertical)
+                {
+                    continue;
+                }
+
                 if (!takenPhotos.Contains(input.Photos[i].Index))
                 {
                     return input.Photos[i];
@@ -81,28 +116,32 @@ namespace _2019_Qualification
             return null;
         }
 
-        private Photo GetNextSlide(HashSet<int> takenPhotos, ProblemInput input, Photo firstPhoto)
+        private Photo GetNextSlide(Dictionary<string, List<Photo>> tagToImages ,HashSet<int> takenPhotos, ProblemInput input, Photo firstPhoto)
         {
-            foreach (var photo in input.Photos)
+            foreach (var tag in firstPhoto.Tags)
             {
-                if (photo.IsVertical)
+                if(tagToImages[tag].Count == 1) continue;
+
+                foreach (var optionalImage in tagToImages[tag])
                 {
-                    continue;
-                }
-                if (!takenPhotos.Contains(photo.Index))
-                {
-                    if (MoreThanX(firstPhoto, photo))
+                    if (optionalImage.IsVertical)
                     {
-                        takenPhotos.Add(photo.Index);
-                        return photo;
+                        continue;
+                    }
+                    if (!takenPhotos.Contains(optionalImage.Index))
+                    {
+                        if (MoreThanX(firstPhoto, optionalImage))
+                        {
+                            takenPhotos.Add(optionalImage.Index);
+                            return optionalImage;
+                        }
                     }
                 }
             }
-
             return null;
         }
 
-        private bool MoreThanX(Photo firstPhoto, Photo secondPhoto, int threshold = 1)
+        private bool MoreThanX(Photo firstPhoto, Photo secondPhoto, int threshold = 2)
         {
             var intersectTags = firstPhoto.Tags.Intersect(secondPhoto.Tags);
 
