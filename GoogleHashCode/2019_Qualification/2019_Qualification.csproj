@@ -72,5 +72,20 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="a_example.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="b_lovely_landscapes.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="c_memorable_moments.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="d_pet_pictures.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="e_shiny_selfies.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
