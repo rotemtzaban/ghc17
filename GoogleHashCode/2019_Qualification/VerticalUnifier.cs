@@ -23,7 +23,7 @@ namespace _2019_Qualification
 
                     var second = vertical[randomTry];
 
-                    while (!notPaired.Contains(second) && second.Equals(first))
+                    while (!notPaired.Contains(second) || second.Equals(first))
                     {
                         randomTry = random.Next(0, vertical.Count);
                         second = vertical[randomTry];
