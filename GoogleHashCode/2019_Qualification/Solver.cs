@@ -34,52 +34,39 @@ namespace _2019_Qualification
             ProblemOutput res = new ProblemOutput();
             res.Slides = new List<Slide>();
 
-            HashSet<int> notPaired = new HashSet<int>(input.Photos.Select(x => x.Index).ToList());
-            List<int> notPairedList = new List<int>(input.Photos.Select(x => x.Index).ToList());
+            HashSet<int> notPaired = new HashSet<int>(Enumerable.Range(0, slides.Count));
+            //List<int> notPairedList = new List<int>(input.Photos.Select(x => x.Index).ToList());
 
-            // TODO: Go over all slides instead of photots and find optimal pair for each slide 'greedily'
-            for (int i = 0; i < input.Photos.Length; i++)
+            var last = NumbersGenerator.Next(slides.Count);
+            notPaired.Remove(last);
+            res.Slides.Add(slides[last]);
+
+            for (int i = 0; i < slides.Count - 1; i++)
             {
-                if (!notPaired.Contains(i))
+                long bestScore = 0;
+                int pairId = 0;
+
+                for (int j = 0; j < 10; j++)
                 {
-                    continue;
-                }
+                    int nextId = this.NumbersGenerator.Next(0, slides.Count);
 
-                long bestScore = -1;
-                int pairId = -1;
-
-                for (int j = 0; j < 100;)
-                {
-                    int nextId = notPairedList[this.NumbersGenerator.Next(0, notPairedList.Count)];
-
-                    if (!notPaired.Contains(nextId) || i == nextId)
+                    while (!notPaired.Contains(nextId) || nextId == last)
                     {
-                        continue;
+                        nextId = this.NumbersGenerator.Next(0, slides.Count);
                     }
 
-                    long myScore = Calcutaor.CalculatePhotosScore(input.Photos[i], input.Photos[nextId]);
+                    long myScore = Calcutaor.CalculatePhotosScore(slides[last], slides[nextId]);
 
-                    if (bestScore < myScore)
+                    if (bestScore < myScore || pairId == 0)
                     {
                         bestScore = myScore;
                         pairId = nextId;
                     }
-
-                    j++;
                 }
 
-                if (pairId == -1 || pairId == i)
-                {
-                    continue; // bug
-                }
-
-                notPaired.Remove(i);
+                last = pairId;
                 notPaired.Remove(pairId);
-                notPairedList.Remove(i);
-                notPairedList.Remove(pairId);
-
-                res.Slides.Add(new Slide(new List<Photo>() { new Photo(i, false, null) }));
-                res.Slides.Add(new Slide(new List<Photo>() { new Photo(pairId, false, null) }));
+                res.Slides.Add(slides[pairId]);
             }
 
             return res;
