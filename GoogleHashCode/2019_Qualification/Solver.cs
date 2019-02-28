@@ -38,7 +38,7 @@ namespace _2019_Qualification
                     continue;
                 }
 
-                long bestScore = 0;
+                long bestScore = -1;
                 int pairId = -1;
 
                 for (int j = 0; j < 100; j++)
