@@ -28,12 +28,12 @@ namespace _2019_Qualification
             ProblemOutput res = new ProblemOutput();
             res.Slides = new List<Slide>();
 
-            HashSet<long> visited = new HashSet<long>();
+            HashSet<int> notPaired = new HashSet<int>(input.Photos.Select(x => x.Index).ToList());
 
             // TODO: Go over all slides instead of photots and find optimal pair for each slide 'greedily'
             for (int i = 0; i < input.Photos.Length; i++)
             {
-                if (visited.Contains(i))
+                if (!notPaired.Contains(i))
                 {
                     continue;
                 }
@@ -41,11 +41,11 @@ namespace _2019_Qualification
                 long bestScore = -1;
                 int pairId = -1;
 
-                for (int j = 0; j < 100; j++)
+                for (int j = 0; j < 100;)
                 {
-                    int nextId = this.NumbersGenerator.Next(i+1, input.Photos.Length-1);
+                    int nextId = this.NumbersGenerator.Next(0, notPaired.Count);
 
-                    if (visited.Contains(nextId) || i == nextId)
+                    if (!notPaired.Contains(nextId) || i == nextId)
                     {
                         continue;
                     }
@@ -57,10 +57,12 @@ namespace _2019_Qualification
                         bestScore = myScore;
                         pairId = nextId;
                     }
+
+                    j++;
                 }
 
-                visited.Add(i);
-                visited.Add(pairId);
+                notPaired.Remove(i);
+                notPaired.Remove(pairId);
 
                 res.Slides.Add(new Slide(new List<Photo>() { new Photo(i, false, null), new Photo(pairId, false, null) }));
             }
