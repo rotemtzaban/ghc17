@@ -26,11 +26,11 @@ namespace _2019_Qualification
         protected override ProblemOutput Solve(ProblemInput input)
         {
             var dictionary = input.Photos.GroupBy(photo => photo.IsVertical).ToDictionary(photos => photos.Key);
-            var vertical = dictionary[true];
-            var horizontal = dictionary[false];
+            IEnumerable<Photo> vertical = dictionary.ContainsKey(true) ? dictionary[true] : (IEnumerable<Photo>)Array.Empty<Photo>();
+            IEnumerable<Photo> horizontal = dictionary.ContainsKey(false) ? dictionary[false] : (IEnumerable<Photo>)Array.Empty<Photo>();
 
-            var slides = horizontal.Select(photo => new Slide(new List<Photo> {photo}))
-                .Concat(VerticalUnifier.GetUnified(vertical.ToList(), NumbersGenerator));
+            var slides = horizontal.Select(photo => new Slide(new List<Photo> { photo }))
+                .Concat(VerticalUnifier.GetUnified(vertical.ToList(), NumbersGenerator)).ToList();
             ProblemOutput res = new ProblemOutput();
             res.Slides = new List<Slide>();
 

@@ -21,6 +21,18 @@ namespace _2019_Qualification
 
             return score;
         }
+
+        public static int CalculatePhotosScore(Slide firstPhotos, Slide secPhoto)
+        {
+            var firstTags = firstPhotos.Tags.ToArray();
+            var secondTags = secPhoto.Tags.ToArray();
+
+            var score = Math.Min(Math.Min(firstTags.Intersect(secondTags).Count(), secondTags.Except(firstTags).Count()),
+                firstTags.Except(secondTags).Count());
+
+            return score;
+        }
+
         public override long Calculate(ProblemInput input, ProblemOutput output)
         {
             long sum = 0;
