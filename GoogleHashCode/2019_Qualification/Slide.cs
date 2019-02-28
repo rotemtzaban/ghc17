@@ -8,16 +8,11 @@ namespace _2019_Qualification
         public Slide(List<Photo> photos)
         {
             this.Images = photos;
+            Tags = Images.SelectMany(photo => photo.Tags).Distinct().ToArray();
         }
 
         public List<Photo> Images { get; set; }
 
-        public IEnumerable<string> Tags
-        {
-            get
-            {
-                return this.Images.SelectMany(_ => _.Tags).Distinct();
-            }
-        }
+        public string[] Tags { get; }
     }
 }
