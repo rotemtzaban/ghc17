@@ -56,7 +56,7 @@ namespace _2019_Qualification
                     if (bestScore < myScore)
                     {
                         bestScore = myScore;
-                        pairId = nextId;
+                        pairId = notPairedList[nextId];
                     }
 
                     j++;
@@ -67,7 +67,8 @@ namespace _2019_Qualification
                 notPairedList.Remove(i);
                 notPairedList.Remove(pairId);
 
-                res.Slides.Add(new Slide(new List<Photo>() { new Photo(i, false, null), new Photo(pairId, false, null) }));
+                res.Slides.Add(new Slide(new List<Photo>() { new Photo(i, false, null) }));
+                res.Slides.Add(new Slide(new List<Photo>() { new Photo(pairId, false, null) }));
             }
 
             return res;
