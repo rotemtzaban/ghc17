@@ -43,6 +43,7 @@ namespace _2019_Qualification
 
         public override ProblemOutput GetResultFromReader(ProblemInput input, TextReader reader)
         {
+            var used = new HashSet<long>();
             var slideCount = reader.GetInt();
             var slides = new Slide[slideCount];
             for (int i = 0; i < slideCount; i++)
@@ -74,6 +75,14 @@ namespace _2019_Qualification
                 }
 
                 slides[i] = new Slide(slide);
+                foreach (var photo in slide)
+                {
+                    if (used.Contains(photo.Index))
+                    {
+                        throw new Exception("Used a photo more than once");
+                    }
+                    used.Add(photo.Index);
+                }
             }
 
             return new ProblemOutput { Slides = slides.ToList() };
