@@ -52,7 +52,7 @@ namespace _2019_Qualification
                 else if (intList.Count == 2)
                 {
                     var x = input.Photos[intList[0]];
-                    var y = input.Photos[intList[0]];
+                    var y = input.Photos[intList[1]];
 
                     if (!(x.IsVertical && y.IsVertical))
                     {
