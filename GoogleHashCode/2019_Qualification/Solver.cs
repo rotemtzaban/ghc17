@@ -323,7 +323,7 @@ namespace _2019_Qualification
                         nextId = this.NumbersGenerator.Next(0, slides.Count);
                     }
 
-                    long myScore = Calcutaor.CalculatePhotosScore(slides[last], slides[nextId], lastTags);
+                    long myScore = Calcutaor.CalculatePhotosScore(slides[last], slides[nextId]);
 
                     if (bestScore < myScore || pairId == 0)
                     {
