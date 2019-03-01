@@ -92,7 +92,7 @@ namespace _2019_Qualification
 
                         long ScoreIfUsed = CalculateScoreForNewSlide(allPhotos[i], lastSlideTagsBool, lastSlideTagCount);
 
-                        if (InterlockedExchangeIfGreaterThan(ref bestScore, ScoreIfUsed))
+                        if (ParallelHelper.InterlockedExchangeIfGreaterThan(ref bestScore, ScoreIfUsed))
                         {
                             // use this
                             //bestScore = ScoreIfUsed;
@@ -152,7 +152,7 @@ namespace _2019_Qualification
 
                             long scoreIfUsed = CalculateScoreForVPair(lastSlideTagsBool, lastSlideTagCount, slideToUse.Images.First(), allPhotos[i], pairTagsBool);
 
-                            if (InterlockedExchangeIfGreaterThan(ref bestScoreForV, scoreIfUsed))
+                            if (ParallelHelper.InterlockedExchangeIfGreaterThan(ref bestScoreForV, scoreIfUsed))
                             {
                                 lock (lockpair)
                                 {
@@ -199,18 +199,6 @@ namespace _2019_Qualification
                 lastSlide = slideToUse;
             }
             return new ProblemOutput() { Slides = slides };
-        }
-
-        public static bool InterlockedExchangeIfGreaterThan(ref long variable, long newValue)
-        {
-            long initialValue;
-            do
-            {
-                initialValue = Interlocked.Read(ref variable);
-                if (initialValue >= newValue) return false;
-            }
-            while (Interlocked.CompareExchange(ref variable, newValue, initialValue) != initialValue);
-            return true;
         }
 
         private long CalculateScoreForVPair(bool[] lastTagsInBool, int lastSlideTagCount, Photo firstV, Photo secondV, bool[] firstVTagsInBool)
