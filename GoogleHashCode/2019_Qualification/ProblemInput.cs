@@ -10,6 +10,8 @@ namespace _2019_Qualification
     public class ProblemInput
     {
         public Photo[] Photos { get; set; }
+
+        public int TagCount { get; set; }
     }
 
     public class Photo : IndexedObject
@@ -23,5 +25,7 @@ namespace _2019_Qualification
         public bool IsVertical { get; }
 
         public string[] Tags { get; }
+
+        public int[] TagIndexes { get; set; }
     }
 }
