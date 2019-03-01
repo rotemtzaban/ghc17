@@ -12,17 +12,17 @@ namespace _2019_Qualification
     {
         public override void PrintToConsole(ProblemOutput result)
         {
-            foreach (var slide in result.Slides)
-            {
-                if (slide.Images.Count() == 1)
-                {
-                    Console.WriteLine(slide.Images[0].Index);
-                }
-                else
-                {
-                    Console.WriteLine($"{slide.Images[0].Index} {slide.Images[1].Index}");
-                }
-            }
+            //foreach (var slide in result.Slides)
+            //{
+            //    if (slide.Images.Count() == 1)
+            //    {
+            //        Console.WriteLine(slide.Images[0].Index);
+            //    }
+            //    else
+            //    {
+            //        Console.WriteLine($"{slide.Images[0].Index} {slide.Images[1].Index}");
+            //    }
+            //}
         }
 
         public override void PrintToFile(ProblemOutput result, string outputPath)
