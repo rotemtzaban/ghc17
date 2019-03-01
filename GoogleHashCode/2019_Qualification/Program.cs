@@ -14,11 +14,7 @@ namespace _2019_Qualification
             System.Diagnostics.Stopwatch t = new System.Diagnostics.Stopwatch();
             t.Start();
             var parserBase = new Parser();
-            //var problemInput = parserBase.ParseFromData(Properties.Resources.a_example);
-            //var fromData = parserBase.ParseFromData(Properties.Resources.b_lovely_landscapes);
-            //var input = parserBase.ParseFromData(Properties.Resources.c_memorable_moments);
-            //var data = parserBase.ParseFromData(Properties.Resources.d_pet_pictures);
-            //var problemInput1 = parserBase.ParseFromData(Properties.Resources.e_shiny_selfies);
+
             Runner<ProblemInput, ProblemOutput> runner1 = new Runner<ProblemInput, ProblemOutput>(
                 "2019", parserBase, new StupidDolver(), new Printer(), new Calcutaor());
             runner1.Run(Properties.Resources.a_example, "a_example", 10, false);
