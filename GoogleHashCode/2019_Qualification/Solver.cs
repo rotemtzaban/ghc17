@@ -75,23 +75,29 @@ namespace _2019_Qualification
 
         protected ProblemOutput Solve2(ProblemInput input)
         {
-         //   HashSet<string> tags = new HashSet<string>();
-            Dictionary<string, List<Photo>> tagToImages = new Dictionary<string, List<Photo>>();
-            foreach (var image in input.Photos)
+            var dictionary = input.Photos.GroupBy(photo => photo.IsVertical).ToDictionary(photos => photos.Key);
+            IEnumerable<Photo> vertical = dictionary.ContainsKey(true) ? dictionary[true] : (IEnumerable<Photo>)Array.Empty<Photo>();
+            IEnumerable<Photo> horizontal = dictionary.ContainsKey(false) ? dictionary[false] : (IEnumerable<Photo>)Array.Empty<Photo>();
+
+            var slides = horizontal.Select(photo => new Slide(new List<Photo> { photo }))
+                .Concat(VerticalUnifier.GetUnified(vertical.ToList(), NumbersGenerator)).ToList();
+            Dictionary<string, List<Slide>> tagToImages = new Dictionary<string, List<Slide>>();
+            // HashSet<string> tags = new HashSet<string>();
+            foreach (var image in slides)
             {
                 foreach (var tag in image.Tags)
                 {
+                    //  tags.Add(tag);
                     if (tagToImages.ContainsKey(tag))
                     {
                         tagToImages[tag].Add(image);
                     }
                     else
                     {
-                        tagToImages.Add(tag, new List<Photo>(){image});
+                        tagToImages.Add(tag, new List<Slide>() { image });
                     }
                 }
             }
-
 
             ProblemOutput res = new ProblemOutput();
             res.Slides = new List<Slide>();
@@ -101,102 +107,109 @@ namespace _2019_Qualification
             int index = 1;
             int lastTaken = 0;
 
-            var first = GetFirstSlide(takenPhotos, input);
-            if (first == null)
+            var first = GetFirstSlide(takenPhotos, slides);
+            res.Slides.Add(first);
+            takenPhotos.Add(first.Images[0].Index);
+            if (first.Images.Count == 2)
             {
-                return res;
+                takenPhotos.Add(first.Images[1].Index);
             }
-            res.Slides.Add(new Slide(new List<Photo>() { first }));
-            takenPhotos.Add(first.Index);
 
-            while (count < input.Photos.Length && index < input.Photos.Length)
+            while (count < input.Photos.Length && index < slides.Count)
             {
                 count++;
-                var photo = res.Slides[res.Slides.Count - 1].Images[0];
-                Photo nextSlide = GetNextSlide(tagToImages, takenPhotos, input, photo);
+                var photo = res.Slides[res.Slides.Count - 1];
+                Slide nextSlide = GetNextSlide(tagToImages, takenPhotos, slides, photo);
                 if (nextSlide == null)
                 {
-                    Photo random = GetFirstSlide(takenPhotos, input);
-                    if (random == null)
+                    var randomSlide = GetFirstSlide(takenPhotos, slides);
+                    if (randomSlide == null)
                     {
                         break;
                     }
-
-                    lastTaken = random.Index;
-                    takenPhotos.Add(random.Index);
-                    res.Slides.Add(new Slide(new List<Photo>() { random }));
+                    takenPhotos.Add(randomSlide.Images[0].Index);
+                    if (randomSlide.Images.Count == 2)
+                    {
+                        takenPhotos.Add(randomSlide.Images[1].Index);
+                    }
+                    res.Slides.Add(randomSlide);
                 }
                 else
                 {
-                    lastTaken = nextSlide.Index;
-                    takenPhotos.Add(nextSlide.Index);
-                    res.Slides.Add(new Slide(new List<Photo>() { nextSlide }));
-                }
-
-                if (count % 500 == 0)
-                {
-                    Console.WriteLine($"we are in: {count}");
-                    Console.WriteLine($"lastTaken: {lastTaken}");
-                }
-
-                if (count == 2000)
-                {
-                    return res;
+                    takenPhotos.Add(nextSlide.Images[0].Index);
+                    if (nextSlide.Images.Count == 2)
+                    {
+                        takenPhotos.Add(nextSlide.Images[1].Index);
+                    }
+                    res.Slides.Add(nextSlide);
                 }
             }
 
             return res;
         }
 
-        private Photo GetFirstSlide(HashSet<int> takenPhotos, ProblemInput input)
+        private Slide GetFirstSlide(HashSet<int> takenPhotos, List<Slide> input)
         {
-            for (int i = 0; i < input.Photos.Length; i++)
+            for (int i = input.Count - 1; i >= 0; i--)
             {
-                if (input.Photos[i].IsVertical)
+                var slide = input[i];
+                bool isTaken = false;
+                if (slide.Images.Count == 1)
                 {
-                    continue;
+                    isTaken = takenPhotos.Contains(slide.Images[0].Index);
+                }
+                else
+                {
+                    isTaken = takenPhotos.Contains(slide.Images[0].Index) || takenPhotos.Contains(slide.Images[1].Index);
                 }
 
-                if (!takenPhotos.Contains(input.Photos[i].Index))
+                if (!isTaken)
                 {
-                    return input.Photos[i];
+                    return slide;
                 }
             }
 
             return null;
         }
 
-        private Photo GetNextSlide(Dictionary<string, List<Photo>> tagToImages ,HashSet<int> takenPhotos, ProblemInput input, Photo firstPhoto)
+        private Slide GetNextSlide(Dictionary<string, List<Slide>> tagToImages, HashSet<int> takenPhotos, List<Slide> input, Slide firstPhoto)
         {
+            int maxScore = 0;
+            int threshold = 4;
+            Slide nex = null;
             foreach (var tag in firstPhoto.Tags)
             {
-                if(tagToImages[tag].Count == 1) continue;
+                if (tagToImages[tag].Count == 1) continue;
 
                 foreach (var optionalImage in tagToImages[tag])
                 {
-                    if (optionalImage.IsVertical)
+                    bool isTaken = false;
+                    if (optionalImage.Images.Count == 1)
                     {
-                        continue;
+                        isTaken = takenPhotos.Contains(optionalImage.Images[0].Index);
                     }
-                    if (!takenPhotos.Contains(optionalImage.Index))
+                    else
                     {
-                        if (MoreThanX(firstPhoto, optionalImage))
+                        isTaken = takenPhotos.Contains(optionalImage.Images[0].Index) || takenPhotos.Contains(optionalImage.Images[1].Index);
+                    }
+                    if (!isTaken)
+                    {
+                        var score = Calcutaor.CalculatePhotosScore(firstPhoto, optionalImage);
+                        if (score >= maxScore)
                         {
-                            takenPhotos.Add(optionalImage.Index);
-                            return optionalImage;
+                            maxScore = score;
+                            nex = optionalImage;
+                            if (maxScore > threshold)
+                            {
+                                return nex;
+                            }
                         }
                     }
                 }
             }
-            return null;
-        }
 
-        private bool MoreThanX(Photo firstPhoto, Photo secondPhoto, int threshold = 2)
-        {
-            var intersectTags = firstPhoto.Tags.Intersect(secondPhoto.Tags);
-
-            var score = Calcutaor.CalculatePhotosScore(firstPhoto, secondPhoto);
-            return score >= threshold;
+            return nex;
         }
     }
+}
 }
