@@ -481,4 +481,3 @@ namespace _2019_Qualification
         }
     }
 }
-}
