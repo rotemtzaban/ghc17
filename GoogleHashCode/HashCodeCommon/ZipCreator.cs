@@ -22,6 +22,10 @@ namespace HashCodeCommon
             Directory.CreateDirectory(tmpFolder);
             foreach (var codeFile in Directory.EnumerateFiles(solutionPath, "*", SearchOption.AllDirectories))
             {
+                if (codeFile.EndsWith(".txt"))
+                {
+                    continue;
+                }
                 var relative = codeFile.Substring(solutionPath.Length + 1);
                 if (relative.StartsWith(tmpDirectoryName) || relative.StartsWith("Output") || relative.StartsWith("packages") || relative.StartsWith(".vs"))
                     continue;
