@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace _2016_Qualification
 {
-    public static class ScoreCalc
+    public static class SolverHelper
     {
         public static List<Order> OrderOrders(ProblemInput input)
         {
@@ -21,6 +21,11 @@ namespace _2016_Qualification
 
                 return numOfUsedDrones;
             }).ToList();
+        }
+
+        public static void CancelOrders(List<Drone> drones)
+        {
+            return;
         }
     }
 }

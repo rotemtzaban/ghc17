@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace _2016_Qualification
 {
-    public class Solver : SolverBase<ProblemInput, ProblemOutput>
+    public class SecondSolver : SolverBase<ProblemInput, ProblemOutput>
     {
         protected override ProblemOutput Solve(ProblemInput input)
         {
@@ -18,8 +18,10 @@ namespace _2016_Qualification
             }
 
             ProblemOutput output = new ProblemOutput();
-            foreach (var order in ScoreCalc.OrderOrders(input))
+            foreach (var order in SolverHelper.OrderOrders(input))
             {
+                List<Drone> usedDrones = new List<Drone>();
+
                 foreach (var product in order.ProductsInOrder)
                 {
                     if (product.Value * input.Products[product.Key].Weight > input.MaxDrownLoad)
@@ -51,7 +53,10 @@ namespace _2016_Qualification
                     }
 
                     if (selectedDrone == null)
+                    {
+                        SolverHelper.CancelOrders(drones);
                         break;
+                    }
                     else
                     {
                         var time = selectedDrone.CurrentTime +
