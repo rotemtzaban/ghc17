@@ -12,6 +12,7 @@ namespace _2016_Qualification
     {
         public override void PrintToConsole(ProblemOutput result)
         {
+            return;
             Console.WriteLine(result.Count);
             foreach (var command in result)
             {

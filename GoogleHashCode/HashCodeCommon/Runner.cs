@@ -43,11 +43,12 @@ namespace HashCodeCommon
 			}
 
 			if (m_Calculator != null)
-			{
-                ScoreChange score = ReplaceIfBetter(data, finalPath, newOutPath);
-				PrintResults(caseName, score);
-                return score.NewScore;
-			}
+            {
+                m_Calculator.Calculate(GetInput(data), bestResults);
+                //ScoreChange score = ReplaceIfBetter(data, finalPath, newOutPath);
+                //PrintResults(caseName, score);
+                //return score.NewScore;
+            }
             else
             {
                 Console.WriteLine(caseName + ": Calculator is null. No comparison was made");

@@ -54,7 +54,7 @@ namespace _2016_Qualification
 
                     if (selectedDrone == null)
                     {
-                        SolverHelper.CancelOrders(drones);
+                        SolverHelper.CancelOrders(drones, output);
                         break;
                     }
                     else

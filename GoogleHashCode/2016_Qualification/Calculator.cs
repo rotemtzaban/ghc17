@@ -42,8 +42,9 @@ namespace _2016_Qualification
 
                     if (!input.Orders[deliver.OrderId].ProductsInOrder.Any())
                     {
-                        score += (long) Math.Floor((float)((input.NumberOfIterations - OrderIdToMaxTry[order.Index])/input.NumberOfIterations)*100);
-                        input.Orders.RemoveAt(deliver.OrderId);
+                        var currentScore = ((1.0 * input.NumberOfIterations - OrderIdToMaxTry[deliver.OrderId]) /
+                                            input.NumberOfIterations) * 100.0;
+                        score += (long) Math.Ceiling(currentScore);
                     }
                 }
             }
