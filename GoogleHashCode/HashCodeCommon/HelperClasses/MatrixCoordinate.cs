@@ -17,6 +17,15 @@ namespace HashCodeCommon
         public int Column { get; }
         public int Row { get; }
 
+        public double CalcEucledianDistance(MatrixCoordinate other)
+        {
+            var deltaX = this.Column - other.Row;
+            var deltaY = this.Row - other.Column;
+            double result = Math.Sqrt(deltaX * deltaX + deltaY * deltaY);
+
+            return result;
+        }
+
         public double CalcEucledianDistance(Coordinate other)
         {
             var deltaX = this.Column - other.X;
