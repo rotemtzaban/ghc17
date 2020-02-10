@@ -1,4 +1,6 @@
-﻿namespace _2016_Qualification
+﻿using HashCodeCommon;
+
+namespace _2016_Qualification
 {
     public class Load : ICommand
     {
@@ -8,6 +10,7 @@
         public int CountOfProducts { get; }
         public int Time { get; set; }
         public int EndTime { get; set; }
+        public MatrixCoordinate StartPosition { get; set; }
 
         public Load(int droneId, int warehouseId, int productId, int countOfProducts, int time, int endTime)
         {
@@ -33,6 +36,7 @@
         public int CountOfProducts { get; }
         public int Time { get; set; }
         public int EndTime { get; set; }
+        public MatrixCoordinate StartPosition { get; set; }
 
         public Unload(int droneId, int warehouseId, int productId, int countOfProducts, int time, int endTime)
         {
@@ -58,6 +62,7 @@
         public int CountOfProducts { get; }
         public int Time { get; set; }
         public int EndTime { get; set; }
+        public MatrixCoordinate StartPosition { get; set; }
 
         public Deliver(int droneId, int orderId, int productId, int countOfProducts, int time, int endTime)
         {
@@ -81,6 +86,7 @@
         public int NumberOfTurnsToWait { get; }
         public int Time { get; set; }
         public int EndTime { get; set; }
+        public MatrixCoordinate StartPosition { get; set; }
 
         public Wait(int droneId, int numberOfTurnsToWait, int time)
         {
@@ -101,5 +107,6 @@
     {
         int Time { get; set; }
         int EndTime { get; set; }
+        MatrixCoordinate StartPosition { get; set; }
     }
 }
