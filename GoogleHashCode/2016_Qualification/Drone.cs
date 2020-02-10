@@ -3,7 +3,7 @@ using HashCodeCommon;
 
 namespace _2016_Qualification
 {
-    class Drone : IndexedObject
+    public class Drone : IndexedObject
     {
         public List<ICommand> Commands { get; set; }
 
