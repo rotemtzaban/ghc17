@@ -25,12 +25,17 @@ namespace _2016_Qualification
 
         public static void CancelOrders(List<Drone> drones, ProblemOutput output)
         {
-            return;
+            if (drones.Count != 0)
+            {
+                Console.WriteLine(drones.Count);
+                return;
+            }
 
             for (int i = 0; i < drones.Count; i++)
             {
-                int startIndex = output.Count - i * 2;
+                int startIndex = output.Count - 2 - i * 2;
                 drones[drones.Count - 1 - i].CurrentTime = output[startIndex].Time;
+                drones[drones.Count - 1 - i].CurrentPosition= output[startIndex].StartPosition;
             }
 
             for (int i = 0; i < 2 * drones.Count; i++)

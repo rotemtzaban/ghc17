@@ -12,6 +12,7 @@ namespace _2016_Qualification
     {
         static void Main(string[] args)
         {
+            // Calculator calculator = new Calculator();
             Calculator calculator = null;
 
             var runner1 = new Runner<ProblemInput, ProblemOutput>("2016_Qualification", new Parser(), new Solver(), new Printer(), calculator);

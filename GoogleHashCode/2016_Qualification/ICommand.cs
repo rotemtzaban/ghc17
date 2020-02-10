@@ -12,7 +12,7 @@ namespace _2016_Qualification
         public int EndTime { get; set; }
         public MatrixCoordinate StartPosition { get; set; }
 
-        public Load(int droneId, int warehouseId, int productId, int countOfProducts, int time, int endTime)
+        public Load(int droneId, int warehouseId, int productId, int countOfProducts, int time, int endTime, MatrixCoordinate startPosition)
         {
             DroneId = droneId;
             WarehouseId = warehouseId;
@@ -20,6 +20,7 @@ namespace _2016_Qualification
             CountOfProducts = countOfProducts;
             Time = time;
             EndTime = endTime;
+            StartPosition = startPosition;
         }
 
         public override string ToString()

@@ -54,21 +54,23 @@ namespace _2016_Qualification
 
                     if (selectedDrone == null)
                     {
-                        SolverHelper.CancelOrders(drones, output);
+                        SolverHelper.CancelOrders(usedDrones, output);
                         break;
                     }
                     else
                     {
+                        usedDrones.Add(selectedDrone);
                         var time = selectedDrone.CurrentTime +
                                     Math.Ceiling(selectedDrone.CurrentPosition.CalcEucledianDistance(selectedWarehouse.Coordinate)) + 1 +
                                     Math.Ceiling(selectedWarehouse.Coordinate.CalcEucledianDistance(order.Coordinate)) + 1;
 
                         int firstOrderTime = selectedDrone.CurrentTime;
+                        MatrixCoordinate firstOrderCoordinate = selectedDrone.CurrentPosition;
                         int lastOrderTime = selectedDrone.CurrentTime - 1 - (int)Math.Ceiling(selectedWarehouse.Coordinate.CalcEucledianDistance(order.Coordinate));
                         selectedDrone.CurrentTime += (int)time;
-                        selectedDrone.CurrentPosition = new MatrixCoordinate(0, 0);
+                        selectedDrone.CurrentPosition = order.Coordinate;
 
-                        output.Add(new Load(selectedDrone.Index, order.Index, product.Key, product.Value, firstOrderTime, lastOrderTime));
+                        output.Add(new Load(selectedDrone.Index, order.Index, product.Key, product.Value, firstOrderTime, lastOrderTime, firstOrderCoordinate));
                         output.Add(new Deliver(selectedDrone.Index, order.Index, product.Key, product.Value, lastOrderTime, selectedDrone.CurrentTime));
                     }
                 }
