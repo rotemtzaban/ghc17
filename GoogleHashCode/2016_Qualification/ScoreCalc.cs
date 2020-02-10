@@ -17,7 +17,7 @@ namespace _2016_Qualification
                 MatrixCoordinate coordinate = new MatrixCoordinate();
                 foreach (var product in order.ProductsInOrder)
                 {
-                    double dronesForProducts = (product.Value * input.Products[product.Key].Weight) / 200;
+                    double dronesForProducts = (product.Value * input.Products[product.Key].Weight) / input.MaxDrownLoad;
                     numOfUsedDrones += (int)Math.Ceiling(dronesForProducts);
                     coordinate.CalcEucledianDistance(order.Coordinate);
                 }
