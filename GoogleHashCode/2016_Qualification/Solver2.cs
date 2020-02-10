@@ -18,8 +18,9 @@ namespace _2016_Qualification
             }
 
             ProblemOutput output = new ProblemOutput();
-            foreach (var order in SolverHelper.OrderOrders(input, drones))
+            while (input.Orders.Any(NotCompleted))
             {
+                var order = SolverHelper.OrderOrders(input, drones).FirstOrDefault();
                 List<Drone> usedDrones = new List<Drone>();
 
                 while (NotCompleted(order))
