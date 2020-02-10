@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace _2016_Qualification
 {
-    public class ProblemOutput : List<Drone>
+    public class ProblemOutput : List<ICommand>
     {
     }
 }

@@ -12,7 +12,15 @@ namespace _2016_Qualification
     {
         public override long Calculate(ProblemInput input, ProblemOutput output)
         {
-            throw new NotImplementedException();
+            foreach (var command in output)
+            {
+                if (command is Load)
+                {
+
+                }
+            }
+
+            return 0;
         }
 
         public override ProblemOutput GetResultFromReader(ProblemInput input, TextReader reader)
