@@ -43,7 +43,7 @@ namespace _2016_Qualification
                                     Math.Ceiling(drone.CurrentPosition.CalcEucledianDistance(warehouse.Coordinate)) + 1 +
                                     Math.Ceiling(warehouse.Coordinate.CalcEucledianDistance(order.Coordinate)) + 1;
 
-                                if (time < minTime)
+                                if (time < minTime && time < input.NumberOfIterations)
                                 {
                                     minTime = (int)time;
                                     selectedDrone = drone;
