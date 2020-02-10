@@ -8,8 +8,13 @@ namespace _2016_Qualification
 {
     public static class ScoreCalc
     {
-        public static double Calc()
+        public static double Calc(ProblemInput input, Drone drone, Order order)
         {
+            foreach (var item in input.)
+            {
+
+            }
+
             return 0;
         }
     }

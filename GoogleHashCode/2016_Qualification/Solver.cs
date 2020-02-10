@@ -21,7 +21,27 @@ namespace _2016_Qualification
             {
                 bool assignedTask = false;
 
+                foreach (var order in input.Orders)
+                {
+                    foreach (var product in order.ProductsInOrder)
+                    {
+                        for (int i = 0; i < order.ProductsInOrder.Count; i++)
+                        {
+                            if (order.ProductsInOrder[i] == 0)
+                                continue;
+
+                            foreach (var warehouse in input.Warehouses)
+                            {
+                                if (warehouse.NumberOfItemsForProduct[(int)product] >= order.ProductsInOrder[(int)product))
+                                    foreach (var item2 in drones)
+                                    {
+                                    }
+                            }
+                        }
+                    }
+                }
             }
+
             return null;
         }
     }
