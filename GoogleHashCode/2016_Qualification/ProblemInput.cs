@@ -33,6 +33,7 @@ namespace _2016_Qualification
 	{
 		public long ColumnPosition { get; }
 		public long RowPosition { get; }
+        public MatrixCoordinate Coordinate { get; set; }
 		public Dictionary<int, int> ProductsInOrder { get; }
 
 		public Order(long columnPosition, long rowPosition, Dictionary<int, int> productsInOrder, int index) : base(index)

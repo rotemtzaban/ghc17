@@ -6,13 +6,15 @@
         public int WarehouseId { get; }
         public int ProductId { get; }
         public int CountOfProducts { get; }
+        public int Time { get; set; }
 
-        public Load(int droneId, int warehouseId, int productId, int countOfProducts)
+        public Load(int droneId, int warehouseId, int productId, int countOfProducts, int time)
         {
             DroneId = droneId;
             WarehouseId = warehouseId;
             ProductId = productId;
             CountOfProducts = countOfProducts;
+            Time = time;
         }
 
         public override string ToString()
