@@ -18,13 +18,14 @@ namespace _2016_Qualification
             }
 
             ProblemOutput output = new ProblemOutput();
-            foreach (var order in OrderOrders(input.Orders))
+            foreach (var order in ScoreCalc.OrderOrders(input))
             {
                 foreach (var product in order.ProductsInOrder)
                 {
                     if (product.Value * input.Products[product.Key].Weight > input.MaxDrownLoad)
                     {
-                        throw new NotSupportedException();
+                        // throw new NotSupportedException();
+                        break;
                     }
 
                     Drone selectedDrone = null;
@@ -69,11 +70,6 @@ namespace _2016_Qualification
             }
 
             return output;
-        }
-
-        private List<Order> OrderOrders(List<Order> orders)
-        {
-            return orders.OrderBy(_ => _.ProductsInOrder.Count).ToList();
         }
     }
 }

@@ -8,14 +8,14 @@ namespace _2016_Qualification
 {
     public static class ScoreCalc
     {
-        public static double Calc(ProblemInput input, Drone drone, Order order)
+        public static List<Order> OrderOrders(ProblemInput input)
         {
-            //foreach (var item in input.NumberOfDrones)
-            //{
+            foreach (var item in input.Orders)
+            {
 
-            //}
+            }
 
-            return 0;
+            return input.Orders.OrderBy(_ => _.ProductsInOrder.Count).ToList();
         }
     }
 }
