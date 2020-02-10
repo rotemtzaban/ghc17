@@ -22,6 +22,11 @@ namespace _2016_Qualification
             {
                 foreach (var product in order.ProductsInOrder)
                 {
+                    if (product.Value * input.Products[product.Key].Weight > input.MaxDrownLoad)
+                    {
+                        throw new NotSupportedException();
+                    }
+
                     Drone selectedDrone = null;
                     Warehouse selectedWarehouse = null;
                     int minTime = int.MaxValue;
