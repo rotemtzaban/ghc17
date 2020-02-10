@@ -13,7 +13,7 @@ namespace _2016_Qualification
         static void Main(string[] args)
         {
             var runner = new Runner<ProblemInput, ProblemOutput>("2016_Qualification", new Parser(), new Solver(), new Printer(), new Calculator());
-            runner.Run("", "");
+            runner.Run(Resources.busy_day, "");
 
         }
     }
