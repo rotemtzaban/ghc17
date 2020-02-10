@@ -44,7 +44,9 @@ namespace HashCodeCommon
 
 			if (m_Calculator != null)
             {
-                m_Calculator.Calculate(GetInput(data), bestResults);
+                var score = m_Calculator.Calculate(GetInput(data), bestResults);
+                Console.WriteLine(caseName + " Score:" + score);
+                return score;
                 //ScoreChange score = ReplaceIfBetter(data, finalPath, newOutPath);
                 //PrintResults(caseName, score);
                 //return score.NewScore;

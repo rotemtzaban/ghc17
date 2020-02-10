@@ -9,7 +9,7 @@ namespace _2016_Qualification
 {
     public static class SolverHelper
     {
-        public static List<Order> OrderOrders(ProblemInput input, List<Drone> drones= null)
+        public static List<Order> OrderOrders(ProblemInput input, List<Drone> drones)
         {
             return input.Orders.OrderBy(order =>
             {
