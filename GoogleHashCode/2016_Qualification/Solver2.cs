@@ -55,7 +55,7 @@ namespace _2016_Qualification
             List<Load> loads = new List<Load>();
             List<Deliver> delivers = new List<Deliver>();
             
-            foreach (var productId in order.ProductsInOrder.Keys)
+            foreach (var productId in order.ProductsInOrder.Keys.ToList())
             {
                 var product = new KeyValuePair<int, int>(productId,order.ProductsInOrder[productId]);
                 var count = Math.Min(product.Value, warehouse.NumberOfItemsForProduct[product.Key]);
@@ -79,7 +79,7 @@ namespace _2016_Qualification
             {
                 var toOrder = (int)Math.Ceiling(drone.CurrentPosition.CalcEucledianDistance(order.Coordinate));
                 var endTime = drone.CurrentTime + toOrder + 1;
-                delivers.Add(new Deliver(drone.Index, order.Index, load.ProductId, load.ProductId,drone.CurrentTime, endTime));
+                delivers.Add(new Deliver(drone.Index, order.Index, load.ProductId, load.CountOfProducts,drone.CurrentTime, endTime));
                 drone.CurrentTime = endTime;
                 drone.CurrentPosition = order.Coordinate;
             }
