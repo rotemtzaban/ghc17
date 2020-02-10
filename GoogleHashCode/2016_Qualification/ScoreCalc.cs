@@ -23,8 +23,12 @@ namespace _2016_Qualification
             }).ToList();
         }
 
-        public static void CancelOrders(List<Drone> drones)
+        public static void CancelOrders(List<Drone> drones, ProblemOutput output)
         {
+            for (int i = 0; i < drones.Count; i++)
+            {
+
+            }
             return;
         }
     }

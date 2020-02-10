@@ -12,8 +12,14 @@ namespace _2016_Qualification
     {
         static void Main(string[] args)
         {
-            var runner = new Runner<ProblemInput, ProblemOutput>("2016_Qualification", new Parser(), new Solver(), new Printer(), new Calculator());
-            runner.Run(Resources.busy_day, "");
+            var runner1 = new Runner<ProblemInput, ProblemOutput>("2016_Qualification", new Parser(), new Solver(), new Printer(), new Calculator());
+            runner1.Run(Resources.busy_day, "");
+
+            var runner2 = new Runner<ProblemInput, ProblemOutput>("2016_Qualification", new Parser(), new Solver(), new Printer(), new Calculator());
+            runner2.Run(Resources.busy_day, "");
+
+            var runner3 = new Runner<ProblemInput, ProblemOutput>("2016_Qualification", new Parser(), new Solver(), new Printer(), new Calculator());
+            runner3.Run(Resources.busy_day, "");
 
         }
     }

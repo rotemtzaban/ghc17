@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace _2016_Qualification
 {
-    public class SecondSolver : SolverBase<ProblemInput, ProblemOutput>
+    public class Solver : SolverBase<ProblemInput, ProblemOutput>
     {
         protected override ProblemOutput Solve(ProblemInput input)
         {
@@ -54,7 +54,7 @@ namespace _2016_Qualification
 
                     if (selectedDrone == null)
                     {
-                        SolverHelper.CancelOrders(drones);
+                        SolverHelper.CancelOrders(drones, output);
                         break;
                     }
                     else
