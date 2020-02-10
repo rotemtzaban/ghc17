@@ -10,12 +10,17 @@ namespace _2016_Qualification
     {
         public static List<Order> OrderOrders(ProblemInput input)
         {
-            foreach (var item in input.Orders)
+            return input.Orders.OrderBy(order =>
             {
+                int numOfUsedDrones = 0;
+                foreach (var product in order.ProductsInOrder)
+                {
+                    double dronesForProducts = (product.Value * input.Products[product.Key].Weight) / 200;
+                    numOfUsedDrones += (int)Math.Ceiling(dronesForProducts);
+                }
 
-            }
-
-            return input.Orders.OrderBy(_ => _.ProductsInOrder.Count).ToList();
+                return numOfUsedDrones;
+            }).ToList();
         }
     }
 }
