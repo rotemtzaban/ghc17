@@ -43,10 +43,11 @@ namespace _2016_Qualification
             input.Orders = new List<Order>();
             for (int i = 0; i < input.NumOfOrders; i++)
             {
-                var location = reader.ReadLine().Split(' ');
-                var itemsPerProduct = reader.GetIntList().ToArray();
+                var location = reader.GetIntList().ToArray();
+                var numOfItems = Convert.ToInt32(reader.ReadLine());
+                var itemsIds = reader.GetIntList().GroupBy(x => x).ToDictionary(v => v.Key, v => v.Count());
 
-                input.Warehouses.Add(new Warehouse(Convert.ToInt32(location[1]), Convert.ToInt32(location[0]), itemsPerProduct, i));
+                input.Orders.Add(new Order(location[1], location[0], itemsIds, i));
             }
 
 
@@ -55,9 +56,8 @@ namespace _2016_Qualification
 
 
 
+            return input;
 
-
-            throw new NotImplementedException();
         }
     }
 }
