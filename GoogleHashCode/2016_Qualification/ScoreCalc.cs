@@ -10,10 +10,10 @@ namespace _2016_Qualification
     {
         public static double Calc(ProblemInput input, Drone drone, Order order)
         {
-            foreach (var item in input.)
-            {
+            //foreach (var item in input.NumberOfDrones)
+            //{
 
-            }
+            //}
 
             return 0;
         }

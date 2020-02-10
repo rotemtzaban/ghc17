@@ -21,8 +21,10 @@ namespace _2016_Qualification
             {
                 bool assignedTask = false;
 
-                foreach (var order in input.Orders)
+                foreach (var order in OrderOrders(input.Orders))
                 {
+                    bool orderFailed = false;
+
                     foreach (var product in order.ProductsInOrder)
                     {
                         for (int i = 0; i < order.ProductsInOrder.Count; i++)
@@ -30,12 +32,34 @@ namespace _2016_Qualification
                             if (order.ProductsInOrder[i] == 0)
                                 continue;
 
+                            Drone selectedDrone = null;
+                            Warehouse selectedWarehouse = null;
+                            int minTime = int.MaxValue;
                             foreach (var warehouse in input.Warehouses)
                             {
-                                if (warehouse.NumberOfItemsForProduct[(int)product] >= order.ProductsInOrder[(int)product))
-                                    foreach (var item2 in drones)
+                                if (warehouse.NumberOfItemsForProduct[(int)product] >= order.ProductsInOrder[(int)product])
+                                    foreach (var drone in drones)
                                     {
+                                        var time = drone.CurrentTime + 
+                                            Math.Ceiling(drone.CurrentPosition.CalcEucledianDistance(new MatrixCoordinate(0, 0))) + 1 +
+                                            Math.Ceiling(new MatrixCoordinate(0, 0).CalcEucledianDistance(new MatrixCoordinate(0,0))) + 1;
+
+                                        if (time < minTime)
+                                        {
+                                            minTime = (int)time;
+                                            selectedDrone = drone;
+                                            selectedWarehouse = warehouse;
+                                        }
                                     }
+                            }
+
+                            if (selectedDrone == null)
+                                break;
+                            else
+                            {
+                                var time = selectedDrone.CurrentTime +
+                                            Math.Ceiling(selectedDrone.CurrentPosition.CalcEucledianDistance(new MatrixCoordinate(0, 0))) + 1 +
+                                            Math.Ceiling(new MatrixCoordinate(0, 0).CalcEucledianDistance(new MatrixCoordinate(0, 0))) + 1;
                             }
                         }
                     }
@@ -43,6 +67,11 @@ namespace _2016_Qualification
             }
 
             return null;
+        }
+
+        private List<Order> OrderOrders(List<Order> orders)
+        {
+            return orders.OrderBy(_ => _.ProductsInOrder.Count(__ => __ != 0)).ToList();
         }
     }
 }
