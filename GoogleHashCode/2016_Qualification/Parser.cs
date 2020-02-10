@@ -19,14 +19,14 @@ namespace _2016_Qualification
             input.Columns = long.Parse(firstLineSplited[1]);
             input.NumberOfDrones = long.Parse(firstLineSplited[2]);
             input.NumberOfIterations = long.Parse(firstLineSplited[3]);
-            input.MaxDrownLoad = long.Parse(firstLineSplited[4]);
+            input.MaxDrownLoad = int.Parse(firstLineSplited[4]);
 
             input.NumOfProducts = Convert.ToInt32(reader.ReadLine());
 
             var thirdLineSplitted = reader.ReadLine().Split(' ');
             input.Products = new List<Products>();
             for (int i = 0; i < input.NumOfProducts; i++)
-                input.Products.Add(new Products(long.Parse(thirdLineSplitted[i]), i));
+                input.Products.Add(new Products(int.Parse(thirdLineSplitted[i]), i));
 
 
             input.NumOfWarehouses = Convert.ToInt32(reader.ReadLine());

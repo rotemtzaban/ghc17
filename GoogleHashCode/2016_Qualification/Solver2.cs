@@ -41,61 +41,7 @@ namespace _2016_Qualification
                         }
                     }
 
-                    HandleOrder(bestWarehouse, bestDrone, order, output);
-                }
-
-                foreach (var product in order.ProductsInOrder)
-                {
-                    if (product.Value * input.Products[product.Key].Weight > input.MaxDrownLoad)
-                    {
-                        // throw new NotSupportedException();
-                        break;
-                    }
-
-                    Drone selectedDrone = null;
-                    Warehouse selectedWarehouse = null;
-                    int minTime = int.MaxValue;
-
-
-
-                    foreach (var warehouse in input.Warehouses)
-                    {
-                        // TODO: Handle drone can't load all items
-                        if (warehouse.NumberOfItemsForProduct[product.Key] > product.Value)
-                            foreach (var drone in drones)
-                            {
-                                var time = drone.CurrentTime +
-                                    Math.Ceiling(drone.CurrentPosition.CalcEucledianDistance(warehouse.Coordinate)) + 1 +
-                                    Math.Ceiling(warehouse.Coordinate.CalcEucledianDistance(order.Coordinate)) + 1;
-
-                                if (time < minTime)
-                                {
-                                    minTime = (int)time;
-                                    selectedDrone = drone;
-                                    selectedWarehouse = warehouse;
-                                }
-                            }
-                    }
-
-                    if (selectedDrone == null)
-                    {
-                        SolverHelper.CancelOrders(drones);
-                        break;
-                    }
-                    else
-                    {
-                        var time = selectedDrone.CurrentTime +
-                                    Math.Ceiling(selectedDrone.CurrentPosition.CalcEucledianDistance(selectedWarehouse.Coordinate)) + 1 +
-                                    Math.Ceiling(selectedWarehouse.Coordinate.CalcEucledianDistance(order.Coordinate)) + 1;
-
-                        int firstOrderTime = selectedDrone.CurrentTime;
-                        int lastOrderTime = selectedDrone.CurrentTime - 1 - (int)Math.Ceiling(selectedWarehouse.Coordinate.CalcEucledianDistance(order.Coordinate));
-                        selectedDrone.CurrentTime += (int)time;
-                        selectedDrone.CurrentPosition = new MatrixCoordinate(0, 0);
-
-                        output.Add(new Deliver(selectedDrone.Index, order.Index, product.Key, product.Value, firstOrderTime, lastOrderTime));
-                        output.Add(new Unload(selectedDrone.Index, order.Index, product.Key, product.Value, lastOrderTime, selectedDrone.CurrentTime));
-                    }
+                    HandleOrder(bestWarehouse, bestDrone, order, input, output);
                 }
             }
 
@@ -105,25 +51,41 @@ namespace _2016_Qualification
         private void HandleOrder(Warehouse warehouse, Drone drone, Order order, ProblemInput input, ProblemOutput output)
         {
             var weight = 0;
-            var numberOfProducts = 0;
             
-            List<>
-
-            foreach (var product in order.ProductsInOrder)
+            List<Load> loads = new List<Load>();
+            List<Deliver> delivers = new List<Deliver>();
+            
+            foreach (var productId in order.ProductsInOrder.Keys)
             {
+                var product = new KeyValuePair<int, int>(productId,order.ProductsInOrder[productId]);
                 var count = Math.Min(product.Value, warehouse.NumberOfItemsForProduct[product.Key]);
                 count = Math.Min(count, (input.MaxDrownLoad - weight) / input.Products[product.Key].Weight);
                 weight += count * input.Products[product.Key].Weight;
-                if (count > 0)
-                {
-                    numberOfProducts++;
-                }
+
+                if (count == 0) continue;
+
+                var toWareHouse = (int)Math.Ceiling(drone.CurrentPosition.CalcEucledianDistance(warehouse.Coordinate));
+                var endTime = drone.CurrentTime + toWareHouse + 1;
+                loads.Add(new Load(drone.Index, warehouse.Index, product.Key, count, drone.CurrentTime,
+                    endTime, drone.CurrentPosition));
+
+                drone.CurrentTime = endTime;
+                drone.CurrentPosition = warehouse.Coordinate;
+                warehouse.NumberOfItemsForProduct[product.Key] -= count;
+                order.ProductsInOrder[product.Key] -= count;
             }
 
-            var denom = drone.CurrentPosition.CalcEucledianDistance(warehouse.Coordinate) +
-                        warehouse.Coordinate.CalcEucledianDistance(order.Coordinate) + drone.CurrentTime + numberOfProducts;
+            foreach (var load in loads)
+            {
+                var toOrder = (int)Math.Ceiling(drone.CurrentPosition.CalcEucledianDistance(order.Coordinate));
+                var endTime = drone.CurrentTime + toOrder + 1;
+                delivers.Add(new Deliver(drone.Index, order.Index, load.ProductId, load.ProductId,drone.CurrentTime, endTime));
+                drone.CurrentTime = endTime;
+                drone.CurrentPosition = order.Coordinate;
+            }
 
-            return weight / denom;
+            output.AddRange(loads);
+            output.AddRange(delivers);
         }
 
         private double GetScore(Order order, Warehouse warehouse, Drone drone, ProblemInput input)
@@ -149,7 +111,7 @@ namespace _2016_Qualification
 
         private static bool NotCompleted(Order order)
         {
-            return order.ProductsInOrder.Any(pair => pair.Value != 0)
+            return order.ProductsInOrder.Any(pair => pair.Value != 0);
         }
     }
 }
