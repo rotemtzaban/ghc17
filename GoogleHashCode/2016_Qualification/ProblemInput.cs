@@ -42,7 +42,12 @@ namespace _2016_Qualification
 			RowPosition = rowPosition;
 			ProductsInOrder = productsInOrder;
 		}
-	}
+
+        internal Order Clone()
+        {
+            return new Order(ColumnPosition, RowPosition, ProductsInOrder.ToDictionary(_ => _.Key, _ => _.Value), Index);
+        }
+    }
 
 	public class Warehouse : IndexedObject
 	{

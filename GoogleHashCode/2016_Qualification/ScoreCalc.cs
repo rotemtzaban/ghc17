@@ -16,18 +16,28 @@ namespace _2016_Qualification
 
         public static List<Order> OrderOrders(ProblemInput input, List<Drone> drones)
         {
-            return input.Orders.Where(NotCompleted).OrderBy(order =>
+            return input.Orders.Select(_ => _.Clone()).Where(NotCompleted).OrderBy(order =>
             {
-                var score = 0.0;
-                foreach (var warehouses in input.Warehouses)
+                Warehouse bestWarehouse = null;
+                Drone bestDrone = null;
+                var bestScore = double.MinValue;
+                foreach (var warehouse in input.Warehouses)
                 {
                     foreach (var drone in drones)
                     {
-                        score = Math.Max(score, GetScore(order, warehouses, drone, input));
+                        var score = GetScore(order, warehouse, drone, input);
+                        if (score > bestScore)
+                        {
+                            bestDrone = drone;
+                            bestWarehouse = warehouse;
+                            bestScore = score;
+                        }
                     }
                 }
 
-                return score;
+                // HandleOrder(bestWarehouse, bestDrone, order, input, output);
+
+                return bestScore;
                 //int numOfUsedDrones = 0;
                 //MatrixCoordinate coordinate = new MatrixCoordinate();
                 //foreach (var product in order.ProductsInOrder)
@@ -59,7 +69,7 @@ namespace _2016_Qualification
             var denom = drone.CurrentPosition.CalcEucledianDistance(warehouse.Coordinate) +
                         warehouse.Coordinate.CalcEucledianDistance(order.Coordinate) + drone.CurrentTime + numberOfProducts;
 
-            return weight / denom;
+            return denom;
         }
 
         public static void CancelOrders(List<Drone> drones, ProblemOutput output)
