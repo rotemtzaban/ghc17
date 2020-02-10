@@ -1,5 +1,26 @@
 ﻿namespace _2016_Qualification
 {
+    public class Load : ICommand
+    {
+        public int DroneId { get; }
+        public int WarehouseId { get; }
+        public int ProductId { get; }
+        public int CountOfProducts { get; }
+
+        public Load(int droneId, int warehouseId, int productId, int countOfProducts)
+        {
+            DroneId = droneId;
+            WarehouseId = warehouseId;
+            ProductId = productId;
+            CountOfProducts = countOfProducts;
+        }
+
+        public override string ToString()
+        {
+            return $"{DroneId} L {WarehouseId} {ProductId} {CountOfProducts}";
+        }
+    }
+
     public class Unload : ICommand
     {
         public int DroneId { get; }
