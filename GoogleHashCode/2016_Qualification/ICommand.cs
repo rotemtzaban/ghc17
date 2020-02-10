@@ -7,14 +7,16 @@
         public int ProductId { get; }
         public int CountOfProducts { get; }
         public int Time { get; set; }
+        public int EndTime { get; set; }
 
-        public Load(int droneId, int warehouseId, int productId, int countOfProducts, int time)
+        public Load(int droneId, int warehouseId, int productId, int countOfProducts, int time, int endTime)
         {
             DroneId = droneId;
             WarehouseId = warehouseId;
             ProductId = productId;
             CountOfProducts = countOfProducts;
             Time = time;
+            EndTime = endTime;
         }
 
         public override string ToString()
@@ -30,14 +32,16 @@
         public int ProductId { get; }
         public int CountOfProducts { get; }
         public int Time { get; set; }
+        public int EndTime { get; set; }
 
-        public Unload(int droneId, int warehouseId, int productId, int countOfProducts, int time)
+        public Unload(int droneId, int warehouseId, int productId, int countOfProducts, int time, int endTime)
         {
             DroneId = droneId;
             WarehouseId = warehouseId;
             ProductId = productId;
             CountOfProducts = countOfProducts;
             Time = time;
+            EndTime = endTime;
         }
 
         public override string ToString()
@@ -53,14 +57,16 @@
         public int ProductId { get; }
         public int CountOfProducts { get; }
         public int Time { get; set; }
+        public int EndTime { get; set; }
 
-        public Deliver(int droneId, int orderId, int productId, int countOfProducts, int time)
+        public Deliver(int droneId, int orderId, int productId, int countOfProducts, int time, int endTime)
         {
             DroneId = droneId;
             OrderId = orderId;
             ProductId = productId;
             CountOfProducts = countOfProducts;
             Time = time;
+            EndTime = endTime;
         }
 
         public override string ToString()
@@ -74,12 +80,15 @@
         public int DroneId { get; }
         public int NumberOfTurnsToWait { get; }
         public int Time { get; set; }
+        public int EndTime { get; set; }
 
         public Wait(int droneId, int numberOfTurnsToWait, int time)
         {
             DroneId = droneId;
             NumberOfTurnsToWait = numberOfTurnsToWait;
             Time = time;
+
+            EndTime = time + NumberOfTurnsToWait;
         }
 
         public override string ToString()
@@ -91,5 +100,6 @@
     public interface ICommand
     {
         int Time { get; set; }
+        int EndTime { get; set; }
     }
 }
