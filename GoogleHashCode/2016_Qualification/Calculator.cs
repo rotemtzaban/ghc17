@@ -23,11 +23,11 @@ namespace _2016_Qualification
                     
                     if (!OrderIdToMaxTry.ContainsKey(order.Index))
                     {
-                        OrderIdToMaxTry[order.Index] = deliver.EndTime;
+                        OrderIdToMaxTry[deliver.OrderId] = deliver.EndTime;
                     }
                     else
                     {
-                        OrderIdToMaxTry[order.Index] = Math.Max(deliver.EndTime, OrderIdToMaxTry[order.Index]);
+                        OrderIdToMaxTry[deliver.OrderId] = Math.Max(deliver.EndTime, OrderIdToMaxTry[deliver.OrderId]);
                     }
 
                     if (input.Orders[deliver.OrderId].ProductsInOrder[deliver.ProductId] - deliver.CountOfProducts == 0)
@@ -44,6 +44,7 @@ namespace _2016_Qualification
                     {
                         var currentScore = ((1.0 * input.NumberOfIterations - OrderIdToMaxTry[deliver.OrderId]) /
                                             input.NumberOfIterations) * 100.0;
+
                         score += (long) Math.Ceiling(currentScore);
                     }
                 }

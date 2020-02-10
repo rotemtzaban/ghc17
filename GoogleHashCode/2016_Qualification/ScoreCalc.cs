@@ -9,21 +9,52 @@ namespace _2016_Qualification
 {
     public static class SolverHelper
     {
-        public static List<Order> OrderOrders(ProblemInput input)
+        public static List<Order> OrderOrders(ProblemInput input, List<Drone> drones= null)
         {
             return input.Orders.OrderBy(order =>
             {
-                int numOfUsedDrones = 0;
-                MatrixCoordinate coordinate = new MatrixCoordinate();
-                foreach (var product in order.ProductsInOrder)
+                var score = 0.0;
+                foreach (var warehouses in input.Warehouses)
                 {
-                    double dronesForProducts = (product.Value * input.Products[product.Key].Weight) / input.MaxDrownLoad;
-                    numOfUsedDrones += (int)Math.Ceiling(dronesForProducts);
-                    coordinate.CalcEucledianDistance(order.Coordinate);
+                    foreach (var drone in drones)
+                    {
+                        score = Math.Max(score, GetScore(order, warehouses, drone, input));
+                    }
                 }
 
-                return numOfUsedDrones;
+                return score;
+                //int numOfUsedDrones = 0;
+                //MatrixCoordinate coordinate = new MatrixCoordinate();
+                //foreach (var product in order.ProductsInOrder)
+                //{
+                //    double dronesForProducts = (product.Value * input.Products[product.Key].Weight) / input.MaxDrownLoad;
+                //    numOfUsedDrones += (int)Math.Ceiling(dronesForProducts);
+                //    coordinate.CalcEucledianDistance(order.Coordinate);
+                //}
+
+                //return numOfUsedDrones;
             }).ToList();
+        }
+
+        public static double GetScore(Order order, Warehouse warehouse, Drone drone, ProblemInput input)
+        {
+            var weight = 0;
+            var numberOfProducts = 0;
+            foreach (var product in order.ProductsInOrder)
+            {
+                var count = Math.Min(product.Value, warehouse.NumberOfItemsForProduct[product.Key]);
+                count = Math.Min(count, (input.MaxDrownLoad - weight) / input.Products[product.Key].Weight);
+                weight += count * input.Products[product.Key].Weight;
+                if (count > 0)
+                {
+                    numberOfProducts++;
+                }
+            }
+
+            var denom = drone.CurrentPosition.CalcEucledianDistance(warehouse.Coordinate) +
+                        warehouse.Coordinate.CalcEucledianDistance(order.Coordinate) + drone.CurrentTime + numberOfProducts;
+
+            return weight / denom;
         }
 
         public static void CancelOrders(List<Drone> drones, ProblemOutput output)
