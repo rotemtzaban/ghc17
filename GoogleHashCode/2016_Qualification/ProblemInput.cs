@@ -25,8 +25,15 @@ namespace _2016_Qualification
 
     public class Order: IndexedObject
     {
-        public Order(int index) : base(index)
+        public long ColumnPosition { get; }
+        public long RowPosition { get; }
+        public List<long> ProductsInOrder { get; }
+
+        public Order(long columnPosition, long rowPosition, List<long> productsInOrder,int index) : base(index)
         {
+            ColumnPosition = columnPosition;
+            RowPosition = rowPosition;
+            ProductsInOrder = productsInOrder;
         }
     }
 
