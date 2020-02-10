@@ -47,7 +47,9 @@ namespace _2016_Qualification
                 var numOfItems = Convert.ToInt32(reader.ReadLine());
                 var itemsIds = reader.GetIntList().GroupBy(x => x).ToDictionary(v => v.Key, v => v.Count());
 
-                input.Orders.Add(new Order(location[1], location[0], itemsIds, i));
+                Order order = new Order(location[1], location[0], itemsIds, i);
+                input.Orders.Add(order);
+                order.Coordinate = new MatrixCoordinate((int)order.RowPosition, (int)order.ColumnPosition);
             }
 
 

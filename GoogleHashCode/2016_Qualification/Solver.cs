@@ -62,8 +62,8 @@ namespace _2016_Qualification
                         selectedDrone.CurrentTime += (int)time;
                         selectedDrone.CurrentPosition = new MatrixCoordinate(0, 0);
 
-                        output.Add(new Deliver(selectedDrone.Index, order.Index, product.Key, product.Value, firstOrderTime));
-                        output.Add(new Unload(selectedDrone.Index, order.Index, product.Key, product.Value, lastOrderTime));
+                        output.Add(new Deliver(selectedDrone.Index, order.Index, product.Key, product.Value, firstOrderTime, lastOrderTime));
+                        output.Add(new Unload(selectedDrone.Index, order.Index, product.Key, product.Value, lastOrderTime, selectedDrone.CurrentTime));
                     }
                 }
             }
