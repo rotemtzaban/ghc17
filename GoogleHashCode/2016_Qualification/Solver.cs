@@ -17,14 +17,14 @@ namespace _2016_Qualification
                 drones.Add(new Drone(i));
             }
 
+            ProblemOutput output = new ProblemOutput();
+
             while (true)
             {
                 bool assignedTask = false;
 
                 foreach (var order in OrderOrders(input.Orders))
                 {
-                    bool orderFailed = false;
-
                     foreach (var product in order.ProductsInOrder)
                     {
                         for (int i = 0; i < order.ProductsInOrder.Count; i++)
@@ -37,6 +37,7 @@ namespace _2016_Qualification
                             int minTime = int.MaxValue;
                             foreach (var warehouse in input.Warehouses)
                             {
+                                // TODO: Handle drone can't load all items
                                 if (warehouse.NumberOfItemsForProduct[(int)product] >= order.ProductsInOrder[(int)product])
                                     foreach (var drone in drones)
                                     {
@@ -60,6 +61,14 @@ namespace _2016_Qualification
                                 var time = selectedDrone.CurrentTime +
                                             Math.Ceiling(selectedDrone.CurrentPosition.CalcEucledianDistance(new MatrixCoordinate(0, 0))) + 1 +
                                             Math.Ceiling(new MatrixCoordinate(0, 0).CalcEucledianDistance(new MatrixCoordinate(0, 0))) + 1;
+
+                                int firstOrderTime = selectedDrone.CurrentTime;
+                                int lastOrderTime = selectedDrone.CurrentTime - 1 - (int)Math.Ceiling(new MatrixCoordinate(0, 0).CalcEucledianDistance(new MatrixCoordinate(0, 0)));
+                                selectedDrone.CurrentTime += (int)time;
+                                selectedDrone.CurrentPosition = new MatrixCoordinate(0, 0);
+
+                                output.Add(new Deliver(selectedDrone.Index, order.Index, (int)product, (int)order.ProductsInOrder[(int)product], firstOrderTime));
+                                output.Add(new Unload(selectedDrone.Index, order.Index, (int)product, (int)order.ProductsInOrder[(int)product], lastOrderTime));
                             }
                         }
                     }

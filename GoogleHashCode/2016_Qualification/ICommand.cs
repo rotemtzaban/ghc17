@@ -6,13 +6,15 @@
         public int WarehouseId { get; }
         public int ProductId { get; }
         public int CountOfProducts { get; }
+        public int Time { get; set; }
 
-        public Unload(int droneId, int warehouseId, int productId, int countOfProducts)
+        public Unload(int droneId, int warehouseId, int productId, int countOfProducts, int time)
         {
             DroneId = droneId;
             WarehouseId = warehouseId;
             ProductId = productId;
             CountOfProducts = countOfProducts;
+            Time = time;
         }
 
         public override string ToString()
@@ -27,13 +29,15 @@
         public int OrderId { get; }
         public int ProductId { get; }
         public int CountOfProducts { get; }
+        public int Time { get; set; }
 
-        public Deliver(int droneId, int orderId, int productId, int countOfProducts)
+        public Deliver(int droneId, int orderId, int productId, int countOfProducts, int time)
         {
             DroneId = droneId;
             OrderId = orderId;
             ProductId = productId;
             CountOfProducts = countOfProducts;
+            Time = time;
         }
 
         public override string ToString()
@@ -46,11 +50,13 @@
     {
         public int DroneId { get; }
         public int NumberOfTurnsToWait { get; }
+        public int Time { get; set; }
 
-        public Wait(int droneId, int numberOfTurnsToWait)
+        public Wait(int droneId, int numberOfTurnsToWait, int time)
         {
             DroneId = droneId;
             NumberOfTurnsToWait = numberOfTurnsToWait;
+            Time = time;
         }
 
         public override string ToString()
@@ -61,5 +67,6 @@
 
     public interface ICommand
     {
+        int Time { get; set; }
     }
 }
