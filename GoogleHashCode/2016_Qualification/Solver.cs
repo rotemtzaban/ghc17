@@ -18,7 +18,7 @@ namespace _2016_Qualification
             }
 
             ProblemOutput output = new ProblemOutput();
-            foreach (var order in SolverHelper.OrderOrders(input))
+            foreach (var order in SolverHelper.OrderOrders(input, drones))
             {
                 List<Drone> usedDrones = new List<Drone>();
 

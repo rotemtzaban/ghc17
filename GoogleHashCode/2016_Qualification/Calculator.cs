@@ -42,6 +42,11 @@ namespace _2016_Qualification
 
                     if (!input.Orders[deliver.OrderId].ProductsInOrder.Any())
                     {
+                        if (OrderIdToMaxTry[deliver.OrderId] > input.NumberOfIterations)
+                        {
+                            continue;
+                        }
+
                         var currentScore = ((1.0 * input.NumberOfIterations - OrderIdToMaxTry[deliver.OrderId]) /
                                             input.NumberOfIterations) * 100.0;
 

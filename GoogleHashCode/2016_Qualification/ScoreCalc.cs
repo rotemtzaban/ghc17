@@ -9,14 +9,9 @@ namespace _2016_Qualification
 {
     public static class SolverHelper
     {
-        private static bool NotCompleted(Order order)
+        public static List<Order> OrderOrders(ProblemInput input, List<Drone> drones)
         {
-            return order.ProductsInOrder.Any(pair => pair.Value != 0);
-        }
-
-        public static List<Order> OrderOrders(ProblemInput input, List<Drone> drones= null)
-        {
-            return input.Orders.Where(NotCompleted).OrderBy(order =>
+            return input.Orders.OrderBy(order =>
             {
                 var score = 0.0;
                 foreach (var warehouses in input.Warehouses)
