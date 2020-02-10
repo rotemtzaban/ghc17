@@ -60,6 +60,7 @@
     <Compile Include="ScoreCalc.cs" />
     <Compile Include="SecondSolver.cs" />
     <Compile Include="Solver.cs" />
+    <Compile Include="Solver2.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

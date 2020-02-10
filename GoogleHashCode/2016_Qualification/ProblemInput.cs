@@ -13,7 +13,7 @@ namespace _2016_Qualification
 		public long Columns { get; set; }
 		public long NumberOfDrones { get; set; }
 		public long NumberOfIterations { get; set; }
-		public long MaxDrownLoad { get; set; }
+		public int MaxDrownLoad { get; set; }
 		public int NumOfProducts { get; set; }
 		public int NumOfWarehouses { get; set; }
 		public int NumOfOrders { get; set; }
@@ -58,8 +58,8 @@ namespace _2016_Qualification
 
 	public class Products : IndexedObject
 	{
-		public long Weight { get; set; }
-		public Products(long weight, int index) : base(index)
+		public int Weight { get; set; }
+		public Products(int weight, int index) : base(index)
 		{
 			Weight = weight;
 		}
