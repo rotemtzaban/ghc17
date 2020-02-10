@@ -13,6 +13,7 @@ namespace _2016_Qualification
         public Dictionary<int, int> OrderIdToMaxTry = new Dictionary<int, int>();
         public override long Calculate(ProblemInput input, ProblemOutput output)
         {
+            long score = 0;
             foreach (var command in output)
             {
                 if (command is Deliver)
@@ -20,26 +21,34 @@ namespace _2016_Qualification
                     Deliver deliver = (Deliver) command;
                     Order order = input.Orders[deliver.OrderId];
                     
-                    //int 
                     if (!OrderIdToMaxTry.ContainsKey(order.Index))
                     {
-                        //CommandTurn
-                        OrderIdToMaxTry[order.Index] = 0;//deliver.
-                    }
-
-                    if (order.ProductsInOrder[deliver.ProductId] - deliver.CountOfProducts == 0)
-                    {
-                        order.ProductsInOrder.Remove(deliver.ProductId);
+                        OrderIdToMaxTry[order.Index] = deliver.EndTime;
                     }
                     else
                     {
-                        order.ProductsInOrder[deliver.ProductId] =
-                            order.ProductsInOrder[deliver.ProductId] - deliver.CountOfProducts;
+                        OrderIdToMaxTry[order.Index] = Math.Max(deliver.EndTime, OrderIdToMaxTry[order.Index]);
+                    }
+
+                    if (input.Orders[deliver.OrderId].ProductsInOrder[deliver.ProductId] - deliver.CountOfProducts == 0)
+                    {
+                        input.Orders[deliver.OrderId].ProductsInOrder.Remove(deliver.ProductId);
+                    }
+                    else
+                    {
+                        input.Orders[deliver.OrderId].ProductsInOrder[deliver.ProductId] =
+                            input.Orders[deliver.OrderId].ProductsInOrder[deliver.ProductId] - deliver.CountOfProducts;
+                    }
+
+                    if (!input.Orders[deliver.OrderId].ProductsInOrder.Any())
+                    {
+                        score += (long) Math.Floor((float)((input.NumberOfIterations - OrderIdToMaxTry[order.Index])/input.NumberOfIterations)*100);
+                        input.Orders.RemoveAt(deliver.OrderId);
                     }
                 }
             }
 
-            return 0;
+            return score;
         }
 
 
