@@ -12,6 +12,13 @@ namespace _2016_Qualification
     {
         public override long Calculate(ProblemInput input, ProblemOutput output)
         {
+            foreach (var command in output)
+            {
+                if (command is Load)
+                {
+
+                }
+            }
 
             return 0;
         }

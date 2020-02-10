@@ -33,9 +33,9 @@ namespace _2016_Qualification
 	{
 		public long ColumnPosition { get; }
 		public long RowPosition { get; }
-		public List<long> ProductsInOrder { get; }
+		public Dictionary<int, int> ProductsInOrder { get; }
 
-		public Order(long columnPosition, long rowPosition, List<long> productsInOrder, int index) : base(index)
+		public Order(long columnPosition, long rowPosition, Dictionary<int, int> productsInOrder, int index) : base(index)
 		{
 			ColumnPosition = columnPosition;
 			RowPosition = rowPosition;
