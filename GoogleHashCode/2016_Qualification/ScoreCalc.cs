@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HashCodeCommon;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,10 +14,12 @@ namespace _2016_Qualification
             return input.Orders.OrderBy(order =>
             {
                 int numOfUsedDrones = 0;
+                MatrixCoordinate coordinate = new MatrixCoordinate();
                 foreach (var product in order.ProductsInOrder)
                 {
                     double dronesForProducts = (product.Value * input.Products[product.Key].Weight) / 200;
                     numOfUsedDrones += (int)Math.Ceiling(dronesForProducts);
+                    coordinate.CalcEucledianDistance(order.Coordinate);
                 }
 
                 return numOfUsedDrones;
