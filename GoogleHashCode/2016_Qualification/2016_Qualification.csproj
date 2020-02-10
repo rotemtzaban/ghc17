@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Calculator.cs" />
     <Compile Include="Drone.cs" />
+    <Compile Include="ICommand.cs" />
     <Compile Include="Parser.cs" />
     <Compile Include="Printer.cs" />
     <Compile Include="ProblemInput.cs" />
