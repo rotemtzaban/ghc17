@@ -76,7 +76,6 @@ namespace _2016_Qualification
         {
             if (drones.Count != 0)
             {
-                Console.WriteLine(drones.Count);
                 return;
             }
 

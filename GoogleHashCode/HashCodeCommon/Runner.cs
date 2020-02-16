@@ -9,20 +9,20 @@ using System.Threading.Tasks;
 
 namespace HashCodeCommon
 {
-	public class Runner<TInput, TOutput>
-	{
-		private IParser<TInput> m_Parser;
-		private ISolver<TInput, TOutput> m_Solver;
-		private IPrinter<TOutput> m_Printer;
-		private IScoreCalculator<TInput, TOutput> m_Calculator;
+    public class Runner<TInput, TOutput>
+    {
+        private IParser<TInput> m_Parser;
+        private ISolver<TInput, TOutput> m_Solver;
+        private IPrinter<TOutput> m_Printer;
+        private IScoreCalculator<TInput, TOutput> m_Calculator;
         private string m_OutputDirectory;
 
-		public Runner(string outputDirectoryName, ParserBase<TInput> parser, SolverBase<TInput, TOutput> solver, PrinterBase<TOutput> printer, ScoreCalculatorBase<TInput, TOutput> calculator = null)
-		{
-			m_Parser = parser;
-			m_Solver = solver;
-			m_Printer = printer;
-			m_Calculator = calculator;
+        public Runner(string outputDirectoryName, ParserBase<TInput> parser, SolverBase<TInput, TOutput> solver, PrinterBase<TOutput> printer, ScoreCalculatorBase<TInput, TOutput> calculator = null)
+        {
+            m_Parser = parser;
+            m_Solver = solver;
+            m_Printer = printer;
+            m_Calculator = calculator;
             var solutionPath = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location))));
             m_OutputDirectory = Path.Combine(solutionPath, "Output", outputDirectoryName);
 
@@ -30,23 +30,24 @@ namespace HashCodeCommon
         }
 
         public long Run(string data, string caseName, int numberOfAttempts = 1, bool printResults = true)
-		{
+        {
             TOutput bestResults = GetBestResult(numberOfAttempts, data, caseName);
 
-			string newOutPath = Path.Combine(m_OutputDirectory, caseName + ".new.out");
-			string finalPath = Path.Combine(m_OutputDirectory, caseName + ".out");
+            string newOutPath = Path.Combine(m_OutputDirectory, caseName + ".new.out");
+            string finalPath = Path.Combine(m_OutputDirectory, caseName + ".out");
+            string bestScorePath = Path.Combine(m_OutputDirectory, caseName + ".bestScore");
 
-			m_Printer.PrintToFile(bestResults, newOutPath);
-			if (printResults)
-			{
-				m_Printer.PrintToConsole(bestResults);
-			}
-
-			if (m_Calculator != null)
+            m_Printer.PrintToFile(bestResults, newOutPath);
+            if (printResults)
             {
-                var score = m_Calculator.Calculate(GetInput(data), bestResults);
-                Console.WriteLine(caseName + " Score:" + score);
-                return score;
+                m_Printer.PrintToConsole(bestResults);
+            }
+
+            if (m_Calculator != null)
+            {
+                ScoreChange score = ReplaceIfBetter(bestResults, data, bestScorePath, finalPath, newOutPath);
+                PrintResults(caseName, score);
+                return score.NewScore;
                 //ScoreChange score = ReplaceIfBetter(data, finalPath, newOutPath);
                 //PrintResults(caseName, score);
                 //return score.NewScore;
@@ -57,38 +58,38 @@ namespace HashCodeCommon
             }
 
             return 0;
-		}
+        }
 
         public TInput GetInput(string data)
         {
             return m_Parser.ParseFromData(data);
         }
 
-		private void PrintResults(string caseName, ScoreChange scoreChange)
-		{
-			if (scoreChange.Improvment < 0)
-			{
-				WriteLineToConsoleInColor(caseName + ": new was worse: "+scoreChange.NewScore +". decrease by " + scoreChange.Improvment, ConsoleColor.Red);
-			}
-			else if (scoreChange.Improvment == 0)
-			{
-				WriteLineToConsoleInColor(caseName + ": new was the same as last: " + scoreChange.NewScore, ConsoleColor.Yellow);
-			}
-			else
-			{
-				WriteLineToConsoleInColor(caseName + " new was better: " + scoreChange.NewScore + ". improve by " + scoreChange.Improvment, ConsoleColor.Green);
-			}
-		}
+        private void PrintResults(string caseName, ScoreChange scoreChange)
+        {
+            if (scoreChange.Improvment < 0)
+            {
+                WriteLineToConsoleInColor(caseName + ": new was worse: " + scoreChange.NewScore + ". decrease by " + scoreChange.Improvment, ConsoleColor.Red);
+            }
+            else if (scoreChange.Improvment == 0)
+            {
+                WriteLineToConsoleInColor(caseName + ": new was the same as last: " + scoreChange.NewScore, ConsoleColor.Yellow);
+            }
+            else
+            {
+                WriteLineToConsoleInColor(caseName + " new was better: " + scoreChange.NewScore + ". improve by " + scoreChange.Improvment, ConsoleColor.Green);
+            }
+        }
 
-		private void WriteLineToConsoleInColor(string line, ConsoleColor color)
-		{
-			ConsoleColor oldColor = Console.ForegroundColor;
-			Console.ForegroundColor = color;
-			Console.WriteLine(line);
-			Console.ForegroundColor = oldColor;
-		}
+        private void WriteLineToConsoleInColor(string line, ConsoleColor color)
+        {
+            ConsoleColor oldColor = Console.ForegroundColor;
+            Console.ForegroundColor = color;
+            Console.WriteLine(line);
+            Console.ForegroundColor = oldColor;
+        }
 
-		private TOutput GetBestResult(int numberOfAttempts, string data, string caseName)
+        private TOutput GetBestResult(int numberOfAttempts, string data, string caseName)
         {
             if (numberOfAttempts == 1)
             {
@@ -143,23 +144,70 @@ namespace HashCodeCommon
                 }
             }
 
-            File.WriteAllText(seedsFile, bestSeedOfAllTimes.ToString()); 
+            File.WriteAllText(seedsFile, bestSeedOfAllTimes.ToString());
 
             return bestResultOfAllTimes;
         }
 
+        private ScoreChange ReplaceIfBetter(TOutput output, string data, string bestScorePath, string finalPath, string newPath)
+        {
+            if (!File.Exists(newPath))
+                throw new ArgumentException("output file wasn't created - " + newPath, "newPath");
+
+            if (!File.Exists(bestScorePath))
+            {
+                File.Create(bestScorePath).Dispose();
+            }
+
+            if (!File.Exists(finalPath))
+            {
+                File.Move(newPath, finalPath);
+                return new ScoreChange(m_Calculator.Calculate(GetInput(data), output));
+            }
+
+            long newCalc = m_Calculator.Calculate(GetInput(data), output);
+            long bestScore = GetBestScore(bestScorePath);
+            if (newCalc > bestScore)
+            {
+                File.Delete(finalPath);
+                File.Move(newPath, finalPath);
+                UpdateBestScore(bestScorePath, newCalc);
+            }
+            return new ScoreChange(newCalc, newCalc - bestScore);
+        }
+
+        private void UpdateBestScore(string bestScorePath, long bestScore)
+        {
+            using (TextWriter tw = new StreamWriter(bestScorePath, false))
+            {
+                tw.WriteLine(bestScore);
+            }
+        }
+
+        private long GetBestScore(string bestScorePath)
+        {
+            if (!File.Exists(bestScorePath)) return 0;
+
+            using (TextReader tr = new StreamReader(bestScorePath))
+            {
+                var bestScore = tr.ReadLine();
+                long.TryParse(bestScore, out var bestScoreLong);
+                return bestScoreLong;
+            }
+        }
+
         private ScoreChange ReplaceIfBetter(string data, string finalPath, string newPath)
-		{
-			if (!File.Exists(newPath))
-				throw new ArgumentException("output file wasn't created - " + newPath, "newPath");
+        {
+            if (!File.Exists(newPath))
+                throw new ArgumentException("output file wasn't created - " + newPath, "newPath");
 
-			if (!File.Exists(finalPath))
-			{
-				File.Move(newPath, finalPath);
-				return new ScoreChange(m_Calculator.Calculate(GetInput(data), finalPath));
-			}
+            if (!File.Exists(finalPath))
+            {
+                File.Move(newPath, finalPath);
+                return new ScoreChange(m_Calculator.Calculate(GetInput(data), finalPath));
+            }
 
-			long newCalc = m_Calculator.Calculate(GetInput(data), newPath);
+            long newCalc = m_Calculator.Calculate(GetInput(data), newPath);
             try
             {
                 long finalCalc = m_Calculator.Calculate(GetInput(data), finalPath);
@@ -177,7 +225,7 @@ namespace HashCodeCommon
                 File.Move(newPath, finalPath);
                 return new ScoreChange(newCalc);
             }
-		}
+        }
 
         public class ScoreChange
         {
