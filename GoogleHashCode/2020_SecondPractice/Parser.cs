@@ -38,6 +38,11 @@ namespace _2020_SecondPractice
                 input.Servers.Add(server);
             }
 
+            input.Pools = new List<PoolDetails>();
+            for (int i = 0; i < input.NumOfPools; i++)
+            {
+                input.Pools[i] = new PoolDetails(i, input.NumOfRows);
+            }
             //var v = input.Servers.GroupBy(_ => _.Size).ToList();
             //foreach (var item in v.OrderBy(_ => _.Key))
             //{
