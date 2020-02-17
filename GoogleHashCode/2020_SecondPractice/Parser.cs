@@ -38,6 +38,15 @@ namespace _2020_SecondPractice
                 input.Servers.Add(server);
             }
 
+            //var v = input.Servers.GroupBy(_ => _.Size).ToList();
+            //foreach (var item in v.OrderBy(_ => _.Key))
+            //{
+            //    foreach (var item2 in item.GroupBy(_ => _.Capacity).OrderBy( _ => _.Key))
+            //    {
+            //        Console.WriteLine(item.Key + "," + item2.Key + "," + item2.Count());
+            //    }
+            //}
+
             return input;
         }
     }
