@@ -1,4 +1,5 @@
-﻿using HashCodeCommon;
+﻿using _2020_Qualification.Properties;
+using HashCodeCommon;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace _2020_Qualification
             Calculator calculator = null;
 
             var runner1 = new Runner<ProblemInput, ProblemOutput>("2020_Qualification", new Parser(), new Solver(), new Printer(), calculator);
+            runner1.Run(Resources.Example, "Example");
             // runner1.Run(Resources.busy_day, "busy_day");
 
             var runner2 = new Runner<ProblemInput, ProblemOutput>("2020_Qualification", new Parser(), new Solver(), new Printer(), calculator);

@@ -57,6 +57,8 @@
     </Compile>
     <Compile Include="Server.cs" />
     <Compile Include="Solver.cs" />
+    <Compile Include="Solver2.cs" />
+    <Compile Include="Solver3.cs" />
     <Compile Include="SolverHelper.cs" />
   </ItemGroup>
   <ItemGroup>
