@@ -25,10 +25,11 @@ namespace _2020_SecondPractice
                 AddServer(input, output, rows, server);
             }
 
-            foreach (var item in output.Servers)
+            foreach (var server in output.Servers)
             {
-                var worstPool = SolverHelper.GetPoolsGC(input, output);
-                item.PoolAssigned = worstPool[0].Index;
+                var worstPool = input.Pools.OrderBy(_ => _.Capacity).First();
+                worstPool.AddServerToPool(server);
+                server.PoolAssigned = worstPool.Index;
             }
 
             // SolverHelper.ImproveWorstPoolWorstRow(input, output);
