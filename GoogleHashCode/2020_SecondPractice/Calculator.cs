@@ -17,6 +17,11 @@ namespace _2020_SecondPractice
                 input.Pools[server.PoolAssigned.Value].AddServerToPool(server);
             }
 
+            foreach (var item in input.Pools.OrderBy(_ => _.GuaranteedCapacity))
+            {
+                Console.WriteLine($"{item.Index} : {item.GuaranteedCapacity}");
+            }
+
             return input.Pools.Min(_ => _.GuaranteedCapacity);
         }
 
