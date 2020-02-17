@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29728.190
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.902
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HashCodeCommon", "HashCodeCommon\HashCodeCommon.csproj", "{FE988848-3527-4FDE-A140-65CE69E2F181}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2019_Qualification", "2019_Qualification\2019_Qualification.csproj", "{0480ED21-CEDE-464A-B9F7-8C35CD696889}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2016_Qualification", "2016_Qualification\2016_Qualification.csproj", "{00E8E36E-5663-4A59-81A9-93C65BAE1A1B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2020_SecondPractice", "2020_SecondPractice\2020_SecondPractice.csproj", "{600E3E29-7BA7-4B89-B457-429BD1B2AD3F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{00E8E36E-5663-4A59-81A9-93C65BAE1A1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{00E8E36E-5663-4A59-81A9-93C65BAE1A1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{00E8E36E-5663-4A59-81A9-93C65BAE1A1B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{600E3E29-7BA7-4B89-B457-429BD1B2AD3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{600E3E29-7BA7-4B89-B457-429BD1B2AD3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{600E3E29-7BA7-4B89-B457-429BD1B2AD3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{600E3E29-7BA7-4B89-B457-429BD1B2AD3F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
