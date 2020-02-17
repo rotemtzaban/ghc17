@@ -37,18 +37,31 @@ namespace _2020_SecondPractice
             for (int i = 0; i < input.NumOfPools; i++)
             {
                 poolDetails[i] = new PoolDetails(i);
-                if (!poolToCapacity.ContainsKey(i)){
+                if (!poolToCapacity.ContainsKey(i))
+                {
+                    poolDetails[i].WorstRow = -1;
                     poolDetails[i].GuaranteedCapacity = 0;
                     continue;
                 }
 
                 long minGcPool = poolToCapacity[i];
+                long bestRowForPool = long.MinValue;
                 for (int j = 0; j < input.NumOfRows; j++)
                 {
-                    long currentRowDownGc = rowToServers.ContainsKey(j)
-                        ? poolToCapacity[i] - rowToServers[j].Sum(_ => input.Servers[_].Capacity)
-                        : poolToCapacity[i];
-                    minGcPool = Math.Min(minGcPool, currentRowDownGc);
+                    long rowForPool = rowToServers.ContainsKey(j)
+                        ? rowToServers[j].Sum(_ => input.Servers[_].Capacity)
+                        : 0;
+                    long currentRowDownGc = poolToCapacity[i] - rowForPool;
+
+                    if (bestRowForPool < rowForPool)
+                    {
+                        bestRowForPool = rowForPool;
+                        poolDetails[i].BestRow = j;
+                    }
+
+                    if (currentRowDownGc >= minGcPool) continue;
+                    minGcPool = currentRowDownGc;
+                    poolDetails[i].WorstRow = j;
                 }
 
                 poolDetails[i].GuaranteedCapacity = minGcPool;
@@ -65,6 +78,8 @@ namespace _2020_SecondPractice
         {
         }
 
+        public int WorstRow { get; set; }
+        public int BestRow { get; set; }
         public long GuaranteedCapacity { get; set; }
     }
 }
