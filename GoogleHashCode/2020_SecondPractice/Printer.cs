@@ -20,7 +20,7 @@ namespace _2020_SecondPractice
                 }
                 else
                 {
-                    Console.WriteLine($"{server.Index} {server.Row} {server.PoolAssigned}");
+                    Console.WriteLine($"{server.Index} {server.Row} {server.SlotInRow}");
                 }
             }
         }
@@ -37,7 +37,7 @@ namespace _2020_SecondPractice
                     }
                     else
                     {
-                        writer.WriteLine($"{server.Index} {server.Row} {server.PoolAssigned}");
+                        writer.WriteLine($"{server.Index} {server.Row} {server.SlotInRow}");
                     }
                 }
             }
