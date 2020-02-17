@@ -77,7 +77,7 @@ namespace _2020_SecondPractice
         
         private List<Server> orderServers(List<Server> servers)
         {
-            return servers.OrderByDescending(server => server.Capacity / server.Size)
+            return servers.OrderByDescending(server => Math.Pow(server.Capacity, 1.5) / server.Size)
                 .ThenByDescending(server => server.Size)
                 .ToList();
         }
