@@ -29,9 +29,6 @@ namespace _2020_SecondPractice
             {
                 foreach (PoolDetails goodPool in input.Pools.OrderByDescending(_ => _.GuaranteedCapacity).ToList())
                 {
-                    if (goodPool.GuaranteedCapacity == worst)
-                        return false;
-
                     for (int j = 0; j < input.NumOfRows; j++)
                     {
                         foreach (var server1 in goodPool.Servers.Where(_ => _.Row == j).ToList())
@@ -140,6 +137,7 @@ namespace _2020_SecondPractice
         {
             _GuaranteedCapacity = Capacity;
             long bestRowForPool = long.MinValue;
+            long worstRowForPool = long.MaxValue;
             for (int i = 0; i < RowsCapacity.Count(); i++)
             {
                 long currentRowDownGc = Capacity - RowsCapacity[i];
@@ -150,9 +148,14 @@ namespace _2020_SecondPractice
                     _BestRow = i;
                 }
 
+                if (worstRowForPool > RowsCapacity[i])
+                {
+                    worstRowForPool = RowsCapacity[i];
+                   _WorstRow = i;
+                }
+
                 if (currentRowDownGc >= _GuaranteedCapacity) continue;
                 _GuaranteedCapacity = currentRowDownGc;
-                _WorstRow = i;
             }
 
             isAllUpdated = true;
