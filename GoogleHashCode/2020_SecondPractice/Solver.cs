@@ -11,7 +11,7 @@ namespace _2020_SecondPractice
     {
         protected override ProblemOutput Solve(ProblemInput input)
         {
-            PrintDc(input);
+            // PrintDc(input);
             var rows = new List<List<Server>>();
             for (var i=0; i < input.NumOfRows; i++)
                 rows.Add(new List<Server>());
@@ -39,11 +39,11 @@ namespace _2020_SecondPractice
                 }
             }
 
-            Console.WriteLine();
+            // Console.WriteLine();
 
             SolverHelper.ImproveWorstPoolWorstRow(input, output);
 
-            PrintDc(input);
+            // PrintDc(input);
 
 
             return output;
@@ -92,7 +92,7 @@ namespace _2020_SecondPractice
         
         private List<Server> orderServers(List<Server> servers)
         {
-            return servers.OrderByDescending(server => Math.Pow(server.Capacity, 1.3) / server.Size)
+            return servers.OrderByDescending(server => Math.Pow(server.Capacity, RunParam) / server.Size)
                 .ThenByDescending(server => server.Size)
                 .ToList();
         }

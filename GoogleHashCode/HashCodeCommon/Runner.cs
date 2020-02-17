@@ -16,6 +16,7 @@ namespace HashCodeCommon
         private IPrinter<TOutput> m_Printer;
         private IScoreCalculator<TInput, TOutput> m_Calculator;
         private string m_OutputDirectory;
+        private List<double> RunParams;
 
         public Runner(string outputDirectoryName, ParserBase<TInput> parser, SolverBase<TInput, TOutput> solver, PrinterBase<TOutput> printer, ScoreCalculatorBase<TInput, TOutput> calculator = null)
         {
@@ -29,8 +30,9 @@ namespace HashCodeCommon
             Directory.CreateDirectory(m_OutputDirectory);
         }
 
-        public long Run(string data, string caseName, int numberOfAttempts = 1, bool printResults = true)
+        public long Run(string data, string caseName, int numberOfAttempts = 1, bool printResults = true, List<double> runParams = null)
         {
+            RunParams = runParams;
             TOutput bestResults = GetBestResult(numberOfAttempts, data, caseName);
 
             string newOutPath = Path.Combine(m_OutputDirectory, caseName + ".new.out");
@@ -93,7 +95,7 @@ namespace HashCodeCommon
         {
             if (numberOfAttempts == 1)
             {
-                return m_Solver.Solve(GetInput(data), new Random(), caseName);
+                return m_Solver.Solve(GetInput(data), new Random(), caseName, 1);
             }
 
             TOutput bestResults = default(TOutput);
@@ -107,7 +109,11 @@ namespace HashCodeCommon
 
                 int seed = seedesGenerator.Next();
                 Random random = new Random(seed);
-                TOutput results = m_Solver.Solve(GetInput(data), random, caseName);
+                TOutput results;
+                if (RunParams != null)
+                    results = m_Solver.Solve(GetInput(data), random, caseName, RunParams[i]);
+                else
+                    results = m_Solver.Solve(GetInput(data), random, caseName, 1);
 
                 long newScore = m_Calculator.Calculate(GetInput(data), results);
                 if (newScore > bestScore)
@@ -134,7 +140,7 @@ namespace HashCodeCommon
             {
                 int savedSeed = int.Parse(File.ReadLines(seedsFile).First());
                 Random random = new Random(savedSeed);
-                TOutput resultOfSavedSeed = m_Solver.Solve(GetInput(data), random, caseName);
+                TOutput resultOfSavedSeed = m_Solver.Solve(GetInput(data), random, caseName, 1);
 
                 long scoreOfSavedSeed = m_Calculator.Calculate(GetInput(data), resultOfSavedSeed);
                 if (scoreOfSavedSeed >= bestCurrentScore)
