@@ -24,13 +24,11 @@ namespace _2020_SecondPractice
 
             var orderedServers = orderServers(input.Servers);
 
-            ProblemOutput output = new ProblemOutput();
+            ProblemOutput output = new ProblemOutput{Servers = new List<Server>()};
             
             foreach (var server in orderedServers)
             {
-                var poolDetails = SolverHelper.GetPoolsGC(input, output);
-                var minPool = poolDetails[0];
-
+                var minPool = input.Pools.OrderBy(details => details.GuaranteedCapacity).First();
 
                 foreach (var row in minPool.RowsCapacity.Select((i, i1) => new {Capacity = i, Index = i1}).OrderBy(arg => arg.Capacity))
                 {
@@ -44,6 +42,8 @@ namespace _2020_SecondPractice
             Console.WriteLine();
 
             PrintDc(input);
+
+            var enumerable = input.Servers.Except(output.Servers).ToList().GroupBy(server => server.Size);
 
             return output;
         }

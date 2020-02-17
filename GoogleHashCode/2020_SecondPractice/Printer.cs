@@ -12,17 +12,17 @@ namespace _2020_SecondPractice
     {
         public override void PrintToConsole(ProblemOutput result)
         {
-            foreach (var server in result.Servers)
-            {
-                if (server.Row == null)
-                {
-                    Console.WriteLine("x");
-                }
-                else
-                {
-                    Console.WriteLine($"{server.Row.Value} {server.SlotInRow} {server.PoolAssigned.Value}");
-                }
-            }
+            //foreach (var server in result.Servers)
+            //{
+            //    if (server.Row == null)
+            //    {
+            //        Console.WriteLine("x");
+            //    }
+            //    else
+            //    {
+            //        Console.WriteLine($"{server.Index} {server.Row} {server.SlotInRow}");
+            //    }
+            //}
         }
 
         public override void PrintToFile(ProblemOutput result, string outputPath)
