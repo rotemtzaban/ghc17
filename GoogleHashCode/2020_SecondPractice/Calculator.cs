@@ -37,10 +37,13 @@ namespace _2020_SecondPractice
             long minGc = long.MaxValue;
             for (int i = 0; i < input.NumOfPools; i++)
             {
+                if (!poolToCapacity.ContainsKey(i)) return 0;
                 long minGcPool = poolToCapacity[i];
                 for (int j = 0; j < input.NumOfRows; j++)
                 {
-                    long currentRowDownGc = poolToCapacity[i] - rowToServers[j].Sum(_ => input.Servers[_].Capacity);
+                    long currentRowDownGc = rowToServers.ContainsKey(j)
+                        ? poolToCapacity[i] - rowToServers[j].Sum(_ => input.Servers[_].Capacity)
+                        : poolToCapacity[i];
                     minGcPool = Math.Min(minGcPool, currentRowDownGc);
                 }
                 minGc = Math.Min(minGcPool, minGc);
