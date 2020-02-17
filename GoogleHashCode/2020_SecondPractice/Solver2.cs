@@ -27,7 +27,7 @@ namespace _2020_SecondPractice
 
             foreach (var server in output.Servers)
             {
-                var worstPool = input.Pools.OrderBy(_ => _.Capacity).First();
+                var worstPool = input.Pools.OrderBy(_ => _.GuaranteedCapacity).First();
                 worstPool.AddServerToPool(server);
                 server.PoolAssigned = worstPool.Index;
             }
