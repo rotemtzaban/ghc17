@@ -16,9 +16,15 @@ namespace _2020_SecondPractice
 
             var runner1 = new Runner<ProblemInput, ProblemOutput>("2020_SecondPractice", new Parser(), new Solver(), new Printer(), calculator);
             // runner1.Run(Resources.Example, "example");
+            List<double> runParams = new List<double>();
+            for (int i = 0; i < 100; i++)
+            {
+                runParams.Add(1 + i / 100.0);
+            }
 
             var runner2 = new Runner<ProblemInput, ProblemOutput>("2020_SecondPractice", new Parser(), new Solver(), new Printer(), calculator);
-            runner2.Run(Resources.dc_in, "dc_in");
+            runner2.Run(Resources.dc_in, "dc_in", 1, true, new List<double> { 1.3 });
+            // runner2.Run(Resources.dc_in, "dc_in", 100, true, runParams);
 
             Console.ReadLine();
         }

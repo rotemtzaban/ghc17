@@ -11,7 +11,7 @@ namespace _2020_SecondPractice
     {
         protected override ProblemOutput Solve(ProblemInput input)
         {
-            PrintDc(input);
+            // PrintDc(input);
             var rows = new List<List<Server>>();
             for (var i=0; i < input.NumOfRows; i++)
                 rows.Add(new List<Server>());
@@ -39,12 +39,13 @@ namespace _2020_SecondPractice
                 }
             }
 
-            Console.WriteLine();
+            // Console.WriteLine();
 
-            PrintDc(input);
+            SolverHelper.ImproveWorstPoolWorstRow(input, output);
+
+            // PrintDc(input);
 
 
-            TryFix(input, output);
             return output;
         }
 

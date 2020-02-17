@@ -10,11 +10,13 @@ namespace HashCodeCommon
     {
         protected Random NumbersGenerator { get; private set; }
         protected string ProblemName { get; private set; }
+        protected double RunParam { get; private set; }
 
         protected abstract TOutput Solve(TInput input);
 
-        public TOutput Solve(TInput input, Random random, string problemName)
+        public TOutput Solve(TInput input, Random random, string problemName, double runParam)
         {
+            this.RunParam = runParam;
             this.NumbersGenerator = random;
             this.ProblemName = problemName;
             return Solve(input);
