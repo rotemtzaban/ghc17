@@ -74,6 +74,23 @@ namespace _2020_SecondPractice
         public static void ImproveWorstPoolWorstRow(ProblemInput input, ProblemOutput output2)
         {
             var details = GetPoolsGC(input, output2);
+
+            var worstPool = details[0];
+            var worstGc = worstPool.GuaranteedCapacity;
+
+            var poolToChange = details.FirstOrDefault(_ => _.BestRow == worstPool.WorstRow);
+            if (poolToChange == null)
+            {
+
+            }
+            else
+            {
+                ReplaceServer(poolToChange, worstPool, worstPool.WorstRow, input);
+            }
+        }
+
+        private static void ReplaceServer(PoolDetails poolToChange, PoolDetails worstPool, int worstPoolWorstRow, ProblemInput input)
+        {
         }
     }
 
@@ -86,5 +103,21 @@ namespace _2020_SecondPractice
         public int WorstRow { get; set; }
         public int BestRow { get; set; }
         public long GuaranteedCapacity { get; set; }
+        public long Capacity { get; set; }
+        public List<int> RowsCapacity { get; set; } = new List<int>();
+
+        public void AddServerToPool(Server server)
+        {
+            server.PoolAssigned = this.Index;
+            RowsCapacity[server.Row.Value] += server.Capacity;
+            Capacity += server.Capacity;
+        }
+
+        public void RemoveServerFromPool(Server server)
+        {
+            server.PoolAssigned = null;
+            RowsCapacity[server.Row.Value] -= server.Capacity;
+            Capacity -= server.Capacity;
+        }
     }
 }
