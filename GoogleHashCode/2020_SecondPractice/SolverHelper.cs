@@ -15,8 +15,8 @@ namespace _2020_SecondPractice
             int m = 0;
             while (swap)
             {
-                Console.WriteLine(m++);
-                Swap(input);
+                // Console.WriteLine(m++);
+                swap = Swap(input);
             }
         }
 
