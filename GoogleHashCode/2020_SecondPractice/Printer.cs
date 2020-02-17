@@ -12,7 +12,17 @@ namespace _2020_SecondPractice
     {
         public override void PrintToConsole(ProblemOutput result)
         {
-            throw new NotImplementedException();
+            foreach (var server in result.Servers)
+            {
+                if (server.Row == null)
+                {
+                    Console.WriteLine("x");
+                }
+                else
+                {
+                    Console.WriteLine($"{server.Index} {server.Row} {server.PoolAssigned}");
+                }
+            }
         }
 
         public override void PrintToFile(ProblemOutput result, string outputPath)
