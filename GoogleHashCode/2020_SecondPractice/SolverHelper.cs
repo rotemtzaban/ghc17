@@ -14,7 +14,7 @@ namespace _2020_SecondPractice
             Dictionary<int, List<int>> rowToServers = new Dictionary<int, List<int>>();
             Dictionary<int, HashSet<int>> poolToServer = new Dictionary<int, HashSet<int>>();
             Dictionary<int, long> poolToCapacity = new Dictionary<int, long>();
-            foreach (var server in output2.Servers)
+            foreach (var server in output2.Servers.Where(_ => _.PoolAssigned.HasValue))
             {
                 if (server.Row == null) continue;
                 if (!rowToServers.ContainsKey(server.Row.Value))
@@ -23,6 +23,7 @@ namespace _2020_SecondPractice
                 }
 
                 if (!poolToServer.ContainsKey(server.PoolAssigned.Value))
+
                 {
                     poolToServer[server.PoolAssigned.Value] = new HashSet<int>();
                     poolToCapacity[server.PoolAssigned.Value] = 0;

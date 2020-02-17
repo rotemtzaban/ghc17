@@ -13,6 +13,7 @@ namespace _2020_SecondPractice
         {
             List<Server>[] serverRows = new List<Server>[input.NumOfRows];
             ProblemOutput output = new ProblemOutput();
+            output.Servers = new List<Server>();
             List<Row> rows = new List<Row>();
             for (int i = 0; i < input.NumOfRows; i++)
             {
@@ -24,10 +25,11 @@ namespace _2020_SecondPractice
                 AddServer(input, output, rows, server);
             }
 
-            foreach (var item in output.Servers)
+            foreach (var server in output.Servers)
             {
-                var worstPool = SolverHelper.GetPoolsGC(input, output);
-                item.PoolAssigned = worstPool[0].Index;
+                var worstPool = input.Pools.OrderBy(_ => _.GuaranteedCapacity).First();
+                worstPool.AddServerToPool(server);
+                server.PoolAssigned = worstPool.Index;
             }
 
             // SolverHelper.ImproveWorstPoolWorstRow(input, output);
