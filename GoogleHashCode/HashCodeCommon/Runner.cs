@@ -95,7 +95,10 @@ namespace HashCodeCommon
         {
             if (numberOfAttempts == 1)
             {
-                return m_Solver.Solve(GetInput(data), new Random(), caseName, 1);
+                if (RunParams.Any())
+                    return m_Solver.Solve(GetInput(data), new Random(), caseName, RunParams[0]);
+                else
+                    return m_Solver.Solve(GetInput(data), new Random(), caseName, 1);
             }
 
             TOutput bestResults = default(TOutput);
