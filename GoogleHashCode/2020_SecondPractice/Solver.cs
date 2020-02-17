@@ -50,15 +50,88 @@ namespace _2020_SecondPractice
 
         private void TryFix(ProblemInput input, ProblemOutput output)
         {
-            var worst = input.Pools.ArgMin(_ => _.GuaranteedCapacity);
-            var allThatCanImprove =
-                input.Pools.Where(_ => _.Capacity - _.RowsCapacity[worst.WorstRow] > worst.GuaranteedCapacity).ToList();
+            //var unusedServersBySize = input.Servers.Except(output.Servers)
+            //    .GroupBy(server => server.Size)
+            //    .ToDictionary(g => g.Key, g => g.OrderByDescending(s=>s.Capacity).ToList());
 
-            for (int i = 0; i < allThatCanImprove.Count; i++)
+            var unusedServers = input.Servers.Except(output.Servers).ToList();
+
+            var copy = output.Servers.ToList();
+            foreach (var server in copy)
             {
-                
+                var serverSize = server.Size;
+                var serverCapacity= server.Capacity;
+
+                var servers = TryReplaceServer(unusedServers, serverSize, serverCapacity);
+                if (servers != null)
+                {
+                    output.Servers.Remove(server);
+                    var pool = input.Pools[server.PoolAssigned.Value];
+
+                    pool.RemoveServerFromPool(server);
+
+                    int index = 0;
+
+                    for (int j = 0; j < server.Size; j++)
+                    {
+                        input.Slots[server.Row.Value, server.SlotInRow + j] = false;
+                    }
+
+                    foreach (var replacedServer in servers)
+                    {
+                        replacedServer.Row = server.Row;
+                        pool.AddServerToPool(replacedServer);
+                        replacedServer.SlotInRow = index + server.SlotInRow;
+                        output.Servers.Add(replacedServer);
+                        for (int j = 0; j < replacedServer.Size; j++)
+                        {
+                            input.Slots[server.Row.Value, server.SlotInRow + index + j] = true;
+                        }
+                        index += replacedServer.Size;
+
+                        unusedServers.Remove(replacedServer);
+                    }
+                    
+                    pool.RemoveServerFromPool(server);
+                    server.Row = null;
+                    server.PoolAssigned = null;
+                    server.SlotInRow = -1;
+
+
+                    unusedServers.Add(server);
+                }
             }
         }
+
+        private List<Server> TryReplaceServer(List<Server> unusedServers, int currentServerSize, int currentCapacity)
+        {
+            if (currentServerSize == 0 && currentCapacity <= 0)
+            {
+                return new List<Server>();
+            }
+
+            if (currentServerSize <= 0)
+            {
+                return null;
+            }
+
+            var serversCopy = unusedServers.ToList();
+
+            foreach (var unusedServer in unusedServers)
+            {
+                serversCopy.Remove(unusedServer);
+                var tryReplaceServer = TryReplaceServer(serversCopy, currentServerSize - unusedServer.Size,
+                    currentCapacity - unusedServer.Capacity);
+                if (tryReplaceServer != null)
+                {
+                    tryReplaceServer.Add(unusedServer);
+                    return tryReplaceServer;
+                }
+            }
+
+            return null;
+        }
+
 
         private bool TryPlaceServer(int row, Server server, PoolDetails minPool, ProblemInput input , ProblemOutput output)
         {
@@ -91,9 +164,12 @@ namespace _2020_SecondPractice
         
         private List<Server> orderServers(List<Server> servers)
         {
-            return servers.OrderByDescending(server => Math.Pow(server.Capacity, 1.5) / server.Size)
+            var ordered = servers.OrderByDescending(server => Math.Pow(server.Capacity, 1.5) / server.Size)
                 .ThenByDescending(server => server.Size)
                 .ToList();
+
+            
+            return ordered;
         }
 
         private void PrintDc(ProblemInput input)
