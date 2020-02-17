@@ -23,8 +23,8 @@ namespace _2020_SecondPractice
             }
 
             var runner2 = new Runner<ProblemInput, ProblemOutput>("2020_SecondPractice", new Parser(), new Solver(), new Printer(), calculator);
-            runner2.Run(Resources.dc_in, "dc_in", 1, true, new List<double> { 1.3 });
-            //runner2.Run(Resources.dc_in, "dc_in", 100, true, runParams);
+            // runner2.Run(Resources.dc_in, "dc_in", 1, true, new List<double> { 1.3 });
+            runner2.Run(Resources.dc_in, "dc_in", 100, true, runParams);
 
             Console.ReadLine();
         }

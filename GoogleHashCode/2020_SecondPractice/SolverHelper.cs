@@ -33,7 +33,7 @@ namespace _2020_SecondPractice
                     {
                         foreach (var server1 in goodPool.Servers.Where(_ => _.Row == j).ToList())
                         {
-                            foreach (var server2 in poolToImprove.Servers.Where(_ => _.Size == server1.Size && _.Capacity < server1.Capacity && _.Row != server1.Row).ToList())
+                            foreach (var server2 in poolToImprove.Servers.Where(_ => _.Capacity < server1.Capacity && _.Row != server1.Row).ToList())
                             {
                                 poolToImprove.RemoveServerFromPool(server2);
                                 goodPool.RemoveServerFromPool(server1);
