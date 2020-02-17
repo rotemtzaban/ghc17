@@ -32,6 +32,7 @@ namespace _2020_SecondPractice
                 server.PoolAssigned = worstPool.Index;
             }
 
+            PrintDc(input);
             // SolverHelper.ImproveWorstPoolWorstRow(input, output);
 
             return output;
@@ -61,6 +62,19 @@ namespace _2020_SecondPractice
                         }
                     }
                 }
+            }
+        }
+
+        private void PrintDc(ProblemInput input)
+        {
+            for (int i = 0; i < input.Slots.GetLength(0); i++)
+            {
+                for (int j = 0; j < input.Slots.GetLength(1); j++)
+                {
+                    Console.Write(input.Slots[i, j] ? "x" : "+");
+                }
+
+                Console.WriteLine();
             }
         }
     }
