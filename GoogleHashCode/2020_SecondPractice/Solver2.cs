@@ -56,8 +56,14 @@ namespace _2020_SecondPractice
                         {
                             row.Capacity += server.Capacity;
                             server.Row = row.Index;
-                            server.SlotInRow = i - countEmpty;
+                            server.SlotInRow = i + 1 - countEmpty;
                             output.Servers.Add(server);
+
+                            for (int j = 0; j < countEmpty; j++)
+                            {
+                                input.Slots[row.Index, server.SlotInRow + j] = true;
+                            }
+
                             return;
                         }
                     }

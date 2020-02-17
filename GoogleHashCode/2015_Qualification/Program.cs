@@ -13,7 +13,7 @@ namespace _2015_Qualification
         {
 			Runner<ProblemInput, ProblemOutput> runner = new Runner<ProblemInput, ProblemOutput> ("2015", new Parser (), new Solver (), new Printer (), new ScoreCalculator ());
 
-			runner.Run(Properties.Resources.Input, "Example", 100, true);
+			runner.Run(Properties.Resources.Input, "Example", 1, true);
 			// runner.Run(Properties.Resources.TestInput, "Example", 1, true);
 
             ZipCreator.CreateCodeZip("Example");
