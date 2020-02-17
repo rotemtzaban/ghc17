@@ -10,12 +10,12 @@ namespace _2020_SecondPractice
 {
     public class Calculator : ScoreCalculatorBase<ProblemInput, ProblemOutput>
     {
-        public override long Calculate(ProblemInput input, ProblemOutput output)
+        public override long Calculate(ProblemInput input, ProblemOutput output2)
         {
             Dictionary<int, List<int>> rowToServers = new Dictionary<int, List<int>>();
             Dictionary<int, HashSet<int>> poolToServer = new Dictionary<int, HashSet<int>>();
             Dictionary<int, long> poolToCapacity = new Dictionary<int, long>();
-            foreach (var server in output.Servers)
+            foreach (var server in input.Servers)
             {
                 if (server.Row == null) continue;
                 if (!rowToServers.ContainsKey(server.Row.Value))
