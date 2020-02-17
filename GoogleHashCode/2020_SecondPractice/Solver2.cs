@@ -30,6 +30,8 @@ namespace _2020_SecondPractice
                 item.PoolAssigned = worstPool[0].Index;
             }
 
+            // SolverHelper.ImproveWorstPoolWorstRow(input, output);
+
             return output;
         }
 
