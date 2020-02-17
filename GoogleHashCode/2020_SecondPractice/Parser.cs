@@ -28,7 +28,14 @@ namespace _2020_SecondPractice
                 input.Slots[int.Parse(line[0]), int.Parse(line[1])] = true;
             }
 
-
+            for (int i = 0; i < input.NumOfServers; i++)
+            {
+                string[] line = reader.ReadLine().Split(' ');
+                Server server = new Server(i);
+                server.Size = int.Parse(line[0]);
+                server.Capacity = int.Parse(line[1]);
+                input.Servers.Add(server);
+            }
 
             return input;
         }

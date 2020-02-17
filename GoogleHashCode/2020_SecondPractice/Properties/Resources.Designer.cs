@@ -164,5 +164,20 @@ namespace _2020_SecondPractice.Properties {
                 return ResourceManager.GetString("dc.in", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 2 5 1 2 5
+        ///0 0
+        ///3 10
+        ///3 10
+        ///2 5
+        ///1 5
+        ///1 1.
+        /// </summary>
+        internal static string Example {
+            get {
+                return ResourceManager.GetString("Example", resourceCulture);
+            }
+        }
     }
 }
