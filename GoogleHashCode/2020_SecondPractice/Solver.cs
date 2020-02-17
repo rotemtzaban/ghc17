@@ -41,6 +41,7 @@ namespace _2020_SecondPractice
 
             // Console.WriteLine();
 
+            TryFix(input, output);
             SolverHelper.ImproveWorstPoolWorstRow(input, output);
 
             // PrintDc(input);
@@ -51,11 +52,11 @@ namespace _2020_SecondPractice
 
         private void TryFix(ProblemInput input, ProblemOutput output)
         {
-            //var unusedServersBySize = input.Servers.Except(output.Servers)
-            //    .GroupBy(server => server.Size)
-            //    .ToDictionary(g => g.Key, g => g.OrderByDescending(s=>s.Capacity).ToList());
+            var unusedServersBySize = input.Servers.Except(output.Servers)
+                .GroupBy(server => server.Size)
+                .ToDictionary(g => g.Key, g => g.OrderByDescending(s => s.Capacity).ToList());
 
-            var unusedServers = input.Servers.Except(output.Servers).ToList();
+            //var unusedServers = input.Servers.Except(output.Servers).ToList();
 
             var copy = output.Servers.ToList();
             foreach (var server in copy)
@@ -63,6 +64,7 @@ namespace _2020_SecondPractice
                 var serverSize = server.Size;
                 var serverCapacity= server.Capacity;
 
+                var unusedServers = unusedServersBySize.SelectMany(pair => pair.Value.Take(server.Size / pair.Key)).ToList();
                 var servers = TryReplaceServer(unusedServers, serverSize, serverCapacity);
                 if (servers != null)
                 {
@@ -90,7 +92,7 @@ namespace _2020_SecondPractice
                         }
                         index += replacedServer.Size;
 
-                        unusedServers.Remove(replacedServer);
+                        unusedServersBySize[replacedServer.Size].Remove(replacedServer);
                     }
                     
                     pool.RemoveServerFromPool(server);
@@ -99,7 +101,7 @@ namespace _2020_SecondPractice
                     server.SlotInRow = -1;
 
 
-                    unusedServers.Add(server);
+                    unusedServersBySize[server.Size].Add(server);
                 }
             }
         }
