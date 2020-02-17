@@ -11,6 +11,7 @@ namespace _2020_SecondPractice
     {
         protected override ProblemOutput Solve(ProblemInput input)
         {
+            PrintDc(input);
             var rows = new List<List<Server>>();
             for (var i=0; i < input.NumOfRows; i++)
                 rows.Add(new List<Server>());
@@ -23,23 +24,77 @@ namespace _2020_SecondPractice
 
             var orderedServers = orderServers(input.Servers);
 
-            while (true)
+            ProblemOutput output = new ProblemOutput();
+            
+            foreach (var server in orderedServers)
             {
-                int maxPool = 0;
-                int maxRow = 0;
-                int maxScore = 0;
-                var row = getRowToInsert(rows);
+                var poolDetails = SolverHelper.GetPoolsGC(input, output);
+                var minPool = poolDetails[0];
+
+
+                foreach (var row in minPool.CapacityByRow.Select((i, i1) => new {Capacity = i, Index = i1}).OrderBy(arg => arg.Capacity))
+                {
+                    if (TryPlaceServer(row.Index, server, minPool, input, output))
+                    {
+                        break;
+                    }     
+                }
             }
 
-            return null;
-            throw new NotImplementedException();
+            Console.WriteLine();
+
+            PrintDc(input);
+
+            return output;
         }
 
+        private bool TryPlaceServer(int row, Server server, PoolDetails minPool, ProblemInput input , ProblemOutput output)
+        {
+            for (int i = 0; i < input.RowSize - server.Size; i++)
+            {
+                bool canPlace = true;
+                for (int j = 0; j < server.Size; j++)
+                {
+                    canPlace &= !input.Slots[row, i + j];
+                }
+
+                if (canPlace)
+                {
+                    server.PoolAssigned = minPool.Index;
+                    server.Row = row;
+                    server.SlotInRow = i;
+                    output.Servers.Add(server);
+                    for (int j = 0; j < server.Size; j++)
+                    {
+                        input.Slots[row, i + j] = true;
+                    }
+
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        
         private List<Server> orderServers(List<Server> servers)
         {
             return servers.OrderByDescending(server => server.Capacity / server.Size)
                 .ThenByDescending(server => server.Size)
                 .ToList();
+        }
+
+        private void PrintDc(ProblemInput input)
+        {
+            for (int i = 0; i < input.Slots.GetLength(0); i++)
+            {
+                for (int j = 0; j < input.Slots.GetLength(1); j++)
+                {
+                    Console.Write(input.Slots[i, j] ? "x" : "+");
+                }
+
+                Console.WriteLine();
+            }
         }
     }
 }
