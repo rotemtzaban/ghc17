@@ -1,4 +1,5 @@
-﻿using HashCodeCommon;
+﻿using _2020_SecondPractice.Properties;
+using HashCodeCommon;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,13 +15,7 @@ namespace _2020_SecondPractice
             Calculator calculator = null;
 
             var runner1 = new Runner<ProblemInput, ProblemOutput>("2020_SecondPractice", new Parser(), new Solver(), new Printer(), calculator);
-            // runner1.Run(Resources.busy_day, "busy_day");
-
-            var runner2 = new Runner<ProblemInput, ProblemOutput>("2020_SecondPractice", new Parser(), new Solver(), new Printer(), calculator);
-            // runner2.Run(Resources.mother_of_all_warehouses, "mother_of_all_warehouses");
-
-            var runner3 = new Runner<ProblemInput, ProblemOutput>("2020_SecondPractice", new Parser(), new Solver(), new Printer(), calculator);
-            // runner3.Run(Resources.redundancy, "redundancy");
+            runner1.Run(Resources.dc_in, "dc_in");
 
             Console.ReadLine();
         }
