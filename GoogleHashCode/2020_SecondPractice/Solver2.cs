@@ -13,6 +13,7 @@ namespace _2020_SecondPractice
         {
             List<Server>[] serverRows = new List<Server>[input.NumOfRows];
             ProblemOutput output = new ProblemOutput();
+            output.Servers = new List<Server>();
             List<Row> rows = new List<Row>();
             for (int i = 0; i < input.NumOfRows; i++)
             {
