@@ -11,7 +11,61 @@ namespace _2020_SecondPractice
     {
         protected override ProblemOutput Solve(ProblemInput input)
         {
-            throw new NotImplementedException();
+            List<Server>[] serverRows = new List<Server>[input.NumOfRows];
+            ProblemOutput output = new ProblemOutput();
+            List<Row> rows = new List<Row>();
+            for (int i = 0; i < input.NumOfRows; i++)
+            {
+                rows.Add(new Row(i));
+            }
+
+            foreach (Server server in input.Servers.OrderByDescending(_ => _.Capacity / _.Size).ThenBy(_ => _.Size).ToList())
+            {
+                AddServer(input, output, rows, server);
+            }
+
+            foreach (var item in output.Servers)
+            {
+                var worstPool = SolverHelper.GetPoolsGC(input, output);
+                item.PoolAssigned = worstPool[0].Index;
+            }
+
+            return output;
+        }
+
+        private static void AddServer(ProblemInput input, ProblemOutput output, List<Row> rows, Server server)
+        {
+            foreach (var row in rows.OrderBy(_ => _.Capacity))
+            {
+                int countEmpty = 0;
+                for (int i = 0; i < input.RowSize; i++)
+                {
+                    if (input.Slots[row.Index, i])
+                    {
+                        countEmpty = 0;
+                    }
+                    else
+                    {
+                        countEmpty++;
+                        if (countEmpty == server.Size)
+                        {
+                            row.Capacity += server.Capacity;
+                            server.Row = row.Index;
+                            server.SlotInRow = i - countEmpty;
+                            output.Servers.Add(server);
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public class Row : IndexedObject
+    {
+        public int Capacity { get; set; }
+        public Row(int index) : base(index)
+        {
         }
     }
 }
