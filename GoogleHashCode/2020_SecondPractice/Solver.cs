@@ -32,7 +32,7 @@ namespace _2020_SecondPractice
                 var minPool = poolDetails[0];
 
 
-                foreach (var row in minPool.CapacityByRow.Select((i, i1) => new {Capacity = i, Index = i1}).OrderBy(arg => arg.Capacity))
+                foreach (var row in minPool.RowsCapacity.Select((i, i1) => new {Capacity = i, Index = i1}).OrderBy(arg => arg.Capacity))
                 {
                     if (TryPlaceServer(row.Index, server, minPool, input, output))
                     {
@@ -60,8 +60,8 @@ namespace _2020_SecondPractice
 
                 if (canPlace)
                 {
-                    server.PoolAssigned = minPool.Index;
                     server.Row = row;
+                    minPool.AddServerToPool(server);
                     server.SlotInRow = i;
                     output.Servers.Add(server);
                     for (int j = 0; j < server.Size; j++)
