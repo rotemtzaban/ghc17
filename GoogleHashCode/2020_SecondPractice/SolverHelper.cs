@@ -70,6 +70,11 @@ namespace _2020_SecondPractice
             poolDetails.Sort();
             return poolDetails;
         }
+
+        public static void ImproveWorstPoolWorstRow(ProblemInput input, ProblemOutput output2)
+        {
+
+        }
     }
 
     public class PoolDetails : IndexedObject
