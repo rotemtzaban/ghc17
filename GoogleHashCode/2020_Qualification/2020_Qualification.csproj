@@ -56,5 +56,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HashCodeCommon\HashCodeCommon.csproj">
+      <Project>{FE988848-3527-4FDE-A140-65CE69E2F181}</Project>
+      <Name>HashCodeCommon</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

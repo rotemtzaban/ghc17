@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace _2020_Qualification
 {
-    class ProblemOutput
+    public class ProblemOutput
     {
     }
 }
