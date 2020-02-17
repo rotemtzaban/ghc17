@@ -28,6 +28,7 @@ namespace _2020_SecondPractice
                 input.Slots[int.Parse(line[0]), int.Parse(line[1])] = true;
             }
 
+            input.Servers = new List<Server>();
             for (int i = 0; i < input.NumOfServers; i++)
             {
                 string[] line = reader.ReadLine().Split(' ');
