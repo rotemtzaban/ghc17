@@ -20,7 +20,7 @@ namespace _2020_SecondPractice
                 rows.Add(new Row(i));
             }
 
-            foreach (Server server in input.Servers.OrderByDescending(_ => _.Capacity / _.Size).ThenBy(_ => _.Size).ToList())
+            foreach (Server server in input.Servers.OrderByDescending(_ => _.Capacity / _.Size).ThenByDescending(_ => _.Size).ToList())
             {
                 AddServer(input, output, rows, server);
             }

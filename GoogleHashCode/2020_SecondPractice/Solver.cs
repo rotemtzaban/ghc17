@@ -43,14 +43,12 @@ namespace _2020_SecondPractice
 
             PrintDc(input);
 
-            var enumerable = input.Servers.Except(output.Servers).ToList().GroupBy(server => server.Size);
-
             return output;
         }
 
         private bool TryPlaceServer(int row, Server server, PoolDetails minPool, ProblemInput input , ProblemOutput output)
         {
-            for (int i = 0; i < input.RowSize - server.Size; i++)
+            for (int i = 0; i < input.RowSize - server.Size + 1; i++)
             {
                 bool canPlace = true;
                 for (int j = 0; j < server.Size; j++)
