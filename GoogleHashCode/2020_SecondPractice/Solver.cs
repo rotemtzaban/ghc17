@@ -43,7 +43,21 @@ namespace _2020_SecondPractice
 
             PrintDc(input);
 
+
+            TryFix(input, output);
             return output;
+        }
+
+        private void TryFix(ProblemInput input, ProblemOutput output)
+        {
+            var worst = input.Pools.ArgMin(_ => _.GuaranteedCapacity);
+            var allThatCanImprove =
+                input.Pools.Where(_ => _.Capacity - _.RowsCapacity[worst.WorstRow] > worst.GuaranteedCapacity).ToList();
+
+            for (int i = 0; i < allThatCanImprove.Count; i++)
+            {
+                
+            }
         }
 
         private bool TryPlaceServer(int row, Server server, PoolDetails minPool, ProblemInput input , ProblemOutput output)
