@@ -1,4 +1,5 @@
 ﻿using HashCodeCommon;
+using HashCodeCommon.HelperClasses;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,7 +13,10 @@ namespace _2020_Qualification
     {
         protected override ProblemInput ParseFromStream(TextReader reader)
         {
-            throw new NotImplementedException();
+            ProblemInput input = new ProblemInput();
+            var firstRow = reader.GetIntList();
+
+            return input;
         }
     }
 }
