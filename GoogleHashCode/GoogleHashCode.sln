@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2016_Qualification", "2016_
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2020_SecondPractice", "2020_SecondPractice\2020_SecondPractice.csproj", "{600E3E29-7BA7-4B89-B457-429BD1B2AD3F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2020_Qualification", "2020_Qualification\2020_Qualification.csproj", "{26E446AF-7608-4D63-A279-07810C0FEC80}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{600E3E29-7BA7-4B89-B457-429BD1B2AD3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{600E3E29-7BA7-4B89-B457-429BD1B2AD3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{600E3E29-7BA7-4B89-B457-429BD1B2AD3F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26E446AF-7608-4D63-A279-07810C0FEC80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26E446AF-7608-4D63-A279-07810C0FEC80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26E446AF-7608-4D63-A279-07810C0FEC80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26E446AF-7608-4D63-A279-07810C0FEC80}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
