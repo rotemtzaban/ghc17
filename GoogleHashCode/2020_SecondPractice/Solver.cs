@@ -41,10 +41,11 @@ namespace _2020_SecondPractice
 
             Console.WriteLine();
 
+            SolverHelper.ImproveWorstPoolWorstRow(input, output);
+
             PrintDc(input);
 
 
-            TryFix(input, output);
             return output;
         }
 
