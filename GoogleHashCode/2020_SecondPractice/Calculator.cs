@@ -19,7 +19,7 @@ namespace _2020_SecondPractice
 
             foreach (var item in input.Pools.OrderBy(_ => _.GuaranteedCapacity))
             {
-                Console.WriteLine($"{item.Index} : {item.Capacity}, {item.GuaranteedCapacity}, { item.WorstRow},{ item.RowsCapacity[item.WorstRow]}, {output.Servers.Count(_ => _.PoolAssigned == item.Index && _.Row == item.WorstRow)}, {item.BestRow}, {item.RowsCapacity[ item.BestRow]}, {output.Servers.Count(_ => _.PoolAssigned == item.Index && _.Row == item.BestRow)} ");
+                // Console.WriteLine($"{item.Index} : {item.Capacity}, {item.GuaranteedCapacity}, { item.WorstRow},{ item.RowsCapacity[item.WorstRow]}, {output.Servers.Count(_ => _.PoolAssigned == item.Index && _.Row == item.WorstRow)}, {item.BestRow}, {item.RowsCapacity[ item.BestRow]}, {output.Servers.Count(_ => _.PoolAssigned == item.Index && _.Row == item.BestRow)} ");
             }
 
             return input.Pools.Min(_ => _.GuaranteedCapacity);
