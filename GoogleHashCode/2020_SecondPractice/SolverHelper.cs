@@ -100,7 +100,7 @@ namespace _2020_SecondPractice
     {
         public PoolDetails(int index, int numberOfRows) : base(index)
         {
-            RowsCapacity = new List<int>(numberOfRows);
+            RowsCapacity = new int[numberOfRows];
         }
 
         private bool isAllUpdated = false;
@@ -178,7 +178,7 @@ namespace _2020_SecondPractice
         }
 
         public long Capacity { get; set; }
-        public List<int> RowsCapacity { get; set; }
+        public int[] RowsCapacity { get; set; }
 
         public void AddServerToPool(Server server)
         {

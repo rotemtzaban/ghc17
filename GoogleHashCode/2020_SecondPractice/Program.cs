@@ -12,7 +12,7 @@ namespace _2020_SecondPractice
     {
         static void Main(string[] args)
         {
-            Calculator calculator = null;
+            Calculator calculator = new Calculator();
 
             var runner1 = new Runner<ProblemInput, ProblemOutput>("2020_SecondPractice", new Parser(), new Solver(), new Printer(), calculator);
             // runner1.Run(Resources.Example, "example");
