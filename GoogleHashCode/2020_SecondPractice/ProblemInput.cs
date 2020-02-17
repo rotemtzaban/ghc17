@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HashCodeCommon;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,7 +14,7 @@ namespace _2020_SecondPractice
         public int RowSize { get; set; }
         public int NumOfServers { get; set; }
         public int NumOfPools { get; set; }
-        public int UnavliableSlots { get; set; }
+        public int NumOfUnavliableSlots { get; set; }
         public List<Server> Servers { get; set; }
     }
 }

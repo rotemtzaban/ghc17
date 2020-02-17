@@ -16,9 +16,19 @@ namespace _2020_SecondPractice
             string[] firstLine = reader.ReadLine().Split(' ');
             input.NumOfRows = int.Parse(firstLine[0]);
             input.RowSize = int.Parse(firstLine[1]);
-            input.UnavliableSlots = int.Parse(firstLine[2]);
+            input.NumOfUnavliableSlots = int.Parse(firstLine[2]);
             input.NumOfPools = int.Parse(firstLine[3]);
             input.NumOfServers = int.Parse(firstLine[4]);
+
+            input.Slots = new bool[input.NumOfRows, input.RowSize];
+
+            for (int i = 0; i < input.NumOfUnavliableSlots; i++)
+            {
+                string[] line = reader.ReadLine().Split(' ');
+                input.Slots[int.Parse(line[0]), int.Parse(line[1])] = true;
+            }
+
+
 
             return input;
         }
