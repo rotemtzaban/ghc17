@@ -10,7 +10,8 @@ namespace _2020_SecondPractice
 
         public int Capacity { get; set; }
         public int Size { get; set; }
-        public int Row { get; set; }
+        public int? Row { get; set; }
         public int SlotInRow { get; set; }
+        public int? PoolAssigned { get; set; }
     }
 }

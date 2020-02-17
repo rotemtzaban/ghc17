@@ -8,5 +8,6 @@ namespace _2020_SecondPractice
 {
     public class ProblemOutput
     {
+        public List<Server> Servers { get; set; }
     }
 }
