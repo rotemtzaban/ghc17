@@ -15,7 +15,7 @@ namespace _2020_Qualification
         {
             ProblemInput input = new ProblemInput();
             var firstRow = reader.GetIntList();
-
+            
             return input;
         }
     }

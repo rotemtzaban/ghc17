@@ -24,6 +24,8 @@ namespace _2020_Qualification
             var runner3 = new Runner<ProblemInput, ProblemOutput>("2020_Qualification", new Parser(), solver, new Printer(), calculator);
             // runner3.Run(Resources.redundancy, "redundancy");
 
+            ZipCreator.CreateCodeZip(@"..\..\..\output\2020_Qualification");
+
             Console.ReadLine();
         }
     }
