@@ -12,7 +12,14 @@ namespace _2020_Qualification
     {
         public override long Calculate(ProblemInput input, ProblemOutput output)
         {
-            throw new NotImplementedException();
+            long score = 0;
+            HashSet<int> booksScanned = new HashSet<int>();
+            foreach (var libary in output.libaries)
+            {
+//                libary.Books.Take(input.NumberOfDays - (libary.LibrarySignupTime + libary.)
+            }
+
+            return score;
         }
 
         public override ProblemOutput GetResultFromReader(ProblemInput input, TextReader reader)
