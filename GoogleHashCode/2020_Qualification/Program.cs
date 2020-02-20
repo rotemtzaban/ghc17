@@ -43,7 +43,9 @@ namespace _2020_Qualification
 
         private static void AnalizeData()
         {
+
             Parser parser = new Parser();
+            parser.ShouldAnalizeData = true;
             parser.ParseFromData(Resources.Example);
             parser.ParseFromData(Resources.b_read_on);
             parser.ParseFromData(Resources.c_incunabula);

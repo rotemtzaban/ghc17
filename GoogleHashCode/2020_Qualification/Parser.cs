@@ -11,7 +11,7 @@ namespace _2020_Qualification
 {
     public class Parser : ParserBase<ProblemInput>
     {
-        public static bool ShouldAnalizeData { get; set; } = false;
+        public bool ShouldAnalizeData { get; set; } = false;
 
         protected override ProblemInput ParseFromStream(TextReader reader)
         {
