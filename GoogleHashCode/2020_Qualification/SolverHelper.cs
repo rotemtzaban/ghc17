@@ -2,30 +2,34 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace _2020_Qualification
 {
     class SolverHelper
     {
+        static volatile object s_lock = new object();
         public static (Library, List<Book>) GetBestLibray(ProblemInput input, HashSet<Library> notSelectedLibraries, HashSet<Book> selectedBooks, int currentTime)
         {
-            object s_lock = new object();
             Library selectedLibrary = null;
             double bestScore = -1;
             List<Book> bestTakenBooks = null;
-            Parallel.ForEach(notSelectedLibraries, (notSelectedLibrary) =>
+            Parallel.ForEach(notSelectedLibraries, new ParallelOptions() { MaxDegreeOfParallelism = 10 }, (notSelectedLibrary) =>
             {
                 var (libraryScore, takenBooks) = GetLibraryScore(selectedBooks, notSelectedLibrary, input, currentTime);
-                lock (s_lock)
-                {
-                    if (libraryScore > bestScore)
-                    {
-                        bestScore = libraryScore;
-                        selectedLibrary = notSelectedLibrary;
-                        bestTakenBooks = takenBooks;
+                bestScore /= notSelectedLibrary.LibrarySignupTime;
+
+                if (libraryScore > bestScore)
+                    lock (s_lock)
+                        {
+                        if (libraryScore > bestScore)
+                        {
+                            bestScore = libraryScore;
+                            selectedLibrary = notSelectedLibrary;
+                            bestTakenBooks = takenBooks;
+                        }
                     }
-                }
             });
 
             return (selectedLibrary, bestTakenBooks);
