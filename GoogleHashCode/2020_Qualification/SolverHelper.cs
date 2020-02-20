@@ -13,7 +13,7 @@ namespace _2020_Qualification
         public static (Library, List<Book>) GetBestLibray(ProblemInput input, HashSet<Library> notSelectedLibraries, HashSet<Book> selectedBooks, int currentTime)
         {
             Library selectedLibrary = null;
-            double bestScore = -1;
+            double bestScore = 0;
             List<Book> bestTakenBooks = null;
             Parallel.ForEach(notSelectedLibraries, new ParallelOptions() { MaxDegreeOfParallelism = 10 }, (notSelectedLibrary) =>
             {
