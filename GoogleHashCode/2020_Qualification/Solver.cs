@@ -20,20 +20,9 @@ namespace _2020_Qualification
             int count = 0;
             while (currentTime < input.NumberOfDays)
             {
-                Library selectedLibrary = null;
-                double bestScore = -1;
-                List<Book> bestTakenBooks = null;
-                foreach (var notSelectedLibrary in notSelectedLibraries)
-                {
-                    var (libraryScore, takenBooks) = GetLibraryScore(selectedBooks, notSelectedLibrary, input, currentTime);
-                    if (libraryScore > bestScore)
-                    {
-                        bestScore = libraryScore;
-                        selectedLibrary = notSelectedLibrary;
-                        bestTakenBooks = takenBooks;
-                    }
-                }
 
+                var (selectedLibrary, bestTakenBooks) =
+                    SolverHelper.GetBestLibray(input, notSelectedLibraries, selectedBooks, currentTime);
                 if (selectedLibrary == null)
                 {
                     break;
@@ -59,28 +48,6 @@ namespace _2020_Qualification
             return output;
         }
 
-        private (int sum, List<Book> takenBooks) GetLibraryScore(HashSet<Book> selectedBooks, Library library, ProblemInput input, int currentTime)
-        {
-            int counter = 0;
-            int sum =0 ;
-            List<Book> takenBooks = new List<Book>();
-            var availableTime = (input.NumberOfDays - currentTime - library.LibrarySignupTime - 1) * library.BooksPerDay;
-
-            foreach (var libraryBook in library.Books)
-            {
-                if (selectedBooks.Contains(libraryBook))
-                    continue;
-
-                if (counter++ >= availableTime)
-                {
-                    break;
-                }
-
-                sum += libraryBook.Score;
-                takenBooks.Add(libraryBook);
-            }
-
-            return (sum, takenBooks);
-        }
+      
     }
 }
