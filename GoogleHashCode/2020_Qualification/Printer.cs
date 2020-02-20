@@ -19,6 +19,17 @@ namespace _2020_Qualification
         {
             using (var writer = new StreamWriter(outputPath))
             {
+                var ordersBooks = result.libaries.OrderBy(_ => _.LibrarySignupTime);
+                writer.WriteLine(result.libaries.Count);
+                foreach (var libary in ordersBooks)
+                {
+
+                    //writer.WriteLine(libary.IndexObject {libary.books.Count()});
+                    var books = libary.books.Select(_ => _.Index.ToString());
+                    var output = string.Join(" ", books);
+                    writer.WriteLine(output);
+                }
+
                 //foreach (var server in result.Servers)
                 //{
                 //    if (server.Row == null)

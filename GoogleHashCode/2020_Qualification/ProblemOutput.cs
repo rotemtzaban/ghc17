@@ -8,5 +8,6 @@ namespace _2020_Qualification
 {
     public class ProblemOutput
     {
+        public List<Library> libaries { get; set; }
     }
 }
