@@ -15,6 +15,8 @@ namespace _2020_Qualification
             Calculator calculator = null;
             Solver solver = new Solver();
 
+            AnalizeData();
+
             var runner1 = new Runner<ProblemInput, ProblemOutput>("2020_Qualification", new Parser(), solver, new Printer(), calculator);
             runner1.Run(Resources.Example, "Example");
 
@@ -37,6 +39,17 @@ namespace _2020_Qualification
             ZipCreator.CreateCodeZip(@"..\..\..\output\2020_Qualification");
 
             Console.ReadLine();
+        }
+
+        private static void AnalizeData()
+        {
+            Parser parser = new Parser();
+            parser.ParseFromData(Resources.Example);
+            parser.ParseFromData(Resources.b_read_on);
+            parser.ParseFromData(Resources.c_incunabula);
+            parser.ParseFromData(Resources.d_tough_choices);
+            parser.ParseFromData(Resources.e_so_many_books);
+            parser.ParseFromData(Resources.f_libraries_of_the_world);
         }
     }
 }
