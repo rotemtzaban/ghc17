@@ -22,7 +22,7 @@ namespace _2020_Qualification
 
                 if (libraryScore > bestScore)
                     lock (s_lock)
-                        {
+                    {
                         if (libraryScore > bestScore)
                         {
                             bestScore = libraryScore;

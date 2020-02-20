@@ -29,7 +29,7 @@ namespace _2020_Qualification
 
                 //selectedLibrary.SendBooksToScan(bestTakenBooks);
                 selectedLibrary.SelectedBooks = bestTakenBooks;
-                selectedLibrary.LibrarySignupTime = currentTime;
+                selectedLibrary.LibaryStartSignUpTime = currentTime;
                 notSelectedLibraries.Remove(selectedLibrary);
                 foreach (var book in bestTakenBooks)
                 {

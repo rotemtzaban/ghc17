@@ -13,13 +13,15 @@ namespace _2020_Qualification
         public override long Calculate(ProblemInput input, ProblemOutput output)
         {
             long score = 0;
-            HashSet<int> booksScanned = new HashSet<int>();
+            HashSet<Book> booksScanned = new HashSet<Book>();
             foreach (var library in output.libaries)
             {
                 foreach (var newBook in library.SelectedBooks)
                 {
-                    if(booksScanned.Add(newBook.Index))
+                    if (booksScanned.Add(newBook))
+                    {
                         score += newBook.Score;
+                    }
                 }
             }
 
