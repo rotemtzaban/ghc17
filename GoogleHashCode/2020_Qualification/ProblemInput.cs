@@ -22,6 +22,14 @@ namespace _2020_Qualification
         {
         }
 
+        public void BookTakenToScan()
+        {
+            foreach (var library in Libraries)
+            {
+                library.BookTakenFromOhterLibrary(this);
+            }
+        }
+
         public int Score { get; set; }
         public HashSet<Library> Libraries { get; set; } = new HashSet<Library>();
     }
@@ -43,8 +51,10 @@ namespace _2020_Qualification
         {
             isUpdated = false;
             Books.Remove(bookToScan);
+            bookToScan.Libraries.Remove(this);
             SelectedBooks.Add(bookToScan);
             GivenScore += bookToScan.Score;
+            bookToScan.BookTakenToScan();
         }
 
         public void SendBooksToScan(List<Book> booksToScan)
@@ -53,8 +63,11 @@ namespace _2020_Qualification
             foreach (var book in booksToScan)
             {
                 Books.Remove(book);
+                book.Libraries.Remove(this);
                 SelectedBooks.Add(book);
                 GivenScore += book.Score;
+
+                book.BookTakenToScan();
             }
         }
 
