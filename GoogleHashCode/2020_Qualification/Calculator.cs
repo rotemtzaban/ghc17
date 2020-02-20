@@ -16,8 +16,7 @@ namespace _2020_Qualification
             HashSet<int> booksScanned = new HashSet<int>();
             foreach (var library in output.libaries)
             {
-                var booksNow  = library.SelectedBooks.Take(input.NumberOfDays - (library.LibrarySignupTime + library.LibaryStartSignUpTime));
-                foreach (var newBook in booksNow)
+                foreach (var newBook in library.SelectedBooks)
                 {
                     if(booksScanned.Contains(newBook.Index)) continue;
                     booksScanned.Add(newBook.Index);

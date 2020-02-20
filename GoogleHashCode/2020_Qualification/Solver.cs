@@ -13,10 +13,6 @@ namespace _2020_Qualification
         {
             HashSet<Library> notSelectedLibraries = new HashSet<Library>(input.Libraries);
             HashSet<Book> selectedBooks = new HashSet<Book>();
-            foreach (var inputLibrary in input.Libraries)
-            {
-                inputLibrary.Books.Sort((book, book1) => book.Score.CompareTo(book1.Score));
-            }
 
             int currentTime = 0;
             var output = new ProblemOutput(){libaries = new List<Library>()};
