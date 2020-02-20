@@ -17,8 +17,10 @@ namespace _2020_Qualification
 
             // AnalizeData();
 
+            ZipCreator.CreateCodeZip(@"..\..\..\output\2020_Qualification");
+
             var runner1 = new Runner<ProblemInput, ProblemOutput>("2020_Qualification", new Parser(), solver, new Printer(), calculator);
-            runner1.Run(Resources.Example, "Example");
+            runner1.Run(Resources.Example, "a_Example");
 
             var runner2 = new Runner<ProblemInput, ProblemOutput>("2020_Qualification", new Parser(), solver, new Printer(), calculator);
             runner2.Run(Resources.b_read_on, "b_read_on");
@@ -34,9 +36,6 @@ namespace _2020_Qualification
 
             var runner6 = new Runner<ProblemInput, ProblemOutput>("2020_Qualification", new Parser(), solver, new Printer(), calculator);
             runner6.Run(Resources.f_libraries_of_the_world, "f_libraries_of_the_world");
-
-
-            ZipCreator.CreateCodeZip(@"..\..\..\output\2020_Qualification");
 
             Console.ReadLine();
         }
