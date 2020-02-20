@@ -17,7 +17,7 @@ namespace _2020_Qualification
             List<Book> bestTakenBooks = null;
             Parallel.ForEach(notSelectedLibraries, new ParallelOptions() { MaxDegreeOfParallelism = 20 }, (notSelectedLibrary) =>
             {
-                var (libraryScore, takenBooks) = GetLibraryScore(notSelectedLibrary, input, currentTime);
+                var (libraryScore, takenBooks) = GetLibraryScore(notSelectedLibrary, input, currentTime, runParam);
                 libraryScore /= Math.Pow(notSelectedLibrary.LibrarySignupTime, runParam);
 
                 if (libraryScore > bestScore)
@@ -35,7 +35,7 @@ namespace _2020_Qualification
             return (selectedLibrary, bestTakenBooks);
         }
 
-        public static (double sum, List<Book> takenBooks) GetLibraryScore(Library library, ProblemInput input, int currentTime)
+        public static (double sum, List<Book> takenBooks) GetLibraryScore(Library library, ProblemInput input, int currentTime, double runParam)
         {
             long counter = 0;
             double sum = 0;
@@ -49,8 +49,8 @@ namespace _2020_Qualification
                     break;
                 }
 
-                sum += libraryBook.Score / Math.Sqrt(libraryBook.Libraries.Count);
-                // sum += libraryBook.Score;
+                //  sum += libraryBook.Score - libraryBook.Libraries.Count;
+                 sum += libraryBook.Score;
                 takenBooks.Add(libraryBook);
             }
 
