@@ -20,17 +20,21 @@ namespace _2020_Qualification
 
             int currentTime = 0;
             var output = new ProblemOutput(){libaries = new List<Library>()};
+
+            int count = 0;
             while (currentTime < input.NumberOfDays)
             {
                 Library selectedLibrary = null;
                 double bestScore = -1;
+                List<Book> bestTakenBooks = null;
                 foreach (var notSelectedLibrary in notSelectedLibraries)
                 {
-                    var libraryScore = GetLibraryScore(selectedBooks, notSelectedLibrary, input, currentTime);
+                    var (libraryScore, takenBooks) = GetLibraryScore(selectedBooks, notSelectedLibrary, input, currentTime);
                     if (libraryScore > bestScore)
                     {
                         bestScore = libraryScore;
                         selectedLibrary = notSelectedLibrary;
+                        bestTakenBooks = takenBooks;
                     }
                 }
 
@@ -39,29 +43,48 @@ namespace _2020_Qualification
                     break;
                 }
 
-                var books = selectedLibrary.Books.Except(selectedBooks)
-                    .Take((input.NumberOfDays - currentTime - selectedLibrary.LibrarySignupTime) * selectedLibrary.BooksPerDay).ToList();
-
-                selectedLibrary.SelectedBooks = books;
+                selectedLibrary.SelectedBooks = bestTakenBooks;
                 selectedLibrary.LibrarySignupTime = currentTime;
                 notSelectedLibraries.Remove(selectedLibrary);
-                foreach (var book in books)
+                foreach (var book in bestTakenBooks)
                 {
                     selectedBooks.Add(book);
                 }
 
                 currentTime += selectedLibrary.LibrarySignupTime;
                 output.libaries.Add(selectedLibrary);
+
+                if (++count % 100 == 0)
+                {
+                    Console.WriteLine(count);
+                }
             }
 
             return output;
         }
 
-        private double GetLibraryScore(HashSet<Book> selectedBooks, Library library, ProblemInput input, int currentTime)
+        private (int sum, List<Book> takenBooks) GetLibraryScore(HashSet<Book> selectedBooks, Library library, ProblemInput input, int currentTime)
         {
-            return library.Books.Except(selectedBooks)
-                .Take((input.NumberOfDays - currentTime - library.LibrarySignupTime) * library.BooksPerDay)
-                .Sum(book => book.Score);
+            int counter = 0;
+            int sum =0 ;
+            List<Book> takenBooks = new List<Book>();
+            var libraryLibrarySignupTime = (input.NumberOfDays - currentTime - library.LibrarySignupTime) * library.BooksPerDay;
+
+            foreach (var libraryBook in library.Books)
+            {
+                if (selectedBooks.Contains(libraryBook))
+                    continue;
+
+                if (counter++ >= libraryLibrarySignupTime)
+                {
+                    break;
+                }
+
+                sum += libraryBook.Score;
+                takenBooks.Add(libraryBook);
+            }
+
+            return (sum, takenBooks);
         }
     }
 }
