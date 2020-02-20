@@ -26,6 +26,7 @@ namespace _2020_Qualification
                 input.Books.Add(new Book(i) { Score = secondRow[i] });
             }
 
+            input.Libraries = new List<Library>();
             for (int i = 0; i < input.NumberOfLibraries; i++)
             {
                 Library library = new Library(i);
@@ -40,6 +41,8 @@ namespace _2020_Qualification
                 {
                     library.Books.Add(input.Books[item]);
                 }
+
+                input.Libraries.Add(library);
             }
 
             return input;
