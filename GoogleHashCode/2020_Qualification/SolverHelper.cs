@@ -8,21 +8,25 @@ namespace _2020_Qualification
 {
     class SolverHelper
     {
-        public static (Library, List<Book>) GetBestLibray(ProblemInput input, HashSet<Library> notSelectedLibraries,HashSet<Book> selectedBooks, int currentTime)
+        public static (Library, List<Book>) GetBestLibray(ProblemInput input, HashSet<Library> notSelectedLibraries, HashSet<Book> selectedBooks, int currentTime)
         {
+            object s_lock = new object();
             Library selectedLibrary = null;
             double bestScore = -1;
             List<Book> bestTakenBooks = null;
-            foreach (var notSelectedLibrary in notSelectedLibraries)
+            Parallel.ForEach(notSelectedLibraries, (notSelectedLibrary) =>
             {
                 var (libraryScore, takenBooks) = GetLibraryScore(selectedBooks, notSelectedLibrary, input, currentTime);
-                if (libraryScore > bestScore)
+                lock (s_lock)
                 {
-                    bestScore = libraryScore;
-                    selectedLibrary = notSelectedLibrary;
-                    bestTakenBooks = takenBooks;
+                    if (libraryScore > bestScore)
+                    {
+                        bestScore = libraryScore;
+                        selectedLibrary = notSelectedLibrary;
+                        bestTakenBooks = takenBooks;
+                    }
                 }
-            }
+            });
 
             return (selectedLibrary, bestTakenBooks);
         }

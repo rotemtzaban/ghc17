@@ -20,7 +20,6 @@ namespace _2020_Qualification
             int count = 0;
             while (currentTime < input.NumberOfDays)
             {
-
                 var (selectedLibrary, bestTakenBooks) =
                     SolverHelper.GetBestLibray(input, notSelectedLibraries, selectedBooks, currentTime);
                 if (selectedLibrary == null)
