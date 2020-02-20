@@ -21,6 +21,8 @@ namespace _2020_Qualification
         public Book(int index) : base(index)
         {
         }
+
+        public int Score { get; set; }
     }
 
     public class Library

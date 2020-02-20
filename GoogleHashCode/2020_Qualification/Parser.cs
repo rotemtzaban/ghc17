@@ -15,7 +15,16 @@ namespace _2020_Qualification
         {
             ProblemInput input = new ProblemInput();
             var firstRow = reader.GetIntList();
-            
+            input.NumberOfBooks = firstRow[0];
+            input.NumberOfLibraries = firstRow[1];
+            input.NumberOfDays = firstRow[2];
+
+            var secondRow = reader.GetIntList();
+            foreach (var item in secondRow)
+            {
+
+            }
+
             return input;
         }
     }
