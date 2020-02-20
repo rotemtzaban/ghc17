@@ -34,6 +34,11 @@ namespace _2020_Qualification
         {
         }
 
+        public void BookTakenFromOhterLibrary(Book book)
+        {
+            Books.Remove(book);
+        }
+
         public void SendBookToScan(Book bookToScan)
         {
             isUpdated = false;
