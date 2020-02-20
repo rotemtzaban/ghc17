@@ -12,7 +12,7 @@ namespace _2020_Qualification
     {
         static void Main(string[] args)
         {
-            Calculator calculator = null;
+            Calculator calculator = new Calculator();
             Solver solver = new Solver();
 
             AnalizeData();
@@ -24,16 +24,16 @@ namespace _2020_Qualification
             runner2.Run(Resources.b_read_on, "b_read_on");
 
             var runner3 = new Runner<ProblemInput, ProblemOutput>("2020_Qualification", new Parser(), solver, new Printer(), calculator);
-            // runner3.Run(Resources.c_incunabula, "c_incunabula");
+            runner3.Run(Resources.c_incunabula, "c_incunabula");
 
             var runner4 = new Runner<ProblemInput, ProblemOutput>("2020_Qualification", new Parser(), solver, new Printer(), calculator);
-            // runner4.Run(Resources.d_tough_choices, "d_tough_choices");
+            runner4.Run(Resources.d_tough_choices, "d_tough_choices");
 
             var runner5 = new Runner<ProblemInput, ProblemOutput>("2020_Qualification", new Parser(), solver, new Printer(), calculator);
-            // runner5.Run(Resources.e_so_many_books, "e_so_many_books");
+            runner5.Run(Resources.e_so_many_books, "e_so_many_books");
 
             var runner6 = new Runner<ProblemInput, ProblemOutput>("2020_Qualification", new Parser(), solver, new Printer(), calculator);
-            // runner6.Run(Resources.f_libraries_of_the_world, "f_libraries_of_the_world");
+            runner6.Run(Resources.f_libraries_of_the_world, "f_libraries_of_the_world");
 
 
             ZipCreator.CreateCodeZip(@"..\..\..\output\2020_Qualification");

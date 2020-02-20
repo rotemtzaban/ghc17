@@ -14,9 +14,14 @@ namespace _2020_Qualification
         {
             long score = 0;
             HashSet<int> booksScanned = new HashSet<int>();
-            foreach (var libary in output.libaries)
+            foreach (var library in output.libaries)
             {
-//                libary.Books.Take(input.NumberOfDays - (libary.LibrarySignupTime + libary.)
+                foreach (var newBook in library.SelectedBooks)
+                {
+                    if(booksScanned.Contains(newBook.Index)) continue;
+                    booksScanned.Add(newBook.Index);
+                    score += newBook.Score;
+                }
             }
 
             return score;
