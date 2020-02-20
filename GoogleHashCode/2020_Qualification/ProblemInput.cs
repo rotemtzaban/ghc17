@@ -25,10 +25,14 @@ namespace _2020_Qualification
         public int Score { get; set; }
     }
 
-    public class Library
+    public class Library : IndexedObject
     {
+        public Library(int index) : base(index)
+        {
+        }
+
         public int NumberOfBooks { get; set; }
-        public List<Book> books { get; set; }
+        public List<Book> Books { get; set; }
         public int BooksPerDay { get; set; }
         public int LibrarySignupTime { get; set; }
     }
