@@ -40,7 +40,7 @@ namespace _2020_Qualification
 
         public int GivenScore { get; set; } = 0;
         public int NumberOfBooks { get; set; }
-        public List<Book> Books { get; set; }
+        public SortedSet<Book> Books { get; set; }
         public List<Book> SelectedBooks { get; set; } = new List<Book>();
         public int BooksPerDay { get; set; }
         public int LibrarySignupTime { get; set; }

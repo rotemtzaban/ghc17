@@ -36,7 +36,7 @@ namespace _2020_Qualification
                 library.LibrarySignupTime = row1[1];
                 library.BooksPerDay = row1[2];
 
-                library.Books = new List<Book>();
+                library.Books = new SortedSet<Book>(new BooksCompraer());
                 foreach (var item in row2)
                 {
                     library.Books.Add(input.Books[item]);
@@ -46,6 +46,14 @@ namespace _2020_Qualification
             }
 
             return input;
+        }
+    }
+
+    public class BooksCompraer : IComparer<Book>
+    {
+        public int Compare(Book x, Book y)
+        {
+            return x.Score.CompareTo(y.Score);
         }
     }
 }
