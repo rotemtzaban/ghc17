@@ -40,7 +40,7 @@ namespace _2020_Qualification
             long counter = 0;
             long sum = 0;
             List<Book> takenBooks = new List<Book>();
-            var availableTime = Math.BigMul(input.NumberOfDays - currentTime - library.LibrarySignupTime - 1, library.BooksPerDay);
+            var availableTime = Math.BigMul(input.NumberOfDays - currentTime - library.LibrarySignupTime, library.BooksPerDay);
 
             foreach (var libraryBook in library.Books)
             {
