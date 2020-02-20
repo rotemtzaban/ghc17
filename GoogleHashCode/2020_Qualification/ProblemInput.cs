@@ -27,15 +27,41 @@ namespace _2020_Qualification
 
     public class Library : IndexedObject
     {
+        private bool isUpdated = false;
+        private long score = 0;
         public Library(int index) : base(index)
         {
         }
 
         public void SendBookToScan(Book bookToScan)
         {
+            isUpdated = false;
             Books.Remove(bookToScan);
             SelectedBooks.Add(bookToScan);
             GivenScore += bookToScan.Score;
+        }
+
+        public void SendBooksToScan(List<Book> booksToScan)
+        {
+            isUpdated = false;
+            foreach (var book in booksToScan)
+            {
+                Books.Remove(book);
+                SelectedBooks.Add(book);
+                GivenScore += book.Score;
+            }
+        }
+
+        public long LibraryScore(int numberOfDays)
+        {
+            if (isUpdated)
+            {
+                return score;
+            }
+
+            score = Books.Take(BooksPerDay * numberOfDays).Sum(_ => _.Score);
+            isUpdated = true;
+            return score;
         }
 
         public int GivenScore { get; set; } = 0;
