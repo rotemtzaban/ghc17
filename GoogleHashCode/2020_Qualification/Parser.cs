@@ -38,7 +38,7 @@ namespace _2020_Qualification
                 library.LibrarySignupTime = row1[1];
                 library.BooksPerDay = row1[2];
 
-                library.Books = new List<Book>();
+                library.Books = new SortedSet<Book>(new BooksCompraer());
                 foreach (var item in row2)
                 {
                     library.Books.Add(input.Books[item]);
@@ -60,6 +60,14 @@ namespace _2020_Qualification
             Console.WriteLine($"MaxBookScore: { input.Books.Max(_ => _.Score)}, AvgBookScore: { input.Books.Average(_ => _.Score)}, MinBookScore: { input.Books.Min(_ => _.Score)}");
             Console.WriteLine($"LibraryMaxSignupTime: {input.Libraries.Max(_ => _.LibrarySignupTime)}, LibraryAvgSignupTime: {input.Libraries.Average(_ => _.LibrarySignupTime)}, LibraryMinSignupTime: {input.Libraries.Min(_ => _.LibrarySignupTime)}");
             Console.WriteLine($"LibraryMaxBooksPerDay: {input.Libraries.Max(_ => _.BooksPerDay)}, LibraryAvgBooksPerDay: {input.Libraries.Average(_ => _.BooksPerDay)}, LibraryMinBooksPerDay: {input.Libraries.Min(_ => _.BooksPerDay)}");
+        }
+    }
+
+    public class BooksCompraer : IComparer<Book>
+    {
+        public int Compare(Book x, Book y)
+        {
+            return x.Score.CompareTo(y.Score);
         }
     }
 }
