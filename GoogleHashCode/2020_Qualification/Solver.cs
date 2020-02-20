@@ -27,8 +27,7 @@ namespace _2020_Qualification
                     break;
                 }
 
-                //selectedLibrary.SendBooksToScan(bestTakenBooks);
-                selectedLibrary.SelectedBooks = bestTakenBooks;
+                selectedLibrary.SendBooksToScan(bestTakenBooks);
                 selectedLibrary.LibrarySignupTime = currentTime;
                 notSelectedLibraries.Remove(selectedLibrary);
                 foreach (var book in bestTakenBooks)
