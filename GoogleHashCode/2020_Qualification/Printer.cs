@@ -23,8 +23,8 @@ namespace _2020_Qualification
                 writer.WriteLine(result.libaries.Count);
                 foreach (var library in ordersBooks)
                 {
-                    writer.WriteLine($"{library.Index} { library.Books.Count()}");
-                    var books = library.Books.Select(_ => _.Index.ToString());
+                    writer.WriteLine($"{library.Index} { library.SelectedBooks.Count()}");
+                    var books = library.SelectedBooks.Select(_ => _.Index.ToString());
                     var output = string.Join(" ", books);
                     writer.WriteLine(output);
                 }
