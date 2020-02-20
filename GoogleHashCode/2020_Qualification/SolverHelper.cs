@@ -10,7 +10,7 @@ namespace _2020_Qualification
     class SolverHelper
     {
         static volatile object s_lock = new object();
-        public static (Library, List<Book>) GetBestLibray(ProblemInput input, HashSet<Library> notSelectedLibraries, HashSet<Book> selectedBooks, int currentTime)
+        public static (Library, List<Book>) GetBestLibray(ProblemInput input, HashSet<Library> notSelectedLibraries, HashSet<Book> selectedBooks, int currentTime, double runParam)
         {
             Library selectedLibrary = null;
             double bestScore = 0;
@@ -18,7 +18,7 @@ namespace _2020_Qualification
             Parallel.ForEach(notSelectedLibraries, new ParallelOptions() { MaxDegreeOfParallelism = 10 }, (notSelectedLibrary) =>
             {
                 var (libraryScore, takenBooks) = GetLibraryScore(selectedBooks, notSelectedLibrary, input, currentTime);
-                libraryScore /= notSelectedLibrary.LibrarySignupTime;
+                libraryScore /= Math.Pow(notSelectedLibrary.LibrarySignupTime, runParam);
 
                 if (libraryScore > bestScore)
                     lock (s_lock)
@@ -52,8 +52,8 @@ namespace _2020_Qualification
                     break;
                 }
 
-                sum += libraryBook.Score / Math.Sqrt(libraryBook.Libraries.Count);
-                // sum += libraryBook.Score;
+                // sum += libraryBook.Score / Math.Sqrt(libraryBook.Libraries.Count);
+                sum += libraryBook.Score;
                 takenBooks.Add(libraryBook);
             }
 
