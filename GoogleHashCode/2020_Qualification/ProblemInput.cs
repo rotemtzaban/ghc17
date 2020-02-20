@@ -71,7 +71,7 @@ namespace _2020_Qualification
             foreach (var book in Books)
             {
                 currentScore += book.Score;
-                index++;
+                index++; 
                 if (index >= maxToTake)
                 {
                     break;
