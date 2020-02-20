@@ -80,6 +80,8 @@ namespace _2020_Qualification
                 takenBooks.Add(libraryBook);
             }
 
+            sum /= library.LibrarySignupTime;
+
             return (sum, takenBooks);
         }
     }
