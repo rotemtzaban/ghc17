@@ -31,6 +31,16 @@ namespace _2020_Qualification
         {
         }
 
+        public void SendBookToScan(Book bookToScan)
+        {
+            Books.Remove(bookToScan);
+            SelectedBooks.Add(bookToScan);
+            GivenScore += bookToScan.Score;
+        }
+
+        public int GivenScore { get; set; } = 0;
+
+        public int ScoreCanGive { get; set; }
         public int NumberOfBooks { get; set; }
         public List<Book> Books { get; set; }
         public List<Book> SelectedBooks { get; set; }
