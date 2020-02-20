@@ -10,7 +10,7 @@ namespace _2020_Qualification
 {
     class Program
     {
-        private const int NUM_OF_ATTEMPTS = 100;
+        private const int NUM_OF_ATTEMPTS = 10;
 
         static void Main(string[] args)
         {
@@ -31,13 +31,13 @@ namespace _2020_Qualification
             ZipCreator.CreateCodeZip(@"..\..\..\output\2020_Qualification");
 
             var runner2 = new Runner<ProblemInput, ProblemOutput>("2020_Qualification", new Parser(), solver, new Printer(), calculator);
-            runner2.Run(Resources.b_read_on, "b_read_on");
+            runner2.Run(Resources.b_read_on, "b_read_on", NUM_OF_ATTEMPTS, true, runParams);
 
             var runner3 = new Runner<ProblemInput, ProblemOutput>("2020_Qualification", new Parser(), solver, new Printer(), calculator);
-            runner3.Run(Resources.c_incunabula, "c_incunabula");
+            // runner3.Run(Resources.c_incunabula, "c_incunabula", NUM_OF_ATTEMPTS, true, runParams);
 
             var runner4 = new Runner<ProblemInput, ProblemOutput>("2020_Qualification", new Parser(), solver, new Printer(), calculator);
-            runner4.Run(Resources.d_tough_choices, "d_tough_choices");
+            // runner4.Run(Resources.d_tough_choices, "d_tough_choices", NUM_OF_ATTEMPTS, true, runParams);
 
             var runner5 = new Runner<ProblemInput, ProblemOutput>("2020_Qualification", new Parser(), solver, new Printer(), calculator);
             runner5.Run(Resources.e_so_many_books, "e_so_many_books", NUM_OF_ATTEMPTS, true, runParams);

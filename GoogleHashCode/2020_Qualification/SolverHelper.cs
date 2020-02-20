@@ -10,14 +10,14 @@ namespace _2020_Qualification
     class SolverHelper
     {
         static volatile object s_lock = new object();
-        public static (Library, List<Book>) GetBestLibray(ProblemInput input, HashSet<Library> notSelectedLibraries, HashSet<Book> selectedBooks, int currentTime, double runParam)
+        public static (Library, List<Book>) GetBestLibray(ProblemInput input, HashSet<Library> notSelectedLibraries, int currentTime, double runParam)
         {
             Library selectedLibrary = null;
             double bestScore = 0;
             List<Book> bestTakenBooks = null;
-            Parallel.ForEach(notSelectedLibraries, new ParallelOptions() { MaxDegreeOfParallelism = 10 }, (notSelectedLibrary) =>
+            Parallel.ForEach(notSelectedLibraries, new ParallelOptions() { MaxDegreeOfParallelism = 20 }, (notSelectedLibrary) =>
             {
-                var (libraryScore, takenBooks) = GetLibraryScore(selectedBooks, notSelectedLibrary, input, currentTime);
+                var (libraryScore, takenBooks) = GetLibraryScore(notSelectedLibrary, input, currentTime);
                 libraryScore /= Math.Pow(notSelectedLibrary.LibrarySignupTime, runParam);
 
                 if (libraryScore > bestScore)
@@ -35,7 +35,7 @@ namespace _2020_Qualification
             return (selectedLibrary, bestTakenBooks);
         }
 
-        public static (double sum, List<Book> takenBooks) GetLibraryScore(HashSet<Book> selectedBooks, Library library, ProblemInput input, int currentTime)
+        public static (double sum, List<Book> takenBooks) GetLibraryScore(Library library, ProblemInput input, int currentTime)
         {
             long counter = 0;
             double sum = 0;
@@ -44,16 +44,13 @@ namespace _2020_Qualification
 
             foreach (var libraryBook in library.Books)
             {
-                if (selectedBooks.Contains(libraryBook))
-                    continue;
-
                 if (counter++ >= availableTime)
                 {
                     break;
                 }
 
-                // sum += libraryBook.Score / Math.Sqrt(libraryBook.Libraries.Count);
-                sum += libraryBook.Score;
+                sum += libraryBook.Score / Math.Sqrt(libraryBook.Libraries.Count);
+                // sum += libraryBook.Score;
                 takenBooks.Add(libraryBook);
             }
 

@@ -12,7 +12,6 @@ namespace _2020_Qualification
         protected override ProblemOutput Solve(ProblemInput input)
         {
             HashSet<Library> notSelectedLibraries = new HashSet<Library>(input.Libraries);
-            HashSet<Book> selectedBooks = new HashSet<Book>();
 
             int currentTime = 0;
             var output = new ProblemOutput(){libaries = new List<Library>()};
@@ -21,7 +20,7 @@ namespace _2020_Qualification
             while (currentTime < input.NumberOfDays)
             {
                 var (selectedLibrary, bestTakenBooks) =
-                    SolverHelper.GetBestLibray(input, notSelectedLibraries, selectedBooks, currentTime, RunParam);
+                    SolverHelper.GetBestLibray(input, notSelectedLibraries, currentTime, RunParam);
                 if (selectedLibrary == null)
                 {
                     break;
@@ -31,10 +30,6 @@ namespace _2020_Qualification
                 //selectedLibrary.SelectedBooks = bestTakenBooks;
                 selectedLibrary.LibaryStartSignUpTime = currentTime;
                 notSelectedLibraries.Remove(selectedLibrary);
-                foreach (var book in bestTakenBooks)
-                {
-                    selectedBooks.Add(book);
-                }
 
                 currentTime += selectedLibrary.LibrarySignupTime;
                 output.libaries.Add(selectedLibrary);
