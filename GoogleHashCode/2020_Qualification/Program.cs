@@ -12,7 +12,7 @@ namespace _2020_Qualification
     {
         static void Main(string[] args)
         {
-            Calculator calculator = new Calculator();
+            Calculator calculator = null;
             Solver solver = new Solver();
 
             AnalizeData();

@@ -64,14 +64,14 @@ namespace _2020_Qualification
             int counter = 0;
             int sum =0 ;
             List<Book> takenBooks = new List<Book>();
-            var libraryLibrarySignupTime = (input.NumberOfDays - currentTime - library.LibrarySignupTime) * library.BooksPerDay;
+            var availableTime = (input.NumberOfDays - currentTime - library.LibrarySignupTime - 1) * library.BooksPerDay;
 
             foreach (var libraryBook in library.Books)
             {
                 if (selectedBooks.Contains(libraryBook))
                     continue;
 
-                if (counter++ >= libraryLibrarySignupTime)
+                if (counter++ >= availableTime)
                 {
                     break;
                 }
