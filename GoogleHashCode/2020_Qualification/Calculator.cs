@@ -20,6 +20,7 @@ namespace _2020_Qualification
                 foreach (var newBook in booksNow)
                 {
                     if(booksScanned.Contains(newBook.Index)) continue;
+                    booksScanned.Add(newBook.Index);
                     score += newBook.Score;
                 }
             }
