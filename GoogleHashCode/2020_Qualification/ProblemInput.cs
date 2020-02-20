@@ -13,7 +13,7 @@ namespace _2020_Qualification
         public int NumberOfLibraries { get; set; }
         public int NumberOfDays { get; set; }
         public List<Book> Books { get; set; }
-
+        public List<Library> Libraries { get; set; }
     }
 
     public class Book : IndexedObject
