@@ -12,7 +12,7 @@ namespace _2020_Qualification
     {
         public override void PrintToConsole(ProblemOutput result)
         {
-            throw new NotImplementedException();
+            return;
         }
 
         public override void PrintToFile(ProblemOutput result, string outputPath)
