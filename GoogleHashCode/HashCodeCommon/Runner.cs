@@ -95,7 +95,7 @@ namespace HashCodeCommon
         {
             if (numberOfAttempts == 1)
             {
-                if (RunParams.Any())
+                if (RunParams?.Any() == true)
                     return m_Solver.Solve(GetInput(data), new Random(), caseName, RunParams[0]);
                 else
                     return m_Solver.Solve(GetInput(data), new Random(), caseName, 1);

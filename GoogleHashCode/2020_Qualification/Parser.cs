@@ -19,10 +19,27 @@ namespace _2020_Qualification
             input.NumberOfLibraries = firstRow[1];
             input.NumberOfDays = firstRow[2];
 
+            input.Books = new List<Book>();
             var secondRow = reader.GetIntList();
-            foreach (var item in secondRow)
+            for (int i = 0; i < secondRow.Count; i++)
             {
+                input.Books.Add(new Book(i) { Score = secondRow[i] });
+            }
 
+            for (int i = 0; i < input.NumberOfLibraries; i++)
+            {
+                Library library = new Library(i);
+                var row1 = reader.GetIntList();
+                var row2 = reader.GetIntList();
+                library.NumberOfBooks = row1[0];
+                library.LibrarySignupTime = row1[1];
+                library.BooksPerDay = row1[2];
+
+                library.Books = new List<Book>();
+                foreach (var item in row2)
+                {
+                    library.Books.Add(input.Books[item]);
+                }
             }
 
             return input;
