@@ -19,17 +19,15 @@ namespace _2020_Qualification
         {
             using (var writer = new StreamWriter(outputPath))
             {
-                //foreach (var server in result.Servers)
-                //{
-                //    if (server.Row == null)
-                //    {
-                //        writer.WriteLine("x");
-                //    }
-                //    else
-                //    {
-                //        writer.WriteLine($"{server.Row.Value} {server.SlotInRow} {server.PoolAssigned.Value}");
-                //    }
-                //}
+                var ordersBooks = result.libaries.OrderBy(_ => _.LibrarySignupTime);
+                writer.WriteLine(result.libaries.Count);
+                foreach (var libary in ordersBooks)
+                {
+                    writer.WriteLine($"{libary.Index} { libary.Books.Count()}");
+                    var books = libary.Books.Select(_ => _.Index.ToString());
+                    var output = string.Join(" ", books);
+                    writer.WriteLine(output);
+                }
             }
         }
     }
