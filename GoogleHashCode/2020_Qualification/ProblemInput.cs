@@ -23,6 +23,7 @@ namespace _2020_Qualification
         }
 
         public int Score { get; set; }
+        public HashSet<Library> Libraries { get; set; } = new HashSet<Library>();
     }
 
     public class Library : IndexedObject

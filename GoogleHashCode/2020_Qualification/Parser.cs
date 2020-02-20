@@ -42,6 +42,7 @@ namespace _2020_Qualification
                 foreach (var item in row2)
                 {
                     library.Books.Add(input.Books[item]);
+                    input.Books[item].Libraries.Add(library);
                 }
 
                 input.Libraries.Add(library);
