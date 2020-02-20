@@ -23,6 +23,7 @@ namespace _2020_Qualification
         }
 
         public int Score { get; set; }
+        public HashSet<Library> Libraries { get; set; } = new HashSet<Library>();
     }
 
     public class Library : IndexedObject
@@ -31,6 +32,11 @@ namespace _2020_Qualification
         private long score = 0;
         public Library(int index) : base(index)
         {
+        }
+
+        public void BookTakenFromOhterLibrary(Book book)
+        {
+            Books.Remove(book);
         }
 
         public void SendBookToScan(Book bookToScan)
@@ -59,7 +65,20 @@ namespace _2020_Qualification
                 return score;
             }
 
-            score = Books.Take(Math.Max(BooksPerDay * numberOfDays, Books.Count)).Sum(_ => _.Score);
+            int maxToTake = Math.Max(BooksPerDay * numberOfDays, Books.Count);
+            int index = 0;
+            long currentScore = 0;
+            foreach (var book in Books)
+            {
+                currentScore += book.Score;
+                index++; 
+                if (index >= maxToTake)
+                {
+                    break;
+                }
+            }
+
+            score = currentScore;
             isUpdated = true;
             return score;
         }

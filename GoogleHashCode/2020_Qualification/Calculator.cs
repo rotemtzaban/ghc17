@@ -18,9 +18,8 @@ namespace _2020_Qualification
             {
                 foreach (var newBook in library.SelectedBooks)
                 {
-                    if(booksScanned.Contains(newBook.Index)) continue;
-                    booksScanned.Add(newBook.Index);
-                    score += newBook.Score;
+                    if(booksScanned.Add(newBook.Index))
+                        score += newBook.Score;
                 }
             }
 
