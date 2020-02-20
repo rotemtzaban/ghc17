@@ -59,7 +59,7 @@ namespace _2020_Qualification
                 return score;
             }
 
-            score = Books.Take(BooksPerDay * numberOfDays).Sum(_ => _.Score);
+            score = Books.Take(Math.Max(BooksPerDay * numberOfDays, Books.Count)).Sum(_ => _.Score);
             isUpdated = true;
             return score;
         }

@@ -67,7 +67,7 @@ namespace _2020_Qualification
     {
         public int Compare(Book x, Book y)
         {
-            return x.Score.CompareTo(y.Score);
+            return y.Score.CompareTo(x.Score);
         }
     }
 }
