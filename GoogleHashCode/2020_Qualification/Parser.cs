@@ -41,7 +41,11 @@ namespace _2020_Qualification
                 library.Books = new SortedSet<Book>(new BooksCompraer());
                 foreach (var item in row2)
                 {
-                    library.Books.Add(input.Books[item]);
+                    if (!library.Books.Add(input.Books[item]))
+                    {
+                        int x = 1;
+                    }
+
                     input.Books[item].Libraries.Add(library);
                 }
 

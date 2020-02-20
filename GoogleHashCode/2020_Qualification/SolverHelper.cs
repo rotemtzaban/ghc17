@@ -31,12 +31,12 @@ namespace _2020_Qualification
             return (selectedLibrary, bestTakenBooks);
         }
 
-        public static (int sum, List<Book> takenBooks) GetLibraryScore(HashSet<Book> selectedBooks, Library library, ProblemInput input, int currentTime)
+        public static (long sum, List<Book> takenBooks) GetLibraryScore(HashSet<Book> selectedBooks, Library library, ProblemInput input, int currentTime)
         {
-            int counter = 0;
-            int sum = 0;
+            long counter = 0;
+            long sum = 0;
             List<Book> takenBooks = new List<Book>();
-            var availableTime = (input.NumberOfDays - currentTime - library.LibrarySignupTime - 1) * library.BooksPerDay;
+            var availableTime = Math.BigMul(input.NumberOfDays - currentTime - library.LibrarySignupTime - 1, library.BooksPerDay);
 
             foreach (var libraryBook in library.Books)
             {
