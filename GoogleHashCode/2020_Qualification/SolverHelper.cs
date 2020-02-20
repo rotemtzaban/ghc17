@@ -35,10 +35,10 @@ namespace _2020_Qualification
             return (selectedLibrary, bestTakenBooks);
         }
 
-        public static (long sum, List<Book> takenBooks) GetLibraryScore(HashSet<Book> selectedBooks, Library library, ProblemInput input, int currentTime)
+        public static (double sum, List<Book> takenBooks) GetLibraryScore(HashSet<Book> selectedBooks, Library library, ProblemInput input, int currentTime)
         {
             long counter = 0;
-            long sum = 0;
+            double sum = 0;
             List<Book> takenBooks = new List<Book>();
             var availableTime = Math.BigMul(input.NumberOfDays - currentTime - library.LibrarySignupTime - 1, library.BooksPerDay);
 
@@ -52,7 +52,8 @@ namespace _2020_Qualification
                     break;
                 }
 
-                sum += libraryBook.Score;
+                sum += libraryBook.Score / Math.Sqrt(libraryBook.Libraries.Count);
+                // sum += libraryBook.Score;
                 takenBooks.Add(libraryBook);
             }
 
