@@ -19,20 +19,22 @@ namespace _2020_Qualification
             int count = 0;
             while (currentTime < input.NumberOfDays)
             {
-                var (selectedLibrary, bestTakenBooks) =
+                List <BestLibrariesData> bestLibrariesDatas =
                     SolverHelper.GetBestLibray(input, notSelectedLibraries, currentTime, RunParam);
-                if (selectedLibrary == null)
+                if (bestLibrariesDatas == null || !bestLibrariesDatas.Any())
                 {
                     break;
                 }
 
-                selectedLibrary.SendBooksToScan(bestTakenBooks);
-                //selectedLibrary.SelectedBooks = bestTakenBooks;
-                selectedLibrary.LibaryStartSignUpTime = currentTime;
-                notSelectedLibraries.Remove(selectedLibrary);
+                foreach (var selectedLibrary in bestLibrariesDatas)
+                {
+                    selectedLibrary.Library.SendBooksToScan(selectedLibrary.Books);
+                    selectedLibrary.Library.LibaryStartSignUpTime = currentTime;
+                    notSelectedLibraries.Remove(selectedLibrary.Library);
 
-                currentTime += selectedLibrary.LibrarySignupTime;
-                output.libaries.Add(selectedLibrary);
+                    currentTime += selectedLibrary.Library.LibrarySignupTime;
+                    output.libaries.Add(selectedLibrary.Library);
+                }
 
                 if (++count % 100 == 0)
                 {

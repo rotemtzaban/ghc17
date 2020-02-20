@@ -17,7 +17,7 @@ namespace _2020_Qualification
             Calculator calculator = new Calculator();
             Solver solver = new Solver();
 
-             AnalizeData();
+            // AnalizeData();
 
             List<double> runParams = new List<double>();
             for (int i = 0; i < NUM_OF_ATTEMPTS; i++)
@@ -28,12 +28,12 @@ namespace _2020_Qualification
             // runParams = new List<double>() { 0.9 };
 
             var runner1 = new Runner<ProblemInput, ProblemOutput>("2020_Qualification", new Parser(), solver, new Printer(), calculator);
-            // runner1.Run(Resources.Example, "a_Example");
+             runner1.Run(Resources.Example, "a_Example");
 
             // ZipCreator.CreateCodeZip(@"..\..\..\output\2020_Qualification");
 
             var runner2 = new Runner<ProblemInput, ProblemOutput>("2020_Qualification", new Parser(), solver, new Printer(), calculator);
-            runner2.Run(Resources.b_read_on, "b_read_on", 1, true, new List<double>() { 1 });
+            // runner2.Run(Resources.b_read_on, "b_read_on", 1, true, new List<double>() { 1 });
 
             var runner3 = new Runner<ProblemInput, ProblemOutput>("2020_Qualification", new Parser(), solver, new Printer(), calculator);
             // runner3.Run(Resources.c_incunabula, "c_incunabula", NUM_OF_ATTEMPTS, true, runParams);
