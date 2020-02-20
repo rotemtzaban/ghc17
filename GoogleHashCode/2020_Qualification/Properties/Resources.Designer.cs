@@ -61,11 +61,66 @@ namespace _2020_Qualification.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to 100000 100 1000
+        ///100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100 100  [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string b_read_on {
+            get {
+                return ResourceManager.GetString("b_read_on", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 100000 10000 100000
+        ///524 235 342 133 537 438 97 198 104 100 117 366 349 314 155 457 314 418 588 199 504 490 517 439 176 307 218 585 516 388 182 232 72 148 428 500 86 383 278 566 362 136 335 444 346 204 143 412 49 215 187 230 42 56 558 82 371 279 176 472 93 415 304 302 182 503 273 268 73 122 399 467 563 118 541 244 363 306 405 166 69 40 531 119 282 18 350 467 592 145 11 346 122 160 535 468 364 79 545 448 61 491 419 10 80 19 291 66 385 590 18 177 9 496 184 167 486 363 409 568 378 506 184 269 350 193 439 558 84 [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string c_incunabula {
+            get {
+                return ResourceManager.GetString("c_incunabula", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 78600 30000 30001
+        ///65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string d_tough_choices {
+            get {
+                return ResourceManager.GetString("d_tough_choices", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 100000 1000 200
+        ///51 127 187 161 26 140 160 180 207 164 122 92 23 162 238 53 58 9 14 145 218 67 51 98 237 247 195 52 40 135 176 130 193 40 34 169 57 24 59 162 135 12 48 222 188 111 69 170 238 101 190 159 137 45 202 75 172 144 131 106 153 128 105 20 122 201 56 247 157 172 62 183 16 148 220 21 234 56 131 193 164 90 98 213 33 57 199 229 79 93 131 179 106 147 19 182 133 74 194 237 50 31 140 226 57 52 183 189 113 54 4 159 172 203 33 214 186 34 15 57 11 48 25 22 103 107 28 137 193 24 247 202 204 160 64 66 54 23 138 [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string e_so_many_books {
+            get {
+                return ResourceManager.GetString("e_so_many_books", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 6 2 7
+        ///1 2 3 6 5 4
+        ///5 2 2
+        ///0 1 2 3 4
+        ///4 3 1
+        ///0 2 3 5.
         /// </summary>
         internal static string Example {
             get {
                 return ResourceManager.GetString("Example", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 100000 1000 700
+        ///277 467 206 176 115 41 251 677 367 307 563 587 667 660 755 93 716 448 320 316 501 12 788 400 59 196 41 173 85 315 385 689 259 509 144 713 71 193 294 212 740 698 573 127 17 12 315 271 26 348 420 413 244 705 480 603 123 86 292 693 266 241 384 243 309 781 612 795 614 132 784 275 627 153 566 676 729 625 398 218 183 129 470 551 265 227 740 232 638 162 426 576 313 53 356 384 577 553 672 264 37 598 363 198 784 307 212 733 228 38 191 514 374 564 393 224 774 438 275 475 346 716 685 433 534 652 416 57 [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string f_libraries_of_the_world {
+            get {
+                return ResourceManager.GetString("f_libraries_of_the_world", resourceCulture);
             }
         }
     }

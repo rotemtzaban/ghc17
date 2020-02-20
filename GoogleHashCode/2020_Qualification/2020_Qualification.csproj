@@ -78,5 +78,20 @@
   <ItemGroup>
     <None Include="Resources\Example.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\b_read_on.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\c_incunabula.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\d_tough_choices.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\f_libraries_of_the_world.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\e_so_many_books.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
