@@ -33,6 +33,7 @@ namespace _2020_Qualification
 
         public int NumberOfBooks { get; set; }
         public List<Book> Books { get; set; }
+        public List<Book> SelectedBooks { get; set; }
         public int BooksPerDay { get; set; }
         public int LibrarySignupTime { get; set; }
         public int LibaryStartSignUpTime { get; set; }

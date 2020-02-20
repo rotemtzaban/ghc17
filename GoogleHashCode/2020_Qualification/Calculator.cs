@@ -16,8 +16,12 @@ namespace _2020_Qualification
             HashSet<int> booksScanned = new HashSet<int>();
             foreach (var library in output.libaries)
             {
-                score += library.Books.Take(input.NumberOfDays - (library.LibrarySignupTime + library.LibaryStartSignUpTime))
-                    .Sum(_ => _.Score);
+                var booksNow  = library.Books.Take(input.NumberOfDays - (library.LibrarySignupTime + library.LibaryStartSignUpTime));
+                foreach (var newBook in booksNow)
+                {
+                    if(booksScanned.Contains(newBook.Index)) continue;
+                    score += newBook.Score;
+                }
             }
 
             return score;
