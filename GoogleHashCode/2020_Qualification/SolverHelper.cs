@@ -18,7 +18,7 @@ namespace _2020_Qualification
             Parallel.ForEach(notSelectedLibraries, new ParallelOptions() { MaxDegreeOfParallelism = 10 }, (notSelectedLibrary) =>
             {
                 var (libraryScore, takenBooks) = GetLibraryScore(selectedBooks, notSelectedLibrary, input, currentTime);
-                bestScore /= notSelectedLibrary.LibrarySignupTime;
+                libraryScore /= notSelectedLibrary.LibrarySignupTime;
 
                 if (libraryScore > bestScore)
                     lock (s_lock)
