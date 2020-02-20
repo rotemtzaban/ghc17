@@ -14,9 +14,10 @@ namespace _2020_Qualification
         {
             long score = 0;
             HashSet<int> booksScanned = new HashSet<int>();
-            foreach (var libary in output.libaries)
+            foreach (var library in output.libaries)
             {
-//                libary.Books.Take(input.NumberOfDays - (libary.LibrarySignupTime + libary.)
+                score += library.Books.Take(input.NumberOfDays - (library.LibrarySignupTime + library.LibaryStartSignUpTime))
+                    .Sum(_ => _.Score);
             }
 
             return score;
