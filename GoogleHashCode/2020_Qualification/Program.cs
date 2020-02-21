@@ -37,7 +37,7 @@ namespace _2020_Qualification
 
             var runner3 = new Runner<ProblemInput, ProblemOutput>("2020_Qualification", new Parser(), solver, new Printer(), calculator);
             // runner3.Run(Resources.c_incunabula, "c_incunabula", NUM_OF_ATTEMPTS, true, runParams);
-            runner3.Run(Resources.c_incunabula, "c_incunabula", 1, true, new List<double>() { 1 });
+            // runner3.Run(Resources.c_incunabula, "c_incunabula", 1, true, new List<double>() { 1 });
 
             var runner4 = new Runner<ProblemInput, ProblemOutput>("2020_Qualification", new Parser(), solver, new Printer(), calculator);
             // runner4.Run(Resources.d_tough_choices, "d_tough_choices", NUM_OF_ATTEMPTS, true, new List<double>() { 1 });
@@ -46,7 +46,7 @@ namespace _2020_Qualification
             runner5.Run(Resources.e_so_many_books, "e_so_many_books", 1, true, new List<double>() { 0.9 });
 
             var runner6 = new Runner<ProblemInput, ProblemOutput>("2020_Qualification", new Parser(), solver, new Printer(), calculator);
-            runner6.Run(Resources.f_libraries_of_the_world, "f_libraries_of_the_world", 1, true, new List<double>() { 0.55 });
+            // runner6.Run(Resources.f_libraries_of_the_world, "f_libraries_of_the_world", 1, true, new List<double>() { 0.55 });
 
             Console.ReadLine();
         }
