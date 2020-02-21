@@ -33,7 +33,7 @@ namespace _2020_Qualification
             // ZipCreator.CreateCodeZip(@"..\..\..\output\2020_Qualification");
 
             var runner2 = new Runner<ProblemInput, ProblemOutput>("2020_Qualification", new Parser(), solver, new Printer(), calculator);
-            // runner2.Run(Resources.b_read_on, "b_read_on", 1, true, new List<double>() { 1 });
+            runner2.Run(Resources.b_read_on, "b_read_on", 1, true, new List<double>() { 1 });
 
             var runner3 = new Runner<ProblemInput, ProblemOutput>("2020_Qualification", new Parser(), solver, new Printer(), calculator);
             // runner3.Run(Resources.c_incunabula, "c_incunabula", NUM_OF_ATTEMPTS, true, runParams);
