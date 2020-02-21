@@ -37,7 +37,13 @@ namespace HashCodeCommon
 
             string newOutPath = Path.Combine(m_OutputDirectory, caseName + ".new.out");
             string finalPath = Path.Combine(m_OutputDirectory, caseName + ".out");
-            string bestScorePath = Path.Combine(m_OutputDirectory, caseName + ".bestScore");
+            string bestScoreFolder = Path.Combine(m_OutputDirectory , "zzzbestScoreFolder");
+            if (!Directory.Exists(bestScoreFolder))
+            {
+                Directory.CreateDirectory(bestScoreFolder);
+            }
+
+            string bestScorePath = Path.Combine(bestScoreFolder, caseName + ".bestScore");
 
             m_Printer.PrintToFile(bestResults, newOutPath);
             if (printResults)
